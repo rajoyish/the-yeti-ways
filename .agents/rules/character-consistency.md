@@ -13,7 +13,7 @@ Always append or integrate this exact visual style description:
 
 ## 2. Papa Yeti (Father / Blue Male Yeti)
 When Papa Yeti is in the scene, include this EXACT text:
-"a male Yeti entirely covered in thick, fluffy, vibrant blue fur with a smooth light-blue facial mask and hands, round plump body, large expressive cartoon eyes, dark arched eyebrows, small round nose, wide cheerful toothy smile with square white teeth, and a playful tuft of messy fur on top of his head."
+"a male Yeti entirely covered in thick, fluffy, vibrant blue fur with a smooth light-blue face and hands, round plump body, large expressive cartoon eyes, dark arched eyebrows, small round nose, wide cheerful toothy smile with square white teeth, and a playful tuft of messy fur on top of his head."
 
 ## 3. Mama Yeti (Mother / Pink She-Yeti)
 When Mama Yeti is in the scene, include this EXACT text:
