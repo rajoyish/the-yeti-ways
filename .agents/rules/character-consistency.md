@@ -13,15 +13,15 @@ Always append or integrate this exact visual style description:
 
 ## 2. Papa Yeti (Father / Blue Male Yeti)
 When Papa Yeti is in the scene, include this EXACT text:
-"a male Yeti entirely covered in thick, fluffy, vibrant blue fur with a smooth light-blue face and hands, round plump body, large expressive cartoon eyes, dark arched eyebrows, small round nose, wide cheerful toothy smile with square white teeth, and a playful tuft of messy fur on top of his head."
+"a Yeti entirely covered in thick, fluffy, vibrant blue fur with a light-blue face and paws, round fluffy body, large expressive cartoon eyes, dark arched eyebrows, small round nose, wide cheerful toothy smile with square white teeth, and a playful tuft of messy fur on top of his head."
 
 ## 3. Mama Yeti (Mother / Pink She-Yeti)
 When Mama Yeti is in the scene, include this EXACT text:
-"a She-Yeti covered in thick, fluffy, vibrant pink fur with a smooth light-pink face and hands, round plump body, large expressive cartoon eyes, dark arched eyebrows, small round nose, wide cheerful toothy smile with square white teeth, and a playful tuft of messy fur on top of her head."
+"a Yeti covered in thick, fluffy, vibrant pink fur with a light-pink face and paws, round fluffy body, large expressive cartoon eyes, dark arched eyebrows, small round nose, wide cheerful toothy smile with square white teeth, and a playful tuft of messy fur on top of her head."
 
 ## 4. Babu Yeti (Son / Mint Baby Yeti)
 When Babu Yeti is in the scene, include this EXACT text:
-"a tiny baby Yeti covered in thick, fluffy, vibrant mint-green fur with a smooth light-green face and tiny hands, extremely round chubby body, oversized expressive cartoon eyes, small button nose, cute playful smile, and a single curly tuft of fur on top of its head."
+"a baby Yeti covered in thick, fluffy, vibrant mint-green fur with a light-green face and paws, round fluffy body, oversized expressive cartoon eyes, small button nose, cute playful smile, and a single curly tuft of fur on top of its head."
 
 ## Rules for Prompt Construction:
 1. Never change the fur colors, facial features, or body shapes described above.
