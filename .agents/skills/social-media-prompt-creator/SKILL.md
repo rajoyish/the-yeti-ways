@@ -49,6 +49,7 @@ Explicitly instruct the AI to follow safety guidelines within the prompt to prev
 ### D. Detail the Format and Style
 Explain how the output should look.
 *   *Example*: "Format the output as a 3-column table: [Timestamp | Visual/B-Roll | Audio/Voiceover]. Use a fast-paced, upbeat tone."
+*   *Visual Tip*: Always specify a contextual background environment (e.g., a room, nature scene, or a cave). Never use plain white or empty studio backgrounds in visual descriptions.
 
 ## 4. Examples: Good vs. Bad Prompts
 

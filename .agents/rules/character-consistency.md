@@ -9,7 +9,7 @@ When writing or generating prompts for image or video generation in this project
 
 ## 1. Style Lock (Include in EVERY prompt)
 Always append or integrate this exact visual style description:
-"3D animated premium studio shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm studio illumination highlighting individual strands of fur."
+"3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur."
 
 ## 2. Papa Yeti (Father / Blue Male Yeti)
 When Papa Yeti is in the scene, include this EXACT text:
@@ -28,3 +28,4 @@ When Babu Yeti is in the scene, include this EXACT text:
 2. When multiple characters are in a scene, separate their descriptions clearly. (e.g., "On the left, [Papa Yeti's exact text]. On the right, [Mama Yeti's exact text].").
 3. Only change their actions, emotions, props, and environments in the prompt.
 4. For video prompts, strictly exclude dialogue. Rely on background music and sound effects to communicate universally to a global audience.
+5. Never use a plain white, solid color, or empty studio background. Always define a contextual environment based on the storyboard using the prefix "Environment:". The default environment, if unspecified, should be a cozy rock cave (e.g., "Environment: A quiet, snow-dusted rock cave retreat").
