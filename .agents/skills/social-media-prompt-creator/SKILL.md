@@ -51,6 +51,10 @@ Explain how the output should look.
 *   *Example*: "Format the output as a 3-column table: [Timestamp | Visual/B-Roll | Audio/Voiceover]. Use a fast-paced, upbeat tone."
 *   *Visual Tip*: Always specify a contextual background environment (e.g., a room, nature scene, or a cave). Never use plain white or empty studio backgrounds in visual descriptions.
 
+### E. Set the Story Structure and Pacing
+Name the six plot stages and the half-and-half pacing rule from section 5 in the prompt, so the model paces the story instead of front-loading the payoff or rushing the ending.
+*   *Example*: "Structure the story in six stages: Exposition, Inciting Incident, Rising Action, Climax, Falling Action, Resolution. Spend 00:00 - 00:15 building the conflict (Exposition through Climax) and 00:15 - 00:30 resolving it (Falling Action and Resolution)."
+
 ## 4. Examples: Good vs. Bad Prompts
 
 ### ❌ Bad Prompt (Policy Risk)
@@ -74,9 +78,31 @@ Explain how the output should look.
 > "Act as an educational creator. Write a script for an Instagram Reel about the history of internet privacy.
 > **Safety Guardrails:** Keep the content factual and educational. Do not include any real individuals' personal information (PII) or encourage bullying. Focus on the evolution of cybersecurity laws."
 
-## 5. Workflow for Using This Skill
+## 5. Story Structure and Pacing
+
+Every story video, whatever its length, follows the six classic stages of plot structure, in this order:
+
+1.  **Exposition**: Who is here, where they are, and what normal looks like before anything goes wrong.
+2.  **Inciting Incident**: The one event that breaks normal and gives the characters a problem.
+3.  **Rising Action**: The characters respond and the problem gets harder. Each beat raises the stakes over the last.
+4.  **Climax**: The point of highest tension, where what the hero does decides the outcome.
+5.  **Falling Action**: The immediate consequences of the climax. Tension drains, the characters react, loose threads close.
+6.  **Resolution**: The new normal, held long enough to feel. It answers the Exposition.
+
+**Pacing rule**: the first half of the video builds the conflict and the second half releases it. Stages 1 to 4 (Exposition through Climax) fill the first half, stages 5 and 6 (Falling Action and Resolution) fill the second half, and the Climax peaks at the midpoint.
+
+| Duration | Build the conflict (Exposition, Inciting Incident, Rising Action, Climax) | Resolve it (Falling Action, Resolution) |
+| --- | --- | --- |
+| 30 seconds | 00:00 - 00:15 | 00:15 - 00:30 |
+| 60 seconds | 00:00 - 00:30 | 00:30 - 01:00 |
+
+Two checks catch most pacing mistakes: nothing after the midpoint introduces a new problem, and nothing before it resolves one. A script that reaches its climax in the last five seconds has no room to land, and one that resolves early has nothing left to hold the viewer.
+
+The Yeti storyboard skills (`storyboard-30s-extender`, `storyboard-30s-frames`, `storyboard-60s-from-story`) map these stages onto their 10-second Google Flow videos shot by shot. Each skill's planning step holds the mapping.
+
+## 6. Workflow for Using This Skill
 
 1.  **Analyze the Request:** Review the user's video idea against the Universal Policy Compliance list.
 2.  **Refine the Idea:** If the idea borders on restricted content (e.g., a "prank" video), modify it to ensure safety (e.g., change it to a "harmless, staged comedy sketch").
-3.  **Draft the Prompt:** Use the Prompt Engineering Framework (Role, Goal, Guardrails, Format).
-4.  **Execute & Review:** Send the prompt to Gemini. Review the generated script to ensure no policy violations slipped through.
+3.  **Draft the Prompt:** Use the Prompt Engineering Framework (Role, Goal, Guardrails, Format, Structure and Pacing).
+4.  **Execute & Review:** Send the prompt to Gemini. Review the generated script to ensure no policy violations slipped through, and that the climax sits at the midpoint of the runtime.

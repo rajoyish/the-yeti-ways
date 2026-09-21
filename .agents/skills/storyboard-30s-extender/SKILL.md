@@ -12,7 +12,7 @@ description: >-
 
 This skill turns a short storyboard (usually 10 to 15 seconds, 3 to 4 shots) into a 30-second storyboard built as three 10-second videos for Google Flow. Every video extends from the last frame of the one before it, so the three clips cut together as one continuous scene.
 
-The reference output is `prompts/papa-yeti-five-stance-kung-fu-30s-storyboard.md`. Match its structure. It predates the aspect ratio lock, so add that line to every visual cell.
+The reference output is `prompts/papa-yeti-five-stance-kung-fu-30s-storyboard.md`. Match its structure. It predates the aspect ratio lock and the `Stage:` line, so add the lock line to every visual cell and a `Stage:` line under every video heading.
 
 ## Rules that always apply
 
@@ -49,6 +49,7 @@ Take the input as a file path under `prompts/` or as pasted markdown. Extract an
 - Which characters appear, which side of the frame each one is on, and who holds each hero beat (who notices the problem, who acts on it, who resolves it). If any hero beat belongs to a non-Yeti, or the source has no Yetis at all, recast it now: Yetis take the hero beats, and the source's characters become supporting cast, kept as humans or replaced with in-world animals, whichever fits the story. Supporting humans get one locked `Humans:` sentence and supporting animals one locked `Animals:` sentence, each copied word for word into every prompt, as in `prompts/yeti-family-river-rescue-30s-storyboard.md` (humans) and `prompts/papa-yeti-warm-dome-30s-storyboard.md` (animals).
 - Every prop.
 - Every story beat, in order, including facial expressions and gestures.
+- Which beat is the Inciting Incident (the one event that breaks normal) and which is the Climax (the point of highest tension, decided by what a Yeti does). A short storyboard often has both inside a few seconds; the 30-second version gives each its own room.
 - Audio mood (instrument, tempo, how it resolves).
 - The final state of the scene.
 
@@ -56,15 +57,30 @@ Nothing in this list may be dropped from the output. The 30-second version conta
 
 ### 2. Plan three videos
 
+The 30-second film follows the six classic stages of plot structure, in order: Exposition, Inciting Incident, Rising Action, Climax, Falling Action, Resolution. The pacing rule is fixed: the first 15 seconds build the conflict (Exposition through Climax) and the last 15 seconds release it (Falling Action and Resolution). The Climax peaks at film 00:15, which is the 00:05 mark on Video 2's clock.
+
 Split the story across three 10-second videos. The default mapping:
 
-| Video | Film position | Role | Source |
-| --- | --- | --- | --- |
-| 1 | 00:00 - 00:10 | Setup and the first turn | Opening beats of the short storyboard, given room to breathe |
-| 2 | 00:10 - 00:20 | The core action | The middle and climax of the short storyboard |
-| 3 | 00:20 - 00:30 | Resolution and a new payoff | The short storyboard's ending, then one new beat that deepens it |
+| Video | Film position | Stages | Role | Source |
+| --- | --- | --- | --- | --- |
+| 1 | 00:00 - 00:10 | Exposition, Inciting Incident, start of Rising Action | Setup and the first turn | Opening beats of the short storyboard, given room to breathe |
+| 2 | 00:10 - 00:20 | Rising Action, Climax, start of Falling Action | The core action, and the hinge of the film | The middle and climax of the short storyboard |
+| 3 | 00:20 - 00:30 | Falling Action, Resolution | Resolution and a new payoff | The short storyboard's ending, then one new beat that deepens it |
 
-Give each video a short title in the heading, such as "Video 1 - The Spill". The number and the title are separated by a spaced hyphen (` - `), never a colon. The heading carries no timestamps. The film position goes on its own `Film position:` line directly under the heading.
+Shot by shot, with the default split from step 3:
+
+| Film time | Video and shot | Stage |
+| --- | --- | --- |
+| 00:00 - 00:03 | Video 1, shot 1 | Exposition: the place, the characters, what normal looks like |
+| 00:03 - 00:07 | Video 1, shot 2 | Inciting Incident: the one event that breaks normal |
+| 00:07 - 00:13 | Video 1, shot 3 and Video 2, shot 1 | Rising Action: the Yetis respond and the problem gets harder with each beat |
+| 00:13 - 00:17 | Video 2, shot 2 | Climax, peaking at 00:15: the point of highest tension, decided by what a Yeti does |
+| 00:17 - 00:23 | Video 2, shot 3 and Video 3, shot 1 | Falling Action: the immediate consequences, the tension draining |
+| 00:23 - 00:30 | Video 3, shots 2 and 3 | Resolution: the new normal, held. The added beat that deepens the ending lives here |
+
+Video 2's middle shot is the hinge. Write its `Action:` sentences in two halves: the first sentences build to the peak by the shot's midpoint, and the last sentences begin the release. Its `[EXPRESSION]` slot holds the feeling at the end of the shot, which is the first feeling of the Falling Action, not the peak. Nothing after 00:15 introduces a new problem, and nothing before it resolves one.
+
+Give each video a short title in the heading, such as "Video 1 - The Spill". The number and the title are separated by a spaced hyphen (` - `), never a colon. The heading carries no timestamps. The film position goes on its own `Film position:` line directly under the heading, and the stages that video carries go on a `Stage:` line directly under that.
 
 The new beats must grow from what is already there. Good extensions: the other character reacts, the two characters do the last action together, a prop is put to a second use, a small gesture of affection closes the scene. Bad extensions: a new location, a new character, a new prop that changes the story, a joke that undercuts the mood, a supporting character taking over a beat that a Yeti should carry.
 
@@ -98,15 +114,16 @@ Save to `prompts/<kebab-case-title>-30s-storyboard.md`. Derive the kebab-case ti
 
 Use the template below. The "Agent instructions" section at the top is for whoever, or whatever agent, operates Google Flow. Keep it in the file.
 
-What Flow receives is one table at a time, and only the table. Headings, `Film position:` lines, `End frame:` lines, and the agent instructions stay in the file for the operator and the editor.
+What Flow receives is one table at a time, and only the table. Headings, `Film position:` lines, `Stage:` lines, `End frame:` lines, and the agent instructions stay in the file for the operator and the editor.
 
 ### 6. Verify before finishing
 
 Check every item. Fix and re-check rather than reporting a partial result.
 
 - [ ] Three videos, each exactly 10 seconds. Every table's first row starts at `00:00` and last row ends at `00:10`. No timestamp above `00:10` appears anywhere in a table.
-- [ ] Each video heading reads `## Video N - <Title>` with a spaced hyphen, has no timestamps, and a `Film position:` line sits directly under it (00:00 - 00:10, 00:10 - 00:20, 00:20 - 00:30).
+- [ ] Each video heading reads `## Video N - <Title>` with a spaced hyphen, has no timestamps, and a `Film position:` line sits directly under it (00:00 - 00:10, 00:10 - 00:20, 00:20 - 00:30), followed by a `Stage:` line naming the stages that video carries.
 - [ ] Every beat of the short storyboard appears, in order.
+- [ ] The six stages appear in order across the nine shots: Exposition, Inciting Incident, Rising Action, Climax, Falling Action, Resolution. The Climax peaks at film 00:15 (Video 2, 00:05 on its clock). No shot after that point introduces a new problem, and no shot before it resolves one. Each `Stage:` line matches what its video's shots do.
 - [ ] Every hero beat (noticing, acting, resolving) belongs to Papa Yeti, Mama Yeti, or Babu Yeti. No supporting character rescues, solves, or resolves, and no main character is missing, renamed, or replaced.
 - [ ] Every visual cell opens with the aspect ratio lock line, before the style lock, in all nine shots.
 - [ ] The style lock and every character description are character-for-character identical to `character-consistency.md`, apart from the `[EXPRESSION]` slot.
@@ -138,7 +155,7 @@ This storyboard is three 10-second Google Flow videos that cut together into one
 5. Generate Video 3 by extending from the final frame of Video 2. Repeat the aspect ratio check.
 6. Cut the three clips together in order with no transitions. Keep the audio continuous across the cuts.
 
-Every video's table runs on its own 00:00 - 00:10 clock. Paste one table into Flow at a time, and paste only the table. The `Film position:` line under each heading is where the clip sits in the finished 30-second cut; it is for the editor, not for Flow. If Flow produces more than one clip, a clip longer than 10 seconds, or a timing error, the prompt contained timestamps above 00:10. Remove them and retry.
+Every video's table runs on its own 00:00 - 00:10 clock. Paste one table into Flow at a time, and paste only the table. The `Film position:` and `Stage:` lines under each heading say where the clip sits in the finished 30-second cut and which stages of the story it carries; they are for the editor, not for Flow. If Flow produces more than one clip, a clip longer than 10 seconds, or a timing error, the prompt contained timestamps above 00:10. Remove them and retry.
 
 Every visual cell opens with `Vertical 9:16 aspect ratio, full-frame vertical composition.` Keep that line in the prompt even when Flow's output format is already set to 9:16. The setting and the line together are what stop it reverting to widescreen. If a clip renders 16:9, regenerate it with the format reset rather than cropping, because cropping throws away the top and bottom of the framing.
 
@@ -162,6 +179,8 @@ Prop lock: <every prop, what it is made of, where it sits. No brands, labels, or
 
 Film position: 00:00 - 00:10.
 
+Stage: Exposition, Inciting Incident, start of Rising Action.
+
 | Timestamp | Shot Type | Visual Description / Prompt | Audio / Sound FX |
 | --- | --- | --- | --- |
 | **00:00 - 00:03** | <Shot type> | Vertical 9:16 aspect ratio, full-frame vertical composition. <Style lock> Environment: <sentence>. <Character text>. Head lock: each Yeti has a smooth, rounded, fully furred head, and the tuft of fur is the only thing on top of it; there are no horns, no antlers, no spikes, no bumps, and no headwear. Action: <...> | <Music state, physical sounds.> No dialogue. |
@@ -174,6 +193,8 @@ End frame: <exact pose, positions, props visible in the last frame>.
 
 Film position: 00:10 - 00:20.
 
+Stage: Rising Action, Climax (peaks at 00:05 on this clock, film 00:15), start of Falling Action.
+
 | ... three shots, 00:00 - 00:03, 00:03 - 00:07, 00:07 - 00:10 ... |
 
 End frame: <exact pose, positions, props visible in the last frame>.
@@ -181,6 +202,8 @@ End frame: <exact pose, positions, props visible in the last frame>.
 ## Video 3 - <Title>
 
 Film position: 00:20 - 00:30.
+
+Stage: Falling Action, Resolution.
 
 | ... three shots, 00:00 - 00:03, 00:03 - 00:07, 00:07 - 00:10 ... |
 ```

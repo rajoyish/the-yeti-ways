@@ -15,7 +15,7 @@ This skill takes a short prose story about the Yeti family and writes a 60-secon
 
 The story may contain dialogue. The storyboard never does. Every line of speech is translated into something the viewer can see: a gesture, a facial expression, a prop being handled, a change of posture. Audio is background music and sound effects only.
 
-The sibling skill `.agents/skills/storyboard-30s-extender/SKILL.md` produces the same table format at half the length. The reference output for this skill is `prompts/babu-yeti-found-sled-60s-storyboard.md`. Match its structure, including the aspect ratio lock and the head lock in every visual cell.
+The sibling skill `.agents/skills/storyboard-30s-extender/SKILL.md` produces the same table format at half the length. The reference output for this skill is `prompts/babu-yeti-found-sled-60s-storyboard.md`. Match its structure, including the aspect ratio lock and the head lock in every visual cell. It predates the `Stage:` line, so add that line under every video heading.
 
 ## Rules that always apply
 
@@ -54,6 +54,7 @@ Take the input as pasted prose or as a file path. Extract and write down, before
 - Every location. Note where the story moves and why.
 - Every prop. Flag any prop that carries text, a brand, or a real-world product.
 - Every story beat in order, including who speaks, what they say, and what their body does while they say it.
+- Which beat is the Inciting Incident (the one event that breaks normal) and which is the Climax (the point of highest tension, decided by what a Yeti does). Prose stories often bury the climax in a line of dialogue; find the moment the outcome turns and name it now, because the pacing in step 3 is built around it.
 - The final state of the scene and the final feeling.
 
 Nothing in this list may be dropped from the output. Every beat of the story appears in the storyboard, in order.
@@ -81,18 +82,22 @@ Do not use thought bubbles, speech bubbles, or written signs to replace dialogue
 
 ### 3. Plan six videos
 
-Split the story across six 10-second videos. The default mapping for a moral tale:
+The 60-second film follows the six classic stages of plot structure, in order: Exposition, Inciting Incident, Rising Action, Climax, Falling Action, Resolution. The pacing rule is fixed: the first 30 seconds build the conflict (Exposition through Climax) and the last 30 seconds release it (Falling Action and Resolution). The Climax peaks at film 00:30, the final frame of Video 3, so the `End frame:` line under Video 3 describes the peak and Video 4 opens on the release.
 
-| Video | Film position | Role | What it carries |
-| --- | --- | --- | --- |
-| 1 | 00:00 - 00:10 | Hook | Establish the place and the discovery. End on the moment of wanting. |
-| 2 | 00:10 - 00:20 | Want | The child claims the thing. The parents notice. |
-| 3 | 00:20 - 00:30 | Pause | The first parent's gentle stop and question. The child's admission. |
-| 4 | 00:30 - 00:40 | Lesson | The second parent's mimed explanation. The child imagines and feels it. |
-| 5 | 00:40 - 00:50 | Choice | The child decides and acts on it. |
-| 6 | 00:50 - 01:00 | Warmth | The return home. The feeling of the ending, held. |
+Split the story across six 10-second videos, one stage per video. The default mapping, with a moral tale as the worked example:
 
-Adjust the mapping when the story has a different shape, but keep six videos and keep the story's order. Give each video a short title in the heading, such as "Video 1 - The Red Sled". The number and the title are separated by a spaced hyphen (` - `), never a colon. The heading carries no timestamps. The film position goes on its own `Film position:` line directly under the heading.
+| Video | Film position | Stage | What it carries | Moral tale example |
+| --- | --- | --- | --- | --- |
+| 1 | 00:00 - 00:10 | Exposition | The place, the characters, what normal looks like. End on the first hint of the thing that will break it. | The family on the slope. Babu spots a shape in the snow. |
+| 2 | 00:10 - 00:20 | Inciting Incident | The one event that breaks normal and gives a Yeti a problem or a want. | Babu pulls out the sled and claims it. The parents notice. |
+| 3 | 00:20 - 00:30 | Rising Action into Climax | The Yetis respond and the problem gets harder, beat by beat, up to the point of highest tension. The last shot is the peak. | Papa's gentle stop and question, Babu's admission, Mama's mime of how the owner feels, and Babu's face as it lands. |
+| 4 | 00:30 - 00:40 | Falling Action | The immediate consequence of the peak: the choice made, the act done. | Babu decides and sets the sled back where it was. |
+| 5 | 00:40 - 00:50 | Falling Action into Resolution | The tension drains and the loose threads close. | The parents' approval. The family turns for home. |
+| 6 | 00:50 - 01:00 | Resolution | The new normal, held long enough to feel. It answers Video 1. | The cave, the hearth, the last look between them. |
+
+Adjust the mapping when the story has a different shape, but keep six videos, keep the story's order, and keep the boundary: the Climax peaks at 00:30, nothing after that point introduces a new problem, and nothing before it resolves one. A long climax may start in Video 3's second shot, but it never runs past the end of Video 3. A story with no clear inciting incident gets one in Video 2, where the problem or the want first arrives, never in Video 1.
+
+Give each video a short title in the heading, such as "Video 1 - The Red Sled". The number and the title are separated by a spaced hyphen (` - `), never a colon. The heading carries no timestamps. The film position goes on its own `Film position:` line directly under the heading, and the stage that video carries goes on a `Stage:` line directly under that.
 
 Add nothing the story does not already imply. Good additions: a reaction from the other parent, a small gesture of affection, a prop being set down with care. Bad additions: a new character, a new prop that changes the story, a joke that undercuts the moral, a second location the story never visits, a supporting character taking over a beat that a Yeti should carry.
 
@@ -125,7 +130,7 @@ Every audio cell names the music state (starts, continues, pauses, swells, softe
 
 ### 6. Lock the continuity between videos
 
-The last shot of Videos 1 through 5 must end on a state that can be freeze-framed and handed to Flow as the starting image of the next video. Add an `End frame:` line directly under each of those five tables describing the exact pose, positions, and props visible in the final frame. The first shot of the next video begins from that pose.
+The last shot of Videos 1 through 5 must end on a state that can be freeze-framed and handed to Flow as the starting image of the next video. Add an `End frame:` line directly under each of those five tables describing the exact pose, positions, and props visible in the final frame. The first shot of the next video begins from that pose. The `End frame:` under Video 3 is the Climax peak, so it describes the moment of highest tension, and Video 4's first shot moves out of it rather than holding it.
 
 Where step 4 calls for a scene break, write `Scene break:` instead, describing the new environment and the opening pose so the operator can generate the video fresh.
 
@@ -137,15 +142,16 @@ Save to `prompts/<kebab-case-title>-60s-storyboard.md`. Derive the kebab-case ti
 
 Use the template below. The "Agent instructions" section at the top is for whoever, or whatever agent, operates Google Flow. Keep it in the file.
 
-What Flow receives is one table at a time, and only the table. Headings, `Film position:` lines, `End frame:` and `Scene break:` lines, and the agent instructions stay in the file for the operator and the editor.
+What Flow receives is one table at a time, and only the table. Headings, `Film position:` lines, `Stage:` lines, `End frame:` and `Scene break:` lines, and the agent instructions stay in the file for the operator and the editor.
 
 ### 8. Verify before finishing
 
 Check every item. Fix and re-check rather than reporting a partial result.
 
 - [ ] Six videos, each exactly 10 seconds. Every table's first row starts at `00:00` and last row ends at `00:10`. No timestamp above `00:10` appears anywhere in a table.
-- [ ] Each video heading reads `## Video N - <Title>` with a spaced hyphen, has no timestamps, and a `Film position:` line sits directly under it (00:00 - 00:10 through 00:50 - 01:00).
+- [ ] Each video heading reads `## Video N - <Title>` with a spaced hyphen, has no timestamps, and a `Film position:` line sits directly under it (00:00 - 00:10 through 00:50 - 01:00), followed by a `Stage:` line naming the stage that video carries.
 - [ ] Every beat of the story appears, in order.
+- [ ] The six stages appear in order across the six videos: Exposition, Inciting Incident, Rising Action, Climax, Falling Action, Resolution. The Climax peaks in the last shot of Video 3, at film 00:30, and the `End frame:` under Video 3 describes that peak. No shot in Videos 4 to 6 introduces a new problem, and no shot in Videos 1 to 3 resolves one. Each `Stage:` line matches what its video's shots do.
 - [ ] Every hero beat (noticing, acting, resolving) belongs to Papa Yeti, Mama Yeti, or Babu Yeti. No supporting character rescues, solves, or resolves, and no main character is missing, renamed, or replaced.
 - [ ] Every spoken line has a visual replacement in an `Action:` cell. No speech, lip-sync, speech bubbles, or written words.
 - [ ] Every visual cell opens with the aspect ratio lock line, before the style lock, in all eighteen shots.
@@ -178,7 +184,7 @@ This storyboard is six 10-second Google Flow videos that cut together into one 6
 5. <If any: "Video N starts a new scene. Do not extend it. Generate it fresh from its own prompt, matching the `Scene break:` line under the Video N-1 table. Confirm the output format is still 9:16, because a fresh generation is where it most often reverts.">
 6. Cut the six clips together in order with no transitions. Keep the music continuous across the cuts.
 
-Every video's table runs on its own 00:00 - 00:10 clock. Paste one table into Flow at a time, and paste only the table. The `Film position:` line under each heading is where the clip sits in the finished 60-second cut; it is for the editor, not for Flow. If Flow produces more than one clip, a clip longer than 10 seconds, or a timing error, the prompt contained timestamps above 00:10. Remove them and retry.
+Every video's table runs on its own 00:00 - 00:10 clock. Paste one table into Flow at a time, and paste only the table. The `Film position:` and `Stage:` lines under each heading say where the clip sits in the finished 60-second cut and which stage of the story it carries; they are for the editor, not for Flow. If Flow produces more than one clip, a clip longer than 10 seconds, or a timing error, the prompt contained timestamps above 00:10. Remove them and retry.
 
 Every visual cell opens with `Vertical 9:16 aspect ratio, full-frame vertical composition.` Keep that line in the prompt even when Flow's output format is already set to 9:16. The setting and the line together are what stop it reverting to widescreen. If a clip renders 16:9, regenerate it with the format reset rather than cropping, because cropping throws away the top and bottom of the framing.
 
@@ -204,6 +210,8 @@ Environment lock: <Location A sentence.> <If used: Location B sentence, and whic
 
 Film position: 00:00 - 00:10.
 
+Stage: Exposition.
+
 | Timestamp | Shot Type | Visual Description / Prompt | Audio / Sound FX |
 | --- | --- | --- | --- |
 | **00:00 - 00:03** | <Shot type> | Vertical 9:16 aspect ratio, full-frame vertical composition. <Style lock> Environment: <sentence>. <Character text>. Head lock: each Yeti has a smooth, rounded, fully furred head, and the tuft of fur is the only thing on top of it; there are no horns, no antlers, no spikes, no bumps, and no headwear. Action: <...> | <Music state, physical sounds.> No dialogue. |
@@ -216,6 +224,8 @@ End frame: <exact pose, positions, props visible in the last frame>.
 
 Film position: 00:10 - 00:20.
 
+Stage: Inciting Incident.
+
 | ... three shots, 00:00 - 00:03, 00:03 - 00:07, 00:07 - 00:10 ... |
 
 End frame: <...>.
@@ -223,6 +233,8 @@ End frame: <...>.
 ## Video 3 - <Title>
 
 Film position: 00:20 - 00:30.
+
+Stage: Rising Action into Climax (peaks in the last shot, film 00:30).
 
 | ... three shots, 00:00 - 00:03, 00:03 - 00:07, 00:07 - 00:10 ... |
 
@@ -232,6 +244,8 @@ End frame: <...>.
 
 Film position: 00:30 - 00:40.
 
+Stage: Falling Action.
+
 | ... three shots, 00:00 - 00:03, 00:03 - 00:07, 00:07 - 00:10 ... |
 
 End frame: <...>.
@@ -240,6 +254,8 @@ End frame: <...>.
 
 Film position: 00:40 - 00:50.
 
+Stage: Falling Action into Resolution.
+
 | ... three shots, 00:00 - 00:03, 00:03 - 00:07, 00:07 - 00:10 ... |
 
 End frame or Scene break: <...>.
@@ -247,6 +263,8 @@ End frame or Scene break: <...>.
 ## Video 6 - <Title>
 
 Film position: 00:50 - 01:00.
+
+Stage: Resolution.
 
 | ... three shots, 00:00 - 00:03, 00:03 - 00:07, 00:07 - 00:10 ... |
 ```
