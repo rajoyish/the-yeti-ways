@@ -18,3 +18,6 @@ Thumbs.db
 tmp/
 temp/
 *.log
+
+# Excluded image directories
+3x3-timed-storyboard-images/
