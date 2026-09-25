@@ -17,7 +17,7 @@ A reel is already published. This skill turns its storyboard into the static pos
 
 Input is a storyboard the project already has in `prompts/` and the reel's Facebook link. Output is one file in `carousels/`.
 
-The stills are generated as images in Google Flow, the same way the grids and panel images in the storyboard's 3x3 file are, with `.agents/rules/character-consistency.md` as the reference for how the Yetis look. So a carousel prompt is built like a panel image prompt: it opens with `Create image:`, carries every lock the rule file sets in the order the rule file sets them, and differs only in being square. The four stills sit side by side in one post, so a Yeti that changes colour, tuft, or size between them is the first thing a viewer notices.
+The stills are generated as images in Google Flow, the same way the grids and panel images in the storyboard's 3x2 file are, with `.agents/rules/character-consistency.md` as the reference for how the Yetis look. So a carousel prompt is built like a panel image prompt: it opens with `Create image:`, carries every lock the rule file sets in the order the rule file sets them, and differs only in being square. The four stills sit side by side in one post, so a Yeti that changes colour, tuft, or size between them is the first thing a viewer notices.
 
 ## Ask for these before starting
 
@@ -26,7 +26,7 @@ If the user ran the skill without them, ask for both in one message and wait:
 1. The storyboard file, as a path in this project (for example `prompts/babu-yeti-kung-fu-dream-60s-storyboard.md`). A pasted storyboard also works, but a path is better, because the story's locked sentences must be copied from it character for character.
 2. The Facebook reel link. The caption is built around it, so do not guess it, and do not write a placeholder and carry on.
 
-Nothing else is needed. If the storyboard has a 3x3 file next to it in `prompts/` (`<slug>-<30s or 60s>-3x3.md`, holding each video's grid and nine panel images), the skill finds it and uses it in step 2. An older film may have a reference stills file in `image-prompts/` instead (`<slug>-<30s or 60s>-frames.md`), which works the same way.
+Nothing else is needed. If the storyboard has a 3x2 file next to it in `prompts/` (`<slug>-<30s or 60s>-3x2.md`, holding each video's grid and six panel images), the skill finds it and uses it in step 2. An older film may have a reference stills file in `image-prompts/` instead (`<slug>-<30s or 60s>-frames.md`), which works the same way.
 
 ## The rule file is the source
 
@@ -69,7 +69,7 @@ Every rule in the rule file applies. These are the ones a carousel gets wrong mo
 
 ### 1. Read the references
 
-In this order: `.agents/rules/character-consistency.md` in full; the storyboard in full, including its lock paragraphs above the tables (aspect ratio, head, look, human, animal, prop, environment, lighting, VFX); the 3x3 file, or for an older film the reference stills file, if the storyboard has one; and `.agents/rules/cinematic-direction.md`, for the framing and angle terms, the lighting rules, the panel map in section 6, and how an effect looks when it is frozen in a still. Note which storyboard sentences are locked, because each one is copied, not retyped.
+In this order: `.agents/rules/character-consistency.md` in full; the storyboard in full, including its lock paragraphs above the tables (aspect ratio, head, look, human, animal, prop, environment, lighting, VFX); the 3x2 file, or for an older film the reference stills file, if the storyboard has one; and `.agents/rules/cinematic-direction.md`, for the framing and angle terms, the lighting rules, the panel map in section 6, and how an effect looks when it is frozen in a still. Note which storyboard sentences are locked, because each one is copied, not retyped.
 
 ### 2. Choose the four stills
 
@@ -81,7 +81,7 @@ Cover the whole arc: setup, the moment of noticing, the turn or peak, the resolu
 - Let the light carry the arc. The storyboard's light already moves from soft to low-key at the Climax and back to warm gold, so four stills taken from across the film show that change. Prefer a payoff still whose light is the warmest of the four.
 - Still 1 is the scroll-stopper, so give it the strongest image of the four, and Still 4 holds the payoff.
 - Never spoil the ending in Still 1, and never put the reel's final reveal anywhere but Still 4.
-- If the storyboard has a 3x3 file, take each carousel still from one of its panel images wherever one fits the beat, and name the source in the still's heading by its panel number. The square still then shows an instant the operator has already generated and approved, and in Flow the panel's generated image can be attached next to the family reference image, so it holds both the look and the pose. An older film with only a reference stills file works the same way, with the source named by its still number. A grid panel with no panel image under it is the last choice, because it is one ninth of an image with a label strip above it. A still that merges two shots, or has no matching source, is written fresh from the storyboard.
+- If the storyboard has a 3x2 file, take each carousel still from one of its panel images wherever one fits the beat, and name the source in the still's heading by its panel number. The square still then shows an instant the operator has already generated and approved, and in Flow the panel's generated image can be attached next to the family reference image, so it holds both the look and the pose. An older film with only a reference stills file works the same way, with the source named by its still number. A grid panel with no panel image under it is the last choice, because it is one sixth of an image with a label strip above it. A still that merges two shots, or has no matching source, is written fresh from the storyboard.
 
 For each chosen still, write down the video number, the shot number within that video, the shot's own timestamp range, its film position, the panel image or reference still if it comes from one, its framing and angle at the chosen instant (a moving shot opens on one framing and ends on another), its `Lighting:` sentence, which Yetis and supporting characters are in it, the feeling each Yeti holds, and the shot's effects frozen at that instant. A multi-video storyboard runs every table on its own 00:00 to 00:10 clock, and the `Film position:` line under each heading is where that clip sits in the finished reel. Headings use film time, because the caption points at one continuous reel.
 
@@ -176,7 +176,7 @@ The placeholders in angle brackets name where each piece comes from. In the file
 
 Four square stills and the Facebook post for `prompts/<storyboard-file>.md`. Reel: <reel link>.
 
-Each prompt is built from `.agents/rules/character-consistency.md`: the style lock, the character text with its `[EXPRESSION]` slot filled for the still's beat, the head lock, the look lock, the scale lock where the baby Yeti and a grown-up Yeti share the still, and the avoid line. Around them sit the environment, lighting, and supporting cast sentences of the matching storyboard shot, with the `Action:` written as a single held image in a square and the shot's effects frozen in place. <If any: Stills <n> and <n> take their instant from Video <N> panel images <p> and <p> in `prompts/<slug>-<30s or 60s>-3x3.md`.> <If the environment was reworded: what changed and why.>
+Each prompt is built from `.agents/rules/character-consistency.md`: the style lock, the character text with its `[EXPRESSION]` slot filled for the still's beat, the head lock, the look lock, the scale lock where the baby Yeti and a grown-up Yeti share the still, and the avoid line. Around them sit the environment, lighting, and supporting cast sentences of the matching storyboard shot, with the `Action:` written as a single held image in a square and the shot's effects frozen in place. <If any: Stills <n> and <n> take their instant from Video <N> panel images <p> and <p> in `prompts/<slug>-<30s or 60s>-3x2.md`.> <If the environment was reworded: what changed and why.>
 
 To generate the stills in Google Flow:
 

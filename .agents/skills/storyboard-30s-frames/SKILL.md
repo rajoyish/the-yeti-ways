@@ -2,15 +2,15 @@
 name: storyboard-30s-frames
 description: >-
   Retired. Do not use for new work. Trigger only when the user runs
-  "/storyboard-30s-frames" by name, and then point them to `create-3x3-timed-image`,
-  which writes each video's grid and nine panel images in `prompts/<slug>-<30s or 60s>-3x3.md`.
-  Panel images 3, 6, and 9 replace the three reference stills per video this skill used
+  "/storyboard-30s-frames" by name, and then point them to `create-3x2-timed-image`,
+  which writes each video's grid and six panel images in `prompts/<slug>-<30s or 60s>-3x2.md`.
+  Panel images 2, 4, and 6 replace the three reference stills per video this skill used
   to write to `image-prompts/`.
 ---
 
 # Reference stills (retired)
 
-This skill is retired. The stills route it served is gone from the pipeline in section 7 of `.agents/rules/cinematic-direction.md`: `create-3x3-timed-image` now writes every image prompt for a film into `prompts/<slug>-<30s or 60s>-3x3.md`, a grid and nine panel images per video, and panel images 3, 6, and 9 show the same pictures these stills did. Storyboards no longer carry `Stills:` lines. If the user runs this skill, tell them so and offer `/create-3x3-timed-image` instead. The frames files already in `image-prompts/` stay for the record, and the text below stays so they can still be read.
+This skill is retired. The stills route it served is gone from the pipeline in section 7 of `.agents/rules/cinematic-direction.md`: `create-3x2-timed-image` now writes every image prompt for a film into `prompts/<slug>-<30s or 60s>-3x2.md`, a 16:9 grid and six panel images per video, and panel images 2, 4, and 6 show the same pictures these stills did. Storyboards no longer carry `Stills:` lines. If the user runs this skill, tell them so and offer `/create-3x2-timed-image` instead. The frames files already in `image-prompts/` stay for the record, and the text below stays so they can still be read. It was written for the retired 3x3 grid, so its three beats per shot and its panels 3, 6, and 9 are that grid's; in the current 3x2 grid the same pictures are panels 2, 4, and 6.
 
 This skill is the stills route in step 2 of the pipeline in section 7 of `.agents/rules/cinematic-direction.md`. Each 10-second Google Flow video is generated from its storyboard table with images attached as references. On the grid route, that image is the video's 3x3 grid from `create-3x3-timed-image`. On the stills route, it is the three stills this skill writes the prompts for: one per shot, each showing the picture the shot closes on. No still is a start or an end frame, and none is set as one in Flow.
 

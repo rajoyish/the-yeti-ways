@@ -1,6 +1,6 @@
 ---
 trigger: model_decision
-description: Cinematic direction for every Yeti storyboard, video prompt, 3x3 grid prompt, and panel image prompt. Sets the terms and project limits for shot type and angle, lighting, camera movement, VFX, transitions, and sound, the panel map that ties each 10-second video to its 3x3 grid, and the pipeline the skills make up. Apply when writing or revising files in prompts/, image-prompts/, or carousels/.
+description: Cinematic direction for every Yeti storyboard, video prompt, 3x2 grid prompt, and panel image prompt. Sets the terms and project limits for shot type and angle, lighting, camera movement, VFX, transitions, and sound, the panel map that ties each 10-second video to its 3x2 grid and six panel images, and the pipeline the skills make up. Apply when writing or revising files in prompts/, image-prompts/, or carousels/.
 paths:
   - "prompts/**"
   - "image-prompts/**"
@@ -9,7 +9,7 @@ paths:
 
 # Cinematic direction
 
-Every shot in this project is directed as well as described. Each one names its framing and angle, its light, its camera move, its visual effects, and how it hands off to the next shot, using the terms below in the same order every time. This file sets the vocabulary and the project limits. The skills that use it (`storyboard-30s-extender`, `storyboard-60s-from-story`, `create-3x3-timed-image`, `reel-carousel`, `social-media-prompt-creator`) say where each piece goes in their files. Section 6 sets the panel map that turns each 10-second video into a 3x3 grid, and section 7 sets out the pipeline the skills make up. `character-consistency.md` still binds, and it wins wherever the two disagree.
+Every shot in this project is directed as well as described. Each one names its framing and angle, its light, its camera move, its visual effects, and how it hands off to the next shot, using the terms below in the same order every time. This file sets the vocabulary and the project limits. The skills that use it (`storyboard-30s-extender`, `storyboard-60s-from-story`, `create-3x2-timed-image`, `reel-carousel`, `social-media-prompt-creator`) say where each piece goes in their files. Section 6 sets the panel map that turns each 10-second video into a 3x2 grid of six panels, and section 7 sets out the pipeline the skills make up. `character-consistency.md` still binds, and it wins wherever the two disagree.
 
 A storyboard here is a prompt, so every move and effect in it is something we want on screen. Nothing is labelled "(Recommended)". The one exception is the `video-to-storyboard` skill, which analyzes an existing video and has to keep what it sees apart from what it suggests. When its output is the input to a storyboard skill, its recommended moves and effects are options: adopt the ones that pass the limits below and drop the rest.
 
@@ -77,7 +77,7 @@ Rules:
 - One move per shot. Two moves in three seconds make a jittery camera.
 - Slow or steady by default. Handheld stays subtle: faces and fur stay sharp, because every clip is checked against its grid panels and panel images.
 - Prefer a dolly to a zoom for an emotional push-in. A zoom flattens the fur and reads as cheap.
-- Whip Pan at most once per film, and never at the start or end of a shot, because the first and last panels of a shot's row in the 3x3 grid show its opening and closing pictures, and a blurred picture shows neither.
+- Whip Pan at most once per film, and never at the start or end of a shot, because a shot's two panels in the 3x2 grid show its opening framing and the picture it closes on, and a blurred picture shows neither.
 - A Crane Up or Pedestal Up that ends above the Yetis ends on a High Angle, so the angle limits in section 1 apply to the picture it ends on.
 
 ## 4. VFX
@@ -108,7 +108,7 @@ Rules:
 
 Transitions:
 
-- Between shots inside one 10-second clip, only `Hard Cut` or `Match Cut` (a cut where the next shot repeats a shape or a movement from this one). Anything that takes time (Dissolve, Fade, Wipe, Whip-Pan Transition, Morph) is out, because each row of the 3x3 grid is one shot, the panels on either side of a cut are clean pictures of two different shots, and a blend between them matches neither.
+- Between shots inside one 10-second clip, only `Hard Cut` or `Match Cut` (a cut where the next shot repeats a shape or a movement from this one). Anything that takes time (Dissolve, Fade, Wipe, Whip-Pan Transition, Morph) is out, because each shot has its own two panels in the 3x2 grid, the panels on either side of a cut are clean pictures of two different shots, and a blend between them matches neither.
 - The last shot of every video says `Transition: Holds on the final frame.` The video model renders one clip; the cut to the next clip happens in the edit.
 - Edit-level transitions live in the storyboard's agent instructions, never in a table: a hard cut at every handoff, a Dissolve or a fade through black only at a scene break, and a fade to black at the very end if the editor wants one. Every clip stays exactly 10 seconds in the edit, so no speed ramps or retiming there.
 
@@ -123,29 +123,27 @@ Each audio cell, in this order:
 
 Characters may gasp, giggle, sigh, or hum, but never form words.
 
-## 6. The 10-second video and its 3x3 grid
+## 6. The 10-second video and its 3x2 grid
 
-Each 10-second video is one Flow generation, made from its storyboard table with images attached as references: the video's 3x3 grid, or its panel images. No clip starts or ends on a supplied frame, so continuity lives in the storyboard text and in those images, and the direction has to agree with both.
+Each 10-second video is one Flow generation, made from its storyboard table with images attached as references: the video's six panel images and the family reference image, or the video's 3x2 grid and the family reference image. Flow takes at most seven ingredient images for one clip, which is why a video has six panels and not more. No clip starts or ends on a supplied frame, so continuity lives in the storyboard text and in those images, and the direction has to agree with both.
 
-Every video has three shots on a fixed split (`00:00 - 00:03`, `00:03 - 00:07`, `00:07 - 00:10`), and every shot's `Action:` is three beats, one sentence each. That gives nine beats per video, and each beat is one panel of the video's 3x3 grid. Row 1 is Shot 1, row 2 is Shot 2, row 3 is Shot 3, and the panels read left to right, top to bottom:
+Every video has three shots on a fixed split (`00:00 - 00:03`, `00:03 - 00:07`, `00:07 - 00:10`), and every shot's `Action:` is two beats, one sentence each. That gives six beats per video, and each beat is one panel of the video's 3x2 grid. The grid is one horizontal 16:9 image, three panels across and two down, read left to right and top to bottom, and each shot takes two panels in a row:
 
-| Panel | Row and shot | Beat | Timecode | Framing and angle |
-| --- | --- | --- | --- | --- |
-| 1 | Row 1, Shot 1 | 1st | 00:00.0–00:01.0 | Shot 1's opening framing |
-| 2 | Row 1, Shot 1 | 2nd | 00:01.0–00:02.0 | Shot 1 at its midpoint |
-| 3 | Row 1, Shot 1 | 3rd | 00:02.0–00:03.0 | The framing Shot 1 ends on |
-| 4 | Row 2, Shot 2 | 1st | 00:03.0–00:04.3 | Shot 2's opening framing |
-| 5 | Row 2, Shot 2 | 2nd | 00:04.3–00:05.7 | Shot 2 at its midpoint |
-| 6 | Row 2, Shot 2 | 3rd | 00:05.7–00:07.0 | The framing Shot 2 ends on |
-| 7 | Row 3, Shot 3 | 1st | 00:07.0–00:08.0 | Shot 3's opening framing |
-| 8 | Row 3, Shot 3 | 2nd | 00:08.0–00:09.0 | Shot 3 at its midpoint |
-| 9 | Row 3, Shot 3 | 3rd | 00:09.0–00:10.0 | The framing Shot 3 ends on |
+| Panel | Place in the grid | Shot | Beat | Timecode | Framing and angle |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Top left | Shot 1 | 1st | 00:00.0–00:01.5 | Shot 1's opening framing |
+| 2 | Top centre | Shot 1 | 2nd | 00:01.5–00:03.0 | The framing Shot 1 ends on |
+| 3 | Top right | Shot 2 | 1st | 00:03.0–00:05.0 | Shot 2's opening framing |
+| 4 | Bottom left | Shot 2 | 2nd | 00:05.0–00:07.0 | The framing Shot 2 ends on |
+| 5 | Bottom centre | Shot 3 | 1st | 00:07.0–00:08.5 | Shot 3's opening framing |
+| 6 | Bottom right | Shot 3 | 2nd | 00:08.5–00:10.0 | The framing Shot 3 ends on |
 
-- Beats. Each beat sentence ends on a picture a viewer could photograph: positions, poses, paws, props, eye lines, and any face that has changed. The first beat of a shot starts from the shot's opening picture, and the third ends on the picture the shot closes on, with the feeling its `[EXPRESSION]` slot holds. When a Yeti's feeling changes during a shot, the beat where it changes names the new feeling, so the panels can follow it. Panel 5 sits on 00:05, the centre of the clip.
-- Framing at each panel. A shot that keeps its framing holds it in all three panels. A shot whose move changes the framing opens on the first framing in its Shot Type cell and ends on the second, and its middle panel takes the rung halfway between them on the ladder in section 1, rounding toward the opening framing: `Medium Shot to Close-Up` gives `Medium Close-Up`, and `Medium Shot to Medium Close-Up` gives `Medium Shot`. The angle is the one the cell names. If the `Camera:` sentence ends on a different angle (a Crane Up that ends looking down), the third panel takes that angle.
-- Light inside a video. The `Lighting:` sentence holds the light at the end of its shot. The light never changes during a Shot 1, because Shot 1 carries on the previous video's light. A change in a Shot 2 or a Shot 3 happens in the shot's first beat and is complete by the end of it, so the shot's second and third panels, and their panel images, sit under its `Lighting:` sentence as written. The first panel of that row shows the change under way, and its panel line says so.
+- Beats. Each beat sentence ends on a picture a viewer could photograph: positions, poses, paws, props, eye lines, and any face that has changed. The first beat of a shot starts from the shot's opening picture and covers its first half, and the second ends on the picture the shot closes on, with the feeling its `[EXPRESSION]` slot holds. When a Yeti's feeling changes during a shot, the beat where it changes names the new feeling, so the panels can follow it. Panel 3 ends on 00:05, the centre of the clip.
+- Framing at each panel. A shot that keeps its framing holds it in both panels. A shot whose move changes the framing shows the first framing in its Shot Type cell in its first panel and the second framing in its second panel. The angle is the one the cell names. If the `Camera:` sentence ends on a different angle (a Crane Up that ends looking down), the second panel takes that angle.
+- Picture size. The grid is always 16:9, whatever the film's shape. Each panel holds a picture in the film's aspect ratio, a horizontal 16:9 frame for a widescreen film or a vertical 9:16 frame for a vertical one, and each panel image is a full single image in that same shape.
+- Light inside a video. The `Lighting:` sentence holds the light at the end of its shot. The light never changes during a Shot 1, because Shot 1 carries on the previous video's light. A change in a Shot 2 or a Shot 3 happens in the shot's first beat and is complete by the end of it, so the shot's second panel, and its panel image, sits under its `Lighting:` sentence as written. The shot's first panel shows the change under way, and its panel line says so.
 - Light at the handoff. A video's Shot 1 uses the same `Lighting:` sentence, word for word, as the previous video's Shot 3, so the cut between the two clips reads as one scene. The only exception is a video marked `Scene break:`.
-- Picture at the handoff. The first beat of a video's Shot 1 opens on the picture the previous video's last beat ended on: the same positions, paws, props, eye lines, and faces, seen through the new shot's opening framing. Panel 1 of each grid after the first shows the same instant as panel 9 of the grid before it. A video marked `Scene break:` opens on its new location instead.
+- Picture at the handoff. The first beat of a video's Shot 1 holds the picture the previous video's last beat ended on: the same positions, paws, props, eye lines, and faces, seen through the new shot's opening framing, with at most a small change (a face that starts to turn, a breath, a glance). Panel 1 of each grid after the first shows the same picture as panel 6 of the grid before it. A video marked `Scene break:` opens on its new location instead.
 - Camera at the ends. Shot 3's move eases to a stop in the last half second, and Shot 1 of the next video eases in from rest, so the cut between the two clips does not jump.
 - Effects in a grid panel or a panel image are frozen: flakes hang in the air, embers are points of light, spray is drops in mid-air. Slow motion, camera moves, and transitions do not exist in a still image.
 
@@ -156,16 +154,18 @@ A film is made one 10-second video at a time, and every file in the pipeline is 
 | Step | Skill | Reads | Writes |
 | --- | --- | --- | --- |
 | 0. Source, optional | `video-to-storyboard` | An existing video | `prompts/<slug>-source-storyboard.md` |
-| 1. Storyboard | `storyboard-30s-extender` for 30 seconds, `storyboard-60s-from-story` for 60 | A short storyboard, a story, or a source storyboard | `prompts/<slug>-<30s or 60s>-storyboard.md`: one table per video, three shots, three beats per shot. Each table is that video's Flow prompt, and the file holds no image prompt |
-| 2. Images | `create-3x3-timed-image` | The storyboard | `prompts/<slug>-<30s or 60s>-3x3.md`, every image prompt for the film: per video, one grid prompt with exactly nine panels and nine panel image prompts, one per panel. The images go in `3x3-timed-storyboard-images/<slug>/`, as `Video N - <Title>.jpg` for the grid and `Video N - <Title> - Panel P.jpg` for each panel |
+| 1. Storyboard | `storyboard-30s-extender` for 30 seconds, `storyboard-60s-from-story` for 60 | A short storyboard, a story, or a source storyboard | `prompts/<slug>-<30s or 60s>-storyboard.md`: one table per video, three shots, two beats per shot. Each table is that video's Flow prompt, and the file holds no image prompt |
+| 2. Images | `create-3x2-timed-image` | The storyboard | `prompts/<slug>-<30s or 60s>-3x2.md`, every image prompt for the film: per video, one 16:9 grid prompt with exactly six panels and six panel image prompts, one per panel. The images go in `3x2-timed-storyboard-images/<slug>/`, as `Video N - <Title>.jpg` for the grid and `Video N - <Title> - Panel P.jpg` for each panel |
 | 3. Clips | The operator, in Google Flow | The storyboard's agent instructions | One 10-second clip per video |
-| 4. Promotion | `reel-carousel` | The storyboard, its 3x3 file, and the reel link | `carousels/<slug>-carousel.md` |
+| 4. Promotion | `reel-carousel` | The storyboard, its 3x2 file, and the reel link | `carousels/<slug>-carousel.md` |
 
-Step 3 has two routes, and the operator picks one per video. Both paste the video's table as the text prompt, and both attach images as references, never as a start or an end frame:
+Step 3 has two routes, and the operator picks one per video. Both paste the video's table as the text prompt, and both attach images as references, never as a start or an end frame. Flow accepts at most seven images for one clip:
 
-- Grid route: attach the video's 3x3 grid image and the family reference image. The grid shows Flow all nine beats in order, each in its framing and light.
-- Panel route: attach the video's panel images 3, 6, and 9. They were generated with the family reference image attached, so they carry its look, and each one shows a shot's closing picture.
+- Panel route: attach the video's six panel images and the family reference image, seven in all. The panel images were generated with the family reference image attached, so they carry its look, and together they show Flow every beat of the clip at full size, each in its framing and light.
+- Grid route: attach the video's 3x2 grid image and the family reference image. The grid shows Flow all six beats in order in one picture.
 
-The storyboard is the single source. The grids and the panel images are drawn from its beats, lights, framings, and effects, never from a picture that exists only in the head of whoever writes them. When a beat changes, change it in the storyboard first, then rewrite that video's grid and panel images. The storyboard holds the video prompts and the 3x3 file holds the image prompts, and neither holds the other's. Run each step as its own skill run, in order. One step's saved file is the next step's input, and a single run that writes the storyboard and the image prompts together runs past a model's output limit.
+The storyboard is the single source. The grids and the panel images are drawn from its beats, lights, framings, and effects, never from a picture that exists only in the head of whoever writes them. When a beat changes, change it in the storyboard first, then rewrite that video's grid and panel images. The storyboard holds the video prompts and the 3x2 file holds the image prompts, and neither holds the other's. Run each step as its own skill run, in order. One step's saved file is the next step's input, and a single run that writes the storyboard and the image prompts together runs past a model's output limit.
 
-The stills route that `storyboard-30s-frames` wrote into `image-prompts/<slug>-<30s or 60s>-frames.md` is retired. Panel images 3, 6, and 9 show the same pictures, and the frames files already in `image-prompts/` stay for the record.
+The 3x3 grid that came before this one drew nine panels per video, three beats per shot, into `prompts/<slug>-<30s or 60s>-3x3.md`. Nine panel images do not fit in Flow's seven ingredient slots, so it is retired. A storyboard whose `Action:` cells still have three beats is revised to two with its storyboard skill, and its 3x3 file is renamed to `-3x2.md` and rewritten, before any new image is made.
+
+The stills route that `storyboard-30s-frames` wrote into `image-prompts/<slug>-<30s or 60s>-frames.md` is retired too. Panel images 2, 4, and 6 show the same pictures, and the frames files already in `image-prompts/` stay for the record.

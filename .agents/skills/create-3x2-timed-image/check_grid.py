@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Check a 3x3 grid file, its panel images, and its storyboard against the rule files.
+"""Check a 3x2 grid file, its panel images, and its storyboard against the rule files.
 
-Usage: python3 .agents/skills/create-3x3-timed-image/check_grid.py prompts/<slug>-<30s|60s>-3x3.md
+Usage: python3 .agents/skills/create-3x2-timed-image/check_grid.py prompts/<slug>-<30s|60s>-3x2.md
 
 Finds the storyboard by name (prompts/<slug>-<30s|60s>-storyboard.md), and reads the locks
 from .agents/rules/character-consistency.md and the fixed grid and panel image sentences
 from this skill's SKILL.md each time it runs, so it always checks against the current text.
-Prints OK or the problems for the storyboard and for each video's grid and nine panel
+Prints OK or the problems for the storyboard and for each video's grid and six panel
 images, prints Note: lines for things worth a look that are not always wrong, and exits
 with status 1 if anything fails.
 """
@@ -21,17 +21,20 @@ SKILL = HERE / "SKILL.md"
 LADDER = ["Extreme Wide Shot", "Wide Shot", "Full Shot", "Medium Wide Shot",
           "Medium Shot", "Medium Close-Up", "Close-Up", "Extreme Close-Up"]
 SHOTS = ["00:00 - 00:03", "00:03 - 00:07", "00:07 - 00:10"]
-ROWS = ["00:00–00:03", "00:03–00:07", "00:07–00:10"]
-PANELS = ["00:00.0–00:01.0", "00:01.0–00:02.0", "00:02.0–00:03.0",
-          "00:03.0–00:04.3", "00:04.3–00:05.7", "00:05.7–00:07.0",
-          "00:07.0–00:08.0", "00:08.0–00:09.0", "00:09.0–00:10.0"]
+SHOT_RANGES = ["00:00–00:03", "00:03–00:07", "00:07–00:10"]
+PANELS = ["00:00.0–00:01.5", "00:01.5–00:03.0",
+          "00:03.0–00:05.0", "00:05.0–00:07.0",
+          "00:07.0–00:08.5", "00:08.5–00:10.0"]
+BEATS = 2
 LEGACY = re.compile(r"^(Frames|Start frame|Midpoint frame|End frame):", re.M)
 IMAGE_LINES = re.compile(r"^(Grid|Stills):", re.M)
+OLD_GRID = re.compile(r"3x3|nine panel|panel images 3, 6, and 9", re.I)
 PANEL_HEAD = re.compile(r"^### Panel (\d) · (\S+) · ([^·]+?), ([^·,]+?) · (.+?)\s*$", re.M)
 PLACES = {1: ["Character: "], 2: ["On the left, ", "On the right, "],
           3: ["On the left, ", "In the center, ", "On the right, "]}
-ROW_LINE = re.compile(r"^Row (\d) · Shot (\d) · (\S+) · (.+?)\. Lighting: (.+?\.)(?: Effects: (.+))?$")
+SHOT_LINE = re.compile(r"^Shot (\d) · (\S+) · (.+?)\. Lighting: (.+?\.)(?: Effects: (.+))?$")
 PANEL_LINE = re.compile(r"^Panel (\d) · (\S+) · (.+?) · ([^.·]+?)\. (.*)$")
+ABSENT = re.compile(r"\b(?:neither|nor|no) the (blue|pink|baby) Yeti\b")
 NO_YETI = "No Yeti is in this panel."
 COLOURS = ("blue", "pink", "baby")
 
@@ -71,23 +74,20 @@ def framings(cell):
     return m.group(1), m.group(2) or m.group(1), m.group(3)
 
 
-def midpoint(opening, closing):
-    """The framings allowed for a shot's middle panel (section 6 of cinematic-direction.md)."""
-    if opening in LADDER and closing in LADDER:
-        a, b = LADDER.index(opening), LADDER.index(closing)
-        return {LADDER[a + (b - a) // 2] if b >= a else LADDER[a - (a - b) // 2]}
-    return {opening, closing}
-
-
 def sentences(text):
     return [s for s in re.split(r"(?<=[.!?])\s+(?=[A-Z])", text.strip()) if s]
 
 
+def shot_of(panel):
+    """The shot (1 to 3) a panel (1 to 6) belongs to."""
+    return (panel - 1) // BEATS + 1
+
+
 def main(path):
     path = Path(path)
-    m = re.match(r"(.+)-(30s|60s)-3x3\.md$", path.name)
+    m = re.match(r"(.+)-(30s|60s)-3x2\.md$", path.name)
     if not m:
-        sys.exit(f"{path} is not named <slug>-<30s|60s>-3x3.md")
+        sys.exit(f"{path} is not named <slug>-<30s|60s>-3x2.md")
     board_path = path.with_name(f"{m.group(1)}-{m.group(2)}-storyboard.md")
     if not board_path.exists():
         sys.exit(f"Storyboard not found: {board_path}")
@@ -110,9 +110,9 @@ def main(path):
                   for c in COLOURS}
 
     fixed = quotes(section(SKILL.read_text(), "Fixed grid sentences"))
-    if len(fixed) != 4:
-        sys.exit(f"Expected 4 fixed grid sentences in {SKILL}, found {len(fixed)}.")
-    layout, reference, quality, closing = fixed
+    if len(fixed) != 6:
+        sys.exit(f"Expected 6 fixed grid sentences in {SKILL}, found {len(fixed)}.")
+    grid_aspect, layout_wide, layout_tall, reference, quality, closing = fixed
     fixed_panel = quotes(section(SKILL.read_text(), "Fixed panel image sentences"))
     if len(fixed_panel) != 2:
         sys.exit(f"Expected 2 fixed panel image sentences in {SKILL}, found {len(fixed_panel)}.")
@@ -132,8 +132,12 @@ def main(path):
     if IMAGE_LINES.search(board) or "Create image:" in board:
         problems.append("has Grid: or Stills: lines or an image prompt; the storyboard holds video "
                         "prompts only (revise it with the storyboard skill first)")
+    if OLD_GRID.search(board):
+        problems.append("still refers to the old 3x3 grid, nine panels, or panel images 3, 6, and 9 "
+                        "(revise it with the storyboard skill first)")
     if len(board_videos) != expected_videos:
         problems.append(f"{len(board_videos)} videos, expected {expected_videos}")
+    aspect = None
     shots = {}
     for num, _, body in board_videos:
         lines = [l for l in body.splitlines() if l.startswith("| **00:")]
@@ -145,11 +149,13 @@ def main(path):
         shots[num] = []
         for s, c in enumerate(cells, 1):
             visual = c[3]
+            if aspect is None and style in visual:
+                aspect = visual.split(style)[0].strip()
             action = re.search(r"Action: (.*?) Camera: ", visual)
             beats = sentences(action.group(1)) if action else []
-            if len(beats) != 3:
+            if len(beats) != BEATS:
                 problems.append(f"Video {num} Shot {s} Action has {len(beats)} sentences, "
-                                "the grid needs exactly three beats")
+                                f"the grid needs exactly {BEATS} beats")
             ends = framings(c[2])
             if not ends:
                 problems.append(f"Video {num} Shot {s} Shot Type '{c[2]}' is not '<Framing>, <Angle>'")
@@ -161,10 +167,18 @@ def main(path):
                 hit = pat.search(visual)
                 if hit:
                     slots[colour] = hit.group(1)
+            if action:
+                for colour in sorted(set(ABSENT.findall(action.group(1))) & set(slots)):
+                    problems.append(f"Video {num} Shot {s} has character text for the {colour} Yeti, "
+                                    f"but its Action says the {colour} Yeti is not in the shot")
             shots[num].append({"type": c[2], "visual": visual, "slots": slots,
                                "scene_break": bool(re.search(r"^Scene break:", body, re.M))})
+    if aspect is None:
+        problems.append("no visual cell opens with an aspect ratio line before the style lock")
     failed |= bool(problems)
     print("Storyboard: " + ("OK" if not problems else "; ".join(problems)))
+
+    layout = layout_wide if aspect and "16:9" in aspect else layout_tall
 
     # The grids.
     grid_videos = videos(path.read_text())
@@ -185,50 +199,50 @@ def main(path):
             print(f"Video {num}: expected one grid prompt before the panel images, found {len(blocks)}")
             failed = True
             continue
-        if f"Image: `3x3-timed-storyboard-images/{slug}/Video {num} - {video_title}.jpg`." not in grid_body:
-            problems.append(f"grid Image: line is not `3x3-timed-storyboard-images/{slug}/"
+        if f"Image: `3x2-timed-storyboard-images/{slug}/Video {num} - {video_title}.jpg`." not in grid_body:
+            problems.append(f"grid Image: line is not `3x2-timed-storyboard-images/{slug}/"
                             f"Video {num} - {video_title}.jpg`")
         lines = blocks[0].splitlines()
-        first_row = next((i for i, l in enumerate(lines) if l.startswith("Row ")), len(lines))
-        header = " ".join(l.strip() for l in lines[:first_row] if l.strip())
-        body_lines = [l.strip() for l in lines[first_row:] if l.strip()]
+        first_shot = next((i for i, l in enumerate(lines) if l.startswith("Shot ")), len(lines))
+        header = " ".join(l.strip() for l in lines[:first_shot] if l.strip())
+        body_lines = [l.strip() for l in lines[first_shot:] if l.strip()]
         sb = shots.get(num)
 
-        # Rows and panels, walked in order.
-        row_hits, panels, current_row = [], [], 0
+        # Shots and panels, walked in order.
+        shot_hits, panels, current_shot = [], [], 0
         for line in body_lines[:-1]:
-            r = ROW_LINE.match(line)
+            s = SHOT_LINE.match(line)
             p = PANEL_LINE.match(line)
-            if r:
-                current_row += 1
-                row_hits.append(r)
+            if s:
+                current_shot += 1
+                shot_hits.append(s)
             elif p:
-                panels.append((current_row, p))
+                panels.append((current_shot, p))
             else:
-                problems.append(f"line is neither a Row nor a Panel line: {line[:60]}...")
+                problems.append(f"line is neither a Shot nor a Panel line: {line[:60]}...")
         if not body_lines or body_lines[-1] != closing:
             problems.append("does not end with the closing line")
-        if len(row_hits) != 3:
-            problems.append(f"{len(row_hits)} Row lines, expected 3")
-        if len(panels) != 9:
-            problems.append(f"{len(panels)} panels, expected exactly 9")
+        if len(shot_hits) != 3:
+            problems.append(f"{len(shot_hits)} Shot lines, expected 3")
+        if len(panels) != len(PANELS):
+            problems.append(f"{len(panels)} panels, expected exactly {len(PANELS)}")
 
-        for i, r in enumerate(row_hits[:3], 1):
-            if (int(r.group(1)), int(r.group(2)), r.group(3)) != (i, i, ROWS[i - 1]):
-                problems.append(f"Row line {i} should read 'Row {i} · Shot {i} · {ROWS[i - 1]}'")
+        for i, s in enumerate(shot_hits[:3], 1):
+            if (int(s.group(1)), s.group(2)) != (i, SHOT_RANGES[i - 1]):
+                problems.append(f"Shot line {i} should read 'Shot {i} · {SHOT_RANGES[i - 1]}'")
             if sb:
-                if r.group(4) != sb[i - 1]["type"]:
-                    problems.append(f"Row {i} Shot Type '{r.group(4)}' is not the storyboard's "
+                if s.group(3) != sb[i - 1]["type"]:
+                    problems.append(f"Shot {i} Shot Type '{s.group(3)}' is not the storyboard's "
                                     f"'{sb[i - 1]['type']}'")
-                if "Lighting: " + r.group(5) not in sb[i - 1]["visual"]:
-                    problems.append(f"Row {i} Lighting: sentence is not Shot {i}'s, word for word")
+                if "Lighting: " + s.group(4) not in sb[i - 1]["visual"]:
+                    problems.append(f"Shot {i} Lighting: sentence is not the storyboard's, word for word")
 
         titles, pictures, faces_by_panel, framing_by_panel = [], [], {}, {}
-        for n, (row, p) in enumerate(panels[:9], 1):
+        for n, (shot, p) in enumerate(panels[:len(PANELS)], 1):
             if int(p.group(1)) != n or p.group(2) != PANELS[n - 1]:
                 problems.append(f"panel {n} should read 'Panel {n} · {PANELS[n - 1]}'")
-            if row != (n - 1) // 3 + 1:
-                problems.append(f"panel {n} sits under Row {row}, expected Row {(n - 1) // 3 + 1}")
+            if shot != shot_of(n):
+                problems.append(f"panel {n} sits under Shot {shot}, expected Shot {shot_of(n)}")
             title = p.group(3)
             if not re.fullmatch(r"[A-Z0-9'’&-]+(?: [A-Z0-9'’&-]+){1,3}", title):
                 problems.append(f"panel {n} title '{title}' is not two to four words in capitals")
@@ -261,41 +275,53 @@ def main(path):
             faces_by_panel[n] = faces
             pictures.append(re.sub(r"\s+", " ", picture.strip().lower()))
 
+            shot_info = sb[shot_of(n) - 1] if sb else None
+            if shot_info:
+                for colour in sorted(set(faces) - set(shot_info["slots"])):
+                    problems.append(f"panel {n} has the {colour} Yeti, but Shot {shot_of(n)} has no "
+                                    f"character text for it")
+
             framing_by_panel[n] = p.group(4)
             fr = p.group(4).rsplit(", ", 1)
-            ends = framings(sb[row - 1]["type"]) if sb and 1 <= row <= 3 else None
+            ends = framings(shot_info["type"]) if shot_info else None
             if len(fr) != 2:
                 problems.append(f"panel {n} framing '{p.group(4)}' is not '<Framing>, <Angle>'")
             elif ends:
                 opening, closing_f, angle = ends
-                beat = (n - 1) % 3
-                want = {0: {opening}, 1: midpoint(opening, closing_f), 2: {closing_f}}[beat]
-                if fr[0] not in want:
-                    problems.append(f"panel {n} framing '{fr[0]}' should be {' or '.join(sorted(want))}")
+                last = n % BEATS == 0
+                want = closing_f if last else opening
+                if fr[0] != want:
+                    problems.append(f"panel {n} framing '{fr[0]}' should be {want}, the shot's "
+                                    + ("closing" if last else "opening") + " framing")
                 if fr[1] != angle:
-                    if beat == 2:
+                    if last:
                         notes.append(f"Video {num} panel {n} angle '{fr[1]}' differs from the "
                                      f"cell's '{angle}'; fine only if the Camera: move ends on it")
                     else:
                         problems.append(f"panel {n} angle '{fr[1]}' is not the cell's '{angle}'")
 
-            if sb and n in (3, 6, 9):
-                slots = sb[n // 3 - 1]["slots"]
+            if shot_info and n % BEATS == 0:
                 for colour, face in faces.items():
-                    if colour in slots and slots[colour] != face:
-                        problems.append(f"panel {n} face for the {colour} Yeti is not Shot {n // 3}'s "
-                                        "[EXPRESSION] slot")
+                    if colour in shot_info["slots"] and shot_info["slots"][colour] != face:
+                        problems.append(f"panel {n} face for the {colour} Yeti is not Shot "
+                                        f"{shot_of(n)}'s [EXPRESSION] slot")
 
+        if sb:
+            for s, shot_info in enumerate(sb, 1):
+                seen = {c for n in range(BEATS * s - 1, BEATS * s + 1)
+                        for c in faces_by_panel.get(n, {})}
+                for colour in sorted(set(shot_info["slots"]) - seen):
+                    notes.append(f"Video {num} Shot {s} has character text for the {colour} Yeti, "
+                                 "but neither of its panels shows it")
         if len(set(titles)) != len(titles):
             problems.append("panel titles repeat; every panel needs its own")
         if len(set(pictures)) != len(pictures):
             problems.append("two panels describe the same picture; each beat is its own panel")
 
         # The header: fixed sentences, locks, and the pieces copied from the storyboard.
-        if sb:
-            aspect = sb[0]["visual"].split(style)[0].strip()
-            if not header.startswith(f"Create image: {aspect} "):
-                problems.append(f"does not open with 'Create image: {aspect}'")
+        if not header.startswith(f"Create image: {grid_aspect} {layout} "):
+            problems.append(f"does not open with 'Create image: {grid_aspect}' and the layout sentence "
+                            f"for a {'16:9' if layout is layout_wide else '9:16'} film")
         for name, lock in (("layout sentence", layout), ("reference sentence", reference),
                            ("quality sentence", quality), ("style lock", style),
                            ("head lock", head), ("look lock", look), ("avoid line", avoid)):
@@ -327,31 +353,27 @@ def main(path):
             problems.append("contains Camera:, Transition:, or audio text")
 
         env = re.search(r"Environment: (.+?\.) (?=The (?:blue|pink|baby) Yeti: |Head lock: )", header)
-        if sb:
-            if not env or any("Environment: " + env.group(1) not in s["visual"] for s in sb):
-                problems.append("Environment: sentence is not the storyboard's, word for word")
-            if look in header and avoid in header:
-                end = header.find(scale) + len(scale) if scale in header else header.find(look) + len(look)
-                cast = header[end:header.find(avoid)].strip()
-                board_cast = set()
-                for s in sb:
-                    v = s["visual"]
-                    if look in v and avoid in v:
-                        e = v.find(scale) + len(scale) if scale in v else v.find(look) + len(look)
-                        board_cast.add(v[e:v.find(avoid)].strip())
-                if board_cast and cast not in board_cast:
-                    problems.append("supporting cast sentences are not the storyboard's, word for word")
-
-        # The nine panel images under the grid.
         cast = ""
         if look in header and avoid in header:
             end = header.find(scale) + len(scale) if scale in header else header.find(look) + len(look)
             cast = header[end:header.find(avoid)].strip()
-        aspect_line = header[len("Create image: "):header.find(layout)].strip() if layout in header else ""
+        if sb:
+            if not env or any("Environment: " + env.group(1) not in s["visual"] for s in sb):
+                problems.append("Environment: sentence is not the storyboard's, word for word")
+            board_cast = set()
+            for s in sb:
+                v = s["visual"]
+                if look in v and avoid in v:
+                    e = v.find(scale) + len(scale) if scale in v else v.find(look) + len(look)
+                    board_cast.add(v[e:v.find(avoid)].strip())
+            if board_cast and cast not in board_cast:
+                problems.append("supporting cast sentences are not the storyboard's, word for word")
+
+        # The six panel images under the grid.
         heads = list(PANEL_HEAD.finditer(image_body))
-        if len(heads) != 9:
-            problems.append(f"{len(heads)} panel images, expected exactly 9")
-        for i, h in enumerate(heads[:9], 1):
+        if len(heads) != len(PANELS):
+            problems.append(f"{len(heads)} panel images, expected exactly {len(PANELS)}")
+        for i, h in enumerate(heads[:len(PANELS)], 1):
             n = int(h.group(1))
             where = f"panel image {i}"
             if n != i or h.group(2) != PANELS[i - 1]:
@@ -364,7 +386,7 @@ def main(path):
                                 f"sentence case ('{titles[i - 1].capitalize()}')")
             part_end = heads[i].start() if i < len(heads) else len(image_body)
             part = image_body[h.end():part_end]
-            want_path = (f"Image: `3x3-timed-storyboard-images/{slug}/Video {num} - {video_title} - "
+            want_path = (f"Image: `3x2-timed-storyboard-images/{slug}/Video {num} - {video_title} - "
                          f"Panel {i}.jpg`.")
             if want_path not in part:
                 problems.append(f"{where} has no line '{want_path}'")
@@ -373,13 +395,13 @@ def main(path):
                 problems.append(f"{where} has {len(pblocks)} prompts, expected 1")
                 continue
             prompt = " ".join(l.strip() for l in pblocks[0].splitlines() if l.strip())
-            row = (i - 1) // 3
-            lighting = "Lighting: " + row_hits[row].group(5) if row < len(row_hits) else None
+            s_index = shot_of(i) - 1
+            lighting = "Lighting: " + shot_hits[s_index].group(4) if s_index < len(shot_hits) else None
             env_text = "Environment: " + env.group(1) if env else None
-            opening = f"Create image: {aspect_line} {style} "
+            opening = f"Create image: {aspect} {style} "
             if not prompt.startswith(opening):
-                problems.append(f"{where} does not open with 'Create image:', the aspect ratio line, "
-                                "and the style lock")
+                problems.append(f"{where} does not open with 'Create image:', the storyboard's aspect "
+                                "ratio line, and the style lock")
             for name, piece in (("Environment: sentence", env_text), ("Lighting: sentence", lighting)):
                 if piece and prompt.count(piece) != 1:
                     problems.append(f"{where} {name} is not the grid's, word for word")
@@ -391,8 +413,8 @@ def main(path):
                 problems.append(f"{where} does not end with the closing sentence")
             if cast and prompt.count(cast) != 1:
                 problems.append(f"{where} supporting cast sentences are not the storyboard's, word for word")
-            if re.search(r"\b(?:Camera|Transition|Faces): | · |No dialogue\.", prompt):
-                problems.append(f"{where} contains Camera:, Transition:, Faces:, label, or audio text")
+            if re.search(r"\b(?:Camera|Transition|Faces): | · |No dialogue\.|3x2|storyboard grid", prompt):
+                problems.append(f"{where} contains Camera:, Transition:, Faces:, grid, label, or audio text")
 
             want = faces_by_panel.get(i, {})
             got = {}
@@ -443,8 +465,9 @@ def main(path):
             for colour in set(previous_last) & set(faces_by_panel.get(1, {})):
                 if previous_last[colour] != faces_by_panel[1][colour]:
                     notes.append(f"Video {num} panel 1 face for the {colour} Yeti differs from the "
-                                 "previous video's panel 9; fine only if the first beat changes it")
-        previous_last = faces_by_panel.get(9)
+                                 f"previous video's panel {len(PANELS)}; fine only if the first beat "
+                                 "changes it")
+        previous_last = faces_by_panel.get(len(PANELS))
 
         failed |= bool(problems)
         print(f"Video {num}: " + ("OK" if not problems else "; ".join(problems)))
