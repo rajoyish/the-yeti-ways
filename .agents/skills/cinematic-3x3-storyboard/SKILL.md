@@ -9,11 +9,11 @@ description: >-
 
 # Cinematic 3x3 timed storyboard (superseded)
 
-This skill's job moved to `.agents/skills/create-3x2-timed-image/SKILL.md`, which is step 2 of the pipeline in section 7 of `.agents/rules/cinematic-direction.md`. Run that skill on the storyboard in `prompts/`. It writes one grid and six panel images per 10-second video to `prompts/<slug>-<30s or 60s>-3x2.md`, checks them with `check_grid.py`, and generates the images.
+This skill's job moved to `.agents/skills/create-3x2-timed-image/SKILL.md`, which is step 2 of the pipeline in section 7 of `.agents/rules/cinematic-direction.md`. Run that skill on the storyboard in `prompts/`. It writes one grid and six panel images per 10-second video to `prompts/<slug>-<30s or 60s>-3x2.md`, checks them with `check_grid.mjs`, and generates the images.
 
 What changed from this skill's template, and why:
 
 - The grid has six panels, not nine. Google Flow takes at most seven ingredient images for one clip, so a video's six panel images and the family reference image now go in together. Each shot's `Action:` is two beats, and each beat is one panel on the storyboard's fixed 3-4-3 second split.
 - The grid is one horizontal 16:9 image, three panels across and two down. Its panels, and the panel images, keep the film's own aspect ratio.
 - The grid reads the storyboard directly, not the frames file, because start and end frames are retired.
-- The locks follow section 13 of `.agents/rules/character-consistency.md`. The old closing line asked the model to avoid "cartoon style" and a "CGI look", which contradicts the style lock, and its header left out the character text, the scale lock, and the supporting cast sentences.
+- The prompts follow `.agents/rules/prompt-assembly.md`, with each Yeti's full character lock from `.agents/rules/character-consistency.md`. The old closing line asked the model to avoid "cartoon style" and a "CGI look", which contradicts the style lock, and its header left out the character text, the scale lock, and the supporting cast sentences.
