@@ -106,11 +106,11 @@ function loadRules() {
 
 function main(target, withImages) {
   const file = path.resolve(target);
-  const fm = /(.+)-(30s|60s)-3x2\.md$/.exec(path.basename(file));
-  if (!fm) { console.log(`${target} is not named <slug>-<30s|60s>-3x2.md`); return 1; }
+  const fm = /(.+)-(\d+s)-3x2\.md$/.exec(path.basename(file));
+  if (!fm) { console.log(`${target} is not named <slug>-<duration>-3x2.md`); return 1; }
   const boardPath = path.join(path.dirname(file), `${fm[1]}-${fm[2]}-storyboard.md`);
   if (!fs.existsSync(boardPath)) { console.log(`Storyboard not found: ${boardPath}`); return 1; }
-  const expectedVideos = fm[2] === "30s" ? 3 : 6;
+  const expectedVideos = fm[2] === "30s" ? 3 : fm[2] === "60s" ? 6 : fm[2] === "70s" ? 7 : Math.round(parseInt(fm[2], 10) / 10);
   const slug = fm[1];
 
   const { locks, style, avoid, adultFaces, babyFaces } = loadRules();
