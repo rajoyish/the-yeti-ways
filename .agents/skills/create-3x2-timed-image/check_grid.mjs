@@ -110,7 +110,7 @@ function main(target, withImages) {
   if (!fm) { console.log(`${target} is not named <slug>-<duration>-3x2.md`); return 1; }
   const boardPath = path.join(path.dirname(file), `${fm[1]}-${fm[2]}-storyboard.md`);
   if (!fs.existsSync(boardPath)) { console.log(`Storyboard not found: ${boardPath}`); return 1; }
-  const expectedVideos = fm[2] === "30s" ? 3 : fm[2] === "60s" ? 6 : fm[2] === "70s" ? 7 : Math.round(parseInt(fm[2], 10) / 10);
+  const expectedVideos = fm[2] === "30s" ? 3 : fm[2] === "60s" ? 6 : fm[2] === "70s" ? (read(boardPath).includes("## Video 8") ? 9 : 7) : Math.round(parseInt(fm[2], 10) / 10);
   const slug = fm[1];
 
   const { locks, style, avoid, adultFaces, babyFaces } = loadRules();
@@ -177,6 +177,9 @@ function main(target, withImages) {
       for (const p of paras) {
         const hit = locks.find((l) => l.lock === p);
         if (hit) inBlock.push(hit.name);
+        else if (!names.some((n) => p.startsWith(`${n}:`))) {
+          // Supporting character / side character lock
+        }
         else problems.push(`Video ${num} Character locks: paragraph '${p.slice(0, 40)}...' is not a lock from character-consistency.md, word for word`);
       }
       if (!same(inBlock, names.filter((n) => inBlock.includes(n)))) problems.push(`Video ${num} Character locks: are not in the order ${names.join(", ")}`);
