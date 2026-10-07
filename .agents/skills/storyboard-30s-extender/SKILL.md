@@ -111,7 +111,7 @@ Each video has three shots. Every video's table starts at 00:00 and ends at 00:1
 
 Each table has five columns: `| Timestamp | Shot Type | Visual Description / Prompt | VFX | Audio / Sound FX |`. Every cell uses the same labels in the same order in every row, and no cell contains a pipe character.
 
-The Shot Type cell names the framing from the ladder in section 1 of `cinematic-direction.md`, then the angle: `Wide Shot, Eye Level`, `Medium Two-Shot, Low Angle`, `Close-Up, Eye Level`. When the camera move changes the framing, name both ends: `Medium Shot to Close-Up, Eye Level`. Vary the framing across each video, and do not repeat the same framing three times in a row. The grid takes each panel's framing from this cell, as section 6 of `cinematic-direction.md` sets out.
+The Shot Type cell names the framing from the ladder in section 1 of `cinematic-direction.md`, then the angle: `Wide Shot, Eye Level`, `Medium Two-Shot, Low Angle`, `Close-Up, Eye Level`. When the camera move changes the framing, name both ends: `Medium Shot to Close-Up, Eye Level`. Vary the framing across each video, and do not repeat the same framing three times in a row. The grid takes each panel's framing from this cell, as section 6 of `cinematic-direction.md` sets out. Include exactly one close-up shot per video to capture the facial expressions or emotions of the main or side characters relevant to the scene.
 
 Above each table, directly under the video's `Stage:` line, goes its `Character locks:` block: the line `Character locks:` and then one fenced code block holding the full Copy-Ready Google Flow Character Lock of every Yeti who appears in any of the video's six beats, copied from `character-consistency.md` character for character, one lock per paragraph, in the order Papa Yeti, Mama Yeti, Babu Yeti. A Yeti who is in none of the video's shots gets no lock in it. The block and the table are pasted into Flow together, block first, as one prompt (section 3 of `prompt-assembly.md`).
 
@@ -125,7 +125,7 @@ Every visual cell follows this order, with each piece copied exactly:
 6. `Expressions:` sentence giving each Yeti in the shot, in the same order, a face from the section 4 table of `prompt-assembly.md`: the feeling that Yeti holds at the end of the shot (`Expressions: Papa Yeti, <row>; Babu Yeti, <row>.`). Left out in a shot with no Yeti.
 7. Supporting cast, if any: a `Humans:` sentence and/or an `Animals:` sentence describing every supporting character, identical in every shot across all three videos.
 8. Avoid line, word for word, from section 5 of `prompt-assembly.md`, after the supporting cast sentences (or after the `Expressions:` sentence, or the no-Yeti sentence, when there are none).
-9. `Action:` exactly two sentences, one per beat, in order. Each beat is concrete body movement, expression, and eye line, and ends on a picture (step 3's beat rules below). The feeling named in the second beat must agree with the `Expressions:` sentence; if a feeling changes during the shot, the beat where it changes names the new feeling, and the `Expressions:` sentence holds the destination. If the light changes, the first beat says so, and the `Lighting:` sentence holds the new light.
+9. `Action:` exactly two sentences, one per beat, in order. Each beat is concrete body movement, expression, and eye line, and ends on a picture (step 3's beat rules below). Expand the `Action:` block with highly detailed, descriptive physical actions and movements based on the video prompt's context. The feeling named in the second beat must agree with the `Expressions:` sentence; if a feeling changes during the shot, the beat where it changes names the new feeling, and the `Expressions:` sentence holds the destination. If the light changes, the first beat says so, and the `Lighting:` sentence holds the new light.
 10. `Camera:` one sentence naming one move from the list in section 3 of `cinematic-direction.md`, then its direction, its speed, and what it reveals or ends on. The move matches the Shot Type cell: a move that changes the framing starts on the first framing named there and ends on the second.
 
 The two beats of each shot become the shot's two panels in the grid, so write them to the panel map in section 6 of `cinematic-direction.md`:
@@ -255,11 +255,15 @@ Lighting lock: <every light source in the environment, where it sits in the fram
 
 VFX lock: <each effect and the video it belongs to. Weather that runs through the whole location is in the `Environment:` sentence and is not listed here.> No effect comes from a Yeti, and none appears in a video that this paragraph does not give it to.
 
+Generate a video using the attached materials. Use the provided grid images (starting with Grid 1 and Grid 2) as your visual foundation, follow the storyboard sequentially, adhere strictly to the agent instructions, and ensure complete character consistency throughout the entire video sequence:
+
 ## Video 1 - <Title>
 
 Film position: 00:00 - 00:10.
 
 Stage: Exposition, Inciting Incident, start of Rising Action.
+
+Characters: <exactly who is in the scene, e.g., Papa Yeti, Mama Yeti, Babu Yeti & [side characters] - only those in this specific video>
 
 Character locks:
 
@@ -269,9 +273,11 @@ Character locks:
 
 | Timestamp | Shot Type | Visual Description / Prompt | VFX | Audio / Sound FX |
 | --- | --- | --- | --- | --- |
-| **00:00 - 00:03** | <Framing>, <Angle> | Vertical 9:16 aspect ratio, full-frame vertical composition. <Style lock> Environment: <sentence>. Lighting: <key, fill, rim, quality and direction, contrast, colour temperature and palette, mood>. Characters: <each Yeti in the shot by name, placed left to right, or: No Yeti is in this shot.> Expressions: <Name>, <face from the section 4 table>; <Name>, <face>. <Humans: / Animals: sentences if any> Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, urban environments, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, white or grey fur, clothing, hats, or accessories. Action: <Beat 1, one sentence covering the first half of the shot and ending on a picture.> <Beat 2, one sentence ending on the shot's closing picture, with the feeling in the Expressions: sentence.> Camera: <one move, direction, speed, what it reveals or ends on>. | Effects: <what renders, how it meets the light and action, or None>. Transition: Hard Cut. | <Music state, ambient sound, sounds for each action and effect.> No dialogue. |
+| **00:00 - 00:03** | <Framing>, <Angle> | Vertical 9:16 aspect ratio, full-frame vertical composition. <Style lock> Environment: <sentence>. Lighting: <key, fill, rim, quality and direction, contrast, colour temperature and palette, mood>. Characters: <each Yeti in the shot by name, placed left to right, or: No Yeti is in this shot.> Expressions: <Name>, <face from the section 4 table>; <Name>, <face>. <Humans: / Animals: sentences if any> Avoid: no tails, photorealistic humans, scary monsters, horror elements, flat lighting, urban environments, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, white or grey fur, clothing, hats, or accessories. Action: <Beat 1, one sentence covering the first half of the shot and ending on a picture with highly detailed, descriptive physical actions and movements.> <Beat 2, one sentence ending on the shot's closing picture, with highly detailed, descriptive physical actions and movements, and the feeling in the Expressions: sentence.> Camera: <one move, direction, speed, what it reveals or ends on>. | Effects: <what renders, how it meets the light and action, or None>. Transition: Hard Cut. | <Music state, ambient sound, sounds for each action and effect.> No dialogue. |
 | **00:03 - 00:07** | ... | ... Action: <two beats; the first ends on 00:05, the centre of the clip> ... | Effects: ... Transition: Hard Cut. | ... |
 | **00:07 - 00:10** | ... | ... Action: <two beats; the second is the video's closing picture> Camera: <move>, easing to a stop in the last half second. | Effects: ... Transition: Holds on the final frame. | ... |
+
+Generate a video using the attached materials. Use the provided grid images (starting with Grid 1 and Grid 2) as your visual foundation, follow the storyboard sequentially, adhere strictly to the agent instructions, and ensure complete character consistency throughout the entire video sequence:
 
 ## Video 2 - <Title>
 
@@ -279,15 +285,21 @@ Film position: 00:10 - 00:20.
 
 Stage: Rising Action, Climax (peaks at 00:05 on this clock, film 00:15, at the end of Shot 2's first beat), start of Falling Action.
 
+Characters: <exactly who is in the scene, e.g., Papa Yeti, Mama Yeti, Babu Yeti & [side characters] - only those in this specific video>
+
 Character locks: <the block, as in Video 1, for the Yetis in this video>
 
 | ... three shots, 00:00 - 00:03, 00:03 - 00:07, 00:07 - 00:10. Shot 1's first beat picks up Video 1's closing picture, under Video 1's Shot 3 light ... |
+
+Generate a video using the attached materials. Use the provided grid images (starting with Grid 1 and Grid 2) as your visual foundation, follow the storyboard sequentially, adhere strictly to the agent instructions, and ensure complete character consistency throughout the entire video sequence:
 
 ## Video 3 - <Title>
 
 Film position: 00:20 - 00:30.
 
 Stage: Falling Action, Resolution.
+
+Characters: <exactly who is in the scene, e.g., Papa Yeti, Mama Yeti, Babu Yeti & [side characters] - only those in this specific video>
 
 Character locks: <the block, as in Video 1, for the Yetis in this video>
 
