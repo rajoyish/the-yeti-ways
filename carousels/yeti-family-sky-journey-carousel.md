@@ -44,7 +44,6 @@ Create image: Square 1:1 aspect ratio, full-frame square composition. 3D animate
 **Main caption:**
 
 The Yeti family is packing up for their highest adventure yet! 🏔️
-Swipe to see what happens →
 
 A stubborn trunk is no match for teamwork. 🧳
 Taking flight above the clouds in a mountain sky-glider. ☁️
@@ -60,6 +59,14 @@ Where would you fly if you had a sky-glider? ✈️
 **Alternate caption:**
 
 From packing struggles to soaring above the clouds, the Yetis know how to travel in style. 🧳☁️ Swipe to join their breathtaking sky journey! 🏔️
+
+Watch the full reel here:
+https://www.facebook.com/share/r/1K64D5H9h6/
+
+.
+.
+.
+#yetifamily #skyjourney #cockatiels #3danimation #cgi #characteranimation #wholesome #family #reels #fbreels #facebookreels #viral #trending #explore #fyp #animation #animatedshort #yeti #himalayas #mountainadventure #cutecharacters #familytrip
 
 **Overlay text (on the images themselves):**
 

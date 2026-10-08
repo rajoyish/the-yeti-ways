@@ -35,6 +35,7 @@ Read these before writing anything:
 - `.agents/skills/social-media-prompt-creator/SKILL.md`: platform and safety guidelines. Section 1 (the "never" list), the TikTok note on dangerous activities, and the visual tip about backgrounds apply directly.
 
 - The Yetis are the heroes. Papa Yeti, Mama Yeti, and Babu Yeti are the main characters and never change. If the story casts someone else as the rescuer, the helper, or the character whose choice resolves it, recast it before drafting: the hero beats go to the Yetis, and the story's other characters become the supporting cast (the ones in need, the bystanders, an animal that reacts). Supporting characters may be added, changed, or invented to fit the context (an animal family in place of people), but no supporting character ever takes a hero beat a Yeti could take, and no Yeti is ever replaced. See section 6 of `prompt-assembly.md`.
+- Only 3 Yetis: Papa, Mama and Babu Yetis should be shown in the videos, no extra Yetis other than that or more than 3 Yetis.
 
 Flow-specific constraints, learned from clips that the content filter rejected:
 
@@ -285,6 +286,8 @@ Lighting lock: <for each location, every light source, where it sits in the fram
 
 VFX lock: <each effect and the video it belongs to. Weather that runs through a whole location is in that location's `Environment:` sentence and is not listed here.> No effect comes from a Yeti, and none appears in a video that this paragraph does not give it to.
 
+---
+
 Generate a video using the attached materials. Use the provided grid images (starting with Grid 1 and Grid 2) as your visual foundation, follow the storyboard sequentially, adhere strictly to the agent instructions, and ensure complete character consistency throughout the entire video sequence:
 
 ## Video 1 - <Title>
@@ -303,9 +306,11 @@ Character locks:
 
 | Timestamp | Shot Type | Visual Description / Prompt | VFX | Audio / Sound FX |
 | --- | --- | --- | --- | --- |
-| **00:00 - 00:03** | <Framing>, <Angle> | Vertical 9:16 aspect ratio, full-frame vertical composition. <Style lock> Environment: <sentence>. Lighting: <key, fill, rim, quality and direction, contrast, colour temperature and palette, mood>. Characters: <each Yeti in the shot by name, placed left to right, or: No Yeti is in this shot.> Expressions: <Name>, <face from the section 4 table>; <Name>, <face>. <Humans: / Animals: sentences if any> Avoid: no tails, photorealistic humans, scary monsters, horror elements, flat lighting, urban environments, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, white or grey fur, clothing, hats, or accessories. Action: <Beat 1, one sentence covering the first half of the shot and ending on a picture with highly detailed, descriptive physical actions and movements.> <Beat 2, one sentence ending on the shot's closing picture, with highly detailed, descriptive physical actions and movements, and the feeling in the Expressions: sentence.> Camera: <one move, direction, speed, what it reveals or ends on>. | Effects: <what renders, how it meets the light and action, or None>. Transition: Hard Cut. | <Music state, ambient sound, sounds for each action and effect.> No dialogue. |
+| **00:00 - 00:03** | <Framing>, <Angle> | Vertical 9:16 aspect ratio, full-frame vertical composition. <Style lock> Environment: <sentence>. Lighting: <key, fill, rim, quality and direction, contrast, colour temperature and palette, mood>. Characters: <each Yeti in the shot by name, placed left to right, or: No Yeti is in this shot.> Expressions: <Name>, <face from the section 4 table>; <Name>, <face>. <Humans: / Animals: sentences if any> Avoid: tails of the Yetis, photorealistic humans, scary monsters, horror elements, flat lighting, urban environments, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, white or grey fur, clothing, hats, or accessories. Action: <Beat 1, one sentence covering the first half of the shot and ending on a picture with highly detailed, descriptive physical actions and movements.> <Beat 2, one sentence ending on the shot's closing picture, with highly detailed, descriptive physical actions and movements, and the feeling in the Expressions: sentence.> Camera: <one move, direction, speed, what it reveals or ends on>. | Effects: <what renders, how it meets the light and action, or None>. Transition: Hard Cut. | <Music state, ambient sound, sounds for each action and effect.> No dialogue. |
 | **00:03 - 00:07** | ... | ... Action: <two beats; the first ends on 00:05, the centre of the clip> ... | Effects: ... Transition: Hard Cut. | ... |
 | **00:07 - 00:10** | ... | ... Action: <two beats; the second is the video's closing picture> Camera: <move>, easing to a stop in the last half second. | Effects: ... Transition: Holds on the final frame. | ... |
+
+---
 
 Generate a video using the attached materials. Use the provided grid images (starting with Grid 1 and Grid 2) as your visual foundation, follow the storyboard sequentially, adhere strictly to the agent instructions, and ensure complete character consistency throughout the entire video sequence:
 
@@ -321,6 +326,8 @@ Character locks: <the block, as in Video 1, for the Yetis in this video>
 
 | ... three shots, 00:00 - 00:03, 00:03 - 00:07, 00:07 - 00:10. Shot 1's first beat picks up Video 1's closing picture, under Video 1's Shot 3 light ... |
 
+---
+
 Generate a video using the attached materials. Use the provided grid images (starting with Grid 1 and Grid 2) as your visual foundation, follow the storyboard sequentially, adhere strictly to the agent instructions, and ensure complete character consistency throughout the entire video sequence:
 
 ## Video 3 - <Title>
@@ -334,6 +341,8 @@ Characters: <exactly who is in the scene, e.g., Papa Yeti, Mama Yeti, Babu Yeti 
 Character locks: <the block, as in Video 1, for the Yetis in this video>
 
 | ... three shots. Shot 3's last beat is the Climax peak: the moment of highest tension, with the peak feeling on every face ... |
+
+---
 
 Generate a video using the attached materials. Use the provided grid images (starting with Grid 1 and Grid 2) as your visual foundation, follow the storyboard sequentially, adhere strictly to the agent instructions, and ensure complete character consistency throughout the entire video sequence:
 
@@ -349,6 +358,8 @@ Character locks: <the block, as in Video 1, for the Yetis in this video>
 
 | ... three shots. Shot 1's first beat opens on the Climax peak picture under the same light and moves out of it ... |
 
+---
+
 Generate a video using the attached materials. Use the provided grid images (starting with Grid 1 and Grid 2) as your visual foundation, follow the storyboard sequentially, adhere strictly to the agent instructions, and ensure complete character consistency throughout the entire video sequence:
 
 ## Video 5 - <Title>
@@ -362,6 +373,8 @@ Characters: <exactly who is in the scene, e.g., Papa Yeti, Mama Yeti, Babu Yeti 
 Character locks: <the block, as in Video 1, for the Yetis in this video>
 
 | ... three shots, 00:00 - 00:03, 00:03 - 00:07, 00:07 - 00:10 ... |
+
+---
 
 Generate a video using the attached materials. Use the provided grid images (starting with Grid 1 and Grid 2) as your visual foundation, follow the storyboard sequentially, adhere strictly to the agent instructions, and ensure complete character consistency throughout the entire video sequence:
 
