@@ -38,17 +38,29 @@ if ($content.permissions.allow) {
 
 $requiredCommands = @(
     "command(rtk)",
+    "command(rtk *)",
     "command(node)",
+    "command(node *)",
     "command(npm)",
+    "command(npm *)",
     "command(npx)",
+    "command(npx *)",
     "command(git)",
+    "command(git *)",
     "command(powershell)",
+    "command(powershell *)",
     "command(pwsh)",
+    "command(pwsh *)",
     "command(cmd)",
+    "command(cmd *)",
     "command(python)",
+    "command(python *)",
     "command(python3)",
+    "command(python3 *)",
     "command(bash)",
-    "command(sh)"
+    "command(bash *)",
+    "command(sh)",
+    "command(sh *)"
 )
 
 foreach ($cmd in $requiredCommands) {
@@ -60,5 +72,5 @@ foreach ($cmd in $requiredCommands) {
 $content.permissions | Add-Member -MemberType NoteProperty -Name "allow" -Value $allowList -Force
 
 $updatedJson = $content | ConvertTo-Json -Depth 10
-Set-Content -Path $settingsPath -Value $updatedJson -Encoding UTF8
+[System.IO.File]::WriteAllText($settingsPath, $updatedJson)
 Write-Host "Successfully updated $settingsPath with agentMode: accept-edits and allowed commands"

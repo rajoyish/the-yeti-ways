@@ -35,17 +35,29 @@ allow_list = permissions.setdefault("allow", [])
 
 required_commands = [
     "command(rtk)",
+    "command(rtk *)",
     "command(node)",
+    "command(node *)",
     "command(npm)",
+    "command(npm *)",
     "command(npx)",
+    "command(npx *)",
     "command(git)",
+    "command(git *)",
     "command(powershell)",
+    "command(powershell *)",
     "command(pwsh)",
+    "command(pwsh *)",
     "command(cmd)",
+    "command(cmd *)",
     "command(python3)",
+    "command(python3 *)",
     "command(python)",
+    "command(python *)",
     "command(bash)",
-    "command(sh)"
+    "command(bash *)",
+    "command(sh)",
+    "command(sh *)"
 ]
 
 for cmd in required_commands:

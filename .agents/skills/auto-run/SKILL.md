@@ -131,12 +131,18 @@ To ensure Antigravity runs in `accept-edits` mode by default and executes comman
    - **PowerShell (Windows 10)**:
      ```powershell
      powershell -ExecutionPolicy Bypass -File .agents/skills/auto-run/scripts/ensure-accept-edits.ps1
+     # Or globally:
+     powershell -ExecutionPolicy Bypass -File "$HOME\.gemini\config\skills\auto-run\scripts\ensure-accept-edits.ps1"
      ```
    - **Universal Node.js**:
      ```bash
      rtk node .agents/skills/auto-run/scripts/ensure-accept-edits.mjs
+     # Or globally:
+     rtk node ~/.gemini/config/skills/auto-run/scripts/ensure-accept-edits.mjs
      ```
    - **Bash / WSL**:
      ```bash
      rtk bash .agents/skills/auto-run/scripts/ensure-accept-edits.sh
+     # Or globally:
+     rtk bash ~/.gemini/config/skills/auto-run/scripts/ensure-accept-edits.sh
      ```

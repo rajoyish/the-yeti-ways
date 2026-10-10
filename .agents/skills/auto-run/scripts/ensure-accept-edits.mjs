@@ -33,17 +33,29 @@ if (!Array.isArray(data.permissions.allow)) {
 
 const requiredCommands = [
   "command(rtk)",
+  "command(rtk *)",
   "command(node)",
+  "command(node *)",
   "command(npm)",
+  "command(npm *)",
   "command(npx)",
+  "command(npx *)",
   "command(git)",
+  "command(git *)",
   "command(powershell)",
+  "command(powershell *)",
   "command(pwsh)",
+  "command(pwsh *)",
   "command(cmd)",
+  "command(cmd *)",
   "command(python)",
+  "command(python *)",
   "command(python3)",
+  "command(python3 *)",
   "command(bash)",
-  "command(sh)"
+  "command(bash *)",
+  "command(sh)",
+  "command(sh *)"
 ];
 
 for (const cmd of requiredCommands) {
