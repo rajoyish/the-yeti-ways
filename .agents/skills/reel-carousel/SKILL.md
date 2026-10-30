@@ -69,7 +69,7 @@ Every rule in both rule files applies. These are the ones a carousel gets wrong 
 
 ### 1. Read the references
 
-In this order: `.agents/rules/character-consistency.md` and `.agents/rules/prompt-assembly.md` in full; the storyboard in full, including its film locks (aspect ratio, character, cast, prop, lighting, music, environment, VFX; an older storyboard has them under `## Agent instructions`), and take each character lock from `character-consistency.md`, never from the storyboard; the 3x2 file, or for an older film the reference stills file, if the storyboard has one; and `.agents/rules/cinematic-direction.md`, for the framing and angle terms, the lighting rules, the panel map in section 6, and how an effect looks when it is frozen in a still. Note which storyboard sentences are locked, because each one is copied, not retyped.
+In this order: `.agents/rules/character-consistency.md` and `.agents/rules/prompt-assembly.md` in full; the storyboard in full, including its Agent instruction cards (an older storyboard also has film locks, or has them under `## Agent instructions`), and take each character lock from `character-consistency.md`, never from the storyboard; the 3x2 file, or for an older film the reference stills file, if the storyboard has one; and `.agents/rules/cinematic-direction.md`, for the framing and angle terms, the lighting rules, the panel map in section 6, and how an effect looks when it is frozen in a still. Note which storyboard sentences are locked, because each one is copied, not retyped.
 
 ### 2. Choose the four stills
 

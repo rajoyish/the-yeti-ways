@@ -46,7 +46,7 @@ Rules:
 - Directions are frame directions: frame left, frame right, behind the subject, overhead, low from the front. The images and the clips then read them the same way.
 - The light follows the story. A good default arc: the Exposition is soft and high-key, the Inciting Incident changes the light (a cloud crosses the sun, a shadow falls, the fire gutters), the Rising Action and the Climax go lower-key with harder light, the Falling Action lets the warmth come back, and the Resolution is soft and settled. Change it when the story asks: a comedy can stay bright throughout, a night story can live in moonlight and lanterns, a story that ends at dawn ends in cool morning light.
 - The sentence describes the light at the end of the shot. When the light changes during a shot, the first beat of the `Action:` text describes the change. Section 6 limits where in a video that can happen.
-- Each location's light sources, colour temperatures, and palette are set once, in a `Lighting lock:` paragraph in the storyboard's agent instructions, and every `Lighting:` sentence at that location draws on them.
+- Each location's light sources, colour temperatures, and palette are planned once for the film by the storyboard skill, every `Lighting:` sentence at that location draws on them, and the storyboard's Instruction 2 card summarises them.
 - Never: light from below a Yeti's face (it reads as horror), strobing or rapid flashing (a photosensitivity risk that platforms restrict), a face too dark to read, or a named film, studio, cinematographer, or colour grade ("like a famous film", "in the style of a studio"). The copyright filter reads a named look the same way it reads a named character.
 
 ## 3. Camera movement
@@ -104,7 +104,7 @@ Rules:
 - Never: explosions, fire that harms anyone, blood or injury, weapon effects, glitch effects, on-screen text, titles, or motion graphics, split screens, screen or hologram inserts, freeze frames, morphs (a morph changes a body, which the character rules forbid), strobing or flashing.
 - Weather that runs through a whole location (steady snowfall, a drifting mist) belongs in the `Environment:` sentence, so every shot and image at that location carries it. The VFX cell holds the effects that belong to one shot.
 - Every visible effect that makes a sound gets that sound in the audio cell: the hiss of blowing spindrift, the crackle of embers, the patter of spray.
-- A `VFX lock:` paragraph in the storyboard's agent instructions lists which effects belong to which video, so an effect does not leak into a clip that should not have it.
+- The storyboard skill plans which effects belong to which video, so an effect does not leak into a clip that should not have it.
 
 Transitions:
 
@@ -116,7 +116,7 @@ Transitions:
 
 Every story gets its own sound. The music and the sound effects are designed for that story's world, genre, and emotional arc, the same way its environment and light are, so no two films need to sound alike.
 
-Each film sets its sound once, in a `Music lock:` paragraph in the storyboard's agent instructions:
+Each film's sound is planned once by the storyboard skill and summarised in the storyboard's Instruction 2 card:
 
 - The score palette: the genre and the instruments that fit the story's world and mood (taiko drums and bamboo flute for a mountain training run, plucked strings and hand percussion for a market chase, warm strings and soft piano for a tender reunion, music box and celesta for a bedtime story, a brass-and-percussion march for a comic parade). Pick two to five instruments; more than that turns to mush in a 10-second clip.
 - How the music moves across the videos: which instruments lead in which video, where it builds, where it stops for a beat, and how it resolves. The palette can change with the story (drums drop out as the tension breaks, strings come in for the tender ending), as long as every change happens on a story beat and the music at each handoff is the same on both sides of the cut.
@@ -124,7 +124,7 @@ Each film sets its sound once, in a `Music lock:` paragraph in the storyboard's 
 
 Each audio cell, in this order:
 
-1. The music state and what is playing: starts, continues, builds, pauses, swells, softens, or resolves, with the instruments from the `Music lock:` that carry it in this shot, its tempo, and its feeling. The music is background score that the characters cannot hear, unless the story puts a musician on screen.
+1. The music state and what is playing: starts, continues, builds, pauses, swells, softens, or resolves, with the instruments from the film's music plan that carry it in this shot, its tempo, and its feeling. The music is background score that the characters cannot hear, unless the story puts a musician on screen.
 2. The ambient bed of the location.
 3. A sound for each physical action and each visible effect, described from scratch in plain words (the hollow knock of bamboo on stone, the hiss of spray), never by a stock effect name.
 4. `No dialogue.`
@@ -133,7 +133,7 @@ Characters may gasp, giggle, sigh, cheer, grunt, or hum, but never form words. M
 
 ## 6. The 10-second video and its 3x2 grid
 
-Each 10-second video is one Flow generation with Gemini Omni Flash 1.1, the only Flow model that makes 10-second clips. Its prompt is the video's compact `Flow prompt:` block, written from the storyboard table, and its ingredients are the saved Flow Characters it calls with `@`, a location plate or the saved end frame of the previous clip, the family height chart whenever Babu Yeti shares a shot with a grown-up, and at most one single panel image as a composition guide, as `google-flow.md` sets out. The six panel images exist so every beat has a checked, on-model picture: they guide the clip, show the operator what each moment must look like, and are what the clip is checked against. Continuity between clips lives in the storyboard text and in the saved end frame that opens the next clip, so the direction has to agree with both.
+Each 10-second video is one Flow generation with Gemini Omni Flash 1.1, the only Flow model that makes 10-second clips. Its prompt is the video's compact `Agent prompt:` block, written from the storyboard table, and its ingredients are the saved Flow Characters it calls with `@`, a location plate or the saved end frame of the previous clip and at most one single panel image as a composition guide, as `google-flow.md` sets out. The six panel images exist so every beat has a checked, on-model picture: they guide the clip, show the operator what each moment must look like, and are what the clip is checked against. Continuity between clips lives in the storyboard text and in the saved end frame that opens the next clip, so the direction has to agree with both.
 
 Every video has three shots on a fixed split (`00:00 - 00:03`, `00:03 - 00:07`, `00:07 - 00:10`), and every shot's `Action:` is two beats, one sentence each. That gives six beats per video, and each beat is one panel image, generated first. The video's 3x2 grid is then composed from the six panel images, never generated: one 1920x1080 horizontal image, three panels across and two down, read left to right and top to bottom, and each shot takes two panels in a row:
 
@@ -162,12 +162,12 @@ A film is made one 10-second video at a time, and every file in the pipeline is 
 | Step | Skill | Reads | Writes |
 | --- | --- | --- | --- |
 | 0. Source, optional | `video-to-storyboard` | An existing video | `prompts/<slug>-source-storyboard.md` |
-| 1. Storyboard | `storyboard-30s-extender` for 30 seconds, `storyboard-60s-from-story` for 60 | A short storyboard, a story, or a source storyboard | `prompts/<slug>-<30s or 60s>-storyboard.md`: the film's Flow setup, its three Agent instruction cards, its lock paragraphs, and per video one table (three shots, two beats per shot), an `Ingredients:` line, and a `Flow prompt:` block. The table is the master; the `Flow prompt:` block, written from it, is what Flow receives. The Yetis are called by their saved Characters' `@` names and never described. The file holds no image prompt |
+| 1. Storyboard | `storyboard-30s-extender` for 30 seconds, `storyboard-60s-from-story` for 60 | A short storyboard, a story, or a source storyboard | `prompts/<slug>-<30s or 60s>-storyboard.md`: its three Agent instruction cards, its Agent setup prompt, its lock paragraphs, and per video one table (three shots, two beats per shot) and an `Agent prompt:` block. The table is the master; the `Agent prompt:` block, written from it, is what Flow receives. Every saved Character is called with `@` once per Agent prompt and never described. Everything outside the tables and locks is addressed to the Agent. The file holds no image prompt |
 | 2. Images | `create-3x2-timed-image` | The storyboard | `prompts/<slug>-<30s or 60s>-3x2.md`, every image prompt for the film: per video, six panel image prompts, one per panel. The panel images are generated first, then each video's grid is composed from them by `compose_grid.ps1`. The images go in `3x2-timed-storyboard-images/<slug>/`, as `Panel_<P>_V<N>.jpg` for each panel image and `Grid_V<N>.jpg` for each grid, where `V` is the video number |
-| 3. Clips | The operator, in Google Flow, as `google-flow.md` sets out | The storyboard's Agent instruction cards, `Ingredients:` lines, and `Flow prompt:` blocks, the saved Flow Characters, location plates, the family height chart, and saved end frames | One 10-second Omni Flash clip per video, in a new Flow project for the film, then the scene in Scenebuilder |
+| 3. Clips | The operator, in Google Flow, as `google-flow.md` sets out | The storyboard's Agent instruction cards, Agent setup prompt, and `Agent prompt:` blocks, the saved Flow Characters, location plates, and saved end frames | One 10-second Omni Flash clip per video, in a new Flow project for the film, then the scene in Scenebuilder |
 | 4. Promotion | `reel-carousel` | The storyboard, its 3x2 file, and the reel link | `carousels/<slug>-carousel.md` |
 
-Step 3 follows `google-flow.md`: a new Flow project per film (Omni Flash at 9:16 and 10 seconds, the saved Yeti Characters checked, a Character for any named story cast, one plate per location, and the storyboard's three Agent instruction cards), then one clip per video from its `Flow prompt:` block, with the ingredients on its `Ingredients:` line. Grids and triptychs are planning and review sheets; they are never attached to a clip, because Flow reads a multi-panel image as one picture and blends its panels, layout, and labels into the scene.
+Step 3 follows `google-flow.md`: a new Flow project per film (Omni Flash at 9:16 and 10 seconds, the saved Yeti Characters checked, a Character for any named story cast, one plate per location, and the storyboard's three Agent instruction cards), then one clip per video from its `Agent prompt:` block, which names the images it uses. Grids and triptychs are planning and review sheets; they are never attached to a clip, because Flow reads a multi-panel image as one picture and blends its panels, layout, and labels into the scene.
 
 The storyboard is the single source. The panel images are drawn from its beats, lights, framings, and effects, never from a picture that exists only in the head of whoever writes them, and the grids are composed from the panel images. When a beat changes, change it in the storyboard first, then rewrite and regenerate that video's panel images and compose its grid again. The storyboard holds the video prompts and the 3x2 file holds the image prompts, and neither holds the other's. Run each step as its own skill run, in order. One step's saved file is the next step's input, and a single run that writes the storyboard and the image prompts together runs past a model's output limit.
 

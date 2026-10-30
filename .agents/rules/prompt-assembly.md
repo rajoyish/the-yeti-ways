@@ -22,7 +22,7 @@ The render style of the whole project. It opens every prompt, straight after the
 
 ## 2. The order of the pieces
 
-A video is one 10-second clip. Its table is the master the panel images and checks are built from, and the compact `Flow prompt:` block under it (section 6 of `google-flow.md`) is what Flow receives. Neither carries a character lock or describes a Yeti's look: the saved Characters do. Each row's visual cell holds, in this order:
+A video is one 10-second clip. Its table is the master the panel images and checks are built from, and the compact `Agent prompt:` block under it (section 6 of `google-flow.md`) is what Flow receives. Neither carries a character lock or describes a Yeti's look: the saved Characters do. Each row's visual cell holds, in this order:
 
 1. The aspect ratio line.
 2. The style lock.
@@ -50,7 +50,7 @@ A still prompt (a panel image or a carousel still) is one image, so it carries t
 
 Each character lock is the `text` block under "Copy-Ready Google Flow Character Lock" in `character-consistency.md`, copied whole and character for character. It opens with the character's name (`Papa Yeti: `, `Mama Yeti: `, `Babu Yeti: `), and that name is how every other sentence in the prompt refers to the character. Never shorten, paraphrase, or merge a lock, never write a Yeti's look in any other words, and never add a smile, a pose, or a scene detail to it.
 
-**Video prompts.** A storyboard carries no character lock and no description of a Yeti's look: no `Character locks:` block, and no fur, colour, tuft, face, or build in any cell or Flow prompt. Each Yeti is a saved Flow Character, called `@Papa Yeti`, `@Mama Yeti`, or `@Babu Yeti` in the Flow prompt, and the Character carries the look. A second description in the prompt competes with the Character and makes it drift.
+**Video prompts.** A storyboard carries no character lock and no description of a Yeti's look: no `Character locks:` block, and no fur, colour, tuft, face, or build in any cell or Agent prompt. Each Yeti is a saved Flow Character, called `@Papa Yeti`, `@Mama Yeti`, or `@Babu Yeti` once, in the Agent prompt's `Cast:` line, and by plain name after that, and the Character carries the look. A second description in the prompt competes with the Character and makes it drift.
 
 Each row says which Yetis are in its shot, and where, in a `Characters:` sentence, left to right:
 
@@ -122,13 +122,15 @@ Humans in the story cast:
 
 Each story cast gets one locked sentence per kind (`Humans:`, `Animals:`, or `Creatures:`), written once for the film and copied word for word into every prompt. It gives each member a short handle that the `Action:` text uses every time ("the old mountain teacher", "the red fox"), describes each one's look from head to toe, and says "exactly" with the number of any group. A character who leaves the story partway is still in the sentence, and the `Action:` says when they are not in the shot (section 8, rule 3).
 
+A story cast member saved as a Flow Character (built with `flow-character-builder`, its file in `prompts/characters/`) is not described in a storyboard: its sentence only names and places it, by its Character name, in the form `Animals: Nuri Bear on the left and Pip Penguin on the right, exactly as their saved Characters.`, plus any height it needs beside a Yeti, and the `Action:` text uses that name. The full cast sentence from its file is used only in still image prompts, where no saved Character is attached.
+
 ## 7. The family reference image and the look check
 
 The family reference image shows the three Yetis together. It and the character locks describe the same three characters, and a model follows a picture more closely than words, so use both.
 
 - Attach the family reference image to every panel image and carousel still generation as a character reference, whenever the image tool accepts one. Better still, attach the canonical portrait of each Yeti in the image (`references/characters/papa-yeti.png`, `mama-yeti.png`, `babu-yeti.png`, listed in `character-consistency.md`): they are the definitive look, and the locks describe them exactly. Never attach a portrait for a Yeti who is not in the image. When Babu Yeti shares the picture with a grown-up, also attach the family height chart (`references/characters/family-height-chart.png`), because each portrait shows its Yeti filling the frame and says nothing about size. The portraits are set in an ice cave, so the prompt's `Environment:` sentence, not the portrait, sets the background.
 - The reference image sets how the Yetis look, never what they do. Pose, expression, framing, and light come from the prompt. An image that copies the reference's grins onto a beat that has none, or picks up a lantern or light source its `Environment:` sentence does not name, gets regenerated.
-- Clips are generated from the Flow prompt with the saved Characters and a few clean images attached as ingredients (`google-flow.md`, section 4). A generated panel image is never a clip's start or end frame; only a frame saved from the previous approved clip opens the next one. A clip is only as consistent as the images it is given.
+- Clips are generated from the Agent prompt with the saved Characters and a few clean images attached as ingredients (`google-flow.md`, section 4). A generated panel image is never a clip's start or end frame; only a frame saved from the previous approved clip opens the next one. A clip is only as consistent as the images it is given.
 
 Run the look check on every panel image and carousel still before it is used, and on every clip before it goes into the edit. It is the Final Consistency Checklist in `character-consistency.md`, plus:
 
@@ -141,7 +143,7 @@ An image or a clip that fails is regenerated, never used, and never attached to 
 ## 8. Prompt construction rules
 
 1. Copy every locked piece (the aspect ratio line, the style lock, each character lock in a still, the `Environment:` and `Lighting:` sentences, the supporting cast sentences, the avoid line) word for word. Never shorten or drop one to save space.
-2. Refer to each Yeti by name ("Papa Yeti", "Mama Yeti", "Babu Yeti") in the `Characters:`, `Expressions:`, and `Action:` text, the same way in every shot, never by colour or a nickname, and as `@Papa Yeti`, `@Mama Yeti`, `@Babu Yeti` in a Flow prompt. In a still, the lock that opens with that name gives it a picture; in a clip, the saved Character does. Name each Yeti in every beat it is in, and say where it is.
+2. Refer to each Yeti by name ("Papa Yeti", "Mama Yeti", "Babu Yeti") in the `Characters:`, `Expressions:`, and `Action:` text, the same way in every shot, never by colour or a nickname, and as `@Papa Yeti`, `@Mama Yeti`, `@Babu Yeti` once, in an Agent prompt's `Cast:` line, with the plain name after that. In a still, the lock that opens with that name gives it a picture; in a clip, the saved Character does. Name each Yeti in every beat it is in, and say where it is.
 3. State absence. An `Action:` names every Yeti and supporting character from the story who is not in the shot or the picture, as `<Name> is not in the shot.` or `<Name> is not in the picture.`, because a model draws every character a prompt describes unless told not to. Give the number of any group of animals or people.
 4. Write `Action:` sentences that agree with the locks: hands and feet, never paws, and wherever a Yeti's hand does something visible (waves, claps, grips, points, holds, presses), it is a "five-fingered hand", because image and video models default to three or four cartoon fingers unless the number is in the sentence that shows the hand; fur, not skin; nothing worn; Babu Yeti about half as tall as a grown-up Yeti beside him, with the top of his curl only at the grown-up's belly. An `Action:` that has a Yeti pull on a scarf or grip with its claws undoes the lock. Never write an action that changes a Yeti's design (a body that stretches, squashes, grows, or shrinks), and keep the three apart even in a hug or a huddle: each Yeti's own face, tuft, and hands stay visible and separate, never merged into one shape.
 5. Never put a hand, prop, or other object on or above a Yeti's head unless the story needs it. Hands folded up beside the head (a sleep mime), raised overhead, or resting on the head are what the model most often turns into horns. Keep mimes at chest height, and when the story needs a head touch (a tuft ruffle), say the hand lifts away in the same sentence. An image or clip with horns, antlers, spikes, or anything on a Yeti's head besides its tuft is regenerated.
