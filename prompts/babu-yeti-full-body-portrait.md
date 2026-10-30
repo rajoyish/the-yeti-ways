@@ -1,5 +1,8 @@
 # Babu Yeti Full-Body Portrait Prompt
 
+> **Superseded.** The canonical Babu Yeti portrait is `references/characters/babu-yeti.png`, and `.agents/rules/character-consistency.md` describes it exactly. Use that image as the character reference everywhere. This prompt is kept for the record only; do not use it to regenerate the character.
+
+
 ## Prompt Overview
 A clean, high-end 3D animated studio full-body portrait of Babu Yeti standing against a seamless pure white background with soft studio floor shadows. Optimized for AI safety and copyright compliance (avoiding third-party IP triggers).
 

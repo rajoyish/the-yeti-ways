@@ -53,11 +53,11 @@ Copy the locked sentences from the rule files themselves every time, not from th
 
 Every rule in both rule files applies. These are the ones a carousel gets wrong most often:
 
-- Papa Yeti, Mama Yeti, and Babu Yeti are the heroes (section 6 of `prompt-assembly.md`). If the storyboard's source has another character noticing, acting, helping, or rescuing, the beat moves to a Yeti. Never drop, rename, or recolour a Yeti to fit a still.
+- Papa Yeti, Mama Yeti, and Babu Yeti are the main characters (section 6 of `prompt-assembly.md`). Every still shows at least one of them, and the story cast appears in the role the storyboard gives it, mentor, guide, rival, or friend. Never drop, rename, or recolour a Yeti to fit a still, and run the originality pass in section 10 of `prompt-assembly.md` on every still prompt and on the caption.
 - The face matches the beat (section 4 of `prompt-assembly.md`). Pick the row for what each Yeti feels at the still's instant, put it in the `Expressions:` sentence, and state the same feeling in the `Action:`. No smile of any kind on a beat of danger, worry, effort, sadness, or loss, and the "no smile" words stay in the text. A smile fixed into an older storyboard's character text is not a chosen face: pick the row the beat calls for.
-- The `Action:` agrees with the character locks and section 8 of `prompt-assembly.md`. Each Yeti is named by name ("Papa Yeti", "Mama Yeti", "Babu Yeti"), never by colour. Paws, not hands. Nothing worn. Babu Yeti about half a grown-up's height.
+- The `Action:` agrees with the character locks and section 8 of `prompt-assembly.md`. Each Yeti is named by name ("Papa Yeti", "Mama Yeti", "Babu Yeti"), never by colour. Five-fingered hands and five-toed feet, never paws. Nothing worn. Babu Yeti about half a grown-up's height, with the top of his curl only at a grown-up's belly.
 - Each still is a fresh generation, so it carries the full lock of every Yeti in it. Never shorten a lock for a close-up or a wide, and never give a Yeti who is not in the still a lock.
-- Nothing on or above a Yeti's head (rule 5 in section 8 of `prompt-assembly.md`). Keep mimes and held objects at chest height, and a head touch says the paw lifts away in the same sentence.
+- Nothing on or above a Yeti's head (rule 5 in section 8 of `prompt-assembly.md`). Keep mimes and held objects at chest height, and a head touch says the hand lifts away in the same sentence.
 - No Yeti casts energy or changes its own body (rule 7). Write magic as a change in light or weather near the character.
 - Absence is stated. Image models draw every character a prompt describes, so each `Action:` names the Yetis, humans, and animals from the storyboard that are not in the still. A supporting cast sentence goes into all four stills, including the ones where that character is off screen, the same way the storyboard carries it.
 - No sentence sizes a place or a prop by a Yeti (rule 6). If an older storyboard's `Environment:` sentence does ("a pillar as tall as a grown Yeti"), reword only that phrase in the carousel prompts, size it by the world instead, and say so in the file's intro.
@@ -69,7 +69,7 @@ Every rule in both rule files applies. These are the ones a carousel gets wrong 
 
 ### 1. Read the references
 
-In this order: `.agents/rules/character-consistency.md` and `.agents/rules/prompt-assembly.md` in full; the storyboard in full, including its lock paragraphs above the tables (aspect ratio, character, human, animal, prop, environment, lighting, VFX) and each video's `Character locks:` block; the 3x2 file, or for an older film the reference stills file, if the storyboard has one; and `.agents/rules/cinematic-direction.md`, for the framing and angle terms, the lighting rules, the panel map in section 6, and how an effect looks when it is frozen in a still. Note which storyboard sentences are locked, because each one is copied, not retyped.
+In this order: `.agents/rules/character-consistency.md` and `.agents/rules/prompt-assembly.md` in full; the storyboard in full, including its film locks (aspect ratio, character, cast, prop, lighting, music, environment, VFX; an older storyboard has them under `## Agent instructions`), and take each character lock from `character-consistency.md`, never from the storyboard; the 3x2 file, or for an older film the reference stills file, if the storyboard has one; and `.agents/rules/cinematic-direction.md`, for the framing and angle terms, the lighting rules, the panel map in section 6, and how an effect looks when it is frozen in a still. Note which storyboard sentences are locked, because each one is copied, not retyped.
 
 ### 2. Choose the four stills
 
@@ -103,7 +103,7 @@ Each prompt is one fenced code block holding one paragraph, copy-paste ready, wi
 
 When a still comes from a panel image, or from a reference still in an older film, start from that prompt. Keep its text from the style lock through the avoid line, its `Action:` (with the opener changed to `square still` and the composition fitted to the square), and its `Effects:`. When it comes from a grid panel with no panel image, take the style lock, `Environment:`, `Lighting:`, supporting cast, and avoid line from the panel's storyboard shot, place the locks of the Yetis the panel shows, give each the face the panel's `Faces:` list (or its beat) gives it, and write the `Action:` from the panel's picture and the `Effects:` from its row. If the source prompt is older than the current rule files, so it carries the older character text, an `[EXPRESSION]` slot, or head, look, or scale lock sentences, revise it as section 9 of `prompt-assembly.md` sets out: the placed full locks in place of the character text, its `[EXPRESSION]` values moved into the `Expressions:` sentence, and the Yetis in the `Action:` named by name. A frames file in the old five-frame format, written for start and end frames, works as a source the same way a panel image does. A still written twice from scratch drifts.
 
-A square loses the top and bottom of a vertical frame and the sides of a widescreen one. Say where each character sits in the square so that no head, tuft, or paw is cut off, and bring a background element into view in the `Action:` if the story needs it.
+A square loses the top and bottom of a vertical frame and the sides of a widescreen one. Say where each character sits in the square so that no head, tuft, or hand is cut off, and bring a background element into view in the `Action:` if the story needs it.
 
 ### 4. Write the Facebook post
 
@@ -141,10 +141,10 @@ Then check what the script cannot. Fix what fails and re-check. Report a partial
 Each still prompt:
 
 - [ ] `Environment:` drawn from the storyboard, not white or empty, and it sizes nothing by a Yeti.
-- [ ] `Lighting:` copied from the shot (or, for an older storyboard, written from the environment's own light sources), with a soft warm light on the fur and no light from below a face.
+- [ ] `Lighting:` copied from the shot (or, for an older storyboard, written from the environment's own light sources), with a soft rim or fill on the fur so each Yeti's colour reads true and no light from below a face.
 - [ ] Each face in the `Expressions:` sentence fits the beat at this instant and agrees with the `Action:`. No smile on a beat of danger, worry, effort, sadness, or loss.
 - [ ] `Action:` opens with the framing, the angle, and "square still", describes one held instant, places each character in the square on the side its lock is placed, names each Yeti by name, agrees with the character locks, and names who is not in the still. Nothing on or above any head.
-- [ ] A Yeti holds the hero beat.
+- [ ] Every still shows at least one Yeti, and the carousel tells the story with the Yetis at its centre.
 - [ ] Any `Effects:` sentence holds only the shot's own effects, frozen, and nothing a Yeti gives off.
 - [ ] No audio text, no dialogue, no on-image text or watermark.
 
@@ -181,7 +181,7 @@ To generate the stills in Google Flow:
 1. Set the image output to square 1:1.
 2. Attach the family reference image to every generation. For a still whose heading names a panel image, attach that panel's generated image as well.
 3. Paste one prompt at a time, whole, and do not edit its locked sentences or its character locks.
-4. Run the look check in section 7 of `.agents/rules/prompt-assembly.md` on each still, which starts from the Final Consistency Checklist in `.agents/rules/character-consistency.md`: each Yeti the same individual as in the reel, in its own colour with its own tuft, Babu Yeti about half a grown-up's height, nothing worn and nothing on any head, exactly the Yetis the prompt names, and the face the prompt names. Regenerate a still that fails. Then look at the four side by side, the way a viewer will, and regenerate any still where a Yeti looks different from the other three, or where two Yetis share a trait (a colour, a tuft, a face, a build) that belongs to only one of them.
+4. Run the look check in section 7 of `.agents/rules/prompt-assembly.md` on each still, which starts from the Final Consistency Checklist in `.agents/rules/character-consistency.md`: each Yeti the same individual as in the reel, in its own colour with its own tuft, Babu Yeti about half a grown-up's height, with the top of his curl only at a grown-up's belly, nothing worn and nothing on any head, exactly the Yetis the prompt names, and the face the prompt names. Regenerate a still that fails. Then look at the four side by side, the way a viewer will, and regenerate any still where a Yeti looks different from the other three, or where two Yetis share a trait (a colour, a tuft, a face, a build) that belongs to only one of them.
 5. If Flow refuses a still, change only its `Action:` and `Effects:` text and keep every locked sentence.
 6. Export each still at 1080x1080 and post the four in order as a Facebook carousel.
 

@@ -169,21 +169,11 @@ function main(target, withImages) {
   const shots = {};
   for (const [num, , body] of boardVideos) {
     const tableAt = body.search(/^\| Timestamp /m);
-    const lockBlock = /^Character locks:\n\n```\n([\s\S]*?)\n```/m.exec(tableAt >= 0 ? body.slice(0, tableAt) : body);
-    let inBlock = [];
-    if (!lockBlock) problems.push(`Video ${num} has no 'Character locks:' block above its table`);
-    else {
-      const paras = lockBlock[1].split(/\n\s*\n/).map((p) => p.replace(/\s*\n\s*/g, " ").trim()).filter(Boolean);
-      for (const p of paras) {
-        const hit = locks.find((l) => l.lock === p);
-        if (hit) inBlock.push(hit.name);
-        else if (!names.some((n) => p.startsWith(`${n}:`))) {
-          // Supporting character / side character lock
-        }
-        else problems.push(`Video ${num} Character locks: paragraph '${p.slice(0, 40)}...' is not a lock from character-consistency.md, word for word`);
-      }
-      if (!same(inBlock, names.filter((n) => inBlock.includes(n)))) problems.push(`Video ${num} Character locks: are not in the order ${names.join(", ")}`);
-    }
+    // Storyboards call the saved Flow Characters by @ name; locks live only in character-consistency.md and the image prompts.
+    if (/^Character locks:/m.test(tableAt >= 0 ? body.slice(0, tableAt) : body))
+      problems.push(`Video ${num} still has a 'Character locks:' block; storyboards no longer carry locks (revise it with the storyboard skill first)`);
+    if (/@(Papa|Mama|Babu) Yeti \(the /.test(body))
+      problems.push(`Video ${num} Flow prompt still uses Flow tags with descriptions; call each Yeti by its bare @ name`);
 
     const cells = body.split("\n").filter((l) => l.startsWith("| **00:")).map((l) => l.split("|").map((c) => c.trim()));
     const stamps = cells.map((c) => (c.length > 1 ? c[1].replace(/^\*+|\*+$/g, "") : ""));
@@ -191,7 +181,6 @@ function main(target, withImages) {
       problems.push(`Video ${num} table rows are ${JSON.stringify(stamps)}, expected ${JSON.stringify(SHOTS)} with five cells each`);
       continue;
     }
-    const seen = new Set();
     shots[num] = cells.map((c, i) => {
       const s = i + 1, visual = c[3], where = `Video ${num} Shot ${s}`;
       if (!visual.includes(style)) problems.push(`${where} has no style lock, word for word`);
@@ -220,10 +209,6 @@ function main(target, withImages) {
           faces = Object.fromEntries(ex.pairs.filter((p) => p[0]));
           castEnd = ex.end;
         }
-        for (const n of cast) {
-          seen.add(n);
-          if (lockBlock && !inBlock.includes(n)) problems.push(`${where} has ${n}, but the video's Character locks: block has no lock for ${n}`);
-        }
       } else if (visual.includes(NO_YETI_SHOT)) {
         if (/Expressions: /.test(visual)) problems.push(`${where} has no Yeti but has an Expressions: sentence`);
         castEnd = visual.indexOf(NO_YETI_SHOT) + NO_YETI_SHOT.length;
@@ -236,7 +221,6 @@ function main(target, withImages) {
       return { type: c[2], cast, faces, env: env && env[1], lighting: light && light[1], extras,
         sceneBreak: /^Scene break:/m.test(body) };
     });
-    for (const n of inBlock) if (!seen.has(n)) problems.push(`Video ${num} Character locks: has ${n}, who is in none of its shots`);
   }
   if (aspect === null) problems.push("no visual cell opens with an aspect ratio line before the style lock");
   failed ||= problems.length > 0;

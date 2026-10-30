@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 /**
  * generate_triptych.mjs
- * 
- * Reads a storyboard markdown file containing individual panel prompts (e.g. prompts/*-3x2.md)
- * and combines them into formatted 3-panel (1x3 triptych) grid prompts.
- * 
+ *
+ * Reads a panel image file (prompts/<slug>-<30s or 60s>-3x2.md) and combines each video's six
+ * panel image prompts into two 3-panel (1x3 triptych) grid prompts: Grid 1 holds panels 1-3 and
+ * Grid 2 holds panels 4-6. Every panel prompt is copied verbatim, and the output is checked
+ * against the source before it is written.
+ *
  * Usage:
  *   node .agents/skills/generate-triptych-prompts/generate_triptych.mjs [file] [options]
- * 
+ *
  * Options:
- *   --save             Save output to prompts/<slug>-triptych.md
+ *   --save             Save output to prompts/<slug>-<30s or 60s>-triptych.md
  *   --out <path>       Specify custom output file path
  *   --video <number>   Generate prompts only for a specific video number
  *   --grid <1|2>       Generate prompts only for a specific grid (1 or 2)
@@ -24,6 +26,12 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, "..", "..", "..");
 const PROMPTS_DIR = path.join(REPO, "prompts");
 
+const GRIDS = [
+  { number: 1, panels: [1, 2, 3] },
+  { number: 2, panels: [4, 5, 6] },
+];
+const POSITIONS = ["Left", "Center", "Right"];
+
 function findLatestStoryboardFile() {
   if (!fs.existsSync(PROMPTS_DIR)) {
     throw new Error(`Prompts directory not found at: ${PROMPTS_DIR}`);
@@ -32,8 +40,7 @@ function findLatestStoryboardFile() {
     .filter(f => f.endsWith("-3x2.md"))
     .map(f => {
       const fullPath = path.join(PROMPTS_DIR, f);
-      const stat = fs.statSync(fullPath);
-      return { path: fullPath, file: f, mtime: stat.mtimeMs };
+      return { path: fullPath, mtime: fs.statSync(fullPath).mtimeMs };
     })
     .sort((a, b) => b.mtime - a.mtime);
 
@@ -43,135 +50,115 @@ function findLatestStoryboardFile() {
   return files[0].path;
 }
 
+// The grid canvas is always horizontal 16:9. Three vertical 9:16 panels side by side fill it,
+// so the header says so; three horizontal panels sit in a letterboxed row.
+function gridHeader(panelTexts) {
+  const vertical = panelTexts.every(t => /Vertical 9:16/.test(t));
+  const layout = vertical
+    ? "three tall vertical 9:16 panels standing side by side and filling the frame from edge to edge"
+    : "three horizontal 16:9 panels side by side in one row, centred on a black background";
+  return `Create image: Horizontal 16:9 aspect ratio. A 3-panel storyboard grid (1x3 triptych layout) of ${layout}, separated by thick black borders, read left to right as one continuous sequence of 3D animated cinematic scenes. Each panel follows its own description below, keeps the same characters, environment, and light from panel to panel, and holds no text, numbers, captions, or watermark:`;
+}
+
 export function extractPanelsAndGenerateTriptychs(filePath, options = {}) {
   const content = fs.readFileSync(filePath, "utf8").replace(/\r\n/g, "\n");
 
-  // Locate videos: '## Video N - <Title>' or '## Video N'
-  const videoRegex = /^## Video\s+(\d+)(?:[^\n]*)/gm;
-  const videoMatches = [...content.matchAll(videoRegex)];
-
+  // Video headings carry their titles: '## Video N - <Title>'
+  const videoMatches = [...content.matchAll(/^## (Video\s+(\d+)[^\n]*)$/gm)];
   if (videoMatches.length === 0) {
-    throw new Error(`No "## Video <N>" sections found in ${filePath}`);
+    throw new Error(`No "## Video <N> - <Title>" sections found in ${filePath}`);
   }
 
   const results = [];
+  const problems = [];
 
   for (let i = 0; i < videoMatches.length; i++) {
     const vMatch = videoMatches[i];
-    const vNum = parseInt(vMatch[1], 10);
-    const vHeading = vMatch[0].replace(/^##\s*/, "").trim();
+    const vNum = parseInt(vMatch[2], 10);
+    const vHeading = vMatch[1].trim();
+    if (options.video && options.video !== vNum) continue;
 
-    if (options.video && options.video !== vNum) {
-      continue;
-    }
+    const end = i + 1 < videoMatches.length ? videoMatches[i + 1].index : content.length;
+    const videoContent = content.slice(vMatch.index, end);
 
-    const startIndex = vMatch.index;
-    const endIndex = i + 1 < videoMatches.length ? videoMatches[i + 1].index : content.length;
-    const videoContent = content.slice(startIndex, endIndex);
-
-    // Locate panels inside this video: '### Panel (\d+)'
-    const panelRegex = /^### Panel\s+(\d+)[^\n]*/gm;
-    const panelMatches = [...videoContent.matchAll(panelRegex)];
-
+    // '### Panel P · <timecode> · <Framing>, <Angle> · <TITLE>'
+    const panelMatches = [...videoContent.matchAll(/^### Panel\s+(\d+)([^\n]*)$/gm)];
     const panels = {};
 
     for (let p = 0; p < panelMatches.length; p++) {
       const pMatch = panelMatches[p];
       const pNum = parseInt(pMatch[1], 10);
-      const pStart = pMatch.index;
       const pEnd = p + 1 < panelMatches.length ? panelMatches[p + 1].index : videoContent.length;
-      const pSection = videoContent.slice(pStart, pEnd);
+      const pSection = videoContent.slice(pMatch.index, pEnd);
 
       const ciIndex = pSection.indexOf("Create image:");
       if (ciIndex === -1) {
-        console.warn(`[Warning] Video ${vNum} Panel ${pNum} does not contain "Create image:" text.`);
+        problems.push(`${vHeading}, Panel ${pNum}: no "Create image:" prompt`);
         continue;
       }
+      let text = pSection.slice(ciIndex);
+      const fenceIndex = text.indexOf("```");
+      if (fenceIndex !== -1) text = text.slice(0, fenceIndex);
 
-      let promptText = pSection.slice(ciIndex);
-
-      // Handle closing code fence if present
-      const fenceIndex = promptText.indexOf("```");
-      if (fenceIndex !== -1) {
-        promptText = promptText.slice(0, fenceIndex);
-      }
-
-      // Trim leading/trailing blank lines/spaces
-      promptText = promptText.trim();
-      panels[pNum] = promptText;
+      const meta = pMatch[2].split("·").map(s => s.trim()).filter(Boolean);
+      if (panels[pNum]) problems.push(`${vHeading}: Panel ${pNum} appears twice`);
+      panels[pNum] = {
+        text: text.trim(),
+        timecode: meta[0] || "",
+        title: meta.length > 1 ? meta[meta.length - 1] : "",
+      };
     }
 
-    // Grid 1: Panels 1, 2, 3
-    if (!options.grid || options.grid === 1) {
-      const p1 = panels[1] || "";
-      const p2 = panels[2] || "";
-      const p3 = panels[3] || "";
-
-      if (p1 && p2 && p3) {
-        const grid1Prompt = [
-          "Create image: Horizontal 16:9 aspect ratio. A 3-panel storyboard grid (1x3 triptych layout) separated by thick black borders, depicting sequential 3D animated cinematic action scenes:",
-          "",
-          `Panel 1 (Left): ${p1}`,
-          "",
-          `Panel 2 (Center): ${p2}`,
-          "",
-          `Panel 3 (Right): ${p3}`,
-        ].join("\n");
-
-        results.push({
-          videoNumber: vNum,
-          videoHeading: vHeading,
-          gridNumber: 1,
-          panels: [1, 2, 3],
-          prompt: grid1Prompt
-        });
-      } else {
-        console.warn(`[Warning] Video ${vNum} Grid 1 is missing one or more panels (found: 1=${!!p1}, 2=${!!p2}, 3=${!!p3})`);
-      }
+    const found = Object.keys(panels).map(Number).sort((a, b) => a - b);
+    if (found.join(",") !== "1,2,3,4,5,6") {
+      problems.push(`${vHeading}: expected Panels 1-6, found ${found.join(", ") || "none"}`);
+      continue;
     }
 
-    // Grid 2: Panels 4, 5, 6
-    if (!options.grid || options.grid === 2) {
-      const p4 = panels[4] || "";
-      const p5 = panels[5] || "";
-      const p6 = panels[6] || "";
+    for (const grid of GRIDS) {
+      if (options.grid && options.grid !== grid.number) continue;
+      const parts = grid.panels.map(n => panels[n]);
+      const prompt = [
+        gridHeader(parts.map(p => p.text)),
+        ...parts.flatMap((p, k) => ["", `Panel ${k + 1} (${POSITIONS[k]}): ${p.text}`]),
+      ].join("\n");
 
-      if (p4 && p5 && p6) {
-        const grid2Prompt = [
-          "Create image: Horizontal 16:9 aspect ratio. A 3-panel storyboard grid (1x3 triptych layout) separated by thick black borders, depicting sequential 3D animated cinematic action scenes:",
-          "",
-          `Panel 1 (Left): ${p4}`,
-          "",
-          `Panel 2 (Center): ${p5}`,
-          "",
-          `Panel 3 (Right): ${p6}`,
-        ].join("\n");
-
-        results.push({
-          videoNumber: vNum,
-          videoHeading: vHeading,
-          gridNumber: 2,
-          panels: [4, 5, 6],
-          prompt: grid2Prompt
-        });
-      } else {
-        console.warn(`[Warning] Video ${vNum} Grid 2 is missing one or more panels (found: 4=${!!p4}, 5=${!!p5}, 6=${!!p6})`);
-      }
+      const first = parts[0].timecode.split("–")[0];
+      const last = parts[2].timecode.split("–").pop();
+      results.push({
+        videoNumber: vNum,
+        videoHeading: vHeading,
+        gridNumber: grid.number,
+        panels: grid.panels,
+        timecode: first && last ? `${first}–${last}` : "",
+        titles: parts.map(p => p.title).filter(Boolean),
+        sources: parts.map(p => p.text),
+        prompt,
+      });
     }
   }
 
+  if (problems.length) {
+    throw new Error(`The panel file has problems, so no triptychs were written:\n  - ${problems.join("\n  - ")}`);
+  }
   return results;
 }
 
-export function formatMarkdownDocument(filePath, results) {
-  const baseName = path.basename(filePath);
-  const title = baseName.replace(/-3x2\.md$/, "").replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+function docTitle(filePath) {
+  const content = fs.readFileSync(filePath, "utf8");
+  const h1 = content.match(/^# (.+?)(?: Panel Images and 3x2 Grids)?\s*$/m);
+  if (h1) return h1[1].trim();
+  return path.basename(filePath).replace(/-3x2\.md$/, "").replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+}
 
+export function formatMarkdownDocument(filePath, results) {
+  const source = path.relative(REPO, path.resolve(filePath));
   const doc = [
-    `# ${title} - Triptych Grid Prompts (1x3)`,
+    `# ${docTitle(filePath)} Triptych Grid Prompts (1x3)`,
     "",
-    `Generated from \`${filePath}\`.`,
-    "Each 10-second video is split into two 3-panel (1x3 triptych) grids in horizontal 16:9 layout.",
+    `Generated from \`${source}\` by \`.agents/skills/generate-triptych-prompts/generate_triptych.mjs\`. Do not edit this file by hand: change the panel prompts in the 3x2 file and run the script again.`,
+    "",
+    "Each 10-second video is split into two horizontal 16:9 triptych grids: Grid 1 holds panels 1 to 3 and Grid 2 holds panels 4 to 6. Every panel description is copied verbatim from the 3x2 file, character locks included. Generate each grid with the family reference image attached, and check every panel against its panel prompt and the look check in section 7 of `.agents/rules/prompt-assembly.md`, because an image model drawing three panels at once can drift between them.",
     "",
   ];
 
@@ -179,20 +166,19 @@ export function formatMarkdownDocument(filePath, results) {
   for (const item of results) {
     if (currentVideo !== item.videoNumber) {
       currentVideo = item.videoNumber;
-      doc.push(`## Video ${item.videoNumber}`);
-      doc.push("");
+      doc.push("---", "", `## ${item.videoHeading}`, "");
     }
-
-    doc.push(`### Video ${item.videoNumber} - Grid ${item.gridNumber}`);
-    doc.push(`*Panels ${item.panels.join(", ")}*`);
-    doc.push("");
-    doc.push("```text");
-    doc.push(item.prompt);
-    doc.push("```");
-    doc.push("");
+    doc.push(`### Grid ${item.gridNumber} · Panels ${item.panels.join(", ")}${item.timecode ? ` · ${item.timecode}` : ""}`, "");
+    if (item.titles.length) doc.push(`Panels: ${item.titles.join(" / ")}.`, "");
+    doc.push("```text", item.prompt, "```", "");
   }
-
   return doc.join("\n");
+}
+
+// Every source panel must appear in the output exactly as it is in the 3x2 file.
+function verify(mdOutput, results) {
+  const missing = results.flatMap(r => r.sources.filter(s => !mdOutput.includes(s)).map(() => `${r.videoHeading} Grid ${r.gridNumber}`));
+  if (missing.length) throw new Error(`Panel text was altered in: ${[...new Set(missing)].join(", ")}`);
 }
 
 // CLI Execution
@@ -211,11 +197,11 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 Usage: node .agents/skills/generate-triptych-prompts/generate_triptych.mjs [file] [options]
 
 Arguments:
-  [file]            Path to storyboard file (e.g. prompts/yeti-forest-wind-strike-30s-3x2.md)
+  [file]            Path to the panel image file (e.g. prompts/yeti-forest-wind-strike-30s-3x2.md)
                     If omitted, the latest *-3x2.md file in prompts/ is used.
 
 Options:
-  --save            Save output markdown to prompts/<slug>-triptych.md
+  --save            Save output to prompts/<slug>-<30s or 60s>-triptych.md
   --out <path>      Specify custom output file path
   --video <N>       Generate for Video N only
   --grid <1|2>      Generate for Grid 1 or 2 only
@@ -241,33 +227,27 @@ Options:
       targetFile = findLatestStoryboardFile();
       console.log(`Using latest file: ${targetFile}\n`);
     }
-
     if (!fs.existsSync(targetFile)) {
-      // Try resolving relative to REPO or CWD
-      const resolved = path.resolve(process.cwd(), targetFile);
-      if (fs.existsSync(resolved)) {
-        targetFile = resolved;
-      } else {
-        throw new Error(`File not found: ${targetFile}`);
-      }
+      const resolved = path.resolve(REPO, targetFile);
+      if (!fs.existsSync(resolved)) throw new Error(`File not found: ${targetFile}`);
+      targetFile = resolved;
     }
+    if (gridNum && gridNum !== 1 && gridNum !== 2) throw new Error("--grid must be 1 or 2");
 
-    const results = extractPanelsAndGenerateTriptychs(targetFile, {
-      video: videoNum,
-      grid: gridNum,
-    });
-
+    const results = extractPanelsAndGenerateTriptychs(targetFile, { video: videoNum, grid: gridNum });
     if (results.length === 0) {
       console.log("No triptych prompts generated.");
       process.exit(0);
     }
 
     const mdOutput = formatMarkdownDocument(targetFile, results);
+    verify(mdOutput, results);
 
     if (save || outFile) {
       const destination = outFile || targetFile.replace(/-3x2\.md$/, "-triptych.md");
       fs.writeFileSync(destination, mdOutput, "utf8");
       console.log(`Successfully generated ${results.length} triptych grid prompts and saved to:\n  ${destination}`);
+      for (const r of results) console.log(`  ${r.videoHeading} · Grid ${r.gridNumber} · Panels ${r.panels.join(", ")}`);
     } else {
       console.log(mdOutput);
     }
