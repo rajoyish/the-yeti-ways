@@ -25,10 +25,10 @@ const SKILL = path.join(HERE, "SKILL.md");
 
 const LADDER = ["Extreme Wide Shot", "Wide Shot", "Full Shot", "Medium Wide Shot",
   "Medium Shot", "Medium Close-Up", "Close-Up", "Extreme Close-Up"];
-const SHOTS = ["00:00 - 00:03", "00:03 - 00:07", "00:07 - 00:10"];
+// Beat boundaries: a shot is one beat or two beats in a row, so a video has three to six shots.
+const BOUNDS = ["00:00", "00:01.5", "00:03", "00:05", "00:07", "00:08.5", "00:10"];
 const PANELS = ["00:00.0–00:01.5", "00:01.5–00:03.0", "00:03.0–00:05.0",
   "00:05.0–00:07.0", "00:07.0–00:08.5", "00:08.5–00:10.0"];
-const BEATS = 2;
 const GRID_W = 1920, GRID_H = 1080;
 const BABY = "Babu Yeti";
 const NO_YETI_SHOT = "No Yeti is in this shot.";
@@ -45,7 +45,8 @@ const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const count = (hay, needle) => hay.split(needle).length - 1;
 const sorted = (a) => a.every((x, i) => i === 0 || x >= a[i - 1]);
 const sentences = (t) => t.trim().split(/(?<=[.!?])\s+(?=[A-Z])/).filter(Boolean);
-const shotOf = (panel) => Math.floor((panel - 1) / BEATS) + 1;
+// For each panel 1-6: { shot: index into the video's shots, first, last } (filled per video).
+const IN_FRAME = /In frame: [^.]*\./;
 const same = (a, b) => a.length === b.length && a.every((x, i) => x === b[i]);
 
 function section(text, heading) {
@@ -177,8 +178,17 @@ function main(target, withImages) {
 
     const cells = body.split("\n").filter((l) => l.startsWith("| **00:")).map((l) => l.split("|").map((c) => c.trim()));
     const stamps = cells.map((c) => (c.length > 1 ? c[1].replace(/^\*+|\*+$/g, "") : ""));
-    if (stamps.join() !== SHOTS.join() || cells.some((c) => c.length !== 7)) {
-      problems.push(`Video ${num} table rows are ${JSON.stringify(stamps)}, expected ${JSON.stringify(SHOTS)} with five cells each`);
+    // Rows must tile 00:00-00:10 on the beat boundaries, each one or two beats long.
+    const spans = [];
+    let at = 0, rowsOk = cells.length >= 3 && cells.length <= 6 && cells.every((c) => c.length === 7);
+    for (const st of stamps) {
+      const m = /^(\S+) - (\S+)$/.exec(st);
+      const a = m ? BOUNDS.indexOf(m[1]) : -1, b = m ? BOUNDS.indexOf(m[2]) : -1;
+      if (a !== at || b - a < 1 || b - a > 2) { rowsOk = false; break; }
+      spans.push(b - a); at = b;
+    }
+    if (!rowsOk || at !== BOUNDS.length - 1) {
+      problems.push(`Video ${num} table rows are ${JSON.stringify(stamps)}; expected three to six rows with five cells each, running from 00:00 to 00:10 on the beat boundaries ${BOUNDS.join(", ")}, each one or two beats long`);
       continue;
     }
     shots[num] = cells.map((c, i) => {
@@ -188,9 +198,11 @@ function main(target, withImages) {
       if (count(visual, avoid) !== 1) problems.push(`${where} avoid line appears ${count(visual, avoid)} times (expected 1)`);
       const action = /Action: (.*?) Camera: /.exec(visual);
       const beats = action ? sentences(action[1]) : [];
-      if (beats.length !== BEATS) problems.push(`${where} Action has ${beats.length} sentences, the panels need exactly ${BEATS} beats`);
+      if (beats.length !== spans[i]) problems.push(`${where} Action has ${beats.length} sentences, but the shot covers ${spans[i]} beat${spans[i] > 1 ? "s" : ""} (one sentence per beat)`);
+      if (!IN_FRAME.test(visual)) problems.push(`${where} has no 'In frame: ... and no one else.' sentence`);
       const ends = framings(c[2]);
       if (!ends) problems.push(`${where} Shot Type '${c[2]}' is not '<Framing>, <Angle>'`);
+      else if (spans[i] === 1 && ends[0] !== ends[1]) problems.push(`${where} is one beat long, so it holds one framing, but its Shot Type is '${c[2]}'`);
       else if (LADDER.includes(ends[0]) && LADDER.includes(ends[1]) && Math.abs(LADDER.indexOf(ends[0]) - LADDER.indexOf(ends[1])) > 2)
         problems.push(`${where} moves more than two rungs (${c[2]})`);
 
@@ -219,8 +231,12 @@ function main(target, withImages) {
       }
       const extras = castEnd >= 0 && visual.includes(avoid) ? visual.slice(castEnd, visual.indexOf(avoid)).trim() : "";
       return { type: c[2], cast, faces, env: env && env[1], lighting: light && light[1], extras,
-        sceneBreak: /^Scene break:/m.test(body) };
+        sceneBreak: /^Scene break:/m.test(body), beats: spans[i] };
     });
+    // Panel -> shot map for the 3x2 checks.
+    const map = [];
+    shots[num].forEach((sh, si) => { for (let k = 0; k < sh.beats; k++) map.push({ shot: si, first: k === 0, last: k === sh.beats - 1 }); });
+    shots[num].panels = map;
   }
   if (aspect === null) problems.push("no visual cell opens with an aspect ratio line before the style lock");
   failed ||= problems.length > 0;
@@ -255,13 +271,16 @@ function main(target, withImages) {
       const title = h[5];
       if (!TITLE.test(title)) problems.push(`${where} title '${title}' is not two to four words in capitals`);
       titles.push(title);
-      const shot = sb ? sb[shotOf(i) - 1] : null;
+      const pm = sb && sb.panels ? sb.panels[i - 1] : null;
+      const shot = pm ? sb[pm.shot] : null;
+      const shotNo = pm ? pm.shot + 1 : "?";
       const framing = h[3], angle = h[4];
       const ends = shot ? framings(shot.type) : null;
       if (ends) {
-        const last = i % BEATS === 0;
-        const want = last ? ends[1] : ends[0];
-        if (framing !== want) problems.push(`${where} framing '${framing}' should be ${want}, the shot's ${last ? "closing" : "opening"} framing`);
+        // A one-beat shot holds one framing; a two-beat shot opens on the first and closes on the second.
+        const last = pm.last;
+        const want = pm.first ? ends[0] : ends[1];
+        if (framing !== want) problems.push(`${where} framing '${framing}' should be ${want}, the framing of Shot ${shotNo} at this beat`);
         if (angle !== ends[2]) {
           if (last) notes.push(`Video ${num} panel ${i} angle '${angle}' differs from the cell's '${ends[2]}'; fine only if the Camera: move ends on it`);
           else problems.push(`${where} angle '${angle}' is not the cell's '${ends[2]}'`);
@@ -302,7 +321,7 @@ function main(target, withImages) {
       present.sort((a, b) => a.at - b.at);
       const order = present.map((p) => p.name);
       if (shot) for (const n of order)
-        if (!shot.cast.includes(n)) problems.push(`${where} has ${n}, but Shot ${shotOf(i)}'s Characters: sentence does not`);
+        if (!shot.cast.includes(n)) problems.push(`${where} has ${n}, but Shot ${shotNo}'s Characters: sentence does not`);
       if (PLACES[order.length]) {
         const missing = PLACES[order.length].filter((pl, k) => prompt.slice(present[k].at - pl.length, present[k].at) !== pl);
         if (missing.length) problems.push(`${where} places ${order.length} Yetis without ${PLACES[order.length].map((p) => p.replace(/[, ]+$/, "")).join(" / ")} directly before each lock`);
@@ -318,9 +337,9 @@ function main(target, withImages) {
           if (!same(ex.pairs.map((p) => p[0]), order)) problems.push(`${where} Expressions: does not name the placed Yetis in the same order`);
           for (const [n, f] of ex.pairs) if (n) faces[n] = f;
         }
-        if (shot && i % BEATS === 0) for (const n of order)
+        if (shot && pm.last) for (const n of order)
           if (n in shot.faces && faces[n] !== undefined && faces[n] !== shot.faces[n])
-            problems.push(`${where} face for ${n} is not Shot ${shotOf(i)}'s Expressions: face`);
+            problems.push(`${where} face for ${n} is not Shot ${shotNo}'s Expressions: face`);
       } else {
         if (count(prompt, noYetiImage) !== 1) problems.push(`${where} has no Yeti but does not say '${noYetiImage}'`);
         if (/Expressions: /.test(prompt)) problems.push(`${where} has no Yeti but has an Expressions: sentence`);
@@ -343,7 +362,8 @@ function main(target, withImages) {
 
     if (sb) sb.forEach((shot, si) => {
       const s = si + 1;
-      const shown = new Set([BEATS * s - 1, BEATS * s].flatMap((p) => Object.keys(facesByPanel[p] || {})));
+      const own = (sb.panels || []).map((m, k) => (m.shot === si ? k + 1 : 0)).filter(Boolean);
+      const shown = new Set(own.flatMap((p) => Object.keys(facesByPanel[p] || {})));
       for (const n of shot.cast)
         if (!shown.has(n)) notes.push(`Video ${num} Shot ${s} names ${n} in Characters:, but neither of its panels shows ${n}`);
     });

@@ -14,7 +14,7 @@ This skill is retired. The stills route it served is gone from the pipeline in s
 
 This skill is the stills route in step 2 of the pipeline in section 7 of `.agents/rules/cinematic-direction.md`. Each 10-second Google Flow video is generated from its storyboard table with images attached as references. On the grid route, that image is the video's 3x3 grid from `create-3x3-timed-image`. On the stills route, it is the three stills this skill writes the prompts for: one per shot, each showing the picture the shot closes on. No still is a start or an end frame, and none is set as one in Flow.
 
-The skill works the same way on a 30-second storyboard from `storyboard-30s-extender` (three videos, nine stills) and a 60-second storyboard from `storyboard-60s-from-story` (six videos, eighteen stills). Both use the same table, the same three shots per video, and the same three beats per shot, so nothing below changes with the length except the still count and the file suffix. The storyboard lives in `prompts/` next to its 3x3 grid file, and the still prompts live in `image-prompts/`.
+The skill works the same way on a 30-second storyboard from `storyboard-30s` (three videos, nine stills) and a 60-second storyboard from `storyboard-60s` (six videos, eighteen stills). Both use the same table, the same three shots per video, and the same three beats per shot, so nothing below changes with the length except the still count and the file suffix. The storyboard lives in `prompts/` next to its 3x3 grid file, and the still prompts live in `image-prompts/`.
 
 Every prompt opens with `Create image:` so it can be pasted into an image model as one request with nothing added. Each still is the shot it belongs to, frozen on its last beat: the same locks, the same light, the same `[EXPRESSION]` slot, the framing the shot ends on, and the shot's effects frozen in place. A still that is lit, framed, or faced differently from its shot fights the clip it is attached to.
 
@@ -22,7 +22,7 @@ Reference output for how one prompt reads (locks copied, `Action:` as a held ima
 
 ## Rules that always apply
 
-Everything in the "Rules that always apply" section of the skill that wrote the storyboard (`storyboard-30s-extender` or `storyboard-60s-from-story`) applies here. Read that section, `.agents/rules/character-consistency.md`, and `.agents/rules/cinematic-direction.md` (section 6 above all) before writing anything.
+Everything in the "Rules that always apply" section of the skill that wrote the storyboard (`storyboard-30s` or `storyboard-60s`) applies here. Read that section, `.agents/rules/character-consistency.md`, and `.agents/rules/cinematic-direction.md` (section 6 above all) before writing anything.
 
 Rules specific to the stills:
 
@@ -53,8 +53,8 @@ Rules specific to the stills:
 
 The input is `prompts/<slug>-30s-storyboard.md` or `prompts/<slug>-60s-storyboard.md`, as a path.
 
-- If the user gives a short storyboard, a story, or a source storyboard instead, stop and name step 1: `/storyboard-30s-extender` or `/storyboard-60s-from-story`. Do not write the storyboard and the stills in one run; a single run that writes both runs past a model's output limit.
-- If the storyboard still has `Frames:`, `Start frame:`, `Midpoint frame:`, or `End frame:` lines, or an `Action:` that is not three sentences, it was written for start and end frames. Revise it first with step 6 of `storyboard-30s-extender` or step 8 of `storyboard-60s-from-story`, save it, and tell the user. The same goes for a storyboard that predates the look lock: its character text says "vibrant blue fur" or "vibrant pink fur", or its cells have no `Look lock:` or `Avoid:` sentence. Replace the character text in every cell with the current text from sections 2 to 4 of `character-consistency.md`, keeping each `[EXPRESSION]` value, add the look lock, the scale lock where the baby Yeti shares the shot with a grown-up Yeti, and the avoid line, and reword any sentence outside the character text that sizes a place or a prop by a Yeti (section 10 of that file).
+- If the user gives a short storyboard, a story, or a source storyboard instead, stop and name step 1: `/storyboard-30s` or `/storyboard-60s`. Do not write the storyboard and the stills in one run; a single run that writes both runs past a model's output limit.
+- If the storyboard still has `Frames:`, `Start frame:`, `Midpoint frame:`, or `End frame:` lines, or an `Action:` that is not three sentences, it was written for start and end frames. Revise it first with step 6 of `storyboard-30s` or step 8 of `storyboard-60s`, save it, and tell the user. The same goes for a storyboard that predates the look lock: its character text says "vibrant blue fur" or "vibrant pink fur", or its cells have no `Look lock:` or `Avoid:` sentence. Replace the character text in every cell with the current text from sections 2 to 4 of `character-consistency.md`, keeping each `[EXPRESSION]` value, add the look lock, the scale lock where the baby Yeti shares the shot with a grown-up Yeti, and the avoid line, and reword any sentence outside the character text that sizes a place or a prop by a Yeti (section 10 of that file).
 - Run the storyboard skill's own checklist on the file. Do not start the stills until it passes, because every still is copied from it.
 
 ### 2. Derive the stills

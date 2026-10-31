@@ -34,9 +34,17 @@ None. The films have no dialogue.
 Pip Penguin is a baby Adélie penguin, small, curious, and brave beyond his size, and a friend the Yetis meet in the snow. He is playful and eager, a little clumsy, and quick to recover from a tumble. He waddles in quick, short steps with his flippers held out for balance, hops with both feet together when he is excited, slides on his belly down gentle slopes, and flaps his flippers fast when he is happy or startled. He chirps, peeps, and squeaks, and never speaks words. Around the Yetis he is the smallest one in the scene, well below Babu Yeti's shoulders; he follows Babu Yeti, tugs at fur with his beak to get attention, and huddles against a Yeti's leg when he is unsure. Look: solid glossy black head and back, bright white throat and plump belly, a bold white eye-ring around each large dark-brown cartoon eye, a short black beak, short black flippers with white undersides and no fingers, pale pink feet with three webbed toes each, a tiny black tail, nothing worn. Always the same stylized 3D character, never photoreal, never scary, never another penguin design.
 ```
 
-## Cast sentence for storyboards
+## Cast sentences for storyboards
 
-`Animals: exactly one baby penguin, the little penguin Pip, drawn in the same stylized 3D animated style with a soft round plump body, a solid glossy black head and back, a bright white throat and belly, a bold white eye-ring around each large dark-brown cartoon eye, a short black beak, short black flippers with white undersides, pale pink webbed feet, and a tiny black tail, standing well below Babu Yeti's shoulders.`
+Full, for still image prompts:
+
+`Animals: Pip Penguin, exactly one baby penguin, drawn in the same stylized 3D animated style with a soft round plump body, a solid glossy black head and back, a bright white throat and belly, a bold white eye-ring around each large dark-brown cartoon eye, a short black beak, short black flippers with white undersides, pale pink webbed feet, and a tiny black tail, standing well below Babu Yeti's shoulders.`
+
+`Cast:` line entry, for the Agent prompts:
+
+`@Pip Penguin`
+
+Height sentence for the `Cast:` line, when Pip Penguin shares a shot with Babu Yeti: `Pip Penguin, standing well below Babu Yeti's shoulders.`
 
 ## Fix-up edits
 

@@ -101,10 +101,13 @@ function main(file) {
     console.log(`Still ${num}: ` + (problems.length ? problems.join("; ") : "OK"));
   }
 
-  if (new Set(Object.values(castBlocks)).size > 1) {
-    failed = true;
-    console.log("Supporting cast sentences differ between stills; they must be identical in all four.");
-  }
+  // Each still carries only the story cast in its own picture (section 8 of cinematic-direction.md),
+  // so the cast blocks differ from still to still; every one must still end with its In frame: sentence.
+  for (const [num, block] of Object.entries(castBlocks))
+    if (block && !/In frame: [^.]*\.$/.test(block)) {
+      failed = true;
+      console.log(`Still ${num}: no 'In frame: ... and no one else.' sentence directly before the avoid line.`);
+    }
   return failed ? 1 : 0;
 }
 

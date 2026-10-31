@@ -37,14 +37,14 @@ Every character lock in a carousel prompt comes from `.agents/rules/character-co
 | --- | --- |
 | `Create image: Square 1:1 aspect ratio, full-frame square composition.` | Fixed, word for word, first in every prompt |
 | Style lock | `prompt-assembly.md`, section 1 |
-| `Environment:` sentence | The storyboard shot the still comes from |
-| `Lighting:` sentence | The same shot, word for word. For a storyboard older than the `Lighting:` sentence, write one following section 2 of `.agents/rules/cinematic-direction.md` |
+| `Environment:` sentence | The storyboard shot the still comes from: in the current Agent-prompt-only storyboards, the location's sentence in its video's `Setting:` line, word for word (in an older table storyboard, the shot's `Environment:` sentence) |
+| `Lighting:` sentence | The same shot: written as one full sentence following section 2 of `.agents/rules/cinematic-direction.md` from its shot line's `Light:` part, keeping its source, palette, and mood (in an older table storyboard, the shot's `Lighting:` sentence, word for word) |
 | Character locks | `character-consistency.md`, the Copy-Ready Google Flow Character Lock of each Yeti in the still, whole, placed as section 3 of `prompt-assembly.md` sets out |
 | `Expressions:` sentence | Each Yeti's face, a row from the section 4 table of `prompt-assembly.md` |
-| `Humans:`, `Animals:`, or `Creatures:` sentences | The storyboard, word for word |
+| `Humans:`, `Animals:`, or `Creatures:` sentences | The entry of each story cast member in the still only: the "Full" sentence in its file in `prompts/characters/`, or, for a member with no file, its description in the storyboard's `Cast:` line (in an older table storyboard, the shot's cast sentence) |
 | Avoid line | `prompt-assembly.md`, section 5 |
 | `Action:` | Written for the still, following sections 4 and 8 of `prompt-assembly.md` and the character locks |
-| `Effects:` | The shot's VFX cell, frozen as section 6 of `cinematic-direction.md` describes |
+| `Effects:` | The shot line's `Effects:` part (in an older table storyboard, the shot's VFX cell), frozen as section 6 of `cinematic-direction.md` describes |
 | `Single square carousel image. No text, captions, or watermark.` | Fixed, word for word, last in every prompt |
 
 Copy the locked sentences from the rule files themselves every time, not from this skill, an older carousel, or memory. The check in step 6 reads the rule files and compares every prompt against them.
@@ -59,7 +59,7 @@ Every rule in both rule files applies. These are the ones a carousel gets wrong 
 - Each still is a fresh generation, so it carries the full lock of every Yeti in it. Never shorten a lock for a close-up or a wide, and never give a Yeti who is not in the still a lock.
 - Nothing on or above a Yeti's head (rule 5 in section 8 of `prompt-assembly.md`). Keep mimes and held objects at chest height, and a head touch says the hand lifts away in the same sentence.
 - No Yeti casts energy or changes its own body (rule 7). Write magic as a change in light or weather near the character.
-- Absence is stated. Image models draw every character a prompt describes, so each `Action:` names the Yetis, humans, and animals from the storyboard that are not in the still. A supporting cast sentence goes into all four stills, including the ones where that character is off screen, the same way the storyboard carries it.
+- Absence is stated. Image models draw every character a prompt describes, so each still names only the Yetis, humans, and animals in it and states the rest with a closing "and no one else" (section 8 of `cinematic-direction.md`), rather than listing the characters that are not in the still. Each still carries the story cast entries of the characters in it only, copied from the storyboard, then an `In frame:` sentence that names everyone in the picture and ends `and no one else.`, directly before the avoid line.
 - No sentence sizes a place or a prop by a Yeti (rule 6). If an older storyboard's `Environment:` sentence does ("a pillar as tall as a grown Yeti"), reword only that phrase in the carousel prompts, size it by the world instead, and say so in the file's intro.
 - No text of any kind inside an image: no dialogue, speech bubbles, captions, logos, or signs. The overlay lines at the end of the file are added in the editor, not by the image model.
 - Never a plain white, solid colour, or empty studio background (rule 9). No audio text: these are stills.

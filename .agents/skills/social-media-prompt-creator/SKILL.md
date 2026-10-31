@@ -136,7 +136,7 @@ Every story video, whatever its length, follows the six classic stages of plot s
 
 Two checks catch most pacing mistakes: nothing after the midpoint introduces a new problem, and nothing before it resolves one. A script that reaches its climax in the last five seconds has no room to land, and one that resolves early has nothing left to hold the viewer.
 
-The Yeti storyboard skills (`storyboard-30s-extender`, `storyboard-60s-from-story`) map these stages onto their 10-second Google Flow videos shot by shot and beat by beat, and each skill's planning step holds the mapping. In a 30-second film the Climax peaks at the end of the first beat of Video 2's middle shot, panel 3 of that video's 3x2 grid and the centre of the clip. In a 60-second film it peaks in the last beat of Video 3, the last panel of that grid. `create-3x2-timed-image` draws its grid panels and panel images from those beats, so the pacing carries into every image. Section 7 of `.agents/rules/cinematic-direction.md` sets out the whole pipeline.
+The Yeti storyboard skills (`storyboard-30s`, `storyboard-60s`) map these stages onto their 10-second Google Flow videos shot by shot and beat by beat, and each skill's planning step holds the mapping. In a 30-second film the Climax peaks at the end of the first beat of Video 2's middle shot, panel 3 of that video's 3x2 grid and the centre of the clip. In a 60-second film it peaks in the last beat of Video 3, the last panel of that grid. `create-3x2-timed-image` draws its grid panels and panel images from those beats, so the pacing carries into every image. Section 7 of `.agents/rules/cinematic-direction.md` sets out the whole pipeline.
 
 ## 6. Workflow for Using This Skill
 

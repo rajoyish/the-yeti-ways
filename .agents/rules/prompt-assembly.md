@@ -22,7 +22,7 @@ The render style of the whole project. It opens every prompt, straight after the
 
 ## 2. The order of the pieces
 
-A video is one 10-second clip. Its table is the master the panel images and checks are built from, and the compact `Agent prompt:` block under it (section 6 of `google-flow.md`) is what Flow receives. Neither carries a character lock or describes a Yeti's look: the saved Characters do. Each row's visual cell holds, in this order:
+A video is one 10-second clip, and its `Agent prompt:` block (section 6 of `google-flow.md`) is the master and what Flow receives; storyboards hold no tables (the table-based format is kept in `.agents/backups/2026-10-31-table-storyboards/`). It carries no character lock and describes no Yeti's look: the saved Characters do. The list below is the order of the pieces in a shot as planned; in the Agent prompt they become the `Setting:` line (the `Environment:` sentence), the `Cast:` line, and each shot line (framing, `In frame:`, the beats with their faces, camera, effects, and `Light:`), with the style lock and the avoid line once per prompt. A shot as planned holds, in this order:
 
 1. The aspect ratio line.
 2. The style lock.
@@ -30,9 +30,10 @@ A video is one 10-second clip. Its table is the master the panel images and chec
 4. The `Lighting:` sentence.
 5. The `Characters:` sentence, or `No Yeti is in this shot.` (section 3).
 6. The `Expressions:` sentence (section 4), left out when the shot has no Yeti.
-7. The `Humans:`, `Animals:`, or `Creatures:` sentences, if the story has a supporting cast (section 6).
-8. The avoid line (section 5).
-9. `Action:`, then `Camera:`, as the storyboard skills and `cinematic-direction.md` set out.
+7. The `Humans:`, `Animals:`, or `Creatures:` sentences for the story cast in this shot only, if any (section 6).
+8. The `In frame:` sentence (section 8 of `cinematic-direction.md`): every character seen in the shot, by name, ending `and no one else.`
+9. The avoid line (section 5).
+10. `Action:` (one sentence per beat of the shot), then `Camera:`, as the storyboard skills and `cinematic-direction.md` set out.
 
 A still prompt (a panel image or a carousel still) is one image, so it carries the character locks inline. In this order:
 
@@ -42,15 +43,18 @@ A still prompt (a panel image or a carousel still) is one image, so it carries t
 4. The `Lighting:` sentence.
 5. The full character lock of each Yeti in the picture, placed (section 3), or `No Yeti is in this image.`
 6. The `Expressions:` sentence, left out when the picture has no Yeti.
-7. The `Humans:`, `Animals:`, or `Creatures:` sentences, if any.
-8. The avoid line.
-9. `Action:`, `Effects:`, and the skill's closing sentence.
+7. The `Humans:`, `Animals:`, or `Creatures:` sentences for the story cast in the picture only, if any.
+8. The `In frame:` sentence, copied from the shot.
+9. The avoid line.
+10. `Action:`, `Effects:`, and the skill's closing sentence.
 
 ## 3. Character locks in a prompt
 
 Each character lock is the `text` block under "Copy-Ready Google Flow Character Lock" in `character-consistency.md`, copied whole and character for character. It opens with the character's name (`Papa Yeti: `, `Mama Yeti: `, `Babu Yeti: `), and that name is how every other sentence in the prompt refers to the character. Never shorten, paraphrase, or merge a lock, never write a Yeti's look in any other words, and never add a smile, a pose, or a scene detail to it.
 
 **Video prompts.** A storyboard carries no character lock and no description of a Yeti's look: no `Character locks:` block, and no fur, colour, tuft, face, or build in any cell or Agent prompt. Each Yeti is a saved Flow Character, called `@Papa Yeti`, `@Mama Yeti`, or `@Babu Yeti` once, in the Agent prompt's `Cast:` line, and by plain name after that, and the Character carries the look. A second description in the prompt competes with the Character and makes it drift.
+
+`@` lives only in the Agent prompt's `Cast:` line (and in a storyboard's opening paragraph and Instruction 1, which name the saved Yetis). The shot lines name every character, Yeti and story cast, by its plain Character name (`Papa Yeti`, `Snowy Owl`), never `@Papa Yeti`, because the `Cast:` line already calls each one, and an `@` in a shot line would attach the Character a second time. The plain name is still the link: it is spelled exactly as the saved Character, so the shot lines and the `Cast:` line point at the same one.
 
 Each row says which Yetis are in its shot, and where, in a `Characters:` sentence, left to right:
 
@@ -120,9 +124,17 @@ Humans in the story cast:
 - Dressed for the story's world and era: an old teacher's plain wrapped robe and cloth sash, a fisher's oilskin coat, a cook's apron, a climber's padded jacket, a city courier's hooded top. No logos, brand marks, or writing on any clothing or prop.
 - A human child stays with an adult, never enters water, never falls, and is never alone in danger. The safety filter reads a child in peril as harm, so write worry, not terror.
 
-Each story cast gets one locked sentence per kind (`Humans:`, `Animals:`, or `Creatures:`), written once for the film and copied word for word into every prompt. It gives each member a short handle that the `Action:` text uses every time ("the old mountain teacher", "the red fox"), describes each one's look from head to toe, and says "exactly" with the number of any group. A character who leaves the story partway is still in the sentence, and the `Action:` says when they are not in the shot (section 8, rule 3).
+Every story cast member has one **Character name**, chosen when the storyboard is written and used, spelled exactly the same, everywhere the member is named: the cast sentence, every `Action:`, the `Characters:` lines, Instruction 2, the `Cast:` lines of the Agent prompts, the panel image prompts, the member's file in `prompts/characters/`, and its saved Flow Character. The storyboard and the Character are built by different skills (`storyboard-30s` or `storyboard-60s`, then `flow-character-builder`), and the name is what joins them, so it never changes between them:
 
-A story cast member saved as a Flow Character (built with `flow-character-builder`, its file in `prompts/characters/`) is not described in a storyboard: its sentence only names and places it, by its Character name, in the form `Animals: Nuri Bear on the left and Pip Penguin on the right, exactly as their saved Characters.`, plus any height it needs beside a Yeti, and the `Action:` text uses that name. The full cast sentence from its file is used only in still image prompts, where no saved Character is attached.
+- Title case, two or three words, no "the", written as a proper noun in the prose (`Old Herb-Gatherer walks the trail`, `Snowy Owl lands on the ledge`): a descriptive name (`Old Mountain Teacher`, `Red Fox`) or an invented one (`Nuri Bear`, `Pip Penguin`). Never "Yeti" in it, never the name of a real person or of a known film, game, or brand character, and never one name for two members.
+- One spelling only. No lower-case handle (`the snowy owl`), no short form (`the Teacher`, `Owl`), no pronoun or "the creature" at the start of a shot, and no second label for the same member.
+- A group of identical members is one Character with a singular name (`Grey Wolf`), written with its count (`exactly three Grey Wolves`, `one Grey Wolf`); members of a group who look different get one name each.
+- A member who already has a file in `prompts/characters/` keeps the name in that file, word for word. The file's name is `<kebab-case of the Character name>-flow-character.md`, so the name can be found from the file and the file from the name.
+- Renaming a member means renaming it in the storyboard, its file, and its saved Character together.
+
+Each story cast member gets one locked entry, written once for the film: its Character name, then its look from head to toe, with "exactly" and the number for a group (`Snowy Owl, Babu Yeti's friend, a plump, round stylized cartoon snowy owl with ...`, `exactly three Grey Wolves, lean stylized cartoon grey wolves with ...`). A shot's `Humans:`, `Animals:`, or `Creatures:` sentence holds the entries of the members in that shot only, each word for word, joined with `; and `, and a `Humans:` sentence ends `; exactly <n> human(s), with rounded, expressive cartoon features and simple clothing with no logos or writing.` A member who is not in the shot has no entry in it, because a description puts a character on screen (section 8 of `cinematic-direction.md`); a shot with no story cast has no such sentence. An entry names no other character (no "Babu Yeti's friend", no "Old Herb-Gatherer's daughter"): it runs in shots where that other character is absent, and a name puts a character on screen. Relationships live in Instruction 2 and the Character info.
+
+In an Agent prompt, every character, Yeti and story cast alike, is written `@<Character Name>` once, in the `Cast:` line, whether or not its Character is saved yet, as section 6 of `google-flow.md` sets out: the Flow Character Linker extension turns each one into a Character chip, and leaves a name with no saved Character as plain text. A story cast member with a file in `prompts/characters/` (built with `flow-character-builder`) gets no description there, only its place (`@Nuri Bear on the left`); one with no file gets its place and a short description from its cast sentence; a group is `exactly three Grey Wolves, each @Grey Wolf`. A member's full entry lives in its file in `prompts/characters/` (the "Full" sentence) or, for a member with no file, in the storyboard writer's notes, and a still prompt that needs it takes it from there. Because the name never changes, building a Character later changes only that member's part of the `Cast:` lines (its description is dropped), never the shot lines.
 
 ## 7. The family reference image and the look check
 
@@ -144,7 +156,7 @@ An image or a clip that fails is regenerated, never used, and never attached to 
 
 1. Copy every locked piece (the aspect ratio line, the style lock, each character lock in a still, the `Environment:` and `Lighting:` sentences, the supporting cast sentences, the avoid line) word for word. Never shorten or drop one to save space.
 2. Refer to each Yeti by name ("Papa Yeti", "Mama Yeti", "Babu Yeti") in the `Characters:`, `Expressions:`, and `Action:` text, the same way in every shot, never by colour or a nickname, and as `@Papa Yeti`, `@Mama Yeti`, `@Babu Yeti` once, in an Agent prompt's `Cast:` line, with the plain name after that. In a still, the lock that opens with that name gives it a picture; in a clip, the saved Character does. Name each Yeti in every beat it is in, and say where it is.
-3. State absence. An `Action:` names every Yeti and supporting character from the story who is not in the shot or the picture, as `<Name> is not in the shot.` or `<Name> is not in the picture.`, because a model draws every character a prompt describes unless told not to. Give the number of any group of animals or people.
+3. State who is in frame, and only them. Every shot and still carries the `In frame:` sentence (section 8 of `cinematic-direction.md`), which names every character in the picture and ends `and no one else.`, and describes no other character anywhere: no cast entry, no `Characters:` or `Expressions:` place, and no "<Name> is not in the shot" line, because a model draws every character a prompt describes or names. Give the number of any group of animals or people.
 4. Write `Action:` sentences that agree with the locks: hands and feet, never paws, and wherever a Yeti's hand does something visible (waves, claps, grips, points, holds, presses), it is a "five-fingered hand", because image and video models default to three or four cartoon fingers unless the number is in the sentence that shows the hand; fur, not skin; nothing worn; Babu Yeti about half as tall as a grown-up Yeti beside him, with the top of his curl only at the grown-up's belly. An `Action:` that has a Yeti pull on a scarf or grip with its claws undoes the lock. Never write an action that changes a Yeti's design (a body that stretches, squashes, grows, or shrinks), and keep the three apart even in a hug or a huddle: each Yeti's own face, tuft, and hands stay visible and separate, never merged into one shape.
 5. Never put a hand, prop, or other object on or above a Yeti's head unless the story needs it. Hands folded up beside the head (a sleep mime), raised overhead, or resting on the head are what the model most often turns into horns. Keep mimes at chest height, and when the story needs a head touch (a tuft ruffle), say the hand lifts away in the same sentence. An image or clip with horns, antlers, spikes, or anything on a Yeti's head besides its tuft is regenerated.
 6. Never size a place or a prop by a Yeti ("a pillar as tall as a grown Yeti") in a sentence that runs in shots where that Yeti is absent. Size it by the world ("a squat stone pillar", "a boulder the height of a young pine") or by a character who is in the shot.

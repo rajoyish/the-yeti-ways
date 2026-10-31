@@ -34,9 +34,17 @@ None. The films have no dialogue.
 Nuri Bear is a baby polar bear cub, gentle, curious, and a little shy, and a friend the Yetis meet in the snow. She is playful once she trusts someone, easily startled, and proud of small wins. She usually walks on all four paws with a rolling, bouncy waddle, rises onto her hind legs to look around or reach for something, holds her front paws up near her chest when she is unsure, and rolls onto her back or bats at snowflakes when she is happy. She huffs, grunts softly, and gives small squeaky bleats, and never speaks words. Around the Yetis she stands on her hind legs about as tall as Babu Yeti's shoulders; she shadows Babu Yeti, nuzzles a Yeti's leg for comfort, and copies what the grown-ups do. Look: solid creamy-white fur, small round ears with pale pink insides, a short muzzle, a black button nose, a thin black lip line, large dark-brown cartoon eyes, five rounded toes with black pads on every paw and no visible claws, a tiny stubby tail, nothing worn. Always the same stylized 3D character, never photoreal, never scary, never a Yeti, never another bear design.
 ```
 
-## Cast sentence for storyboards
+## Cast sentences for storyboards
 
-`Animals: exactly one baby polar bear cub, the little polar bear Nuri, drawn in the same stylized 3D animated style with a soft round chubby body, thick solid creamy-white fur, small round ears with pale pink insides, a short muzzle, a black button nose, large dark-brown cartoon eyes, five rounded toes with black pads on every paw and no claws, and a tiny stubby tail, standing on her hind legs about as tall as Babu Yeti's shoulders.`
+Full, for still image prompts:
+
+`Animals: Nuri Bear, exactly one baby polar bear cub, drawn in the same stylized 3D animated style with a soft round chubby body, thick solid creamy-white fur, small round ears with pale pink insides, a short muzzle, a black button nose, large dark-brown cartoon eyes, five rounded toes with black pads on every paw and no claws, and a tiny stubby tail, standing on her hind legs about as tall as Babu Yeti's shoulders.`
+
+`Cast:` line entry, for the Agent prompts:
+
+`@Nuri Bear`
+
+Height sentence for the `Cast:` line, when Nuri Bear shares a shot with Babu Yeti: `Nuri Bear, standing on her hind legs about as tall as Babu Yeti's shoulders.`
 
 ## Fix-up edits
 
