@@ -6,7 +6,7 @@ On a quiet afternoon in a Himalayan village courtyard, a gust tips a brazier of 
 
 This storyboard is three 10-second Google Flow videos that cut together into one 30-second film, made in a new Flow project with the saved Yeti Characters, as `.agents/rules/google-flow.md` sets out. Each video has a table, the master its panel images are built from, then an `Ingredients:` line and a `Flow prompt:` block, the only text Flow receives for that clip. The six checked panel images for each video are in `prompts/yeti-family-courtyard-duckling-rescue-30s-3x2.md` under the same `## Video N - <Title>` heading.
 
-1. New project named "Yeti Family Courtyard Duckling Rescue". Settings: Omni Flash (Gemini Omni Flash 1.1), Video, Ingredients, vertical 9:16, 10 seconds, 360p for drafts. "Return silent videos" off. Turn the Agent on and, in its Settings, set the default video model to Omni Flash, orientation vertical, and "Confirm before generating" to Always.
+1. New project named "Yeti Family Courtyard Duckling Rescue". Settings: Omni Flash (Gemini Omni Flash 1.1), Video, Ingredients, vertical 9:16, 10 seconds, 720p. "Return silent videos" off. Turn the Agent on and, in its Settings, set the default video model to Omni Flash, orientation vertical, and "Confirm before generating" to Always.
 2. Characters: type `@` and check `@Papa Yeti`, `@Mama Yeti`, and `@Babu Yeti` resolve to the saved Characters. The three ducks are not Characters; each Flow prompt describes them.
 3. Plates: generate `Plate - Courtyard` from the `Environment lock:`, as section 3 of `google-flow.md` says.
 4. Agent instructions: add the three cards under "Google Flow Agent instructions", each with its title, reference image, and guideline, toggled on.
@@ -29,7 +29,7 @@ Paste each card into Flow's Agent instructions panel ("+ Add instruction" for ea
 Reference: `Family height chart` (`references/characters/family-height-chart.png`)
 
 ```text
-This project makes one original 3D animated short film about a family of three Yetis. Every video is made with Gemini Omni Flash 1.1 (Omni Flash), vertical 9:16, exactly 10 seconds long, with music and sound effects and no dialogue. Draft at 360p unless I ask for 720p.
+This project makes one original 3D animated short film about a family of three Yetis. Every video is made with Gemini Omni Flash 1.1 (Omni Flash), vertical 9:16, exactly 10 seconds long, with music and sound effects and no dialogue. Generate every video at 720p, never 360p, unless I ask for a 360p draft.
 
 The Yetis are the saved Characters @Papa Yeti, @Mama Yeti, and @Babu Yeti. Use only the ones my prompt names, and draw each exactly as its saved Character. Never redesign, recolour, or restyle them, and never add another Yeti, a duplicate, or anyone my prompt does not name. Their sizes are as in the attached height chart: whenever Babu Yeti stands with a grown-up, the top of his curl reaches only the grown-up's belly, and he is never placed nearer the camera than a grown-up beside him.
 
@@ -61,7 +61,7 @@ Props: Papa Yeti's plain wooden staff, swung only at knee height; Mama Yeti's wo
 Reference: None
 
 ```text
-This film is 3 videos, generated one at a time and in order. For each video I paste a prompt with three timestamped shots on its own 00:00 to 00:10 clock. Generate it as one 10-second Omni Flash video, vertical 9:16, as written: keep its shots, order, timestamps, camera moves, faces, light, and sound, and do not rewrite, extend, or add to it unless I ask. Never treat a timestamp as a reason to make a longer video or to split the prompt into several videos.
+This film is 3 videos, generated one at a time and in order. For each video I paste a prompt with three timestamped shots on its own 00:00 to 00:10 clock. Generate it as one 10-second Omni Flash video, vertical 9:16, at 720p, as written: keep its shots, order, timestamps, camera moves, faces, light, and sound, and do not rewrite, extend, or add to it unless I ask. Never treat a timestamp as a reason to make a longer video or to split the prompt into several videos.
 
 Videos after the first open on the attached frame saved from the end of the previous video: match its positions, faces, light, and colours exactly at the first frame. Use only the images I attach; never attach a grid, collage, or multi-panel image as a reference.
 
@@ -108,7 +108,7 @@ Ingredients: @Papa Yeti, @Mama Yeti, @Babu Yeti, Plate - Courtyard, Family heigh
 Flow prompt:
 
 ```text
-Vertical 9:16 video, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Papa Yeti on the left, @Babu Yeti in the center, and @Mama Yeti on the right, exactly as their saved Characters. @Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Exactly three ducks in the same stylized 3D animated style with rounded, friendly cartoon features: a tiny fluffy bright-yellow duckling, a slightly larger fluffy brown-and-yellow duckling, and an adult mother duck with smooth soft-brown feathers and a rounded orange bill. No other characters.
 Setting: A dusty Himalayan mountain village courtyard of packed earth and gravel scattered with loose dry straw, with a wooden hand cart loaded with plain cloth sacks and a large iron-studded wooden cart wheel at its center, a small clay brazier of glowing coals on a flat stone beside the wheel, weathered stone-and-timber houses with dark wooden doors, a large leafy walnut tree, a wooden ladder leaning against a wall, and a stone water trough, with snow-capped peaks beyond under a hazy afternoon sun and drifting clouds.
 00:00-00:03, Wide Shot, Eye Level: @Papa Yeti, holding a long plain wooden staff upright in one five-fingered hand, @Babu Yeti, and @Mama Yeti, carrying a wooden bucket of water by its rope handle, stroll side by side into the sunny foreground on the same ground, while the tiny yellow duckling pecks at straw by the cart wheel beside the glowing brazier, the brown-and-yellow duckling pecks at the gravel at frame left, and the mother duck preens at frame right. They stop in a row and @Babu Yeti points happily at the duckling with one five-fingered hand at chest height, @Papa Yeti and @Mama Yeti with wide cheerful toothy smiles and @Babu Yeti with a cute playful smile. Slow crane down from the walnut branches to eye level. Light: soft warm afternoon sun from frame right, high-key, honey-gold and dusty blue, calm.
@@ -118,7 +118,7 @@ Sound: gentle bamboo flute, slow and warm, that pauses at the spill and returns 
 Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, clothing, hats, or accessories, on-screen text, captions, borders, split screens.
 ```
 
-With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, exactly as written.
+With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written.
 
 ---
 
@@ -141,7 +141,7 @@ Ingredients: @Papa Yeti, @Mama Yeti, @Babu Yeti, End frame V1, Family height cha
 Flow prompt:
 
 ```text
-Vertical 9:16 video, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Papa Yeti on the left, @Babu Yeti in the center, and @Mama Yeti on the right, exactly as their saved Characters. @Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Exactly three ducks in the same stylized 3D animated style with rounded, friendly cartoon features: a tiny fluffy bright-yellow duckling, a slightly larger fluffy brown-and-yellow duckling, and an adult mother duck with smooth soft-brown feathers and a rounded orange bill. No other characters.
 Setting: A dusty Himalayan mountain village courtyard of packed earth and gravel scattered with loose dry straw, with a wooden hand cart loaded with plain cloth sacks and a large iron-studded wooden cart wheel at its center, a small clay brazier of glowing coals on a flat stone beside the wheel, weathered stone-and-timber houses with dark wooden doors, a large leafy walnut tree, a wooden ladder leaning against a wall, and a stone water trough, with snow-capped peaks beyond under a hazy afternoon sun and drifting clouds. The video opens exactly on the attached end frame of the previous clip.
 00:00-00:03, Close-Up, Eye Level: @Babu Yeti stands at the near edge of the ring of small flames with both five-fingered hands at his chest, the flames and the trapped duckling reflected as small warm points in his wide eyes; then his brow furrows and his mouth presses shut, determined, no smile, as he points straight ahead with one five-fingered hand and turns his head toward frame left. @Papa Yeti and @Mama Yeti are not in this shot. Very slow dolly in from rest. Light: warm orange side light from the flames, slate-blue fill, low-key, tense.
@@ -151,7 +151,7 @@ Sound: the bamboo flute holds one low, tense note, rises quick and brave for the
 Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, clothing, hats, or accessories, on-screen text, captions, borders, split screens.
 ```
 
-With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, exactly as written.
+With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written.
 
 ---
 
@@ -174,7 +174,7 @@ Ingredients: @Papa Yeti, @Mama Yeti, @Babu Yeti, End frame V2, Family height cha
 Flow prompt:
 
 ```text
-Vertical 9:16 video, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Papa Yeti on the left, @Babu Yeti in the center, and @Mama Yeti on the right, exactly as their saved Characters. @Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Exactly three ducks in the same stylized 3D animated style with rounded, friendly cartoon features: a tiny fluffy bright-yellow duckling, a slightly larger fluffy brown-and-yellow duckling, and an adult mother duck with smooth soft-brown feathers and a rounded orange bill. No other characters.
 Setting: A dusty Himalayan mountain village courtyard of packed earth and gravel scattered with loose dry straw, with a wooden hand cart loaded with plain cloth sacks and a large iron-studded wooden cart wheel at its center, a small clay brazier of glowing coals on a flat stone beside the wheel, weathered stone-and-timber houses with dark wooden doors, a large leafy walnut tree, a wooden ladder leaning against a wall, and a stone water trough, with snow-capped peaks beyond under a hazy afternoon sun and drifting clouds. The video opens exactly on the attached end frame of the previous clip.
 00:00-00:03, Medium Shot to Full Shot, Low Angle: @Babu Yeti kneels in the center with his open five-fingered hand flat on the damp gravel as the tiny yellow duckling hops over it and runs toward frame left, and the brown-and-yellow duckling rushes in and nuzzles it beak to cheek while the mother duck waddles in from frame right to stand over them; @Papa Yeti on the left and @Mama Yeti on the right watch with gentle closed-mouth smiles, and @Babu Yeti beams with a cute playful smile. Gentle dolly out from rest. Light: soft warm sun through the last of the steam, honey-gold and soft white.
@@ -184,4 +184,4 @@ Sound: the bamboo flute continues light and warm, plays a gentle playful phrase,
 Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, clothing, hats, or accessories, on-screen text, captions, borders, split screens.
 ```
 
-With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, exactly as written.
+With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written.

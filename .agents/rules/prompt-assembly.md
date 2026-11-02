@@ -103,7 +103,7 @@ An expression moves the face, never the design. It moves only the eyebrows, eyel
 ## 5. Avoid line (in every prompt)
 
 Scene-level items that are wrong for every story in this project, and the Yeti items the model most often adds. It goes after the supporting cast sentences, or straight after the `Expressions:` sentence (or the no-Yeti sentence) when there are none:
-"Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, clothing, hats, or accessories."
+"Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, an ape-like or gorilla-like body, clothing, hats, or accessories."
 
 Skin, clothing, and hats are scoped to the Yetis because supporting humans have skin and wear simple clothing. Settings, eras, weather, and moods are left out on purpose. Every story picks its own world (a snowy ridge, a bamboo forest, a riverside market, a village street, a city rooftop), so the avoid line names only what is wrong in every story: off-model Yetis, photoreal people, and horror. A story that needs to rule out something of its own (a crowd, a vehicle, a second animal) says so in its `Action:` text, never by editing this line.
 

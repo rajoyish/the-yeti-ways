@@ -1,14 +1,16 @@
 #!/usr/bin/env node
-// Check a 3x2 file's panel image prompts, and its storyboard, against the rule files.
+// Check a 3x2 file's panel image prompts against its storyboard's Agent prompts and the rule files.
 //
-// Usage: node .agents/skills/create-3x2-timed-image/check_grid.mjs prompts/<slug>-<30s|60s>-3x2.md [--images]
+// Usage: node .agents/skills/create-3x2-timed-image/check_grid.mjs prompts/<slug>-<length>-3x2.md [--images]
 //
-// Finds the storyboard by name (prompts/<slug>-<30s|60s>-storyboard.md). Reads the character locks from
-// .agents/rules/character-consistency.md, the style lock, avoid line, and expression table from
-// .agents/rules/prompt-assembly.md, and the fixed panel image sentences from this skill's SKILL.md each
-// time it runs, so it always checks against the current text. Prints OK or the problems for the
-// storyboard and for each video's six panel images, prints Note: lines for things worth a look that are
-// not always wrong, and exits with status 1 if anything fails.
+// Finds the storyboard by name (prompts/<slug>-<length>-storyboard.md) and, for each video the 3x2 file
+// holds (all of the film's videos or only some), reads that video's Agent prompt: its format line,
+// Setting: line, and timestamped shot lines (framing, angle, In frame:, faces, Light:), as SKILL.md's
+// "Reading an Agent prompt" sets out. Reads the character locks from .agents/rules/character-consistency.md,
+// the style lock, avoid line, and expression table from .agents/rules/prompt-assembly.md, the story cast
+// sentences from prompts/characters/, and the fixed panel image sentences from this skill's SKILL.md each
+// time it runs. Prints OK or the problems for each video, prints Note: lines for things worth a look that
+// are not always wrong, and exits with status 1 if anything fails.
 //
 // With --images it also checks the image files: every panel image named by an Image: line exists, and
 // every grid named by a Grid image: line exists, is 1920x1080, and is newer than all six of its panel
@@ -105,35 +107,104 @@ function loadRules() {
   return { locks, style, avoid, adultFaces: new Set(rows.map((r) => r[2])), babyFaces: new Set(rows.map((r) => r[3])) };
 }
 
+const CHAR_DIR = path.join(REPO, "prompts", "characters");
+const ts = (s) => s.replace(/^(\d\d:\d\d)\.0$/, "$1");
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+function castSentences() {
+  // { <Character name>: <its "Full, for still image prompts" sentence> } from prompts/characters/.
+  const out = {};
+  if (!fs.existsSync(CHAR_DIR)) return out;
+  for (const f of fs.readdirSync(CHAR_DIR).filter((x) => x.endsWith("-flow-character.md"))) {
+    const t = read(path.join(CHAR_DIR, f));
+    const name = /^# (.+?) Flow Character\s*$/m.exec(t);
+    const full = /Full, for still image prompts:\s*\n\s*`([^`]+)`/.exec(t);
+    if (name && full) out[name[1]] = full[1].trim();
+  }
+  return out;
+}
+
+function parseAgentPrompt(body, ctx) {
+  // The pieces a panel image needs, from one video's Agent prompt, as SKILL.md's "Reading an Agent prompt" sets out.
+  const { style, NAME, names, adultFaces, babyFaces } = ctx;
+  const problems = [];
+  const block = /Agent prompt:\s*\n+```text\n([\s\S]*?)\n```/.exec(body);
+  if (!block) return { problems: ["has no 'Agent prompt:' block"] };
+  const lines = block[1].split("\n").map((l) => l.trim()).filter(Boolean);
+  const format = lines.find((l) => /^(Vertical 9:16|Horizontal 16:9) video\b/.test(l));
+  let aspect = null;
+  if (!format) problems.push("has no format line ('Vertical 9:16 video, ...')");
+  else {
+    aspect = format.startsWith("Vertical") ? "Vertical 9:16 aspect ratio, full-frame vertical composition."
+      : "Horizontal 16:9 aspect ratio, full-frame widescreen composition.";
+    if (!format.includes(style)) problems.push("format line does not carry the style lock word for word");
+  }
+  const setting = lines.find((l) => l.startsWith("Setting: "));
+  if (!setting) problems.push("has no 'Setting:' line");
+  const env = setting ? `Environment: ${setting.slice("Setting: ".length)}` : null;
+
+  const shotLines = lines.filter((l) => /^\d\d:\d\d(?:\.\d+)?-\d\d:\d\d(?:\.\d+)?, /.test(l));
+  const faceRows = [...adultFaces, ...babyFaces];
+  const shots = [];
+  let at = 0;
+  for (const [k, line] of shotLines.entries()) {
+    const where = `Shot ${k + 1}`;
+    const m = /^(\S+?)-(\S+?), (.+?)\. (In frame: .+?\.) (.*)$/.exec(line);
+    if (!m) { problems.push(`${where} is not '<start>-<end>, <Framing>, <Angle>. In frame: ... .'`); continue; }
+    const a = BOUNDS.indexOf(ts(m[1])), b = BOUNDS.indexOf(ts(m[2]));
+    if (a !== at || b - a < 1 || b - a > 2) {
+      problems.push(`${where} runs ${m[1]}-${m[2]}; shots must run in order from 00:00 to 00:10 on the beat boundaries ${BOUNDS.join(", ")}, each one or two beats long`);
+      at = -99;
+      continue;
+    }
+    at = b;
+    const head = m[3].replace(/\s*\([^)]*\)/g, "");
+    const fm = /^(.+?)(?: to (.+?))?, (.+?)(?: to (.+))?$/.exec(head);
+    if (!fm) problems.push(`${where} framing and angle '${head}' do not parse`);
+    const rest = m[5];
+    const light = /Light: ([^]*?)$/.exec(rest);
+    if (!light) problems.push(`${where} has no 'Light:' part`);
+    const yetis = names.filter((n) => m[4].includes(n));
+    const others = Object.keys(ctx.cast).filter((n) => m[4].includes(n));
+    // Faces: each table row used in the line, owned by the last Yeti named before it.
+    const hits = [];
+    for (const f of faceRows) { let i = line.indexOf(f); while (i !== -1) { hits.push([i, f]); i = line.indexOf(f, i + 1); } }
+    hits.sort((x, y) => x[0] - y[0]);
+    const closing = {};
+    for (const [i, f] of hits) {
+      const before = [...line.slice(0, i).matchAll(new RegExp(NAME, "g"))].map((x) => x[0]);
+      const owner = before.length ? before[before.length - 1] : yetis[0];
+      if (owner) closing[owner] = f;
+    }
+    shots.push({
+      beats: b - a, open: fm ? fm[1] : null, close: fm ? fm[2] || fm[1] : null,
+      angleOpen: fm ? fm[3] : null, angleClose: fm ? fm[4] || fm[3] : null,
+      inFrame: m[4], yetis, others, faces: closing,
+      lighting: light ? `Lighting: ${cap(light[1].trim())}` : null,
+    });
+  }
+  if (at !== BOUNDS.length - 1 && at !== -99) problems.push(`shots end at ${BOUNDS[at] || "?"}, not 00:10`);
+  const panels = [];
+  shots.forEach((sh, si) => { for (let j = 0; j < sh.beats; j++) panels.push({ shot: si, first: j === 0, last: j === sh.beats - 1 }); });
+  return { problems, aspect, env, shots, panels, sceneBreak: /^Scene break:/m.test(body) };
+}
+
 function main(target, withImages) {
   const file = path.resolve(target);
   const fm = /(.+)-(\d+s)-3x2\.md$/.exec(path.basename(file));
   if (!fm) { console.log(`${target} is not named <slug>-<duration>-3x2.md`); return 1; }
   const boardPath = path.join(path.dirname(file), `${fm[1]}-${fm[2]}-storyboard.md`);
   if (!fs.existsSync(boardPath)) { console.log(`Storyboard not found: ${boardPath}`); return 1; }
-  const expectedVideos = fm[2] === "30s" ? 3 : fm[2] === "60s" ? 6 : fm[2] === "70s" ? (read(boardPath).includes("## Video 8") ? 9 : 7) : Math.round(parseInt(fm[2], 10) / 10);
   const slug = fm[1];
 
   const { locks, style, avoid, adultFaces, babyFaces } = loadRules();
   const lockOf = Object.fromEntries(locks.map((l) => [l.name, l.lock]));
   const names = locks.map((l) => l.name);
   const NAME = names.map(esc).join("|");
-  const ABSENT = new RegExp(`\\b(${NAME}) (?:is|are) not in\\b|\\b(?:neither|nor) (${NAME})\\b`, "g");
   const facesFor = (name) => (name === BABY ? babyFaces : adultFaces);
+  const cast = castSentences();
 
-  function characters(sentence) {
-    // Names, left to right, from a 'Characters: ...' sentence body, or null if it is not in a set form.
-    const found = [...sentence.matchAll(new RegExp(NAME, "g"))].map((m) => m[0]);
-    const forms = {
-      1: (a) => a,
-      2: (a, b) => `${a} on the left and ${b} on the right`,
-      3: (a, b, c) => `${a} on the left, ${b} in the center, and ${c} on the right`,
-    };
-    const form = forms[found.length];
-    return form && form(...found) === sentence && new Set(found).size === found.length ? found : null;
-  }
   function expressions(text, where, problems) {
-    // [[name, face]] from the prompt's one 'Expressions:' sentence, checking each face against the table.
     const hits = [...text.matchAll(/Expressions: ([^.]*)\./g)];
     if (hits.length !== 1) { if (hits.length) problems.push(`${where} has ${hits.length} Expressions: sentences`); return null; }
     const pairs = hits[0][1].split("; ").map((part) => {
@@ -144,122 +215,41 @@ function main(target, withImages) {
       if (!name) problems.push(`${where} Expressions: entry '${face}' does not open with a Yeti's name`);
       else if (!facesFor(name).has(face)) problems.push(`${where} face for ${name} '${face}' is not a row of the section 4 table in its column`);
     }
-    return { pairs, index: hits[0].index, end: hits[0].index + hits[0][0].length };
+    return { pairs, index: hits[0].index };
   }
 
   const fixedPanel = quotes(section(read(SKILL), "Fixed panel image sentences"));
-  if (fixedPanel.length !== 2) {
-    console.log(`Expected 2 fixed panel image sentences in ${SKILL}, found ${fixedPanel.length}.`);
-    return 1;
-  }
+  if (fixedPanel.length !== 2) { console.log(`Expected 2 fixed panel image sentences in ${SKILL}, found ${fixedPanel.length}.`); return 1; }
   const [noYetiImage, panelClosing] = fixedPanel;
 
   let failed = false;
   const notes = [];
-
-  // The storyboard: the panel images are only as right as the beats they are drawn from.
-  const board = read(boardPath);
-  const boardVideos = videos(board);
   let problems = [];
-  if (LEGACY.test(board)) problems.push("still has Frames:, Start frame:, Midpoint frame:, or End frame: lines (revise it with the storyboard skill first)");
-  if (IMAGE_LINES.test(board) || board.includes("Create image:")) problems.push("has Grid: or Stills: lines or an image prompt; the storyboard holds video prompts only (revise it with the storyboard skill first)");
-  if (OLD_GRID.test(board)) problems.push("still refers to the old 3x3 grid, nine panels, or panel images 3, 6, and 9 (revise it with the storyboard skill first)");
-  if (OLD_LOCKS.test(board)) problems.push("still carries the older character text, an [EXPRESSION] slot, or Head lock:, Look lock:, or Scale lock: sentences (revise it as section 9 of prompt-assembly.md sets out)");
-  if (boardVideos.length !== expectedVideos) problems.push(`${boardVideos.length} videos, expected ${expectedVideos}`);
-  let aspect = null;
-  const shots = {};
-  for (const [num, , body] of boardVideos) {
-    const tableAt = body.search(/^\| Timestamp /m);
-    // Storyboards call the saved Flow Characters by @ name; locks live only in character-consistency.md and the image prompts.
-    if (/^Character locks:/m.test(tableAt >= 0 ? body.slice(0, tableAt) : body))
-      problems.push(`Video ${num} still has a 'Character locks:' block; storyboards no longer carry locks (revise it with the storyboard skill first)`);
-    if (/@(Papa|Mama|Babu) Yeti \(the /.test(body))
-      problems.push(`Video ${num} Flow prompt still uses Flow tags with descriptions; call each Yeti by its bare @ name`);
-
-    const cells = body.split("\n").filter((l) => l.startsWith("| **00:")).map((l) => l.split("|").map((c) => c.trim()));
-    const stamps = cells.map((c) => (c.length > 1 ? c[1].replace(/^\*+|\*+$/g, "") : ""));
-    // Rows must tile 00:00-00:10 on the beat boundaries, each one or two beats long.
-    const spans = [];
-    let at = 0, rowsOk = cells.length >= 3 && cells.length <= 6 && cells.every((c) => c.length === 7);
-    for (const st of stamps) {
-      const m = /^(\S+) - (\S+)$/.exec(st);
-      const a = m ? BOUNDS.indexOf(m[1]) : -1, b = m ? BOUNDS.indexOf(m[2]) : -1;
-      if (a !== at || b - a < 1 || b - a > 2) { rowsOk = false; break; }
-      spans.push(b - a); at = b;
-    }
-    if (!rowsOk || at !== BOUNDS.length - 1) {
-      problems.push(`Video ${num} table rows are ${JSON.stringify(stamps)}; expected three to six rows with five cells each, running from 00:00 to 00:10 on the beat boundaries ${BOUNDS.join(", ")}, each one or two beats long`);
-      continue;
-    }
-    shots[num] = cells.map((c, i) => {
-      const s = i + 1, visual = c[3], where = `Video ${num} Shot ${s}`;
-      if (!visual.includes(style)) problems.push(`${where} has no style lock, word for word`);
-      else if (aspect === null) aspect = visual.split(style)[0].trim();
-      if (count(visual, avoid) !== 1) problems.push(`${where} avoid line appears ${count(visual, avoid)} times (expected 1)`);
-      const action = /Action: (.*?) Camera: /.exec(visual);
-      const beats = action ? sentences(action[1]) : [];
-      if (beats.length !== spans[i]) problems.push(`${where} Action has ${beats.length} sentences, but the shot covers ${spans[i]} beat${spans[i] > 1 ? "s" : ""} (one sentence per beat)`);
-      if (!IN_FRAME.test(visual)) problems.push(`${where} has no 'In frame: ... and no one else.' sentence`);
-      const ends = framings(c[2]);
-      if (!ends) problems.push(`${where} Shot Type '${c[2]}' is not '<Framing>, <Angle>'`);
-      else if (spans[i] === 1 && ends[0] !== ends[1]) problems.push(`${where} is one beat long, so it holds one framing, but its Shot Type is '${c[2]}'`);
-      else if (LADDER.includes(ends[0]) && LADDER.includes(ends[1]) && Math.abs(LADDER.indexOf(ends[0]) - LADDER.indexOf(ends[1])) > 2)
-        problems.push(`${where} moves more than two rungs (${c[2]})`);
-
-      const env = /(Environment: .+?\.) Lighting: /.exec(visual);
-      const light = /(Lighting: .+?\.) (?:Characters: |No Yeti is in this shot\.)/.exec(visual);
-      if (!light) problems.push(`${where} has no Lighting: sentence followed by a Characters: or no-Yeti sentence`);
-      const charM = /Characters: ([^.]*)\./.exec(visual);
-      let cast = [], faces = {}, castEnd = -1;
-      if (charM) {
-        cast = characters(charM[1]) || [];
-        if (!cast.length) problems.push(`${where} Characters: '${charM[1]}' is not in a form from section 3 of prompt-assembly.md`);
-        const ex = expressions(visual, where, problems);
-        if (!ex) problems.push(`${where} has no Expressions: sentence`);
-        else {
-          if (!same(ex.pairs.map((p) => p[0]), cast)) problems.push(`${where} Expressions: does not name the Characters: Yetis in the same order`);
-          faces = Object.fromEntries(ex.pairs.filter((p) => p[0]));
-          castEnd = ex.end;
-        }
-      } else if (visual.includes(NO_YETI_SHOT)) {
-        if (/Expressions: /.test(visual)) problems.push(`${where} has no Yeti but has an Expressions: sentence`);
-        castEnd = visual.indexOf(NO_YETI_SHOT) + NO_YETI_SHOT.length;
-      } else problems.push(`${where} has neither a Characters: sentence nor '${NO_YETI_SHOT}'`);
-      if (action) for (const m of action[1].matchAll(ABSENT)) {
-        const n = m[1] || m[2];
-        if (cast.includes(n)) problems.push(`${where} names ${n} in Characters:, but its Action says ${n} is not in the shot`);
-      }
-      const extras = castEnd >= 0 && visual.includes(avoid) ? visual.slice(castEnd, visual.indexOf(avoid)).trim() : "";
-      return { type: c[2], cast, faces, env: env && env[1], lighting: light && light[1], extras,
-        sceneBreak: /^Scene break:/m.test(body), beats: spans[i] };
-    });
-    // Panel -> shot map for the 3x2 checks.
-    const map = [];
-    shots[num].forEach((sh, si) => { for (let k = 0; k < sh.beats; k++) map.push({ shot: si, first: k === 0, last: k === sh.beats - 1 }); });
-    shots[num].panels = map;
+  const board = read(boardPath);
+  if (/^\| Timestamp /m.test(board)) {
+    console.log("Storyboard is in the older table format; revise it with its storyboard skill first.");
+    return 1;
   }
-  if (aspect === null) problems.push("no visual cell opens with an aspect ratio line before the style lock");
-  failed ||= problems.length > 0;
-  console.log("Storyboard: " + (problems.length ? problems.join("; ") : "OK"));
+  const boardVideos = Object.fromEntries(videos(board).map(([n, t, b]) => [n, { title: t, body: b }]));
 
-  // The 3x2 file.
   const text = read(file);
   const fileVideos = videos(text);
-  const boardHeads = boardVideos.map(([n, t]) => `${n} - ${t}`);
-  const fileHeads = fileVideos.map(([n, t]) => `${n} - ${t}`);
-  if (boardHeads.join("|") !== fileHeads.join("|")) {
-    failed = true;
-    console.log(`Video headings ${JSON.stringify(fileHeads)} do not match the storyboard's ${JSON.stringify(boardHeads)}.`);
-  }
+  if (!fileVideos.length) { console.log("No '## Video N - <Title>' sections in the 3x2 file."); return 1; }
   const imagePaths = [];
-  let previousLast = null;
-  for (const [num, , body] of fileVideos) {
-    problems = [];
-    const sb = shots[num];
+  let previousLast = null, previousNum = null;
+  for (const [num, title, body] of fileVideos) {
+    let problems = [];
+    const bv = boardVideos[num];
+    if (!bv) { console.log(`Video ${num}: not in the storyboard`); failed = true; continue; }
+    if (bv.title !== title) problems.push(`heading title '${title}' is not the storyboard's '${bv.title}'`);
+    const sb = parseAgentPrompt(bv.body, { style, NAME, names, adultFaces, babyFaces, cast });
+    problems.push(...sb.problems.map((p) => `storyboard: ${p}`));
+    if (sb.problems.length) { failed = true; console.log(`Video ${num}: ${problems.join("; ")}`); previousLast = null; continue; }
+
     PANEL_HEAD.lastIndex = 0;
     const heads = [...body.matchAll(PANEL_HEAD)];
     const pre = heads.length ? body.slice(0, heads[0].index) : body;
-    if (/^```/m.test(pre)) problems.push("has a code block before the first panel image; the grid has no prompt and is composed from the panel images (delete the grid prompt)");
+    if (/^```/m.test(pre)) problems.push("has a code block before the first panel image; the grid has no prompt");
     const gridPath = `3x2-timed-storyboard-images/${slug}/Grid_V${num}.jpg`;
     if (!pre.includes(`Grid image: \`${gridPath}\``)) problems.push(`no 'Grid image: \`${gridPath}\`' line`);
     if (heads.length !== PANELS.length) problems.push(`${heads.length} panel images, expected exactly ${PANELS.length}`);
@@ -268,23 +258,18 @@ function main(target, withImages) {
     heads.slice(0, PANELS.length).forEach((h, idx) => {
       const i = idx + 1, where = `panel image ${i}`;
       if (Number(h[1]) !== i || h[2] !== PANELS[i - 1]) problems.push(`${where} heading should read '### Panel ${i} · ${PANELS[i - 1]}'`);
-      const title = h[5];
-      if (!TITLE.test(title)) problems.push(`${where} title '${title}' is not two to four words in capitals`);
-      titles.push(title);
-      const pm = sb && sb.panels ? sb.panels[i - 1] : null;
-      const shot = pm ? sb[pm.shot] : null;
+      const ttl = h[5];
+      if (!TITLE.test(ttl)) problems.push(`${where} title '${ttl}' is not two to four words in capitals`);
+      titles.push(ttl);
+      const pm = sb.panels[i - 1];
+      const shot = pm ? sb.shots[pm.shot] : null;
       const shotNo = pm ? pm.shot + 1 : "?";
       const framing = h[3], angle = h[4];
-      const ends = shot ? framings(shot.type) : null;
-      if (ends) {
-        // A one-beat shot holds one framing; a two-beat shot opens on the first and closes on the second.
-        const last = pm.last;
-        const want = pm.first ? ends[0] : ends[1];
-        if (framing !== want) problems.push(`${where} framing '${framing}' should be ${want}, the framing of Shot ${shotNo} at this beat`);
-        if (angle !== ends[2]) {
-          if (last) notes.push(`Video ${num} panel ${i} angle '${angle}' differs from the cell's '${ends[2]}'; fine only if the Camera: move ends on it`);
-          else problems.push(`${where} angle '${angle}' is not the cell's '${ends[2]}'`);
-        }
+      if (shot) {
+        const okF = shot.beats === 1 ? [shot.open, shot.close] : [pm.first ? shot.open : shot.close];
+        if (!okF.includes(framing)) problems.push(`${where} framing '${framing}' should be ${okF.join(" or ")}, Shot ${shotNo}'s framing at this beat`);
+        const okA = shot.beats === 1 ? [shot.angleOpen, shot.angleClose] : [pm.first ? shot.angleOpen : shot.angleClose];
+        if (!okA.includes(angle)) problems.push(`${where} angle '${angle}' should be ${okA.join(" or ")}, Shot ${shotNo}'s angle at this beat`);
       }
 
       const partEnd = idx + 1 < heads.length ? heads[idx + 1].index : body.length;
@@ -296,21 +281,19 @@ function main(target, withImages) {
       if (blocks.length !== 1) { problems.push(`${where} has ${blocks.length} prompts, expected 1`); return; }
       const prompt = blocks[0].split("\n").map((l) => l.trim()).filter(Boolean).join(" ");
 
-      const lighting = shot && shot.lighting;
-      const env = shot && shot.env;
-      const extras = shot ? shot.extras : "";
-      if (!prompt.startsWith(`Create image: ${aspect} ${style} `)) problems.push(`${where} does not open with 'Create image:', the storyboard's aspect ratio line, and the style lock`);
-      for (const [name, piece] of [["Environment: sentence", env], ["Lighting: sentence", lighting]])
+      if (!prompt.startsWith(`Create image: ${sb.aspect} ${style} `)) problems.push(`${where} does not open with 'Create image:', the aspect ratio line, and the style lock`);
+      const pieces = [["Environment: sentence", sb.env], ["Lighting: sentence", shot && shot.lighting], ["In frame: sentence", shot && shot.inFrame]];
+      for (const [name, piece] of pieces)
         if (piece && count(prompt, piece) !== 1) problems.push(`${where} ${name} is not the storyboard shot's, word for word`);
       for (const [name, piece] of [["avoid line", avoid], ["closing sentence", panelClosing]])
         if (count(prompt, piece) !== 1) problems.push(`${where} ${name} appears ${count(prompt, piece)} times (expected 1)`);
       if (!prompt.endsWith(panelClosing)) problems.push(`${where} does not end with the closing sentence`);
-      if (extras && count(prompt, extras) !== 1) problems.push(`${where} supporting cast sentences are not the storyboard's, word for word`);
-      if (/\b(?:Camera|Transition|Faces|Characters): | · |No dialogue\.|3x2|storyboard grid|Horizontal 16:9 aspect ratio, full-frame widescreen composition\. Layout:/.test(prompt))
-        problems.push(`${where} contains Camera:, Transition:, Faces:, Characters:, grid, label, or audio text`);
+      const castHere = shot ? shot.others.map((n) => cast[n]) : [];
+      for (const c of castHere) if (count(prompt, c) !== 1) problems.push(`${where} story cast sentence from prompts/characters/ is not word for word`);
+      if (/\b(?:Camera|Transition|Faces|Characters|Setting|Cast|Light): | · |No dialogue|3x2|storyboard grid|@/.test(prompt))
+        problems.push(`${where} contains Camera:, Transition:, Characters:, Setting:, Cast:, Light:, an @ name, grid, label, or audio text`);
       if (OLD_LOCKS.test(prompt)) problems.push(`${where} carries the older character text or a Head lock:, Look lock:, or Scale lock: sentence`);
 
-      // The Yetis in the panel are the ones whose full lock it carries.
       const present = [];
       for (const n of names) {
         const k = count(prompt, lockOf[n]);
@@ -320,8 +303,10 @@ function main(target, withImages) {
       }
       present.sort((a, b) => a.at - b.at);
       const order = present.map((p) => p.name);
-      if (shot) for (const n of order)
-        if (!shot.cast.includes(n)) problems.push(`${where} has ${n}, but Shot ${shotNo}'s Characters: sentence does not`);
+      if (shot) {
+        for (const n of order) if (!shot.yetis.includes(n)) problems.push(`${where} has ${n}'s lock, but Shot ${shotNo}'s In frame: does not name ${n}`);
+        for (const n of shot.yetis) if (!order.includes(n)) problems.push(`${where} has no lock for ${n}, whom Shot ${shotNo}'s In frame: names`);
+      }
       if (PLACES[order.length]) {
         const missing = PLACES[order.length].filter((pl, k) => prompt.slice(present[k].at - pl.length, present[k].at) !== pl);
         if (missing.length) problems.push(`${where} places ${order.length} Yetis without ${PLACES[order.length].map((p) => p.replace(/[, ]+$/, "")).join(" / ")} directly before each lock`);
@@ -338,8 +323,8 @@ function main(target, withImages) {
           for (const [n, f] of ex.pairs) if (n) faces[n] = f;
         }
         if (shot && pm.last) for (const n of order)
-          if (n in shot.faces && faces[n] !== undefined && faces[n] !== shot.faces[n])
-            problems.push(`${where} face for ${n} is not Shot ${shotNo}'s Expressions: face`);
+          if (shot.faces[n] && faces[n] !== undefined && faces[n] !== shot.faces[n])
+            problems.push(`${where} face for ${n} should be Shot ${shotNo}'s closing face '${shot.faces[n]}'`);
       } else {
         if (count(prompt, noYetiImage) !== 1) problems.push(`${where} has no Yeti but does not say '${noYetiImage}'`);
         if (/Expressions: /.test(prompt)) problems.push(`${where} has no Yeti but has an Expressions: sentence`);
@@ -351,29 +336,23 @@ function main(target, withImages) {
       const action = /Action: (.*?)(?: Effects: .*)? Single still reference image\./.exec(prompt);
       pictures.push(action ? action[1].toLowerCase().replace(/\s+/g, " ") : `missing ${i}`);
 
-      const marks = [prompt.indexOf(style), prompt.indexOf(env || "Environment: "), prompt.indexOf(lighting || "Lighting: "),
+      const marks = [prompt.indexOf(style), prompt.indexOf(sb.env || "Environment: "), prompt.indexOf((shot && shot.lighting) || "Lighting: "),
         order.length ? present[0].at : prompt.indexOf(noYetiImage)];
       if (order.length) marks.push(exAt);
-      if (extras && prompt.includes(extras)) marks.push(prompt.indexOf(extras));
-      marks.push(prompt.indexOf(avoid), prompt.indexOf("Action: "), prompt.lastIndexOf(panelClosing));
+      for (const c of castHere) if (prompt.includes(c)) marks.push(prompt.indexOf(c));
+      marks.push(prompt.indexOf((shot && shot.inFrame) || "In frame: "), prompt.indexOf(avoid), prompt.indexOf("Action: "), prompt.lastIndexOf(panelClosing));
       if (marks.includes(-1) || !sorted(marks))
-        problems.push(`${where} pieces missing or out of order (style, Environment, Lighting, character locks, Expressions, cast, avoid, Action, closing)`);
+        problems.push(`${where} pieces missing or out of order (style, Environment, Lighting, locks, Expressions, cast, In frame, avoid, Action, closing)`);
     });
 
-    if (sb) sb.forEach((shot, si) => {
-      const s = si + 1;
-      const own = (sb.panels || []).map((m, k) => (m.shot === si ? k + 1 : 0)).filter(Boolean);
-      const shown = new Set(own.flatMap((p) => Object.keys(facesByPanel[p] || {})));
-      for (const n of shot.cast)
-        if (!shown.has(n)) notes.push(`Video ${num} Shot ${s} names ${n} in Characters:, but neither of its panels shows ${n}`);
-    });
     if (new Set(titles).size !== titles.length) problems.push("panel titles repeat; every panel needs its own");
     if (new Set(pictures).size !== pictures.length) problems.push("two panels describe the same picture; each beat is its own panel");
-    if (previousLast && sb && !sb[0].sceneBreak)
+    if (previousLast && previousNum === num - 1 && !sb.sceneBreak)
       for (const n of Object.keys(previousLast))
         if (facesByPanel[1] && facesByPanel[1][n] && facesByPanel[1][n] !== previousLast[n])
           notes.push(`Video ${num} panel 1 face for ${n} differs from the previous video's panel 6; fine only if the first beat changes it`);
     previousLast = facesByPanel[PANELS.length] || null;
+    previousNum = num;
 
     failed ||= problems.length > 0;
     console.log(`Video ${num}: ` + (problems.length ? problems.join("; ") : "OK"));

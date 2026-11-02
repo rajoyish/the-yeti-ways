@@ -6,7 +6,7 @@ On a golden evening high in the Himalaya, Babu Yeti races along a dusty trail, g
 
 This storyboard is three 10-second Google Flow videos that cut together into one 30-second film, made in a new Flow project with the saved Yeti Characters, as `.agents/rules/google-flow.md` sets out. Each video has a table, the master its panel images are built from, then an `Ingredients:` line and a `Flow prompt:` block, the only text Flow receives for that clip. The six checked panel images for each video are in `prompts/babu-yeti-bamboo-peak-training-30s-3x2.md` under the same `## Video N - <Title>` heading; if that file does not exist, run `/create-3x2-timed-image` on this storyboard first.
 
-1. New project named "Babu Yeti Bamboo Peak Training". Settings: Omni Flash (Gemini Omni Flash 1.1), Video, Ingredients, vertical 9:16, 10 seconds, 360p for drafts. "Return silent videos" off. Turn the Agent on and, in its Settings, set the default video model to Omni Flash, orientation vertical, and "Confirm before generating" to Always.
+1. New project named "Babu Yeti Bamboo Peak Training". Settings: Omni Flash (Gemini Omni Flash 1.1), Video, Ingredients, vertical 9:16, 10 seconds, 720p. "Return silent videos" off. Turn the Agent on and, in its Settings, set the default video model to Omni Flash, orientation vertical, and "Confirm before generating" to Always.
 2. Characters: type `@` and check `@Babu Yeti` resolves to the saved Character. Create a Character named `Old Mountain Teacher`, with his sentence from the `Cast lock:` (without its label) as the description and a full-body portrait on a plain light-grey background, and check it before saving.
 3. Plates: generate `Plate - Lower Trail` and `Plate - Bamboo Summit` from the `Environment lock:`, as section 3 of `google-flow.md` says.
 4. Agent instructions: add the three cards under "Google Flow Agent instructions", each with its title, reference image, and guideline, toggled on.
@@ -27,7 +27,7 @@ Paste each card into Flow's Agent instructions panel ("+ Add instruction" for ea
 Reference: `Family height chart` (`references/characters/family-height-chart.png`)
 
 ```text
-This project makes one original 3D animated short film about a family of three Yetis. Every video is made with Gemini Omni Flash 1.1 (Omni Flash), vertical 9:16, exactly 10 seconds long, with music and sound effects and no dialogue. Draft at 360p unless I ask for 720p.
+This project makes one original 3D animated short film about a family of three Yetis. Every video is made with Gemini Omni Flash 1.1 (Omni Flash), vertical 9:16, exactly 10 seconds long, with music and sound effects and no dialogue. Generate every video at 720p, never 360p, unless I ask for a 360p draft.
 
 The Yetis are the saved Characters @Papa Yeti, @Mama Yeti, and @Babu Yeti. Use only the ones my prompt names, and draw each exactly as its saved Character. Never redesign, recolour, or restyle them, and never add another Yeti, a duplicate, or anyone my prompt does not name. Their sizes are as in the attached height chart: whenever Babu Yeti stands with a grown-up, the top of his curl reaches only the grown-up's belly, and he is never placed nearer the camera than a grown-up beside him.
 
@@ -59,7 +59,7 @@ Props: three slim plain bamboo staffs, never raised above his head, and one smal
 Reference: None
 
 ```text
-This film is 3 videos, generated one at a time and in order. For each video I paste a prompt with three timestamped shots on its own 00:00 to 00:10 clock. Generate it as one 10-second Omni Flash video, vertical 9:16, as written: keep its shots, order, timestamps, camera moves, faces, light, and sound, and do not rewrite, extend, or add to it unless I ask. Never treat a timestamp as a reason to make a longer video or to split the prompt into several videos.
+This film is 3 videos, generated one at a time and in order. For each video I paste a prompt with three timestamped shots on its own 00:00 to 00:10 clock. Generate it as one 10-second Omni Flash video, vertical 9:16, at 720p, as written: keep its shots, order, timestamps, camera moves, faces, light, and sound, and do not rewrite, extend, or add to it unless I ask. Never treat a timestamp as a reason to make a longer video or to split the prompt into several videos.
 
 Videos after the first open on the attached frame saved from the end of the previous video: match its positions, faces, light, and colours exactly at the first frame. Use only the images I attach; never attach a grid, collage, or multi-panel image as a reference.
 
@@ -105,7 +105,7 @@ Ingredients: @Babu Yeti, Plate - Lower Trail, Plate - Bamboo Summit.
 Flow prompt:
 
 ```text
-Vertical 9:16 video, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, exactly as his saved Character, starting in the center of the trail. No other characters.
 Setting: Shots 1 and 2: The lower slopes of a high Himalayan mountain on a long sunny evening, where a dusty rocky trail scattered with dry fallen leaves and edged with green shrubs runs past a flat dark stone to the foot of a steep rock wall, under a wide sky with drifting clouds. Shot 3: The summit of a high Himalayan peak at sunset, where a grove of tall swaying green bamboo grows beside a shallow clear stream with mossy rocks and a flat round stepping stone, and the stream runs along the edge of a flat round stone sparring platform with a weathered stone archway, looking out over a vast valley of tall misty rock spires and low drifting clouds under a low sun.
 00:00-00:03, Medium Shot, Low Angle: @Babu Yeti dashes toward the camera along the dusty trail, his feet kicking up puffs of dust and dry leaves, then skids to a stop beside the flat dark stone, scoops up three slim plain bamboo staffs with both five-fingered hands, and hugs them to his chest with a cute playful smile. The camera tracks backward low to the ground just ahead of him. Light: soft warm late-afternoon sun from frame right, high-key, honey-gold and fresh green, bright and energetic.
@@ -115,7 +115,7 @@ Sound: fast, driving taiko drums and a bright bamboo flute; the drums drop to on
 Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, clothing, hats, or accessories, on-screen text, captions, borders, split screens.
 ```
 
-With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, exactly as written.
+With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written.
 
 ---
 
@@ -138,7 +138,7 @@ Ingredients: @Babu Yeti, @Old Mountain Teacher, End frame V1.
 Flow prompt:
 
 ```text
-Vertical 9:16 video, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, on the left, and @Old Mountain Teacher, on the right, exactly as their saved Characters. No other characters.
 Setting: The summit of a high Himalayan peak at sunset, where a grove of tall swaying green bamboo grows beside a shallow clear stream with mossy rocks and a flat round stepping stone, and the stream runs along the edge of a flat round stone sparring platform with a weathered stone archway, looking out over a vast valley of tall misty rock spires and low drifting clouds under a low sun. The video opens exactly on the attached end frame of the previous clip.
 00:00-00:03, Full Shot, Eye Level: @Babu Yeti stands on the stepping stone at frame left, spinning the staffs low inside the ring of spray, determined, no smile; the spray falls away to reveal @Old Mountain Teacher on the edge of the stone platform at frame right in a calm defensive stance with open palms at chest height, and Babu Yeti hops onto the platform and trades quick light blocks with him, ending with his crossed staffs pressed against the teacher's open palm. The camera arcs slowly from rest around them. Light: the low sun backlighting the bamboo, high contrast, jade-green and amber; falling spray glitters.
@@ -148,7 +148,7 @@ Sound: driving taiko drums and bamboo flute through the sparring, building and s
 Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, clothing, hats, or accessories, on-screen text, captions, borders, split screens.
 ```
 
-With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, exactly as written.
+With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written.
 
 ---
 
@@ -171,7 +171,7 @@ Ingredients: @Babu Yeti, @Old Mountain Teacher, End frame V2.
 Flow prompt:
 
 ```text
-Vertical 9:16 video, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, on the left, and @Old Mountain Teacher, on the right, exactly as their saved Characters. No other characters.
 Setting: The summit of a high Himalayan peak at sunset, where a grove of tall swaying green bamboo grows beside a shallow clear stream with mossy rocks and a flat round stepping stone, and the stream runs along the edge of a flat round stone sparring platform with a weathered stone archway, looking out over a vast valley of tall misty rock spires and low drifting clouds under a low sun. The video opens exactly on the attached end frame of the previous clip.
 00:00-00:03, Close-Up to Medium Shot, Eye Level: @Babu Yeti holds the leaf at chest height and smiles up at the kneeling @Old Mountain Teacher, then trots across the platform to the weathered stone archway at frame left and stands under it seen from behind with thick shaggy fur covering his whole back and no tail, gazing out over the misty valley, glancing back over his shoulder with a cute playful smile while the teacher stays kneeling at frame right. The camera dollies out slowly from rest. Light: soft warm golden sunset through drifting mist, honey-gold and rose; mist curls through the archway.
@@ -181,4 +181,4 @@ Sound: warm bowed strings and bamboo flute swell into the full palette with roll
 Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, clothing, hats, or accessories, on-screen text, captions, borders, split screens.
 ```
 
-With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, exactly as written.
+With the Agent on, add: Generate this as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written.

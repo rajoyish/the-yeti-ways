@@ -11,7 +11,7 @@ Everything below is written for the Google Flow Agent: three instruction cards f
 Reference: None
 
 ```text
-This project makes one original 3D animated short film about a family of three Yetis. Every video is made with Gemini Omni Flash 1.1 (Omni Flash), vertical 9:16, exactly 10 seconds long, with music and sound effects and no dialogue. Draft at 360p unless I ask for 720p.
+This project makes one original 3D animated short film about a family of three Yetis. Every video is made with Gemini Omni Flash 1.1 (Omni Flash), vertical 9:16, exactly 10 seconds long, with music and sound effects and no dialogue. Generate every video at 720p, never 360p, unless I ask for a 360p draft.
 
 The Yetis are the saved Characters @Papa Yeti, @Mama Yeti, and @Babu Yeti. Use only the ones my prompt names, and draw each exactly as its saved Character. Never redesign, recolour, or restyle them, and never add another Yeti, a duplicate, or anyone my prompt does not name. Their sizes never change: whenever Babu Yeti stands with a grown-up, the top of his curl reaches only the grown-up's belly, and he is never placed nearer the camera than a grown-up beside him.
 
@@ -43,7 +43,7 @@ If Video 2 is refused for safety, change "slides off the back" to "slips to the 
 Reference: None
 
 ```text
-This film is 3 videos, generated one at a time and in order. For each video I paste a prompt that names the video, the image it opens on, and three timestamped shots on its own 00:00 to 00:10 clock. Generate it as one 10-second Omni Flash video, vertical 9:16, as written: keep its shots, order, timestamps, camera moves, faces, light, and sound, and do not rewrite, extend, or add to it unless I ask. Never treat a timestamp as a reason to make a longer video or to split the prompt into several videos.
+This film is 3 videos, generated one at a time and in order. For each video I paste a prompt that names the video, the image it opens on, and three timestamped shots on its own 00:00 to 00:10 clock. Generate it as one 10-second Omni Flash video, vertical 9:16, at 720p, as written: keep its shots, order, timestamps, camera moves, faces, light, and sound, and do not rewrite, extend, or add to it unless I ask. Never treat a timestamp as a reason to make a longer video or to split the prompt into several videos.
 
 Each prompt calls every character with @ once, in its Cast line. Every later mention of that name without @ is the same saved Character, drawn exactly as saved.
 
@@ -80,8 +80,8 @@ Characters: Babu Yeti, Nuri Bear, and Pip Penguin, and no one else.
 Agent prompt:
 
 ```text
-Generate Video 1 - The Sneaky Push as one 10-second Omni Flash video, vertical 9:16, exactly as written below. Open on the image Plate - Snowy Slope.
-Vertical 9:16 video, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Generate Video 1 - The Sneaky Push as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written below. Open on the image Plate - Snowy Slope.
+Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Nuri Bear on the left, @Babu Yeti in the center, and @Pip Penguin on the right, exactly as their saved Characters. Standing on her hind legs, Nuri Bear reaches about Babu Yeti's shoulders, and Pip Penguin stays well below his shoulders. No other characters.
 Setting: A gentle snow-covered hillside in a quiet mountain valley, a long smooth slope of fresh powder snow running down from a rounded crest to a deep, soft snowdrift heaped against a row of snow-laden pine trees at its foot, with a few rounded snow-capped boulders set well off to the sides of the slope and snowy peaks beyond under a clear pale-blue sky and a low sun sinking toward the peaks at frame right.
 00:00-00:03, Wide Shot, Eye Level: On the sunny crest, Babu Yeti drags a round birch-bark tray with both five-fingered hands while Nuri Bear bounces and Pip Penguin hops. Babu Yeti sits in front gripping the rim with both five-fingered hands, Nuri Bear peeks over his left shoulder behind him, and Pip Penguin pushes the rear rim with his flippers, all beaming, Babu Yeti with a cute playful smile. Slow crane down from the pines to eye level. Light: soft warm low sun from frame right, high-key, honey-gold and pale blue, bright and playful.
@@ -110,8 +110,8 @@ Characters: Babu Yeti, Nuri Bear, and Pip Penguin, and no one else.
 Agent prompt:
 
 ```text
-Generate Video 2 - The Flipper Catch as one 10-second Omni Flash video, vertical 9:16, exactly as written below. Open on the image End frame V1.
-Vertical 9:16 video, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Generate Video 2 - The Flipper Catch as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written below. Open on the image End frame V1.
+Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Nuri Bear on the left, @Babu Yeti in the center, and @Pip Penguin on the right, exactly as their saved Characters. Standing on her hind legs, Nuri Bear reaches about Babu Yeti's shoulders, and Pip Penguin stays well below his shoulders. No other characters.
 Setting: A gentle snow-covered hillside in a quiet mountain valley, a long smooth slope of fresh powder snow running down from a rounded crest to a deep, soft snowdrift heaped against a row of snow-laden pine trees at its foot, with a few rounded snow-capped boulders set well off to the sides of the slope and snowy peaks beyond under a clear pale-blue sky and a low sun sinking toward the peaks at frame right.
 00:00-00:03, Close-Up, Eye Level: Babu Yeti leans back at the front of the spinning tray, both five-fingered hands on the rim, alarmed, powder spraying past. He looks back at Pip Penguin's flippers sliding off the rear rim and turns determined, small furrowed brow, mouth pressed shut, no smile. Very slow dolly in from rest. Light: raking gold from frame right, cool-blue pine shadows.
@@ -140,8 +140,8 @@ Characters: Babu Yeti, Nuri Bear, and Pip Penguin, and no one else.
 Agent prompt:
 
 ```text
-Generate Video 3 - One More Ride as one 10-second Omni Flash video, vertical 9:16, exactly as written below. Open on the image End frame V2.
-Vertical 9:16 video, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Generate Video 3 - One More Ride as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written below. Open on the image End frame V2.
+Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Nuri Bear on the left, @Babu Yeti in the center, and @Pip Penguin on the right, exactly as their saved Characters. Standing on her hind legs, Nuri Bear reaches about Babu Yeti's shoulders, and Pip Penguin stays well below his shoulders. No other characters.
 Setting: A gentle snow-covered hillside in a quiet mountain valley, a long smooth slope of fresh powder snow running down from a rounded crest to a deep, soft snowdrift heaped against a row of snow-laden pine trees at its foot, with a few rounded snow-capped boulders set well off to the sides of the slope and snowy peaks beyond under a clear pale-blue sky and a low sun sinking toward the peaks at frame right.
 00:00-00:03, Medium Shot, Eye Level: The three poke out of the snowdrift as the last powder falls, Babu Yeti with nothing on his head and a dazed curious face. Pip Penguin sinks down with his flippers over his beak, sheepish, and Babu Yeti tilts his head toward him, curious, mouth in a small pout, no smile. Slow pan from rest, left to right. Light: golden low sun through drifting powder, cool blue shade.

@@ -14,10 +14,10 @@ This skill reads a panel image file written by `create-3x2-timed-image` (`prompt
 
 Each 10-second video has six panel image prompts, and the skill splits them into two triptych grids:
 
-- **Grid 1:** Panels 1, 2, and 3 (left, center, right). Shot 1 and the first beat of Shot 2.
-- **Grid 2:** Panels 4, 5, and 6 (left, center, right). The second beat of Shot 2 and Shot 3.
+- **Grid 1:** Panels 1, 2, and 3 (left, center, right): beats 1 to 3, 00:00 to 00:05.
+- **Grid 2:** Panels 4, 5, and 6 (left, center, right): beats 4 to 6, 00:05 to 00:10.
 
-A 30-second film gives 6 triptych prompts (3 videos × 2 grids) and a 60-second film 12 (6 videos × 2 grids).
+Every video in the 3x2 file gives two triptych prompts. A 3x2 file may hold all of a film's videos or only some (`create-3x2-timed-image` can write a single video), and the triptych file holds the same videos.
 
 Triptychs are planning and review sheets: they show a video's beats at a glance for reviewing the story or sharing it. They are never attached to a Flow clip as ingredients. Flow reads a multi-panel image as one picture, so a 16:9 three-scene triptych blends its panels, borders, and labels into a 9:16 clip and pulls the characters and scene off model; `.agents/rules/google-flow.md` sets out what each clip is given instead (saved Characters, a plate or the previous clip's end frame, and at most two single panel images). The triptych is a drawn alternative to the composed grid that `compose_grid.ps1` builds from the panel images. An image model drawing three panels in one picture can drift between them (a changed colour, tuft, face, or framing), so every panel in a triptych is checked against its panel prompt before the triptych is used. The composed grid stays the safer reference for a clip.
 
@@ -25,7 +25,8 @@ Triptychs are planning and review sheets: they show a video's beats at a glance 
 
 - The user gives a panel image file, e.g. `prompts/yeti-forest-wind-strike-30s-3x2.md`.
 - With no file, use the most recently changed `prompts/*-3x2.md`. If several were changed recently and the intent is unclear, ask which one.
-- If the user gives a storyboard (`-storyboard.md`) instead, the panel prompts do not exist yet: run `/create-3x2-timed-image` on it first.
+- If the user gives a storyboard (`-storyboard.md`) instead, the panel prompts do not exist yet: run `/create-3x2-timed-image` on it first (for only the videos the user names, if they name some), then run this skill on the 3x2 file it writes.
+- Run `node .agents/skills/create-3x2-timed-image/check_grid.mjs <the 3x2 file>` first; a 3x2 file that does not print `OK` for every video is fixed before any triptych is written.
 
 ## 2. Run the script
 
@@ -44,7 +45,7 @@ node .agents/skills/generate-triptych-prompts/generate_triptych.mjs prompts/<slu
 | `--grid <1\|2>` | Only Grid 1 or Grid 2. |
 | `--help` | Shows usage. |
 
-The script stops and writes nothing when a video does not have exactly Panels 1 to 6, a panel has no `Create image:` prompt, or a panel's text would not appear verbatim in the output. Fix the 3x2 file (with `create-3x2-timed-image`), never the triptych file, and run it again.
+The script stops and writes nothing when a video does not have exactly Panels 1 to 6, a panel has no `Create image:` prompt, or a panel's text, apart from the added `@`, would not appear verbatim in the output. Fix the 3x2 file (with `create-3x2-timed-image`), never the triptych file, and run it again.
 
 `--video` and `--grid` with `--save` overwrite the whole triptych file with only that selection, so use them for printing one grid, or with `--out` to a separate file.
 
@@ -61,16 +62,18 @@ Each prompt follows this template:
 ```text
 Create image: Horizontal 16:9 aspect ratio. A 3-panel storyboard grid (1x3 triptych layout) of <layout>, separated by thick black borders, read left to right as one continuous sequence of 3D animated cinematic scenes. Each panel follows its own description below, keeps the same characters, environment, and light from panel to panel, and holds no text, numbers, captions, or watermark:
 
-Panel 1 (Left): <the exact 'Create image: ...' prompt of Panel 1 or 4>
+Panel 1 (Left): <the exact 'Create image: ...' prompt of Panel 1 or 4, each character's first mention written with @>
 
-Panel 2 (Center): <the exact 'Create image: ...' prompt of Panel 2 or 5>
+Panel 2 (Center): <the exact 'Create image: ...' prompt of Panel 2 or 5, each character's first mention written with @>
 
-Panel 3 (Right): <the exact 'Create image: ...' prompt of Panel 3 or 6>
+Panel 3 (Right): <the exact 'Create image: ...' prompt of Panel 3 or 6, each character's first mention written with @>
 ```
 
 `<layout>` depends on the film's shape. For the vertical Yeti shorts, whose panel prompts say `Vertical 9:16`, it is "three tall vertical 9:16 panels standing side by side and filling the frame from edge to edge": three 9:16 panels side by side are almost exactly one 16:9 canvas, so the panel prompts' own aspect ratio lines agree with the grid instead of fighting it. For a widescreen film it is "three horizontal 16:9 panels side by side in one row, centred on a black background".
 
 **Preservation guarantee:** every panel prompt is copied from `Create image:` to the end of its code block, character locks, environment, lighting, expressions, supporting cast, avoid line, action, effects, and closing sentence included. Nothing is shortened, rephrased, summarised, or reordered.
+
+**Characters are called with `@`.** Each panel's first mention of every character is prefixed with `@`, so Flow links the saved Character when the triptych is generated in Flow: the lock label `Papa Yeti:` becomes `@Papa Yeti:`, and a story cast sentence's `Terrace Farmer,` becomes `@Terrace Farmer,`. Later mentions in the same panel (`Expressions: Papa Yeti, ...`, `Papa Yeti's five-fingered hand`) keep the plain name, as in the Agent prompts (section 6 of `.agents/rules/google-flow.md`). The names are the three Yetis plus the backticked name under `## Character name` in every file in `prompts/characters/`, so a new Character file is picked up with no change to the script. The `@` is the only change to the panel text; the lock after it stays word for word. The 3x2 file keeps the plain names, and the script adds the `@` itself, so never add it by hand to either file. After pasting a triptych prompt into Flow, type `@` or run Flow Character Linker to confirm each name resolves to a Character chip.
 
 ## 4. Report
 
