@@ -109,6 +109,8 @@ Closing sentence, the last sentence of every panel image prompt:
 - Label strip: the top of each cell, black, holding `<P> · <timecode> · <TITLE>` in small, clean white letters. No other text anywhere.
 - Picture: the panel image scaled to fit the rest of the cell without cropping or stretching, centred on black, with a thin black border around it. A vertical 9:16 panel image sits in the middle of its cell with black on each side.
 
+Split layout, for a widescreen 16:9 film when the user asks for it: under the video heading, a `Grid images:` line replaces the `Grid image:` line and names two files, `Grid images: \`3x2-timed-storyboard-images/<slug>/Grid_V<N>_1.jpg\` (panels 1, 2, 3, top to bottom) and \`3x2-timed-storyboard-images/<slug>/Grid_V<N>_2.jpg\` (panels 4, 5, 6, top to bottom)`. `compose_grid.ps1` then writes two vertical 1080x1920 (9:16) sheets, each holding its three 16:9 panel images stacked full-width one above another and read top to bottom: cells 627, 628, and 627 pixels tall, separated by two 19-pixel white gutters, with no label strip, no text, and no outer border, each panel image scaled to cover its cell and centre-cropped so it fills it edge to edge, and `check_grid.mjs --images` expects each sheet at 1080x1920. Everything else (the six panel images, their names and prompts) is unchanged.
+
 ## Workflow
 
 ### 1. Get the storyboard

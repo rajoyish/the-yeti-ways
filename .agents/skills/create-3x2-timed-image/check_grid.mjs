@@ -32,6 +32,8 @@ const BOUNDS = ["00:00", "00:01.5", "00:03", "00:05", "00:07", "00:08.5", "00:10
 const PANELS = ["00:00.0–00:01.5", "00:01.5–00:03.0", "00:03.0–00:05.0",
   "00:05.0–00:07.0", "00:07.0–00:08.5", "00:08.5–00:10.0"];
 const GRID_W = 1920, GRID_H = 1080;
+// The split layout: two vertical 1080x1920 sheets per video, three panels stacked top to bottom on each.
+const SPLIT_W = 1080, SPLIT_H = 1920;
 const BABY = "Babu Yeti";
 const NO_YETI_SHOT = "No Yeti is in this shot.";
 const LEGACY = /^(Frames|Start frame|Midpoint frame|End frame):/m;
@@ -251,7 +253,11 @@ function main(target, withImages) {
     const pre = heads.length ? body.slice(0, heads[0].index) : body;
     if (/^```/m.test(pre)) problems.push("has a code block before the first panel image; the grid has no prompt");
     const gridPath = `3x2-timed-storyboard-images/${slug}/Grid_V${num}.jpg`;
-    if (!pre.includes(`Grid image: \`${gridPath}\``)) problems.push(`no 'Grid image: \`${gridPath}\`' line`);
+    const splitPaths = [1, 2].map((g) => `3x2-timed-storyboard-images/${slug}/Grid_V${num}_${g}.jpg`);
+    const splitLine = `Grid images: \`${splitPaths[0]}\` (panels 1, 2, 3, top to bottom) and \`${splitPaths[1]}\` (panels 4, 5, 6, top to bottom)`;
+    const split = /^Grid images: /m.test(pre);
+    if (split && !pre.includes(splitLine)) problems.push(`no '${splitLine}' line`);
+    if (!split && !pre.includes(`Grid image: \`${gridPath}\``)) problems.push(`no 'Grid image: \`${gridPath}\`' line (or a split 'Grid images:' line)`);
     if (heads.length !== PANELS.length) problems.push(`${heads.length} panel images, expected exactly ${PANELS.length}`);
 
     const titles = [], pictures = [], facesByPanel = {};
@@ -276,7 +282,7 @@ function main(target, withImages) {
       const part = body.slice(h.index + h[0].length, partEnd);
       const wantPath = `3x2-timed-storyboard-images/${slug}/Panel_${i}_V${num}.jpg`;
       if (!part.includes(`Image: \`${wantPath}\`.`)) problems.push(`${where} has no line 'Image: \`${wantPath}\`.'`);
-      imagePaths.push({ num, panel: i, file: wantPath, grid: gridPath });
+      imagePaths.push({ num, panel: i, file: wantPath, grid: split ? splitPaths[i <= 3 ? 0 : 1] : gridPath, split });
       const blocks = [...part.matchAll(/^```\n([\s\S]*?)\n```/gm)].map((m) => m[1]);
       if (blocks.length !== 1) { problems.push(`${where} has ${blocks.length} prompts, expected 1`); return; }
       const prompt = blocks[0].split("\n").map((l) => l.trim()).filter(Boolean).join(" ");
@@ -367,11 +373,13 @@ function main(target, withImages) {
       if (!byGrid.has(img.grid)) byGrid.set(img.grid, []);
       byGrid.get(img.grid).push(fs.statSync(abs).mtimeMs);
     }
+    const splitGrids = new Set(imagePaths.filter((i) => i.split).map((i) => i.grid));
     for (const grid of new Set(imagePaths.map((i) => i.grid))) {
       const abs = path.join(REPO, grid);
       if (!fs.existsSync(abs)) { problems.push(`missing ${grid} (run compose_grid.ps1)`); continue; }
       const size = jpegSize(abs);
-      if (!size || size[0] !== GRID_W || size[1] !== GRID_H) problems.push(`${grid} is ${size ? size.join("x") : "not a JPEG"}, expected ${GRID_W}x${GRID_H}`);
+      const [w, h] = splitGrids.has(grid) ? [SPLIT_W, SPLIT_H] : [GRID_W, GRID_H];
+      if (!size || size[0] !== w || size[1] !== h) problems.push(`${grid} is ${size ? size.join("x") : "not a JPEG"}, expected ${w}x${h}`);
       const panels = byGrid.get(grid) || [];
       if (panels.length && fs.statSync(abs).mtimeMs < Math.max(...panels)) problems.push(`${grid} is older than one of its panel images (compose it again)`);
     }
