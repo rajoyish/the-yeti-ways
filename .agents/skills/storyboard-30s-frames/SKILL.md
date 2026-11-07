@@ -3,7 +3,7 @@ name: storyboard-30s-frames
 description: >-
   Retired. Do not use for new work. Trigger only when the user runs
   "/storyboard-30s-frames" by name, and then point them to `create-3x2-timed-image`,
-  which writes each video's grid and six panel images in `prompts/<slug>-<30s or 60s>-3x2.md`.
+  which writes each video's grid and six panel images in a 3x2 prompt file under `prompts/`.
   Panel images 2, 4, and 6 replace the three reference stills per video this skill used
   to write to `image-prompts/`.
 ---

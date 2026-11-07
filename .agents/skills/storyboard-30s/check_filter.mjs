@@ -6,7 +6,8 @@
  * Flow's filters are known to refuse: the copyright filter ("I can't generate the video you
  * requested right now due to interests of third-party content providers") and the safety filter
  * ("may violate our policies"). It reads only what Flow receives: the instruction cards, the
- * Agent setup prompt, and every Agent prompt, i.e. every ```text block in the file.
+ * Agent setup prompt, every Agent prompt, and standalone cover image prompts, i.e. every
+ * ```text block in the file. Cover checks do not imply that a cover is a clip reference.
  *
  * It cannot prove a prompt will pass: Google publishes no word list (only the categories on its Veo
  * responsible-AI page), its filters judge the whole request in context, and they also judge the

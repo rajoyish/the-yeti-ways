@@ -35,7 +35,7 @@ A video is one 10-second clip, and its `Agent prompt:` block (section 6 of `goog
 9. The avoid line (section 5).
 10. `Action:` (one sentence per beat of the shot), then `Camera:`, as the storyboard skills and `cinematic-direction.md` set out.
 
-A still prompt (a panel image or a carousel still) is one image, so it carries the character locks inline. In this order:
+A still prompt (a panel image, a carousel still, or a storyboard cover) is one image, so it carries the character locks inline. In this order:
 
 1. `Create image:` and the aspect ratio line.
 2. The style lock.
@@ -52,9 +52,9 @@ A still prompt (a panel image or a carousel still) is one image, so it carries t
 
 Each character lock is the `text` block under "Copy-Ready Google Flow Character Lock" in `character-consistency.md`, copied whole and character for character. It opens with the character's name (`Papa Yeti: `, `Mama Yeti: `, `Babu Yeti: `), and that name is how every other sentence in the prompt refers to the character. Never shorten, paraphrase, or merge a lock, never write a Yeti's look in any other words, and never add a smile, a pose, or a scene detail to it.
 
-**Video prompts.** A storyboard carries no character lock and no description of a Yeti's look: no `Character locks:` block, and no fur, colour, tuft, face, or build in any cell or Agent prompt. Each Yeti is a saved Flow Character, called `@Papa Yeti`, `@Mama Yeti`, or `@Babu Yeti` once, in the Agent prompt's `Cast:` line, and by plain name after that, and the Character carries the look. A second description in the prompt competes with the Character and makes it drift.
+**Video prompts.** A storyboard's video sections carry no character lock and no description of a Yeti's look: no `Character locks:` block, and no fur, colour, tuft, face, or build in any cell or Agent prompt. Each Yeti is a saved Flow Character, called `@Papa Yeti`, `@Mama Yeti`, or `@Babu Yeti` once, in the Agent prompt's `Cast:` line, and by plain name after that, and the Character carries the look. A second description in the prompt competes with the Character and makes it drift.
 
-`@` lives only in the Agent prompt's `Cast:` line (and in a storyboard's opening paragraph and Instruction 1, which name the saved Yetis). The shot lines name every character, Yeti and story cast, by its plain Character name (`Papa Yeti`, `Snowy Owl`), never `@Papa Yeti`, because the `Cast:` line already calls each one, and an `@` in a shot line would attach the Character a second time. The plain name is still the link: it is spelled exactly as the saved Character, so the shot lines and the `Cast:` line point at the same one.
+In video prompts, `@` lives only in the Agent prompt's `Cast:` line (and in a storyboard's opening paragraph and Instruction 1, which name the saved Yetis). The shot lines name every character, Yeti and story cast, by its plain Character name (`Papa Yeti`, `Snowy Owl`), never `@Papa Yeti`, because the `Cast:` line already calls each one, and an `@` in a shot line would attach the Character a second time. The plain name is still the link: it is spelled exactly as the saved Character, so the shot lines and the `Cast:` line point at the same one.
 
 Each row says which Yetis are in its shot, and where, in a `Characters:` sentence, left to right:
 
@@ -65,7 +65,9 @@ Each row says which Yetis are in its shot, and where, in a `Characters:` sentenc
 
 Keep each Yeti on the same side in every shot unless the action moves them, and if it moves them, keep them there for every later shot.
 
-**Still prompts.** The lock goes inline, placed by where the Yeti sits in the picture:
+**Still prompts.** Storyboard covers also have a `Cast:` line immediately after the style lock, with each visible Yeti and story cast member called by its exact `@<Character Name>` once. Later mentions use plain names. These tags supplement the full character locks and supporting-cast descriptions; they never replace them, and an image model without saved Flow Characters treats them as text. This cover-specific addition is defined in `.agents/skills/storyboard-30s/references/cover-images.md`.
+
+The lock goes inline, placed by where the Yeti sits in the picture:
 
 - One Yeti: the lock alone.
 - Two: `On the left, <lock> On the right, <lock>`.

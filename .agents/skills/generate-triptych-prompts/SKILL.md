@@ -1,11 +1,7 @@
 ---
 name: generate-triptych-prompts
 description: >-
-  Trigger when the user asks to generate triptych prompts, 3-panel grid prompts, 1x3 triptych prompts,
-  or runs "/generate-triptych-prompts". Reads a Yeti panel image file (`prompts/<slug>-<30s or 60s>-3x2.md`)
-  and combines each video's six panel prompts, verbatim, into two horizontal 16:9 triptych grid prompts
-  (panels 1-3 and 4-6), saved to `prompts/<slug>-<30s or 60s>-triptych.md` under the same
-  `## Video N - <Title>` headings as the storyboard.
+  Combine each video's six panel prompts from a Yeti 3x2 prompt file into two horizontal 1x3 triptych prompts, preserving the panel text verbatim and video headings. Save a sibling triptych markdown file. Use for triptych prompts, 3-panel grids, or /generate-triptych-prompts.
 ---
 
 # Generate Triptych Prompts (1x3 Storyboard Grid)

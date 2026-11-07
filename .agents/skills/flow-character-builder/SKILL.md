@@ -1,20 +1,7 @@
 ---
 name: flow-character-builder
 description: >-
-  Trigger when the user asks for a Google Flow Character, a front and turnaround, a
-  character sheet, Character panel prompts, or Characters for a storyboard's cast, or runs
-  "/flow-character-builder" or "/flow-character". Works from either input: (1) a draft
-  prompt or description of one character (a person, an animal, or an invented creature, in
-  any style, even a realistic photo prompt), which it revises and improves; or (2) a
-  storyboard file from `prompts/`, from which it reads the story cast (Instruction 2's Story cast line, the Agent
-  prompts' Cast lines, and their shot lines) and builds a Character for
-  each member, or only the ones the user names. Each character becomes one stylized 3D CGI
-  design that matches the Yetis' look, in one file in `prompts/characters/` holding
-  everything Flow's New character screen needs: the Character name, the Portrait image
-  prompt (front view, 1:1), the Body image prompt (turnaround, 16:9, made from the approved
-  front), the Character info text, short fix-up edits, the cast sentences the storyboards
-  use, and the checks. The user generates and approves the two images first, then builds
-  the Character in Flow's Characters panel from them.
+  Create Google Flow Character prompts from a character description or a storyboard cast. Writes one consistent stylized 3D design per character with a front portrait, turnaround, Character info, fix-up edits, and reusable cast text. Use for Character sheets, front and turnaround views, /flow-character-builder, or /flow-character. Preserve existing cast names and the canonical Yeti family; build supporting cast only.
 ---
 
 # Flow character builder
