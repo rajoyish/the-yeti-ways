@@ -14,7 +14,7 @@ Read before writing: `.agents/rules/google-flow.md` (section 2, the saved Charac
 
 **The name is the link.** This skill and the storyboard skills (`storyboard-30s`, `storyboard-60s`) work on the same characters, so a Character's name is spelled exactly the same in the storyboard (its cast sentence, every `Action:`, the `Characters:` lines, Instruction 2, every `Cast:` line), in its file here, and in Flow. In storyboard mode the name is copied from the storyboard, never re-chosen; in draft mode the name chosen here is the one every later storyboard uses. Section 6 of `prompt-assembly.md` sets the rules for a name. Never use this skill to redesign Papa Yeti, Mama Yeti, or Babu Yeti: their look is fixed in `.agents/rules/character-consistency.md` and their Characters already exist. A request for a fourth Yeti is refused, because the films only ever have those three.
 
-**The reference budget.** Omni Flash takes at most 7 references per clip, and every saved Character called in a prompt is one of them, whether it holds one image or two (Portrait and Body): Flow counts "character entities" one each, next to the image plates (section 1 of `.agents/rules/google-flow.md`). Papa Yeti, Mama Yeti, and Babu Yeti are the films' main characters, so their 3 slots are reserved in every video, whether or not all three appear in it. That leaves 4 references per video for everything else:
+**The reference budget.** Omni 1.2 Flash takes at most 7 references per clip, and every saved Character called in a prompt is one of them, whether it holds one image or two (Portrait and Body): Flow counts "character entities" one each, next to the image plates (section 1 of `.agents/rules/google-flow.md`). Papa Yeti, Mama Yeti, and Babu Yeti are the films' main characters, so their 3 slots are reserved in every video, whether or not all three appear in it. That leaves 4 references per video for everything else:
 
 - the opening image (a plate or the previous clip's end frame), which every video has: 1;
 - a second plate, if the video cuts to a second location: 1;
@@ -119,9 +119,9 @@ Two or three short edits for Flow's "What do you want to change?" box, each star
 
 Save each character to `prompts/characters/<kebab-case-name>-flow-character.md`, where the kebab-case name is the Character name in lower case with spaces turned into hyphens (`Old Herb-Gatherer` becomes `old-herb-gatherer-flow-character.md`), so a storyboard's name always leads to its file. Use the template below. Never overwrite an existing file without saying so. In storyboard mode, write the `Source:` line with the storyboard's path.
 
-In draft mode, also tell the user, in one line, that a video can call at most 3 story cast Characters next to the three Yetis (2 if it uses a second plate), because Omni Flash takes 7 references and the Yetis hold 3.
+In draft mode, also tell the user, in one line, that a video can call at most 3 story cast Characters next to the three Yetis (2 if it uses a second plate), because Omni 1.2 Flash takes 7 references and the Yetis hold 3.
 
-Then give the user the steps, once for all the files:
+Then give the user the steps, once for all the files. Steps 1 and 2 can be run for them by `/create-flow-assets <storyboard>`, which generates and checks both images with ChatGPT or Google AI and links them in the file:
 
 1. Generate each Portrait prompt in Flow with Nano Banana Pro at 1:1. Check it (step 7) and fix it with the edits. Save it as `references/characters/<kebab-case-name>-front.png`.
 2. Generate each Body prompt at 16:9 with the approved front image attached. Check it and save it as `references/characters/<kebab-case-name>-turnaround.png`.

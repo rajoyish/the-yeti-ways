@@ -25,3 +25,6 @@ temp/
 
 # Character reference images (local only)
 references/characters/
+
+# Location plate images (local only)
+references/plates/

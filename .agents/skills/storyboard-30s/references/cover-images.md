@@ -25,7 +25,7 @@ Choose one readable emotional hook, setting, and prop or gesture actually presen
 
 Follow the still-image order in `.agents/rules/prompt-assembly.md`, adding a cover `Cast:` line immediately after the style lock. Each visible character, Yeti or supporting cast, gets its exact `@<Character Name>` once in this line, for example `Cast: @Mama Yeti, @Papa Yeti.` A group uses its count and singular Character tag, such as `exactly three Grey Wolves, each @Grey Wolf`. Later mentions in the locks, expressions, `In frame:`, and action use the plain Character name, so each Character is linked only once. Keep the full character locks and supporting descriptions: an image model outside Flow may treat the tags as plain text.
 
-1. `Create image:` with the format, composition, and one-sentence cover concept. Use Nano Banana Pro in Flow or an available image model; 720p and Omni Flash are video settings, not cover requirements.
+1. `Create image:` with the format, composition, and one-sentence cover concept. Use Nano Banana Pro in Flow or an available image model; 720p and Omni 1.2 Flash are video settings, not cover requirements.
 2. Copy the style lock from section 1 of `prompt-assembly.md` verbatim, then add the `Cast:` line with every visible character tagged once, in order of its placed lock or supporting-cast description. The cast line contains names and group counts only; positions and descriptions belong below.
 3. `Environment:`: the film's setting, with the spatial detail needed for this framing. Keep its time, weather, props, and materials consistent.
 4. `Lighting:`: motivated sources, directions, key/fill/rim, palette, mood, and focus.

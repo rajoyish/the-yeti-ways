@@ -136,6 +136,16 @@ for (const b of blocks) {
       .replace(/Recorded trigger:[\s\S]*$/, "")
       .replace(/If a video is refused[\s\S]*$/, "")
       .replace(/never let the Agent call a Yeti a monster/gi, "");
+    // The video model is named exactly (Flow lists Omni 1.2 Flash and Omni 1.1 Flash), and clips stay 10 seconds.
+    const modelText = text.replace(/never Omni 1\.1 Flash/g, "").replace(/never 15 seconds/g, "");
+    for (const [re, why] of [
+      [/\bOmni Flash\b/, "names the video model as a bare \"Omni Flash\"; write \"Omni 1.2 Flash\" so the Agent cannot pick Omni 1.1 Flash"],
+      [/\bOmni 1\.1\b|\bOmni Flash 1\.1\b/, "asks for Omni 1.1 Flash, which is leaving Flow; every clip is Omni 1.2 Flash"],
+      [/\b15[- ]seconds?\b/, "asks for a 15-second clip; the Google AI Pro plan makes 10-second clips only"],
+    ]) {
+      const m = modelText.match(re);
+      if (m) { problems++; report("Problem", b.heading, lineNo, `${why} (\"${m[0]}\")`, text.trim()); }
+    }
     // Every sentence is checked on its own, so a pattern never spans two sentences.
     for (const [re, why] of LINE_NOTES) {
       const m = text.match(re);
