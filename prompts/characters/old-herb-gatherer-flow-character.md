@@ -6,6 +6,15 @@ Source: `prompts/babu-yeti-moonlit-herb-rescue-30s-storyboard.md` (Videos 1 and 
 
 Draft changes: every trait from the storyboard's `Humans:` sentence is kept (round rosy nose, bushy white eyebrows, kind deep-set brown eyes, short frosty white beard, knee-length padded brown wool coat, moss-green cloth sash, rounded grey felt cap with ear flaps, grey felt boots, woven-reed lantern with a glowing candle). Gaps filled: warm light-tan skin, a stocky, slightly stooped build, dark brown wool trousers tucked into the boots, bare hands with five fingers each, the lantern always in his right hand (as in Video 1), and ears covered by the cap's flaps. The herb pouch is left out: it is a story prop that passes to the owl, not part of him. Nothing added for originality; the storyboard's design is already its own.
 
+## Generated reference images
+
+Preparation status: Front and turnaround generated with ChatGPT / OpenAI's built-in image generation and visually checked. Ready to upload to the existing Flow Character; no Flow upload or Character creation has been performed here.
+
+- [Portrait: front view](../../references/characters/old-herb-gatherer-front.png) — 1254 × 1254 PNG, square 1:1.
+- [Body: turnaround](../../references/characters/old-herb-gatherer-turnaround.png) — 1672 × 941 PNG, approximately 16:9; three full-body views, retained without cropping.
+
+Generated with ChatGPT / OpenAI's built-in image model, using the Portrait and Body prompts below verbatim. The checked front image was attached as the turnaround's identity reference. The precise model identifier was not exposed by the image tool. The lantern is lit in these identity references; the storyboard controls whether it is lit or unlit in each scene.
+
 ## Character name
 
 `Old Herb-Gatherer` (called `@Old Herb-Gatherer` in Flow prompts)
