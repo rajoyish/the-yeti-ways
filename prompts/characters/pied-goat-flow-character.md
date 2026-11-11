@@ -6,6 +6,15 @@ Source: `prompts/papa-yeti-hillside-roots-30s-storyboard.md` (Videos 1 and 3)
 
 Draft changes: every trait from the storyboard's `Cast:` description is kept (small, hornless, young, white coat with brown patches, floppy ears, tiny chin tuft, amber eyes, small black hooves). Gaps filled: a chunky, rounded kid-goat body with short sturdy legs and an oversized head, exactly three brown patches (one over the left eye and ear, one on the back, one on the right hip), a soft pink-grey nose and mouth, four legs each ending in one small two-toed cloven black hoof, a short upturned white tail, and no collar, bell, or rope. Hornless is stated plainly, with no horn buds, so nothing on its head can be read as horns. Nothing added for originality; the storyboard's design is already its own.
 
+## Generated reference images
+
+Preparation status: Front and turnaround generated with ChatGPT / OpenAI built-in image generation and visually checked. Ready for upload; Flow Character creation and uploads have not been performed.
+
+- [Portrait: front view](../../references/characters/pied-goat-front.png) — 1254 × 1254 PNG, square 1:1.
+- [Body: turnaround](../../references/characters/pied-goat-turnaround.png) — 1672 × 941 PNG, approximately 16:9; kept uncropped.
+
+Generated with ChatGPT / OpenAI built-in image generation; the checked front was the turnaround's reference.
+
 ## Character name
 
 `Pied Goat` (called `@Pied Goat` in Flow prompts)

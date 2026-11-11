@@ -28,3 +28,17 @@ references/characters/
 
 # Location plate images (local only)
 references/plates/
+
+# Lyric subtitle runs (one directory per request) and all video/audio media (local only)
+/lyric-subtitles/
+*.mp4
+*.mov
+*.m4v
+*.mkv
+*.webm
+*.avi
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.flac

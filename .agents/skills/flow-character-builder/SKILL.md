@@ -105,7 +105,7 @@ Every Character must look like it belongs in the same film as the Yetis:
 ## 4. Write the Character screen text
 
 - **Character name:** the name, in title case, exactly as prompts will call it with `@`.
-- **Voice:** `None.` The films have no dialogue. Skip "Select a voice" unless the user asks.
+- **Voice:** `None.` The films have no dialogue. Skip "Select a voice" unless the user asks. Exception: when the storyboard has a `## Voice cast` table (written by `story-to-storyboard`) with a row for this member, the Voice is that row's voice description, word for word, and "Select a voice" is set to the closest match.
 - **Character info:** one fenced `text` block, 120 to 200 words, for "Character info (optional)". The Flow agent reads it to craft scenes, so it says how the character acts and how it is drawn: one line of who it is and its role; its personality; how it moves (gait, gestures, the sounds it makes, never words); how it behaves around the Yetis if it shares their films; its height beside them if known; then a compact look summary (palette, head, limbs with digit counts, tail or no tail, what it wears or always carries) and what it is never shown as (photoreal, scary, a second design, extra digits). No scene, setting, or story beat.
 - **Cast sentences:** two, both in the `Humans:`, `Animals:`, or `Creatures:` form of `prompt-assembly.md` section 6:
   - **Full sentence**, for still image prompts, where no saved Character is attached: it opens with the Character name, exactly as spelled everywhere else, then the look head to toe, and names no other character (no "Babu Yeti's friend"), because storyboards copy it into shots where that other character is absent; ending with "exactly one" (or the group's count: `Animals: exactly three Grey Wolves, lean stylized cartoon grey wolves with ...`). In storyboard mode, start from the storyboard's sentence for this member and change it only where step 1B filled a gap or fixed a rule break, so the stills match the Character.
@@ -125,7 +125,7 @@ Then give the user the steps, once for all the files. Steps 1 and 2 can be run f
 
 1. Generate each Portrait prompt in Flow with Nano Banana Pro at 1:1. Check it (step 7) and fix it with the edits. Save it as `references/characters/<kebab-case-name>-front.png`.
 2. Generate each Body prompt at 16:9 with the approved front image attached. Check it and save it as `references/characters/<kebab-case-name>-turnaround.png`.
-3. In the film's project, open Characters, click New character, name it, skip the voice, paste the Character info, upload the front image into Portrait and the turnaround into Body, and click Done. Type `@` in the prompt box to check the name resolves.
+3. In the film's project, open Characters, click New character, name it, skip the voice (or, for a member with a Voice, choose the closest match to it), paste the Character info, upload the front image into Portrait and the turnaround into Body, and click Done. Type `@` in the prompt box to check the name resolves.
 
 In storyboard mode, the file is not finished until the storyboard agrees with it. After saving the files (and after the user confirmed the list in step 1B), update the storyboard for each member built, as `prompt-assembly.md` section 6 sets out, and tell the user what changed:
 
