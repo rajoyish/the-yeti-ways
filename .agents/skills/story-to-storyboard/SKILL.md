@@ -56,7 +56,7 @@ The film follows the six plot stages in order, spread over the film by the story
 
 Nothing after the Climax video introduces a new problem, and nothing before it resolves the main one. Give each video a short title (`## Video 7 - Papa Agrees`), chosen once and never changed. The film's position of each video, its stage, and its plan stay in your notes and in Instruction 2, never under a heading or inside an Agent prompt; every Agent prompt runs on its own `00:00` to `00:10` clock.
 
-Plan the light, the effects, and the music across the whole film (step 4) before writing the first prompt, and keep the reference budget: at most 7 per video, counting its images and every `@` name in its `Cast:` line. The Narrator is a voice, not a Character, and uses no reference.
+Plan the light, the effects, and the music across the whole film (step 4) before writing the first prompt, and keep the reference budget: at most 3 linked Characters per video (every `@` name in its `Cast:` line, the Yetis in the video always first) and at most 7 references (those Characters plus its images). Story cast beyond the 3 Character slots is described-only in that video, as storyboard-30s sets out; never unlink a Yeti to make room for a speaking story cast member. The Narrator is a voice, not a Character, and uses no reference.
 
 ## 3. Narration and dialogue
 
@@ -131,7 +131,7 @@ Run every check in step 7 of storyboard-30s, reading "three videos" as N videos 
 - [ ] The cast map covers every draft character; no draft species, character type, or name appears anywhere in the film (`grep -i` each one: only the `## Story adaptation` table may contain them); every hero role is a Yeti; no Yeti plays the villain, the fool, or the loser; only the three Yetis appear.
 - [ ] Every event of the draft is in the film, in order; additions only deepen it; the moral is spoken once by the Narrator in the last video.
 - [ ] N `## Video` headings, N `Images: attach` lines, N `Agent prompt:` lines, and N in Instruction 3; the file name ends `-<N × 10>s-storyboard.md`.
-- [ ] Every video has a Yeti shot, three to six shots on the beat boundaries, and at most 7 references; the Climax sits around two thirds of the film.
+- [ ] Every video has a Yeti shot, three to six shots on the beat boundaries, at most 3 linked Characters with every Yeti in the video among them, and at most 7 references; the Climax sits around two thirds of the film.
 - [ ] Every spoken word is in a `Speech:` line and in the `## Script` table, identical in both; every speaker is in that video's `Voices:` line with the voice from `## Voice cast`, word for word.
 - [ ] `node .agents/skills/story-to-storyboard/check_speech.mjs <file>` prints `OK`: windows inside `00:00.5` to `00:09.5`, no overlaps, at most about 2.8 words per second and 22 words per video, every on-screen line inside a shot whose `In frame:` names the speaker, the Narrator always off-screen, voices identical across videos, script table matching.
 - [ ] `node .agents/skills/storyboard-30s/check_filter.mjs <file>` prints `OK`, and every `Note:` was read and the beat changed or judged clear.

@@ -80,7 +80,7 @@ Characters: Babu Yeti, Nuri Bear, and Pip Penguin, and no one else.
 Agent prompt:
 
 ```text
-Generate Video 1 - The Sneaky Push as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written below. Open on the image Plate - Snowy Slope.
+Generate Video 1 - The Sneaky Push as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image Plate - Snowy Slope and every @ Character in the Cast line together as references, and make the first frame match the image Plate - Snowy Slope.
 Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Nuri Bear on the left, @Babu Yeti in the center, and @Pip Penguin on the right, exactly as their saved Characters. Standing on her hind legs, Nuri Bear reaches about Babu Yeti's shoulders, and Pip Penguin stays well below his shoulders. No other characters.
 Setting: A gentle snow-covered hillside in a quiet mountain valley, a long smooth slope of fresh powder snow running down from a rounded crest to a deep, soft snowdrift heaped against a row of snow-laden pine trees at its foot, with a few rounded snow-capped boulders set well off to the sides of the slope and snowy peaks beyond under a clear pale-blue sky and a low sun sinking toward the peaks at frame right.
@@ -110,7 +110,7 @@ Characters: Babu Yeti, Nuri Bear, and Pip Penguin, and no one else.
 Agent prompt:
 
 ```text
-Generate Video 2 - The Flipper Catch as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written below. Open on the image End frame V1.
+Generate Video 2 - The Flipper Catch as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V1 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V1.
 Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Nuri Bear on the left, @Babu Yeti in the center, and @Pip Penguin on the right, exactly as their saved Characters. Standing on her hind legs, Nuri Bear reaches about Babu Yeti's shoulders, and Pip Penguin stays well below his shoulders. No other characters.
 Setting: A gentle snow-covered hillside in a quiet mountain valley, a long smooth slope of fresh powder snow running down from a rounded crest to a deep, soft snowdrift heaped against a row of snow-laden pine trees at its foot, with a few rounded snow-capped boulders set well off to the sides of the slope and snowy peaks beyond under a clear pale-blue sky and a low sun sinking toward the peaks at frame right.
@@ -140,7 +140,7 @@ Characters: Babu Yeti, Nuri Bear, and Pip Penguin, and no one else.
 Agent prompt:
 
 ```text
-Generate Video 3 - One More Ride as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written below. Open on the image End frame V2.
+Generate Video 3 - One More Ride as one 10-second Omni Flash video, vertical 9:16, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V2 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V2.
 Vertical 9:16 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Nuri Bear on the left, @Babu Yeti in the center, and @Pip Penguin on the right, exactly as their saved Characters. Standing on her hind legs, Nuri Bear reaches about Babu Yeti's shoulders, and Pip Penguin stays well below his shoulders. No other characters.
 Setting: A gentle snow-covered hillside in a quiet mountain valley, a long smooth slope of fresh powder snow running down from a rounded crest to a deep, soft snowdrift heaped against a row of snow-laden pine trees at its foot, with a few rounded snow-capped boulders set well off to the sides of the slope and snowy peaks beyond under a clear pale-blue sky and a low sun sinking toward the peaks at frame right.

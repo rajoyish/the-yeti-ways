@@ -150,7 +150,7 @@ Images: attach `Plate - Snowy Pine Ridge` (opening image) in the prompt box, not
 Agent prompt:
 
 ```text
-Generate Video 1 - The First Silver Star as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image Plate - Snowy Pine Ridge.
+Generate Video 1 - The First Silver Star as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image Plate - Snowy Pine Ridge and every @ Character in the Cast line together as references, and make the first frame match the image Plate - Snowy Pine Ridge.
 Horizontal 16:9 video, 720p, 10 seconds, 4 shots joined by hard cuts, cut on the beat of the music. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, exactly as their saved Characters. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A peaceful snowy mountain ridge above a broad level forest trail, snow-dusted Himalayan peaks along the western horizon at frame left, dwarf snow-laden pines at frame right, a low rounded snowbank along the overlook, and an unobstructed sky above the quiet valley.
@@ -179,7 +179,7 @@ Images: attach `End frame V1` (opening image) in the prompt box, no plate, nothi
 Agent prompt:
 
 ```text
-Generate Video 2 - Deepening Night as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V1.
+Generate Video 2 - Deepening Night as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V1 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V1.
 Horizontal 16:9 video, 720p, 10 seconds, 4 shots joined by hard cuts, cut on the beat of the music. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, @Mama Yeti, exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A peaceful snowy mountain ridge above a broad level forest trail, snow-dusted Himalayan peaks along the western horizon at frame left, dwarf snow-laden pines at frame right, a low rounded snowbank along the overlook, and an unobstructed sky above the quiet valley.
@@ -208,7 +208,7 @@ Images: attach `Plate - Snowy Forest Trail` (opening image), then `Plate - Snowy
 Agent prompt:
 
 ```text
-Generate Video 3 - The Guided Traveler as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image Plate - Snowy Forest Trail. Also use the image Plate - Snowy Pine Ridge for the overlook shots.
+Generate Video 3 - The Guided Traveler as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image Plate - Snowy Forest Trail and every @ Character in the Cast line together as references, and make the first frame match the image Plate - Snowy Forest Trail. Also use the image Plate - Snowy Pine Ridge for the overlook shots.
 Horizontal 16:9 video, 720p, 10 seconds, 5 shots joined by hard cuts, cut on the beat of the music. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Old Herb-Gatherer, @Babu Yeti, exactly as their saved Characters. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A broad level snowy forest trail below a mountain overlook, tall snow-laden pines with a clear opening overhead, a gentle bend toward frame left, an uninterrupted packed-snow walking surface, and a solitary silver star above the distant Himalayan peaks. The overlook is the snowy ridge above this trail: A peaceful snowy mountain ridge above a broad level forest trail, snow-dusted Himalayan peaks along the western horizon at frame left, dwarf snow-laden pines at frame right, a low rounded snowbank along the overlook, and an unobstructed sky above the quiet valley.
@@ -238,7 +238,7 @@ Images: attach `Plate - Cozy Bedroom Cave` (opening image) in the prompt box, no
 Agent prompt:
 
 ```text
-Generate Video 4 - Through the Curtains to Sunrise as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image Plate - Cozy Bedroom Cave.
+Generate Video 4 - Through the Curtains to Sunrise as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image Plate - Cozy Bedroom Cave and every @ Character in the Cast line together as references, and make the first frame match the image Plate - Cozy Bedroom Cave.
 Horizontal 16:9 video, 720p, 10 seconds, 4 shots joined by hard cuts, cut on the beat of the music. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, @Mama Yeti, exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: The inside of a warm rustic stone bedroom cave, a carved wooden low crib bed with thick fleece and a colourful patchwork wool quilt at frame right below an arched stone window, pale linen curtains drawn back, a rough-hewn wooden bedside table with a clay water pitcher at frame left, and a braided wool rug on the stone floor; an adjoining hearth off-screen left supplies warm fill.
@@ -267,7 +267,7 @@ Images: attach `Plate - Snowy Forest Trail` (opening image), then `Plate - Cozy 
 Agent prompt:
 
 ```text
-Generate Video 5 - The Star Remembered as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image Plate - Snowy Forest Trail. Also use the image Plate - Cozy Bedroom Cave for the last two bedroom shots.
+Generate Video 5 - The Star Remembered as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image Plate - Snowy Forest Trail and every @ Character in the Cast line together as references, and make the first frame match the image Plate - Snowy Forest Trail. Also use the image Plate - Cozy Bedroom Cave for the last two bedroom shots.
 Horizontal 16:9 video, 720p, 10 seconds, 4 shots joined by hard cuts, cut on the beat of the music. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Old Herb-Gatherer, @Babu Yeti, @Papa Yeti, @Mama Yeti, exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A broad level snowy forest trail below a mountain overlook, tall snow-laden pines with a clear opening overhead, a gentle bend toward frame left, an uninterrupted packed-snow walking surface, and a solitary silver star above the distant Himalayan peaks. Last two shots: The inside of a warm rustic stone bedroom cave, a carved wooden low crib bed with thick fleece and a colourful patchwork wool quilt at frame right below an arched stone window, pale linen curtains drawn back, a rough-hewn wooden bedside table with a clay water pitcher at frame left, and a braided wool rug on the stone floor; an adjoining hearth off-screen left supplies warm fill.

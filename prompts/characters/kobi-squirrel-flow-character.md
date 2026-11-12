@@ -71,6 +71,10 @@ Full, for still image prompts:
 
 `Animals: Kobi Squirrel, a plump, lively stylized cartoon giant flying squirrel with rich chestnut-red fur, a cream-coloured tummy and chest, big round glossy dark eyes with bright catchlights, small rounded ears, a small pink nose with fine whiskers, soft furry gliding flaps between each front and back leg, small dark paws with four tiny fingers on each front paw and five tiny toes on each back foot, and a long, fluffy chestnut-red tail, wearing nothing; exactly one.`
 
+Described-only entry, for a video where it gets no Character slot (after `Not linked, drawn only from these words:`, never with `@`):
+
+`Kobi Squirrel, a plump, lively stylized cartoon giant flying squirrel about the size of a house cat, with rich chestnut-red fur, a cream tummy and chest, big round glossy dark eyes, small rounded ears, soft furry gliding flaps between his legs, and a long, fluffy chestnut-red tail`
+
 `Cast:` line entry, for the Agent prompts:
 
 `@Kobi Squirrel`, with the height sentence `Kobi Squirrel is small, about the size of a house cat.`

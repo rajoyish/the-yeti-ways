@@ -2,7 +2,7 @@
 
 In a lush green forest valley, selfish Kobi Squirrel keeps every mango of a magnificent tree to himself while Pied Goat and the Woolly Hares go hungry. Babu Yeti hatches a clever plan with Papa Yeti: tell Kobi Squirrel his mangoes are sour, and pull terrible faces at every one he throws down to prove them sweet. Kobi Squirrel shakes the whole tree bare in a temper and glides off in search of a sweeter tree, and the friends feast. When Mama Yeti asks what Kobi Squirrel will eat, Babu Yeti shares the biggest mango with him as he creeps back hungry, and everyone eats together in the shade. The tone is playful and comic, rising to a cross, fast-paced climax, then softening to tender and warm. The moral: mangoes taste sweetest when shared.
 
-The film is 15 videos of 10 seconds each, 150 seconds in all, horizontal 16:9, adapted from the user's draft fable with the `story-to-storyboard` skill. Each clip is generated in Google Flow with its own narration, dialogue, music, and sound effects. Everything in the video workflow is written for the Google Flow Agent: three instruction cards, one setup prompt, and one Agent prompt per video. The Image map and the `Images:` lines say which images go in the prompt box for each paste. The saved Characters @Papa Yeti, @Mama Yeti, @Babu Yeti, @Kobi Squirrel, @Woolly Hare, and @Pied Goat carry their looks, so nothing here describes them. Two separate promotional cover prompts follow the final video.
+The film is 15 videos of 10 seconds each, 150 seconds in all, horizontal 16:9, adapted from the user's draft fable with the `story-to-storyboard` skill. Each clip is generated in Google Flow with its own narration, dialogue, music, and sound effects. Everything in the video workflow is written for the Google Flow Agent: three instruction cards, one setup prompt, and one Agent prompt per video. The Image map and the `Images:` lines say which images go in the prompt box for each paste. The saved Characters @Papa Yeti, @Mama Yeti, @Babu Yeti, @Kobi Squirrel, @Woolly Hare, and @Pied Goat carry their looks, so nothing here describes them, except where a video has more cast than Omni 1.2 Flash's 3 linked Characters: there the Yetis are always linked, and the story cast without a slot is described in that video's `Cast:` line. Two separate promotional cover prompts follow the final video.
 
 ## Story adaptation
 
@@ -101,7 +101,7 @@ Reference: `Plate - Mango Grove`
 ```text
 Film: Babu Yeti and the Sour Mango Trick, 15 ten-second videos, playful and comic, then tender. Kobi Squirrel hoards the old tree's mangoes. Babu Yeti and Papa Yeti call them sour and pull sour faces at each one he throws down, until he shakes the tree bare and glides away (Videos 10 and 11, the climax). Babu Yeti later shares with him.
 
-Cast: Babu Yeti (all videos; he has the idea and makes the kind choice), Papa Yeti (Videos 1 to 5, 7 to 12, and 15; he plays along), Mama Yeti (13 and 15; she asks about Kobi Squirrel). Story cast, saved as Characters: Kobi Squirrel (1, 2, 4 to 11, 14, 15), Pied Goat (2, 12, 13, 15), and exactly three Woolly Hares (2, 12, 13, 15). The Narrator is an off-screen voice only, never shown.
+Cast: Babu Yeti (all videos; he has the idea and makes the kind choice), Papa Yeti (Videos 1 to 5, 7 to 12, and 15; he plays along), Mama Yeti (13 and 15; she asks about Kobi Squirrel). Story cast, saved as Characters: Kobi Squirrel (1, 2, 4 to 11, 14, 15), Pied Goat (2, 12, 13, 15), and exactly three Woolly Hares (2, 12, 13, 15). Each video links at most 3 Characters, the Yetis first; a story cast member my prompt writes without @ is described there in words and must look the same as in the other videos. The Narrator is an off-screen voice only, never shown.
 
 Location: Plate - Mango Grove, all videos. Video 1 opens on it; each later video opens on the previous end frame. No scene breaks.
 
@@ -121,13 +121,13 @@ This film is 15 videos, generated one at a time and in order. For each video I p
 
 Each prompt's Voices line gives each speaker's voice, the same in every video. Its Speech line gives every spoken word, who says it, and when, on the clip's own clock. Speak each line once, exactly as written, in English, one voice at a time, with the music kept low under it. The Narrator is an off-screen voice and never appears. Only the speaking character's mouth moves, and only while it is in frame. Never add words, voices, or singing that the prompt does not write.
 
-Each prompt calls every character with @ once, in its Cast line. Every later mention of that name without @ is the same character, drawn exactly as its saved Character. If an @ name in the Cast line is not a saved Character, draw that character from the description that follows it there.
+Each prompt calls each linked character with @ once, in its Cast line. Every later mention of that name without @ is the same character, drawn exactly as its saved Character. If an @ name in the Cast line is not a saved Character, draw that character from the description that follows it there. A character the Cast line names without @ is not linked: draw it only from the words that follow its name there, keep it the same in every shot, and never attach its saved Character.
 
 Each shot line begins "In frame:" and shows only the characters it names there, each exactly once, in one body, at one place. Never add a character the shot does not name, a second copy of a character, or anyone from the Cast line who is not in that shot. Cut between shots; never gather the whole cast into one frame unless a shot names them all.
 
-Video 1 opens on the location plate its prompt names. When I approve a video, save its last clean, held frame as "End frame V<number>"; if you cannot save a frame, tell me. Each later video opens on the end frame its prompt names: match its positions, faces, light, and colours exactly at the first frame. Use only the images a prompt names; never use a grid, collage, or multi-panel image as a reference.
+Generate every video in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V): its opening image and its @ Characters are references together, and its first frame matches the opening image. Never switch to I2V or drop the Characters to use a start image; if you must choose, choose R2V. Video 1 opens on the location plate its prompt names. When I approve a video, save its last clean, held frame as "End frame V<number>"; if you cannot save a frame, tell me. Each later video opens on the end frame its prompt names: match its positions, faces, light, and colours exactly at the first frame. Use only the images a prompt names; never use a grid, collage, or multi-panel image as a reference.
 
-Each video uses at most 7 references: its images plus its linked Characters. If the images and Characters in my prompt box add up to more than 7, do not generate and do not drop, swap, or merge any reference yourself, above all a Yeti; tell me the count and stop.
+Each video links at most 3 Characters and uses at most 7 references: its images plus its linked Characters. The Yetis are always among the linked Characters. If my prompt box links more than 3 Characters or holds more than 7 references, do not generate and do not drop, swap, unlink, or merge any reference yourself, above all a Yeti; tell me the counts and stop.
 
 Ask before every generation. Name new clips "V<number> - <title> - take <n>".
 
@@ -143,37 +143,37 @@ Plate - Mango Grove: Horizontal 16:9 aspect ratio, full-frame horizontal composi
 
 ## Image map
 
-| Paste | Attach in the prompt box, in this order | What each image is for | References (at most 7) |
+| Paste | Attach in the prompt box, in this order | What each image is for | References (at most 7; Characters at most 3) |
 | --- | --- | --- | --- |
 | Instruction 2 card | `Plate - Mango Grove` | The card's Reference image | 1 |
-| Video 1 | `Plate - Mango Grove` | Opening image | 1 image + 3 Characters = 4 |
-| Video 2 | `End frame V1` (saved from the approved Video 1), no plate | Opening image | 1 image + 5 Characters = 6 |
-| Video 3 | `End frame V2` (saved from the approved Video 2), no plate | Opening image | 1 image + 2 Characters = 3 |
-| Video 4 | `End frame V3` (saved from the approved Video 3), no plate | Opening image | 1 image + 3 Characters = 4 |
-| Video 5 | `End frame V4` (saved from the approved Video 4), no plate | Opening image | 1 image + 3 Characters = 4 |
-| Video 6 | `End frame V5` (saved from the approved Video 5), no plate | Opening image | 1 image + 2 Characters = 3 |
-| Video 7 | `End frame V6` (saved from the approved Video 6), no plate | Opening image | 1 image + 3 Characters = 4 |
-| Video 8 | `End frame V7` (saved from the approved Video 7), no plate | Opening image | 1 image + 3 Characters = 4 |
-| Video 9 | `End frame V8` (saved from the approved Video 8), no plate | Opening image | 1 image + 3 Characters = 4 |
-| Video 10 | `End frame V9` (saved from the approved Video 9), no plate | Opening image | 1 image + 3 Characters = 4 |
-| Video 11 | `End frame V10` (saved from the approved Video 10), no plate | Opening image | 1 image + 3 Characters = 4 |
-| Video 12 | `End frame V11` (saved from the approved Video 11), no plate | Opening image | 1 image + 4 Characters = 5 |
-| Video 13 | `End frame V12` (saved from the approved Video 12), no plate | Opening image | 1 image + 4 Characters = 5 |
-| Video 14 | `End frame V13` (saved from the approved Video 13), no plate | Opening image | 1 image + 2 Characters = 3 |
-| Video 15 | `End frame V14` (saved from the approved Video 14), no plate | Opening image | 1 image + 6 Characters = 7 |
+| Video 1 | `Plate - Mango Grove` | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
+| Video 2 | `End frame V1` (saved from the approved Video 1), no plate | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
+| Video 3 | `End frame V2` (saved from the approved Video 2), no plate | Opening image | 1 image + 2 Characters = 3, Characters 2 of 3 |
+| Video 4 | `End frame V3` (saved from the approved Video 3), no plate | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
+| Video 5 | `End frame V4` (saved from the approved Video 4), no plate | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
+| Video 6 | `End frame V5` (saved from the approved Video 5), no plate | Opening image | 1 image + 2 Characters = 3, Characters 2 of 3 |
+| Video 7 | `End frame V6` (saved from the approved Video 6), no plate | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
+| Video 8 | `End frame V7` (saved from the approved Video 7), no plate | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
+| Video 9 | `End frame V8` (saved from the approved Video 8), no plate | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
+| Video 10 | `End frame V9` (saved from the approved Video 9), no plate | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
+| Video 11 | `End frame V10` (saved from the approved Video 10), no plate | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
+| Video 12 | `End frame V11` (saved from the approved Video 11), no plate | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
+| Video 13 | `End frame V12` (saved from the approved Video 12), no plate | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
+| Video 14 | `End frame V13` (saved from the approved Video 13), no plate | Opening image | 1 image + 2 Characters = 3, Characters 2 of 3 |
+| Video 15 | `End frame V14` (saved from the approved Video 14), no plate | Opening image | 1 image + 3 Characters = 4, Characters 3 of 3 |
 
-Characters attach from each Agent prompt's `Cast:` line, never by hand. The Narrator is a voice and uses no reference. Never attach a grid, a triptych, or any image this map does not name.
+Characters attach from each Agent prompt's `@` names in its `Cast:` line, never by hand. Omni 1.2 Flash links at most 3 Characters per video, and every Yeti in a video always takes one of them, so Videos 2, 12, 13, and 15 link only the Yetis and the story cast that fits, and describe the rest in words after "Not linked". The Narrator is a voice and uses no reference. Never attach a grid, a triptych, or any image this map does not name.
 
 ---
 
 ## Video 1 - The Mango Tree
 
-Images: attach `Plate - Mango Grove` (opening image) in the prompt box, nothing else. References: 1 image + 3 Characters = 4 of 7.
+Images: attach `Plate - Mango Grove` (opening image) in the prompt box, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 1 - The Mango Tree as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image Plate - Mango Grove.
+Generate Video 1 - The Mango Tree as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image Plate - Mango Grove and every @ Character in the Cast line together as references, and make the first frame match the image Plate - Mango Grove.
 Horizontal 16:9 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Kobi Squirrel, @Babu Yeti, and @Papa Yeti. Kobi Squirrel, Babu Yeti, and Papa Yeti exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
@@ -190,14 +190,14 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 2 - Not One to Share
 
-Images: attach `End frame V1` (opening image, saved from the approved Video 1) in the prompt box, no plate, nothing else. References: 1 image + 5 Characters = 6 of 7.
+Images: attach `End frame V1` (opening image, saved from the approved Video 1) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3. Not linked in this video, described in its `Cast:` line instead: Pied Goat and Woolly Hare; never link them by hand.
 
 Agent prompt:
 
 ```text
-Generate Video 2 - Not One to Share as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V1.
+Generate Video 2 - Not One to Share as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V1 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V1.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
-Cast: @Papa Yeti, @Babu Yeti, @Pied Goat, exactly three Woolly Hares, each @Woolly Hare, and @Kobi Squirrel. Papa Yeti, Babu Yeti, Pied Goat, Woolly Hares, and Kobi Squirrel exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Pied Goat is a small kid goat whose back is no higher than Babu Yeti's tummy. Each Woolly Hare is about the size of a loaf of bread. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
+Cast: @Papa Yeti, @Babu Yeti, and @Kobi Squirrel, exactly as their saved Characters. Not linked, drawn only from these words: Pied Goat, a small, chunky stylized cartoon hornless kid goat with a fluffy white coat with exactly three brown patches (left eye and ear, back, right hip), long floppy white ears, large amber eyes, a tiny white chin tuft, and small black hooves; and exactly three Woolly Hares, identical small, round stylized cartoon hares about the size of a loaf of bread, with thick grey-brown fur, long upright ears with dark brown tips and pink insides, big glossy brown eyes, pink noses, and fluffy round white tails. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Pied Goat is a small kid goat whose back is no higher than Babu Yeti's tummy. Each Woolly Hare is about the size of a loaf of bread. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
 Voices: Narrator (off-screen, never shown): a warm, unhurried grown-up storyteller voice, gentle and smiling, clear and kind; Kobi Squirrel: a quick, chattery, squeaky grown-up voice, proud and huffy.
 00:00-00:03, Medium Two-Shot (two subjects, waist up), Eye Level. In frame: Papa Yeti and Babu Yeti, and no one else. Beside the mossy boulder, Papa Yeti on the left third and Babu Yeti on the right third still look up toward the tree at frame right, Babu Yeti's curl level with Papa Yeti's belly and his five-fingered hand pointing at shoulder height, both curious, no smile. Papa Yeti rests one five-fingered hand on Babu Yeti's back, and they turn their heads together toward the foot of the tree at frame right. Static, from rest. Light: warm sunlight from frame right dappling through the mango leaves, soft green bounce from the grass, warm rim on the fur, clear air around the Yetis, high-key, leaf-green and mango-gold palette, cheerful, shallow focus.
@@ -213,12 +213,12 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 3 - The Secret Plan
 
-Images: attach `End frame V2` (opening image, saved from the approved Video 2) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7.
+Images: attach `End frame V2` (opening image, saved from the approved Video 2) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 3 - The Secret Plan as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V2.
+Generate Video 3 - The Secret Plan as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V2 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V2.
 Horizontal 16:9 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti and @Papa Yeti. Babu Yeti and Papa Yeti exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
@@ -235,12 +235,12 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 4 - Sour Mangoes
 
-Images: attach `End frame V3` (opening image, saved from the approved Video 3) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7.
+Images: attach `End frame V3` (opening image, saved from the approved Video 3) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 4 - Sour Mangoes as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V3.
+Generate Video 4 - Sour Mangoes as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V3 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V3.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Papa Yeti, @Babu Yeti, and @Kobi Squirrel. Papa Yeti, Babu Yeti, and Kobi Squirrel exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
@@ -258,12 +258,12 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 5 - Sweeter Than Honey
 
-Images: attach `End frame V4` (opening image, saved from the approved Video 4) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7.
+Images: attach `End frame V4` (opening image, saved from the approved Video 4) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 5 - Sweeter Than Honey as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V4.
+Generate Video 5 - Sweeter Than Honey as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V4 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V4.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Kobi Squirrel, @Babu Yeti, and @Papa Yeti. Kobi Squirrel, Babu Yeti, and Papa Yeti exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
@@ -281,12 +281,12 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 6 - The First Taste
 
-Images: attach `End frame V5` (opening image, saved from the approved Video 5) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7.
+Images: attach `End frame V5` (opening image, saved from the approved Video 5) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 6 - The First Taste as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V5.
+Generate Video 6 - The First Taste as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V5 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V5.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Kobi Squirrel and @Babu Yeti. Kobi Squirrel and Babu Yeti exactly as their saved Characters. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
@@ -304,12 +304,12 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 7 - Papa Agrees
 
-Images: attach `End frame V6` (opening image, saved from the approved Video 6) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7.
+Images: attach `End frame V6` (opening image, saved from the approved Video 6) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 7 - Papa Agrees as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V6.
+Generate Video 7 - Papa Agrees as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V6 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V6.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, @Papa Yeti, and @Kobi Squirrel. Babu Yeti, Papa Yeti, and Kobi Squirrel exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
@@ -327,12 +327,12 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 8 - Another and Another
 
-Images: attach `End frame V7` (opening image, saved from the approved Video 7) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7.
+Images: attach `End frame V7` (opening image, saved from the approved Video 7) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 8 - Another and Another as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V7.
+Generate Video 8 - Another and Another as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V7 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V7.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Kobi Squirrel, @Babu Yeti, and @Papa Yeti. Kobi Squirrel, Babu Yeti, and Papa Yeti exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
@@ -350,12 +350,12 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 9 - Silly Faces
 
-Images: attach `End frame V8` (opening image, saved from the approved Video 8) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7.
+Images: attach `End frame V8` (opening image, saved from the approved Video 8) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 9 - Silly Faces as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V8.
+Generate Video 9 - Silly Faces as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V8 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V8.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Kobi Squirrel, @Papa Yeti, and @Babu Yeti. Kobi Squirrel, Papa Yeti, and Babu Yeti exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
@@ -373,12 +373,12 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 10 - Kobi Loses His Temper
 
-Images: attach `End frame V9` (opening image, saved from the approved Video 9) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7.
+Images: attach `End frame V9` (opening image, saved from the approved Video 9) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 10 - Kobi Loses His Temper as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V9.
+Generate Video 10 - Kobi Loses His Temper as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V9 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V9.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Papa Yeti, @Babu Yeti, and @Kobi Squirrel. Papa Yeti, Babu Yeti, and Kobi Squirrel exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
@@ -396,12 +396,12 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 11 - Off to a Sweeter Tree
 
-Images: attach `End frame V10` (opening image, saved from the approved Video 10) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7.
+Images: attach `End frame V10` (opening image, saved from the approved Video 10) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 11 - Off to a Sweeter Tree as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V10.
+Generate Video 11 - Off to a Sweeter Tree as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V10 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V10.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Papa Yeti, @Babu Yeti, and @Kobi Squirrel. Papa Yeti, Babu Yeti, and Kobi Squirrel exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
@@ -419,14 +419,14 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 12 - A Feast for Everyone
 
-Images: attach `End frame V11` (opening image, saved from the approved Video 11) in the prompt box, no plate, nothing else. References: 1 image + 4 Characters = 5 of 7.
+Images: attach `End frame V11` (opening image, saved from the approved Video 11) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3. Not linked in this video, described in its `Cast:` line instead: Woolly Hare; never link them by hand.
 
 Agent prompt:
 
 ```text
-Generate Video 12 - A Feast for Everyone as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V11.
+Generate Video 12 - A Feast for Everyone as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V11 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V11.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
-Cast: @Babu Yeti, @Papa Yeti, @Pied Goat, and exactly three Woolly Hares, each @Woolly Hare. Babu Yeti, Papa Yeti, Pied Goat, and Woolly Hares exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Pied Goat is a small kid goat whose back is no higher than Babu Yeti's tummy. Each Woolly Hare is about the size of a loaf of bread. Each shot shows only the characters its In frame list names, each exactly once.
+Cast: @Babu Yeti, @Papa Yeti, and @Pied Goat, exactly as their saved Characters. Not linked, drawn only from these words: exactly three Woolly Hares, identical small, round stylized cartoon hares about the size of a loaf of bread, with thick grey-brown fur, long upright ears with dark brown tips and pink insides, big glossy brown eyes, pink noses, and fluffy round white tails. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Pied Goat is a small kid goat whose back is no higher than Babu Yeti's tummy. Each Woolly Hare is about the size of a loaf of bread. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
 Voices: Babu Yeti: a small, bright, high little voice, quick and eager, with a giggle in it; Narrator (off-screen, never shown): a warm, unhurried grown-up storyteller voice, gentle and smiling, clear and kind.
 00:00-00:03, Medium Close-Up (chest up), Eye Level. In frame: Babu Yeti, and no one else. Babu Yeti, on the left third looking up toward frame left, holds his relieved soft smile. He spins toward frame left, bouncing on the spot with a cute playful smile, and speaks. Static, from rest. Light: warm sunlight from frame right dappling through the mango leaves, soft green bounce from the grass, warm rim on the fur, clear air around the Yetis, high-key, leaf-green and mango-gold palette, cheerful, shallow focus.
@@ -442,14 +442,14 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 13 - What About Kobi
 
-Images: attach `End frame V12` (opening image, saved from the approved Video 12) in the prompt box, no plate, nothing else. References: 1 image + 4 Characters = 5 of 7.
+Images: attach `End frame V12` (opening image, saved from the approved Video 12) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3. Not linked in this video, described in its `Cast:` line instead: Woolly Hare; never link them by hand.
 
 Agent prompt:
 
 ```text
-Generate Video 13 - What About Kobi as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V12.
+Generate Video 13 - What About Kobi as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V12 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V12.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
-Cast: @Pied Goat, exactly three Woolly Hares, each @Woolly Hare, @Mama Yeti, and @Babu Yeti. Pied Goat, Woolly Hares, Mama Yeti, and Babu Yeti exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Pied Goat is a small kid goat whose back is no higher than Babu Yeti's tummy. Each Woolly Hare is about the size of a loaf of bread. Each shot shows only the characters its In frame list names, each exactly once.
+Cast: @Mama Yeti, @Babu Yeti, and @Pied Goat, exactly as their saved Characters. Not linked, drawn only from these words: exactly three Woolly Hares, identical small, round stylized cartoon hares about the size of a loaf of bread, with thick grey-brown fur, long upright ears with dark brown tips and pink insides, big glossy brown eyes, pink noses, and fluffy round white tails. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Pied Goat is a small kid goat whose back is no higher than Babu Yeti's tummy. Each Woolly Hare is about the size of a loaf of bread. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
 Voices: Mama Yeti: a soft, warm, clear grown-up voice, calm and loving, with a gentle lilt.
 00:00-00:03, Full Shot (head to feet), Eye Level. In frame: Pied Goat and exactly three Woolly Hares, and no one else. Pied Goat and the three Woolly Hares stand at the first heap of mangoes on the right third, happy. Pied Goat munches a mango while the three Woolly Hares nibble theirs, ears twitching. Static, from rest. Light: warm sunlight from frame right dappling through the mango leaves, soft green bounce from the grass, high-key, leaf-green and mango-gold palette, cheerful, deep focus.
@@ -465,12 +465,12 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 14 - Kobi Comes Back
 
-Images: attach `End frame V13` (opening image, saved from the approved Video 13) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7.
+Images: attach `End frame V13` (opening image, saved from the approved Video 13) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 14 - Kobi Comes Back as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V13.
+Generate Video 14 - Kobi Comes Back as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V13 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V13.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti and @Kobi Squirrel. Babu Yeti and Kobi Squirrel exactly as their saved Characters. Kobi Squirrel is small, about the size of a house cat. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
@@ -488,14 +488,14 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 15 - Sweeter When Shared
 
-Images: attach `End frame V14` (opening image, saved from the approved Video 14) in the prompt box, no plate, nothing else. References: 1 image + 6 Characters = 7 of 7.
+Images: attach `End frame V14` (opening image, saved from the approved Video 14) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3. Not linked in this video, described in its `Cast:` line instead: Kobi Squirrel, Pied Goat, and Woolly Hare; never link them by hand.
 
 Agent prompt:
 
 ```text
-Generate Video 15 - Sweeter When Shared as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Open on the image End frame V14.
+Generate Video 15 - Sweeter When Shared as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V14 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V14.
 Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
-Cast: @Kobi Squirrel, @Mama Yeti, @Papa Yeti, @Pied Goat, exactly three Woolly Hares, each @Woolly Hare, and @Babu Yeti. Kobi Squirrel, Mama Yeti, Papa Yeti, Pied Goat, Woolly Hares, and Babu Yeti exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Kobi Squirrel is small, about the size of a house cat. Pied Goat is a small kid goat whose back is no higher than Babu Yeti's tummy. Each Woolly Hare is about the size of a loaf of bread. Each shot shows only the characters its In frame list names, each exactly once.
+Cast: @Mama Yeti, @Papa Yeti, and @Babu Yeti, exactly as their saved Characters. Not linked, drawn only from these words: Kobi Squirrel, a plump, lively stylized cartoon giant flying squirrel about the size of a house cat, with rich chestnut-red fur, a cream tummy and chest, big round glossy dark eyes, small rounded ears, soft furry gliding flaps between his legs, and a long, fluffy chestnut-red tail; Pied Goat, a small, chunky stylized cartoon hornless kid goat with a fluffy white coat with exactly three brown patches (left eye and ear, back, right hip), long floppy white ears, large amber eyes, a tiny white chin tuft, and small black hooves; and exactly three Woolly Hares, identical small, round stylized cartoon hares about the size of a loaf of bread, with thick grey-brown fur, long upright ears with dark brown tips and pink insides, big glossy brown eyes, pink noses, and fluffy round white tails. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Kobi Squirrel is small, about the size of a house cat. Pied Goat is a small kid goat whose back is no higher than Babu Yeti's tummy. Each Woolly Hare is about the size of a loaf of bread. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A lush green forest valley in the warm Himalayan foothills on a bright sunny day, a sunlit grassy clearing with one magnificent old mango tree on its right side, the tree's thick twisted trunk holding a deep round hollow partway up its front and its wide spreading branches heavy with dense clusters of ripe golden-orange mangoes among dark green leaves, its lowest branches just out of reach above the grass, soft grass and tall feathery ferns around its roots, a flat mossy boulder on the left side of the clearing, tall broadleaf trees hung with thick vines forming a deep, shady jungle edge all around, darkest at frame left, and pale snowy peaks far behind in the blue haze.
 Voices: Kobi Squirrel: a quick, chattery, squeaky grown-up voice, proud and huffy; Narrator (off-screen, never shown): a warm, unhurried grown-up storyteller voice, gentle and smiling, clear and kind.
 00:00-00:03, Medium Close-Up (chest up), Eye Level. In frame: Kobi Squirrel, and no one else. Kobi Squirrel, on the left third, holds the mango in both paws with his big eyes wide and soft. He hugs it to his tummy, looks up toward frame right with a shy small smile, and speaks. Static, from rest. Light: low golden afternoon sun from frame right through the mango leaves, long soft shadows across the grass, golden rim on Kobi Squirrel's red fur, warm amber and leaf-green palette, tender, shallow focus.

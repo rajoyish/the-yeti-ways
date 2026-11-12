@@ -91,7 +91,7 @@ Images: attach `Plate - Cloud Lotus Garden` (opening image) in the prompt box, n
 Agent prompt:
 
 ```text
-Generate Video 1 - Across the Moonlit Garden as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Open on the image Plate - Cloud Lotus Garden.
+Generate Video 1 - Across the Moonlit Garden as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image Plate - Cloud Lotus Garden and every @ Character in the Cast line together as references, and make the first frame match the image Plate - Cloud Lotus Garden.
 Vertical 9:16 video, 720p, 10 seconds, six shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, @Tavi Moon Moth. Babu Yeti and Tavi Moon Moth exactly as their saved Characters. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A moonlit crystal garden above silver-blue clouds, with an ice-lotus platform, an arched ice bridge, overlapping yellow, purple, blue, and pink mushroom caps with steadily luminous gills, tall amber crystal lamps, and an elevated arch of white-blue star crystals with one star-shaped socket at its lower left end; the navy sky is starry, the moon hangs at upper frame left, and both golden star props are inanimate.
@@ -114,7 +114,7 @@ Images: attach `End frame V1` (opening image, saved from the approved Video 1), 
 Agent prompt:
 
 ```text
-Generate Video 2 - The Missing Place in the Sky as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Open on the image End frame V1.
+Generate Video 2 - The Missing Place in the Sky as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V1 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V1.
 Vertical 9:16 video, 720p, 10 seconds, five shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, @Oru Cloud Ray, @Tavi Moon Moth. Babu Yeti, Oru Cloud Ray, and Tavi Moon Moth exactly as their saved Characters. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A moonlit crystal garden above silver-blue clouds, with an ice-lotus platform, an arched ice bridge, overlapping yellow, purple, blue, and pink mushroom caps with steadily luminous gills, tall amber crystal lamps, and an elevated arch of white-blue star crystals with one star-shaped socket at its lower left end; the navy sky is starry, the moon hangs at upper frame left, and both golden star props are inanimate.
@@ -136,7 +136,7 @@ Images: attach `End frame V2` (opening image, saved from the approved Video 2), 
 Agent prompt:
 
 ```text
-Generate Video 3 - Thanks Among the Stars as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Open on the image End frame V2.
+Generate Video 3 - Thanks Among the Stars as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V2 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V2.
 Vertical 9:16 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, @Oru Cloud Ray, @Tavi Moon Moth. Babu Yeti, Oru Cloud Ray, and Tavi Moon Moth exactly as their saved Characters. Tavi Moon Moth's body fits comfortably on Babu Yeti's open palm. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A moonlit crystal garden above silver-blue clouds, with an ice-lotus platform, an arched ice bridge, overlapping yellow, purple, blue, and pink mushroom caps with steadily luminous gills, tall amber crystal lamps, and an elevated arch of white-blue star crystals with one star-shaped socket at its lower left end; the navy sky is starry, the moon hangs at upper frame left, and both golden star props are inanimate.
@@ -157,7 +157,7 @@ Images: attach `End frame V3` (opening image, saved from the approved Video 3), 
 Agent prompt:
 
 ```text
-Generate Video 4 - Onto the Starway as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Open on the image End frame V3. Also use the image Plate - Starway Sky for the last three shots.
+Generate Video 4 - Onto the Starway as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V3 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V3. Also use the image Plate - Starway Sky for the last three shots.
 Vertical 9:16 video, 720p, 10 seconds, five shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, @Tavi Moon Moth, @Oru Cloud Ray. Babu Yeti, Tavi Moon Moth, and Oru Cloud Ray exactly as their saved Characters. Tavi Moon Moth's body fits comfortably on Babu Yeti's open palm. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: First two shots: A moonlit crystal garden above silver-blue clouds, with an ice-lotus platform, an arched ice bridge, overlapping yellow, purple, blue, and pink mushroom caps with steadily luminous gills, tall amber crystal lamps, and an elevated arch of white-blue star crystals with one star-shaped socket at its lower left end; the navy sky is starry, the moon hangs at upper frame left, and both golden star props are inanimate. Last three shots: A vast night sky above an endless sea of silver-blue clouds, crossed by the Starway, a long winding ribbon of flat, floating white-blue star-crystal stepping stones that curves toward frame right to the moonlit horizon, with small floating ice islets topped with tiny luminous mushrooms and short amber crystal lamps, slow pale cloud rivers flowing between them, the moon at upper frame left, a starry navy sky, and the golden star glider as an inanimate prop.
@@ -179,7 +179,7 @@ Images: attach `End frame V4` (opening image, saved from the approved Video 4), 
 Agent prompt:
 
 ```text
-Generate Video 5 - The Drifting Herd as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Open on the image End frame V4.
+Generate Video 5 - The Drifting Herd as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V4 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V4.
 Vertical 9:16 video, 720p, 10 seconds, five shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, exactly four Lumen Grazers, each @Lumen Grazer, and @Tavi Moon Moth. Babu Yeti, Lumen Grazer, and Tavi Moon Moth exactly as their saved Characters. Each Lumen Grazer is larger than the golden star glider. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A vast night sky above an endless sea of silver-blue clouds, crossed by the Starway, a long winding ribbon of flat, floating white-blue star-crystal stepping stones that curves toward frame right to the moonlit horizon, with small floating ice islets topped with tiny luminous mushrooms and short amber crystal lamps, slow pale cloud rivers flowing between them, the moon at upper frame left, a starry navy sky, and the golden star glider as an inanimate prop.
@@ -201,7 +201,7 @@ Images: attach `End frame V5` (opening image, saved from the approved Video 5), 
 Agent prompt:
 
 ```text
-Generate Video 6 - Above the Cloud Sea as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Open on the image End frame V5.
+Generate Video 6 - Above the Cloud Sea as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V5 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V5.
 Vertical 9:16 video, 720p, 10 seconds, five shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti, exactly four Lumen Grazers, each @Lumen Grazer, @Oru Cloud Ray, and @Tavi Moon Moth. Babu Yeti, Lumen Grazer, Oru Cloud Ray, and Tavi Moon Moth exactly as their saved Characters. Each Lumen Grazer is larger than the golden star glider. Tavi Moon Moth's body fits comfortably on Babu Yeti's open palm. Each shot shows only the characters its In frame list names, each exactly once.
 Setting: A vast night sky above an endless sea of silver-blue clouds, crossed by the Starway, a long winding ribbon of flat, floating white-blue star-crystal stepping stones that curves toward frame right to the moonlit horizon, with small floating ice islets topped with tiny luminous mushrooms and short amber crystal lamps, slow pale cloud rivers flowing between them, the moon at upper frame left, a starry navy sky, and the golden star glider as an inanimate prop.

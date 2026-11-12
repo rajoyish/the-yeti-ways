@@ -60,6 +60,10 @@ Full, for still image prompts:
 
 `Animals: Pied Goat, a small, chunky stylized cartoon hornless young goat with a fluffy white coat with exactly three brown patches over its left eye and ear, on its back, and on its right hip, long floppy white ears, large amber eyes, a pink-grey nose, a tiny white chin tuft, four short legs each ending in a small two-toed cloven black hoof, and a short upturned white tail, with no collar or rope; exactly one.`
 
+Described-only entry, for a video where it gets no Character slot (after `Not linked, drawn only from these words:`, never with `@`):
+
+`Pied Goat, a small, chunky stylized cartoon hornless kid goat with a fluffy white coat with exactly three brown patches (left eye and ear, back, right hip), long floppy white ears, large amber eyes, a tiny white chin tuft, and small black hooves`
+
 `Cast:` line entry, for the Agent prompts:
 
 `@Pied Goat`

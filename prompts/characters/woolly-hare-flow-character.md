@@ -68,6 +68,10 @@ Full, for still image prompts:
 
 `Animals: exactly three Woolly Hares, small, round stylized cartoon woolly hares with thick, soft grey-brown fur, long upright ears with dark brown tips and pale pink insides, big glossy brown eyes, small pink noses with fine white whiskers, short front legs and long back feet with four small furry toes on each foot, and fluffy round white tails, wearing nothing; all three identical.`
 
+Described-only entry, for a video where it gets no Character slot (after `Not linked, drawn only from these words:`, never with `@`):
+
+`exactly three Woolly Hares, identical small, round stylized cartoon hares about the size of a loaf of bread, with thick grey-brown fur, long upright ears with dark brown tips and pink insides, big glossy brown eyes, pink noses, and fluffy round white tails`
+
 `Cast:` line entry, for the Agent prompts:
 
 `exactly three Woolly Hares, each @Woolly Hare`, with the height sentence `Each Woolly Hare is about the size of a loaf of bread.`
