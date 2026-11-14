@@ -28,4 +28,4 @@ Chrome may ask, on the first download, whether Flow can download multiple files:
 
 The content script drives Flow's own menus with synthetic pointer and context-menu events, matching on visible text (`New project`, `New collection`, `Download`, `1080p`), so it does not depend on Flow's class names. Before clicking **1080p** it arms the expected name in the service worker; `chrome.downloads.onDeterminingFilename` renames the next video download to it, and the worker tracks the download until it completes. The armed name lives in `chrome.storage.session`, so it survives the worker sleeping during a long upscale.
 
-If Flow changes its UI, update `videoTiles()`, `collectionEl()`, `openNewCollectionMenu()`, and `renameProject()` in `content.js`.
+If Flow changes its UI, update `videoTiles()`, `collectionEl()`, `ensureSidebar()`, `createCollection()`, and `renameProject()` in `content.js`. The Library **+** and the collection list exist only while Flow's sidebar is expanded; the extension expands it itself.

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Flow Storyboard Downloader",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Creates a Google Flow project and collections from a storyboard, then downloads each collection's videos at 1080p, named after the storyboard.",
   "icons": {
     "16": "icons/icon16.png",

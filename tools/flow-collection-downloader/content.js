@@ -16,11 +16,26 @@
   const norm = (s) => (s || "").replace(/\s+/g, " ").trim();
   const low = (s) => norm(s).toLowerCase();
 
+  // ---------------------------------------------------------------- extension context
+
+  // After the extension is reloaded, this old copy of the script stays in any
+  // un-refreshed tab and every chrome.* call throws "Extension context invalidated"
+  // synchronously (before a promise exists, so .catch() can't see it). Check first.
+  const alive = () => { try { return !!chrome.runtime?.id; } catch { return false; } };
+
+  // Fire-and-forget message to the side panel / background; never throws.
+  function send(msg) {
+    if (!alive()) return;
+    try { chrome.runtime.sendMessage(msg).catch(() => {}); } catch {}
+  }
+
   // ---------------------------------------------------------------- logging
 
+  // Logged with console.info, never console.error: the side panel shows the
+  // level, and console.error would fill chrome://extensions → Errors.
   function log(text, level = "info") {
-    console[level === "error" ? "error" : "info"](TAG, text);
-    chrome.runtime.sendMessage({ type: "log", text, level }).catch(() => {});
+    console.info(TAG, level === "info" ? "" : `[${level}]`, text);
+    send({ type: "log", text, level });
   }
 
   // ---------------------------------------------------------------- DOM helpers
@@ -166,19 +181,63 @@
 
   const collectionUrl = () => /\/collection\//.test(location.pathname);
 
+  const createCollectionBtn = () => document.querySelector('button[aria-label="Create collection"]');
+  const navItems = () => document.querySelectorAll("button.nested-list-item-button");
+
+  // A collapsed sidebar (icons only) drops the Library "+" and the collection list,
+  // so expand it: its bottom button reads "left_panel_open Expand". Then unfold the
+  // Library list ("Toggle library") if it holds collections but shows none.
+  // Flow's "Project not found." page (it redirects to /404?reason=project).
+  const projectMissing = () =>
+    /^\/404/.test(location.pathname) || findText((t) => t === "project not found.")[0];
+
+  const expandBtn = () => [...document.querySelectorAll("button")].find((b) => /left_panel_open/.test(b.textContent) && visible(b));
+
+  // `required`: throw when the Library "+" can't be shown (creating collections
+  // needs it; downloading only needs the list, so it just tries).
+  async function ensureSidebar(required = true) {
+    if (!createCollectionBtn()) {
+      // Wait for the project page to finish loading: sidebar shown, collapsed, or a 404.
+      await waitFor(() => createCollectionBtn() || expandBtn() || projectMissing(), 15000);
+      if (projectMissing()) {
+        throw new Error("Flow says \"Project not found.\" The project was deleted or belongs to another account. Open the right project, then run again.");
+      }
+      const expand = expandBtn();
+      if (expand) {
+        log("Expanding the Flow sidebar…");
+        expand.click();
+      }
+      if (!(await waitFor(createCollectionBtn, 6000))) {
+        if (!required) return;
+        throw new Error('"Create collection" (+ beside Library) not found. Open the project with the sidebar showing.');
+      }
+    }
+    const toggle = document.querySelector('button[aria-label="Toggle library"]');
+    if (toggle && !navItems().length) {
+      toggle.click();
+      await waitFor(() => navItems().length, 3000);
+    }
+  }
+
   // ---------------------------------------------------------------- job state
 
   let stopRequested = false;
   let running = false;
 
-  const getJob = async () => (await chrome.storage.local.get("fsdJob")).fsdJob || null;
-  const setJob = (job) => chrome.storage.local.set({ fsdJob: job });
+  const getJob = async () => {
+    if (!alive()) return null;
+    try { return (await chrome.storage.local.get("fsdJob")).fsdJob || null; } catch { return null; }
+  };
+  const setJob = async (job) => {
+    if (!alive()) throw new Error("Stopped");
+    await chrome.storage.local.set({ fsdJob: job });
+  };
 
   async function finish(job, text) {
     job.status = "done";
     await setJob(job);
     log(text);
-    chrome.runtime.sendMessage({ type: "job-ended" }).catch(() => {});
+    send({ type: "job-ended" });
   }
 
   // ---------------------------------------------------------------- create
@@ -245,15 +304,15 @@
 
   // Library "+" (Create collection) → name field → collection appears in the Library list.
   async function createCollection(name) {
-    const add = await waitFor(() => document.querySelector('button[aria-label="Create collection"]'), 6000);
-    if (!add) throw new Error('"Create collection" (+ beside Library) not found.');
-    const before = document.querySelectorAll("button.nested-list-item-button").length;
+    await ensureSidebar();
+    const add = createCollectionBtn();
+    const before = navItems().length;
     add.click();
     const input = await waitFor(nameField, 5000);
     if (input) await submitName(input, name);
     else {
       // Flow made an "Untitled" collection straight away: rename it from its menu.
-      const fresh = await waitFor(() => document.querySelectorAll("button.nested-list-item-button").length > before, 4000);
+      const fresh = await waitFor(() => navItems().length > before, 4000);
       if (!fresh) throw new Error("No new collection or name field appeared.");
       throw new Error("Flow created a collection without asking for a name; rename it, then run again.");
     }
@@ -262,6 +321,7 @@
   }
 
   async function createCollections(job) {
+    await ensureSidebar();
     for (; job.index < job.plan.collections.length; job.index++) {
       const name = job.plan.collections[job.index];
       if (collectionEl(name)) log(`"${name}" already exists.`);
@@ -303,7 +363,7 @@
     const end = Date.now() + timeoutMs;
     let announced = false;
     while (Date.now() < end) {
-      if (stopRequested) throw new Error("Stopped");
+      if (stopRequested || !alive()) throw new Error("Stopped");
       const s = await chrome.runtime.sendMessage({ type: "job-status", key });
       if (s?.job) {
         if (!announced) { log(`  Saving ${s.job.filename}…`); announced = true; }
@@ -349,6 +409,7 @@
       await setJob(job);
       log(`${name}`);
       if (!collectionEl(name) && location.href !== job.projectUrl) await backToProject(job);
+      if (!collectionEl(name)) await ensureSidebar(false);
       if (!(await openCollection(name))) {
         log(`  Collection "${name}" not found, skipped.`, "warn");
         continue;
@@ -395,13 +456,14 @@
         await downloadAll(job);
       }
     } catch (err) {
-      console.error(TAG, err);
       escape();
-      chrome.runtime.sendMessage({ type: "disarm" }).catch(() => {});
+      if (!alive()) return; // extension reloaded: this copy of the script is dead
+      console.info(TAG, err);
+      send({ type: "disarm" });
       const j = await getJob();
-      if (j) { j.status = err.message === "Stopped" ? "stopped" : "failed"; await setJob(j); }
+      if (j) { j.status = err.message === "Stopped" ? "stopped" : "failed"; await setJob(j).catch(() => {}); }
       log(err.message === "Stopped" ? "Stopped." : `Stopped: ${err.message}`, "error");
-      chrome.runtime.sendMessage({ type: "job-ended" }).catch(() => {});
+      send({ type: "job-ended" });
     } finally {
       running = false;
     }
@@ -434,7 +496,7 @@
   });
 
   // Resume a job after a reload.
-  setTimeout(run, 2500);
+  setTimeout(() => run().catch(() => {}), 2500);
 
   window.__fsd = { videoTiles, collectionEl, findText, menuItem, run };
 })();
