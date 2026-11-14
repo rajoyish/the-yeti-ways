@@ -7,7 +7,11 @@ description: >-
   character locks and @ character tags. Use for "30s storyboard", "three 10-second videos", or
   /storyboard-30s, including adding or revising a cover for an existing
   30-second storyboard. Video prompts keep saved Characters and no dialogue;
-  cover prompts are standalone promotional stills.
+  cover prompts are standalone promotional stills. Also adds pick-up shots
+  (`## Pick-up N - <Title>`) to a finished storyboard: extra clips for the edit
+  that fix continuity, add a missing reaction, or bridge two scenes. Use for
+  "pick-up", "pickup shot", "missing shot", "reaction shot for the edit", or
+  "bridge these videos".
 ---
 
 # 30-second storyboard extender
@@ -23,6 +27,10 @@ The reference output is `prompts/babu-yeti-moonlit-herb-rescue-30s-storyboard.md
 Read `.agents/skills/storyboard-30s/references/cover-images.md` when writing or revising this storyboard. It defines the cover concept, both formats, full still-image locks, reference handling, generation when requested, and cover checks. Every cover prompt has a `Cast:` line immediately after its style lock, calling each visible character with `@` exactly once; later mentions use plain names, and the full locks remain intact. Use `prompts/yeti-plateau-cup-300s-storyboard.md` for its cover approach, adapted to this story's mood and setting.
 
 This is a standard `SKILL.md` shared by Codex, Claude Code, and Antigravity through `.agents/skills/` and the aliases maintained by `.agents/link-agents.sh`. Resolve project paths from the repository root. All three assistants can write the complete prompts; actual image generation requires an image capability in the current session. See `.agents/README.md` for discovery and verification.
+
+## Pick-up shots
+
+When the user asks for pick-ups (also: a pickup, a pick-up shot, a missing shot, a missing reaction, a cutaway, a bridge, or B-roll) for a storyboard whose videos are already written or generated, read `.agents/skills/storyboard-30s/references/pickup-shots.md` and follow it. A pick-up is a minor, targeted clip made after the numbered videos, while editing, to fix a continuity error, capture a missing reaction, or bridge two scenes. It goes in the file as `## Pick-up <n> - <Title>` (`## Pick-up 1 - Kobi's Search`), after the last video and before the covers, with a `Pick-up:` line, an `Images:` line, and an `Agent prompt:` block, plus an Image map row and one sentence in Instruction 2. It never joins the end-frame chain, never changes the numbered videos or their count, and is checked with `node .agents/skills/storyboard-30s/check_pickups.mjs <file>`. A pick-up request revises only what the guide says; it does not rewrite the videos or the covers.
 
 ## Rules that always apply
 
@@ -209,7 +217,7 @@ No clip starts or ends on a generated image, so each handoff between videos is h
 
 Save to `prompts/<kebab-case-title>-30s-storyboard.md`. Derive the kebab-case title from the short storyboard's title, dropping the word "storyboard" and any leading article. Never overwrite the source or an existing file without saying so.
 
-Use the template below. The file holds, in order: the title and a short premise paragraph, the `## Google Flow Agent instructions` section (three cards, section 5 of `.agents/rules/google-flow.md`), the `## Agent setup prompt` section (the one prompt that generates the plates), the `## Image map`, and then, for each video, only its `## Video N - <Title>` heading, its `Images:` line, and its `Agent prompt:` block; after the final video, append `## Cover image` and `## Cover image - 9:16 vertical` using `.agents/skills/storyboard-30s/references/cover-images.md`. Never write a storyboard table (`| Timestamp | Shot Type | Visual Description / Prompt | VFX | Audio / Sound FX |`), and never a `Film position:`, `Stage:`, `Characters:`, or `Scene break:` line: the plan that would fill them stays in your notes, and Instruction 2 carries the summary the Agent needs. Everything in the video workflow except the Image map and the `Images:` lines is addressed to the Flow Agent. Cover prompts and their reference notes are separate promotional stills.
+Use the template below. The file holds, in order: the title and a short premise paragraph, the `## Google Flow Agent instructions` section (three cards, section 5 of `.agents/rules/google-flow.md`), the `## Agent setup prompt` section (the one prompt that generates the plates), the `## Image map`, and then, for each video, only its `## Video N - <Title>` heading, its `Images:` line, and its `Agent prompt:` block; after the final video, any `## Pick-up <n> - <Title>` sections the user has asked for (`references/pickup-shots.md`); then append `## Cover image` and `## Cover image - 9:16 vertical` using `.agents/skills/storyboard-30s/references/cover-images.md`. Never write a storyboard table (`| Timestamp | Shot Type | Visual Description / Prompt | VFX | Audio / Sound FX |`), and never a `Film position:`, `Stage:`, `Characters:`, or `Scene break:` line: the plan that would fill them stays in your notes, and Instruction 2 carries the summary the Agent needs. Everything in the video workflow except the Image map and the `Images:` lines is addressed to the Flow Agent. Cover prompts and their reference notes are separate promotional stills.
 
 Give each video a short title in its heading, such as "Video 1 - The Spill": the number and the title separated by a spaced hyphen (` - `), never a colon, and no timestamps. Choose each title once and never change it; the Image map, the `Images:` lines, the Agent prompts' first lines, and any other file about the film use the same headings.
 
@@ -240,7 +248,8 @@ A frames file in `image-prompts/`, from the start-and-end-frame workflow or the 
 Check every item. Fix and re-check rather than reporting a partial result.
 
 - [ ] No storyboard table and no table lines: `grep -cE '^\| (Timestamp|\*\*00:)|^(Film position|Stage|Characters|Scene break):' <file>` returns 0.
-- [ ] Three videos, each a `## Video N - <Title>` heading with a spaced hyphen and no timestamps, followed only by its `Images:` line and its `Agent prompt:` block: `grep -c '^## Video ' <file>` returns 3, `grep -c '^Images: attach' <file>` returns 3, and `grep -c '^Agent prompt:' <file>` returns 3.
+- [ ] Three videos, each a `## Video N - <Title>` heading with a spaced hyphen and no timestamps, followed only by its `Images:` line and its `Agent prompt:` block: `grep -c '^## Video ' <file>` returns 3, and `grep -c '^Images: attach' <file>` and `grep -c '^Agent prompt:' <file>` each return 3 plus the number of pick-ups.
+- [ ] Pick-ups, if any: `node .agents/skills/storyboard-30s/check_pickups.mjs <file>` prints `OK`, and every item of `references/pickup-shots.md`'s Verify list holds. Extra clips under any other name (`B-roll`, `Insert`) are renamed `## Pick-up <n> - <Title>`.
 - [ ] Every Agent prompt is one `text` block with no pipe characters or markdown, about 300 to 900 words, and its lines are, in order: the first line (the video, Omni 1.2 Flash, 10 seconds, vertical 9:16, 720p, its opening image: `Plate - <Location>` for Video 1 or a scene break, otherwise `End frame V<N-1>`), the format line with the style lock word for word, `Cast:`, `Setting:`, one line per shot, `Sound:`, and `Avoid:` with the avoid line word for word. The video prompts name no other video model, length, orientation, or resolution and do not request 360p; the location plates and cover stills follow their own image specifications.
 - [ ] Every video prompt names the model `Omni 1.2 Flash` and the length 10 seconds: `grep -cE 'Omni Flash|Omni 1\.1 Flash|15[- ]seconds?' <file>` finds only Instruction 1's "never Omni 1.1 Flash" and "never 15 seconds", and the checker prints no model Problem.
 - [ ] Every Agent prompt has three to six shot lines whose timestamps run in order from `00:00` to `00:10` on the beat boundaries, each one or two beats long, and its format line names that number of shots. Each shot line has one sentence per beat of its shot, so every video has six beats, each ending on a picture.
@@ -383,6 +392,23 @@ Setting: <the location's Environment: sentence, word for word>
 <Last shot line>, ending on a held frame. Light: <...>, <focus>.
 Sound: <the music state and instruments, shot by shot, in one or two sentences>. <The main sounds, one for each visible effect>. No dialogue, no lyrics.
 Avoid: <the avoid line from section 5 of prompt-assembly.md, without its label>, on-screen text, captions, borders, split screens.
+```
+
+---
+
+<Only when the user has asked for pick-ups: one section per pick-up, in number order, as references/pickup-shots.md sets out.>
+
+## Pick-up 1 - <Title>
+
+Pick-up: <continuity fix, missing reaction, or bridge>: <what it fixes>. <Cut in after Video <N> and before Video <N+1>, or Cut over Video <N> at <00:05-00:07>>. Edit mode: <insert or overlay>.
+
+Images: attach <`Plate - <Location>` (reference for the place and light), or no image> in the prompt box<, nothing else>. References: <n> image(s) + <n> Characters = <n> of 7. Characters: <n> of 3. Not part of the end-frame chain: it opens on no end frame and saves none.
+
+Agent prompt:
+
+```text
+Generate Pick-up 1 - <Title> as one 10-second Omni 1.2 Flash video, vertical 9:16, 720p, exactly as written below. It is a pick-up shot, an extra clip for the edit and not one of the 3 numbered videos: it does not open on an end frame and does not save one. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode, <with the @ Characters in the Cast line as its only references, or using the image <image> and every @ Character in the Cast line together as references>. Name the clip "Pick-up 1 - <Title> - take <n>".
+<Format line, Cast:, Setting:, one to six shot lines, Sound:, and Avoid:, as for a video.>
 ```
 
 ---

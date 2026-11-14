@@ -7,7 +7,10 @@ description: >-
   with verbatim timed lyrics and off-screen children's singing while visible
   characters act silently. Use for "nursery rhyme", "rhyme video", "turn these
   lyrics into a song", "music video storyboard", "Yeti rhyme", or
-  /nursery-rhyme-storyboard. Includes 16:9 and 9:16 cover prompts.
+  /nursery-rhyme-storyboard. Includes 16:9 and 9:16 cover prompts. Also adds
+  silent pick-up shots (`## Pick-up N - <Title>`) to a finished rhyme film for
+  the edit: a continuity fix, a missing reaction, or a bridge, cut over the
+  song without changing a word of it.
 ---
 
 # Supplied lyrics to a Google Flow song film
@@ -161,6 +164,22 @@ current specifications. No required external music prompt, audio overlay, or
 external editing step. Write long files in batches if needed; never substitute
 "same as Video N" for a full prompt.
 
+## 5a. Pick-up shots
+
+When the user asks for pick-ups (a missing shot, a missing reaction, a
+cutaway, a bridge, or B-roll) after the clips are made, read
+`.agents/skills/storyboard-30s/references/pickup-shots.md` and follow it. Add
+each as `## Pick-up <n> - <Title>` after the last video and before the covers,
+with its `Pick-up:` line, `Images:` line, `Agent prompt:` block, Image map row,
+and one Instruction 2 sentence. In a song film every pick-up is an **overlay**:
+its picture replaces a stretch of one clip's picture while that clip's sung
+audio plays on, so the song's words, order, and length never change. Its
+`Sound:` line is the same accompaniment (tempo, key, instruments) with no
+singing; it has no `Vocal timing:`, `Lyrics to sing verbatim:`, or
+`Performance:` line, every mouth stays closed, and its avoid line adds
+`, talking, moving mouths, singing`. The sync map and the lyric checks count
+the numbered videos only.
+
 ## 6. Verify and hand off
 
 Apply storyboard-30s checks with the duration, clock, audio, cards, and word-count
@@ -177,6 +196,9 @@ exceptions above, then check:
   performance. No conflicting global no-singing/no-lyrics rule or adult vocal.
 - Correct image/reference counts, Character files, plate creation, scene breaks,
   matching end-frame handoffs, and both covers' exact current locks.
+- Pick-ups, if any: `node .agents/skills/storyboard-30s/check_pickups.mjs <file>`
+  prints `OK`; each is an overlay with no lyrics or singing; Video counts,
+  Instruction 3's count, and the file name are unchanged.
 - Run `node .agents/skills/storyboard-30s/check_filter.mjs <file>` and read notes
   in context. Generic music-word flags do not authorize changing supplied lyrics
   or suppressing child singing. Report a genuine unresolved conflict.

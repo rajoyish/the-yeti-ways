@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4285F4"/>
+      <stop offset="0.55" stop-color="#9B72CB"/>
+      <stop offset="1" stop-color="#D96570"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="116" height="116" rx="28" fill="url(#g)"/>
+  <!-- voice waveform -->
+  <g fill="#fff">
+    <rect x="23" y="55" width="11" height="26" rx="5.5"/>
+    <rect x="41" y="40" width="11" height="56" rx="5.5"/>
+    <rect x="59" y="28" width="11" height="80" rx="5.5"/>
+    <rect x="77" y="44" width="11" height="48" rx="5.5"/>
+    <rect x="95" y="58" width="11" height="20" rx="5.5"/>
+  </g>
+  <!-- Gemini-style sparkle -->
+  <path fill="#fff" d="M100 14 C101.5 23 104 25.5 113 27 C104 28.5 101.5 31 100 40 C98.5 31 96 28.5 87 27 C96 25.5 98.5 23 100 14 Z"/>
+</svg>

@@ -23,4 +23,6 @@ All three assistants can read and write the prompt files. Media generation, vide
 
 The storyboard skills append horizontal 16:9 and vertical 9:16 cover prompts using [the shared cover guide](skills/storyboard-30s/references/cover-images.md). Each cover has a `Cast:` line with one `@` tag per visible character, followed by full character locks and plain-name scene descriptions. Covers are separate from the clip prompts. Generation happens when requested, with an image capability available in that assistant.
 
+The same four storyboard skills (`storyboard-30s`, `storyboard-60s`, `nursery-rhyme-storyboard`, `story-to-storyboard`) add pick-up shots on request using [the shared pick-up guide](skills/storyboard-30s/references/pickup-shots.md). A pick-up is a short clip ordered during the edit to fix continuity, capture a missing reaction, or bridge two scenes. It is written as `## Pick-up <n> - <Title>` after the last video, never enters the end-frame chain, and is checked with `node .agents/skills/storyboard-30s/check_pickups.mjs <file>`.
+
 Discovery locations checked against the official [Codex documentation](https://learn.chatgpt.com/docs/build-skills), [Claude Code documentation](https://code.claude.com/docs/en/skills), and [Antigravity documentation](https://antigravity.google/docs/skills) on 2026-11-07.

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AI Studio Voice Runner</title>
+  <link rel="stylesheet" href="panel.css">
+  <link rel="icon" href="icons/icon-32.png">
+</head>
+<body>
+  <header>
+    <h1>Voice Runner</h1>
+    <div id="tab-status" class="pill">Looking for AI Studio…</div>
+  </header>
+
+  <section>
+    <label id="drop" class="file">
+      <input type="file" id="guide-file" accept=".md,text/markdown">
+      <strong>Drop a story here, or click to browse</strong>
+      <span class="muted">speech blocks (speech-prompts/*-speech-blocks.md), a story (stories/*.md, voices its <code>## Story</code>), or a speech guide (speech-prompts/*-tts.md)</span>
+    </label>
+    <div id="guide-info" class="muted"></div>
+    <label class="row">Save to Downloads/
+      <input id="folder" type="text" spellcheck="false">
+    </label>
+  </section>
+
+  <datalist id="voice-catalog"></datalist>
+
+  <section id="library-section">
+    <h2>Voices (Google Flow)</h2>
+    <p class="muted">Only Google Flow's 30 voices are offered, so each character's Flow Character speaks with the voice of its recorded lines. Narrator default: Charon.</p>
+    <div class="row wrap">
+      <span id="catalog-info" class="muted"></span>
+      <label class="row" title="Also offer AI Studio's voices that Flow does not have"><input id="all-voices" type="checkbox"> Show all AI Studio voices</label>
+      <button id="refresh-voices" title="Reads AI Studio's full voice list, for Show all">Read AI Studio's list</button>
+    </div>
+    <details id="library">
+      <summary>Browse and search the voices</summary>
+      <input id="voice-search" type="search" placeholder="Search name, description, pitch, gender…" spellcheck="false">
+      <div id="voice-list"></div>
+    </details>
+  </section>
+
+  <!-- Story mode -->
+  <section id="story-voices-section" hidden>
+    <h2>Speakers</h2>
+    <p class="muted">Type to search a voice. Your choices are saved until you change them. The Yeti family's voices are fixed. A run holds at most two voices, so the story is voiced in parts and joined.</p>
+    <div id="story-voices"></div>
+  </section>
+
+  <section id="story-lines-section" hidden>
+    <details>
+      <summary id="lines-summary">Speech blocks</summary>
+      <p class="muted">Narration in the Narrator's voice, every quoted line in its own block. Check who says each line and change the speaker if it is wrong. <b>Save speech blocks</b> writes them as a file you can edit and drop back here.</p>
+      <table>
+        <thead><tr><th>#</th><th>Speaker</th><th>Text</th></tr></thead>
+        <tbody id="story-lines"></tbody>
+      </table>
+    </details>
+  </section>
+
+  <section id="story-parts-section" hidden>
+    <h2>Parts</h2>
+    <div class="row wrap">
+      <label class="row" title="Each speech block is its own run: exact timing for every line (best for lip-synced films) and no skipped words, at the cost of more requests."><input id="per-block" type="checkbox"> One speech block per run (exact timing for the film)</label>
+      <label class="row">Max characters per part <input id="max-chars" type="number" min="200" max="4000" step="100" value="1500"></label>
+      <label class="row">Pause between parts <input id="gap" type="number" min="0" max="5" step="0.1" value="0.7"> s</label>
+      <label class="row">Wait between runs <input id="story-delay" type="number" min="0" max="60" step="1" value="3"> s</label>
+    </div>
+    <table>
+      <thead><tr><th></th><th>Part</th><th>Speakers · blocks</th><th>Take</th><th></th></tr></thead>
+      <tbody id="story-parts"></tbody>
+    </table>
+    <div class="row wrap actions">
+      <button id="story-run" class="primary">Generate selected parts</button>
+      <button id="story-stop" disabled>Stop</button>
+      <button id="story-join">Join into story-full.wav</button>
+      <button id="story-script">Save speech blocks</button>
+    </div>
+    <label class="row"><input id="auto-join" type="checkbox" checked> Join the story when every part is done</label>
+  </section>
+
+  <!-- Speech-guide mode -->
+  <section id="voices-section" hidden>
+    <h2>Voices</h2>
+    <p class="muted">The AI Studio voice for each speaker. Remembered across films; the Yeti family's voices are fixed.</p>
+    <div id="voices"></div>
+  </section>
+
+  <section id="cues-section" hidden>
+    <h2>Cues</h2>
+    <div class="row wrap">
+      <label class="row">Pause between takes <input id="delay" type="number" min="0" max="60" step="1" value="3"> s</label>
+      <label class="row"><input id="auto-retake" type="checkbox" checked> Retake once if too long</label>
+    </div>
+    <div class="row wrap">
+      <button id="sel-all">All</button>
+      <button id="sel-none">None</button>
+      <button id="sel-todo">Not done</button>
+      <button id="sel-long">Too long</button>
+    </div>
+    <table>
+      <thead><tr><th></th><th>Cue</th><th>Line</th><th>Take</th><th></th></tr></thead>
+      <tbody id="cues"></tbody>
+    </table>
+    <div class="row actions">
+      <button id="run" class="primary">Generate selected</button>
+      <button id="stop" disabled>Stop</button>
+      <button id="report">Save report</button>
+    </div>
+  </section>
+
+  <section id="tracks-section" hidden>
+    <h2>Video tracks</h2>
+    <p class="muted">Stitches the takes into one WAV per video (48 kHz stereo, as long as the clip), each line's first word on its cue time, plus one WAV for the whole film. Saved in <code>tracks/</code>.</p>
+    <label class="file small">
+      <input type="file" id="take-files" accept=".wav,audio/wav" multiple>
+      <span>Load saved takes (.wav) from disk</span>
+    </label>
+    <div class="row wrap">
+      <label class="row">Video length <input id="video-len" type="number" min="1" max="600" step="0.1" value="10"> s</label>
+      <label class="row"><input id="auto-stitch" type="checkbox" checked> Rebuild a video's track after its takes</label>
+    </div>
+    <div class="row wrap">
+      <button id="build-videos" class="primary">Build video tracks</button>
+      <button id="build-film">Build film track</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Log</h2>
+    <pre id="log"></pre>
+  </section>
+
+  <script src="stitch.js"></script>
+  <script src="story.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
