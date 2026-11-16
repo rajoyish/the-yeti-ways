@@ -51,6 +51,53 @@ chrome.downloads.onChanged.addListener(async (delta) => {
   await S.set({ jobs });
 });
 
+// Flow's grid → Library drag listens to trusted pointer events only, so press,
+// move in small steps, and release with the DevTools protocol. Chrome shows a
+// "started debugging this browser" bar while attached, which can push the page
+// down, so the positions are measured in the page *after* attaching, from the
+// elements the content script marked with data-fsd-drag="src" and "dst".
+async function realDrag(tabId) {
+  const target = { tabId };
+  await chrome.debugger.attach(target, "1.3");
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const mouse = (type, { x, y }, extra = {}) =>
+    chrome.debugger.sendCommand(target, "Input.dispatchMouseEvent", { type, x, y, button: "left", pointerType: "mouse", ...extra });
+  const measure = async () => {
+    const { result } = await chrome.debugger.sendCommand(target, "Runtime.evaluate", {
+      returnByValue: true,
+      expression: `(() => {
+        const c = (el) => { if (!el) return null; el.scrollIntoView({ block: "center", inline: "nearest" });
+          const r = el.getBoundingClientRect(); return r.width && r.height ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : null; };
+        const dst = c(document.querySelector('[data-fsd-drag="dst"]'));
+        const src = c(document.querySelector('[data-fsd-drag="src"]'));
+        return { src, dst };
+      })()`,
+    });
+    return result?.value || {};
+  };
+  try {
+    await wait(900); // let the debugging bar settle the layout
+    const { src: from, dst: to } = await measure();
+    if (!from || !to) throw new Error("drag source or target not found on the page");
+    await mouse("mouseMoved", from, { button: "none" });
+    await wait(150);
+    await mouse("mousePressed", from, { buttons: 1, clickCount: 1 });
+    await wait(300);
+    const steps = 30;
+    for (let i = 1; i <= steps; i++) {
+      const p = { x: from.x + ((to.x - from.x) * i) / steps, y: from.y + ((to.y - from.y) * i) / steps };
+      await mouse("mouseMoved", p, { buttons: 1 });
+      await wait(25);
+    }
+    // Hover over the target a moment, wiggling slightly, so the drop zone registers.
+    for (const dx of [0, 3, -3, 0]) { await mouse("mouseMoved", { x: to.x + dx, y: to.y }, { buttons: 1 }); await wait(150); }
+    await mouse("mouseReleased", to, { buttons: 0, clickCount: 1 });
+    await wait(300);
+  } finally {
+    await chrome.debugger.detach(target).catch(() => {});
+  }
+}
+
 chrome.runtime.onMessage.addListener((msg, sender, reply) => {
   (async () => {
     switch (msg?.type) {
@@ -59,6 +106,10 @@ chrome.runtime.onMessage.addListener((msg, sender, reply) => {
         await S.set({ armed: { ...msg, at: Date.now() } });
         return { ok: true };
       }
+      case "drag":
+        // The content script marked the source and target with data-fsd-drag.
+        await realDrag(sender.tab.id);
+        return { ok: true };
       case "disarm":
         await S.set({ armed: null });
         return { ok: true };

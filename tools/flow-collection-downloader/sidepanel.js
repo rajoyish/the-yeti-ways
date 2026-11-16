@@ -25,10 +25,36 @@ function log(text, level = "info") {
   $("log").scrollTop = $("log").scrollHeight;
 }
 
+function renderDrop() {
+  const drop = $("drop");
+  drop.classList.toggle("loaded", !!plan);
+  $("clearRow").hidden = !plan;
+  if (!plan) {
+    drop.textContent = "Drop a storyboard .md here, or click to choose";
+    return;
+  }
+  const name = document.createElement("strong");
+  name.textContent = `📄 ${plan.file || "Storyboard"}`;
+  const hint = document.createElement("small");
+  hint.textContent = "Drop another .md or click to replace";
+  drop.replaceChildren(name, hint);
+}
+
+function clearPlan() {
+  plan = null;
+  $("file").value = "";
+  $("folder").value = "";
+  save();
+  render();
+  log("Storyboard cleared.");
+}
+
 function render() {
+  renderDrop();
   $("planBox").hidden = !plan;
   $("create").disabled = $("download").disabled = $("start").disabled = !plan;
   $("needPlan").hidden = !!plan;
+  renderFrame();
   if (!plan) {
     $("start").replaceChildren(new Option("Load a storyboard first (Storyboard box above)", ""));
     return;
@@ -56,7 +82,9 @@ async function loadFile(file) {
 
 async function save() {
   await chrome.storage.local.set({
-    fsdPanel: { plan, start: $("start").value, folder: $("folder").value, skip: $("skip").checked, takes: $("takes").checked },
+    fsdPanel: {
+      plan, start: $("start").value, folder: $("folder").value, skip: $("skip").checked, takes: $("takes").checked,
+    },
   });
 }
 
@@ -81,12 +109,13 @@ async function send(tab, msg) {
 }
 
 async function start(kind) {
+  $("logCard").open = true;
   const tab = await flowTab();
   if (!tab) return log("Open Google Flow in a tab first.", "error");
   plan.title = $("title").value.trim() || plan.title;
   await save();
   const status = await send(tab, { type: "ping" });
-  if (kind === "download" && !status?.inProject) return log("Open the Flow project (not the home page) first.", "error");
+  if (kind !== "create" && !status?.inProject) return log("Open the Flow project (not the home page) first.", "error");
   const job = {
     kind,
     status: "running",
@@ -104,6 +133,61 @@ async function start(kind) {
   await send(tab, { type: "start" });
 }
 
+// ---- End frame of the open video
+//
+// The panel asks the Flow tab every 1.5 s whether a video is open. The video's
+// number comes from Flow itself when the job runs (Back leads to its "Video N"
+// collection), so this needs no storyboard.
+
+let openVideo = null; // {title, url, collection: {name, n, next}} from the Flow tab, or null
+let frameBusy = false;
+
+function renderFrame() {
+  const c = openVideo?.collection;
+  $("frameCard").classList.toggle("ready", !!openVideo && !frameBusy);
+  if (!openVideo) {
+    $("frameTarget").textContent = "No video open";
+    $("frameHint").textContent = "In Flow, click a finished video so its player and timeline show.";
+  } else {
+    $("frameTarget").textContent = openVideo.title || "Untitled video";
+    $("frameHint").textContent = c?.n
+      ? `Probably from ${c.name}: saves "End frame V${c.n}" into ${c.next || `Video ${c.n + 1}`}. Flow confirms the collection when it runs.`
+      : 'Saves its last frame as "End frame V<N>", N from the video\'s "Video N" collection, and moves it into Video N+1.';
+  }
+  $("frameNow").disabled = !openVideo || frameBusy;
+  $("frameHere").disabled = !openVideo || frameBusy;
+  $("frameNow").textContent = frameBusy === "end" ? "Saving…" : "Save end frame";
+  $("frameHere").textContent = frameBusy === "here" ? "Saving…" : "Save frame at playhead";
+}
+
+async function pollOpenVideo() {
+  let video = null;
+  try {
+    const tab = await flowTab();
+    if (tab) video = (await chrome.tabs.sendMessage(tab.id, { type: "ping" }))?.video || null;
+  } catch {}
+  if (JSON.stringify(video) !== JSON.stringify(openVideo)) { openVideo = video; renderFrame(); }
+}
+
+async function saveFrameNow(atPlayhead = false) {
+  $("logCard").open = true;
+  const tab = await flowTab();
+  if (!tab) return log("Open Google Flow in a tab first.", "error");
+  const status = await send(tab, { type: "ping" });
+  if (status?.running) return log("Another job is running in the Flow tab; stop it first.", "error");
+  if (!status?.video) return log("Open a video in Flow first (its player and timeline showing).", "error");
+  await chrome.storage.local.set({
+    fsdJob: {
+      kind: "endframe", status: "running", step: "save", atPlayhead, videoUrl: status.video.url,
+      projectUrl: status.url.replace(/\/(collection|edit)\/.*$/, ""),
+    },
+  });
+  frameBusy = atPlayhead ? "here" : "end";
+  renderFrame();
+  log(`Saving the end frame of "${status.video.title}"${atPlayhead ? " at the playhead" : ""}…`);
+  await send(tab, { type: "start" });
+}
+
 async function stop() {
   const tab = await flowTab();
   const { fsdJob } = await chrome.storage.local.get("fsdJob");
@@ -115,6 +199,7 @@ async function stop() {
 
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg?.type === "log") log(msg.text, msg.level);
+  if (msg?.type === "job-ended" && frameBusy) { frameBusy = false; renderFrame(); }
 });
 
 $("drop").onclick = () => $("file").click();
@@ -122,10 +207,15 @@ $("file").onchange = (e) => e.target.files[0] && loadFile(e.target.files[0]);
 $("drop").ondragover = (e) => { e.preventDefault(); $("drop").classList.add("over"); };
 $("drop").ondragleave = () => $("drop").classList.remove("over");
 $("drop").ondrop = (e) => { e.preventDefault(); $("drop").classList.remove("over"); e.dataTransfer.files[0] && loadFile(e.dataTransfer.files[0]); };
+$("clear").onclick = clearPlan;
 $("create").onclick = () => start("create");
 $("download").onclick = () => start("download");
 $("stop").onclick = stop;
+$("frameNow").onclick = () => saveFrameNow(false);
+$("frameHere").onclick = () => saveFrameNow(true);
 for (const id of ["start", "folder", "skip", "takes", "title"]) $(id).onchange = save;
+setInterval(pollOpenVideo, 1500);
+pollOpenVideo();
 
 (async () => {
   render();

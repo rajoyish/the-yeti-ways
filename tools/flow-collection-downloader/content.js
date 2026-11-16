@@ -148,7 +148,15 @@
   function menuItem(match) {
     const test = typeof match === "function" ? match : (t) => t.startsWith(low(match));
     const items = [...document.querySelectorAll('.cdk-overlay-container [role="menuitem"], .cdk-overlay-container .mat-mdc-menu-item')].filter(visible);
-    return items.find((m) => test(low((m.querySelector(".mat-mdc-menu-item-text") || m).textContent))) || null;
+    // The label text without its icon ("edit" + "Rename" → "Rename").
+    const label = (m) => {
+      const el = m.querySelector(".mat-mdc-menu-item-text") || m;
+      const icons = [...el.querySelectorAll("mat-icon, .mat-icon, .google-symbols")].map((i) => i.textContent).join("");
+      let t = el.textContent;
+      for (const i of el.querySelectorAll("mat-icon, .mat-icon, .google-symbols")) t = t.replace(i.textContent, "");
+      return low(t) || low(icons);
+    };
+    return items.find((m) => test(label(m))) || null;
   }
 
   const inProject = () => /\/project\//.test(location.pathname);
@@ -434,6 +442,216 @@
     await finish(job, "All downloads finished.");
   }
 
+  // ---------------------------------------------------------------- end frame
+  //
+  // With a video open in Flow: put the playhead on its last frame, "Save frame",
+  // then go Back, which Flow takes to the video's own collection
+  // ("Video 9 - …"). That gives the number: the new "Saved frame from …" image
+  // is renamed "End frame V9" and dragged onto "Video 10 - …" in the Library
+  // list. No storyboard is needed. Flow ignores synthetic pointer events for the
+  // drag, so the service worker performs it with real mouse input (chrome.debugger).
+
+  const tileName = (t) => norm(t.getAttribute("aria-label")) ||
+    norm(t.textContent.replace(/play_circle|favorite|redo|more_vert|image/g, ""));
+  const gridTiles = () => [...document.querySelectorAll("flow-grid-tile-container")].filter(visible);
+  const imageTiles = () => gridTiles().filter((t) => t.querySelector("flow-image-tile"));
+  const imageTile = (name) => imageTiles().find((t) => low(tileName(t)) === low(name));
+
+  // The Library row for a collection; its data-item-id is the collection id in the URL.
+  const navRow = (name) => [...document.querySelectorAll("[data-item-id]")].find((r) => low(r.textContent) === low(name));
+  const videoRow = (n) => [...document.querySelectorAll("[data-item-id]")].find((r) => new RegExp(`^video ${n} - `).test(low(r.textContent)));
+  const currentCollection = () => {
+    if (!collectionUrl()) return null;
+    const row = [...document.querySelectorAll("[data-item-id]")].find((r) => location.pathname.endsWith(`/collection/${r.dataset.itemId}`));
+    return row ? norm(row.textContent) : null;
+  };
+
+  async function gotoCollection(name, job) {
+    let row = navRow(name);
+    if (!row) { await backToProject(job); await ensureSidebar(false); row = await waitFor(() => navRow(name), 8000); }
+    if (!row) return false;
+    const id = row.dataset.itemId;
+    if (location.pathname.endsWith(`/collection/${id}`)) return true;
+    row.scrollIntoView({ block: "center" });
+    row.querySelector("button")?.click();
+    if (!(await waitFor(() => location.pathname.endsWith(`/collection/${id}`), 8000))) throw new Error(`Could not open collection "${name}".`);
+    await sleep(2000); // let the grid swap to this collection's tiles
+    return true;
+  }
+
+  // Flow fades some player buttons (Save frame) to opacity 0 until the player is
+  // hovered, so match on size and display, not on opacity.
+  const present = (el) => {
+    const r = el.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) return false;
+    const cs = getComputedStyle(el);
+    return cs.display !== "none" && cs.visibility !== "hidden";
+  };
+  const btn = (label) => [...document.querySelectorAll(`button[aria-label="${label}"]`)].find(present);
+
+  const onVideoPage = () => /\/edit\//.test(location.pathname) && !!btn("Save frame") && !!btn("Skip to next clip");
+  const pageTitle = () => norm(document.querySelector('input[aria-label="Editable text"]')?.value);
+
+  // While a collection is showing, remember it and the next video's collection
+  // (per tab), so the panel can say where a video opened from it will go.
+  function rememberCollection() {
+    const name = currentCollection();
+    if (!name) return;
+    const n = Number((name.match(/^Video\s+(\d+)\s+-/i) || [])[1]);
+    const next = n ? videoRow(n + 1) : null;
+    try { sessionStorage.setItem("fsdLastCollection", JSON.stringify({ name, n: n || null, next: next ? norm(next.textContent) : null })); } catch {}
+  }
+  setInterval(rememberCollection, 1000);
+
+  // For the panel: the open video's title and, if known, its collection.
+  function openVideo() {
+    if (!onVideoPage()) return null;
+    let last = null;
+    try { last = JSON.parse(sessionStorage.getItem("fsdLastCollection") || "null"); } catch {}
+    return { title: pageTitle(), url: location.pathname, collection: last };
+  }
+
+  function playTimes() {
+    const t = norm(btn("Skip to next clip")?.parentElement?.textContent);
+    const m = t.match(/Current time:\s*([\d:.]+).*Total duration:\s*([\d:.]+)/i);
+    return m ? { cur: m[1], total: m[2] } : null;
+  }
+
+  // On the video page: Save frame → wait for "Frame saved". With atPlayhead the
+  // playhead stays where the user left it (the video is only paused); otherwise
+  // it first moves to the last frame. Flow sometimes reorders a clip's shots, so
+  // the clean frame to continue from is not always the last one.
+  async function saveFrame(atPlayhead) {
+    if (atPlayhead) {
+      // Flow's player draws on a <canvas>; its Play/Pause button is the only control.
+      if (btn("Pause")) {
+        btn("Pause").click();
+        if (!(await waitFor(() => btn("Play"), 3000))) throw new Error("Could not pause the player.");
+      }
+      const p = playTimes();
+      if (p?.cur === "00:00:00") log("  The playhead is at 00:00:00, the clip's first frame; that frame is saved.", "warn");
+      log(`  Playhead at ${p ? `${p.cur} of ${p.total}` : "an unknown time"}.`);
+    } else {
+      btn("Skip to next clip").click();
+      const atEnd = await waitFor(() => { const p = playTimes(); return p && p.cur === p.total && p.cur !== "00:00:00"; }, 5000);
+      if (!atEnd) throw new Error(`Could not move the playhead to the last frame (${JSON.stringify(playTimes())}).`);
+    }
+    await sleep(1200); // let the frame paint
+    const save = btn("Save frame");
+    hover(save);
+    await sleep(300);
+    save.click();
+    log(atPlayhead ? "  Saving the frame at the playhead…" : "  Saving the last frame…");
+    const saved = await waitFor(() => [...document.querySelectorAll("button, a")].find((b) => norm(b.textContent) === "View image" && present(b)), 30000);
+    if (!saved) throw new Error('Flow did not confirm "Frame saved".');
+  }
+
+  // Right-click the tile → Rename → type in the inline field → Enter.
+  async function renameTile(tile, name) {
+    const { x, y } = center(tile);
+    tile.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true, clientX: x, clientY: y, button: 2 }));
+    const item = await waitFor(() => menuItem("rename"), 3000);
+    if (!item) throw new Error("The image's Rename menu item was not found.");
+    const oldName = tileName(tile);
+    item.click();
+    // Flow opens an inline field holding the current name and focuses it.
+    const input = await waitFor(() => {
+      const a = document.activeElement;
+      if (a && a.tagName === "INPUT" && a.getAttribute("aria-label") === "Editable text" && !a.closest("header")) return a;
+      return [...document.querySelectorAll('input[aria-label="Editable text"]')]
+        .find((i) => present(i) && low(i.value).replace(/…$/, "") && low(oldName).replace(/…$/, "").startsWith(low(i.value).slice(0, 20)) && low(i.value).startsWith("saved frame"));
+    }, 3000);
+    if (!input) throw new Error("The image's name field did not open.");
+    input.focus();
+    input.select();
+    document.execCommand("insertText", false, name);
+    if (input.value !== name) setValue(input, name);
+    await sleep(300);
+    pressKey(input, "Enter");
+    await sleep(300);
+    input.blur?.();
+    if (!(await waitFor(() => imageTile(name), 5000))) throw new Error(`Could not rename the frame to "${name}".`);
+    log(`  Named "${name}".`);
+  }
+
+  // Drag the image tile onto the target collection's Library row with real mouse
+  // input. Tries up to three times by itself before giving up.
+  async function moveToCollection(frameName, to) {
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      const tile = await waitFor(() => imageTile(frameName), 8000);
+      if (!tile) {
+        // Gone already? Then an earlier try moved it.
+        if (attempt > 1) { log(`  Moved "${frameName}" → "${to}".`); return; }
+        throw new Error(`"${frameName}" is not in this collection's grid.`);
+      }
+      const row = navRow(to);
+      if (!row) throw new Error(`"${to}" is not in the Library list.`);
+      escape();
+      document.activeElement?.blur?.();
+      for (const el of document.querySelectorAll("[data-fsd-drag]")) el.removeAttribute("data-fsd-drag");
+      (tile.querySelector("img") || tile).setAttribute("data-fsd-drag", "src");
+      (row.querySelector(".item-label") || row).setAttribute("data-fsd-drag", "dst");
+      await sleep(400);
+      const res = await chrome.runtime.sendMessage({ type: "drag" });
+      if (res?.error) log(`  Drag try ${attempt}: ${res.error}`, "warn");
+      if (await waitFor(() => !imageTile(frameName), 6000)) {
+        log(`  Moved "${frameName}" → "${to}".`);
+        return;
+      }
+      if (attempt < 3) { log(`  "${frameName}" did not move yet; trying again (${attempt + 1} of 3)…`, "warn"); await sleep(1500); }
+    }
+    throw new Error(`"${frameName}" did not move to "${to}" after 3 tries. Drag it there yourself.`);
+  }
+
+  // job: {kind: "endframe", videoUrl, atPlayhead, step: "save" | "rename" | "move", from, n, title}.
+  // Each step is saved before the next, so a page reload never saves a second frame.
+  async function endFrameJob(job) {
+    if (job.step === "save") {
+      if (!onVideoPage()) throw new Error("Open the video in Flow first (the page with Save frame and the timeline).");
+      if (job.videoUrl && location.pathname !== job.videoUrl) throw new Error("A different video is open now than when you clicked. Try again.");
+      job.title = pageTitle();
+      log(`"${job.title}": saving its end frame${job.atPlayhead ? " at the playhead" : ""}…`);
+      await saveFrame(!!job.atPlayhead);
+      // Back from a video goes to the collection it belongs to.
+      btn("Back button to go to previous page")?.click();
+      if (!(await waitFor(() => currentCollection(), 10000))) throw new Error("Back did not lead to the video's collection; rename and move the saved frame yourself.");
+      job.from = currentCollection();
+      job.n = Number((job.from.match(/^Video\s+(\d+)\s+-/i) || [])[1]) || null;
+      if (!job.n) throw new Error(`The video is in "${job.from}", not a "Video N - …" collection. The frame is saved there as "Saved frame from …".`);
+      job.step = "rename";
+      await setJob(job);
+      log(`  It is in "${job.from}".`);
+    }
+    const frameName = `End frame V${job.n}`;
+    if (!(await gotoCollection(job.from, job))) throw new Error(`Collection "${job.from}" not found.`);
+    if (job.step === "rename") {
+      await waitFor(() => imageTiles().length, 5000);
+      // The newest "Saved frame from <title>" image (Flow lists the newest first).
+      const want = low(`Saved frame from ${job.title}`).replace(/…$/, "");
+      const saved = imageTiles().filter((t) => /^saved frame from /.test(low(tileName(t))));
+      const tile = saved.find((t) => want.startsWith(low(tileName(t)).replace(/…$/, "")) || low(tileName(t)).startsWith(want)) || saved[0];
+      if (!tile && !imageTile(frameName)) throw new Error(`The saved frame is not in "${job.from}".`);
+      if (tile) {
+        try { await renameTile(tile, frameName); }
+        catch (err) {
+          if (err.message === "Stopped") throw err;
+          log(`  ${err.message} Trying again…`, "warn");
+          escape();
+          await sleep(1500);
+          const again = imageTile(frameName) ? null : imageTiles().find((t) => /^saved frame from /.test(low(tileName(t))));
+          if (again) await renameTile(again, frameName);
+        }
+      }
+      job.step = "move";
+      await setJob(job);
+    }
+    const next = videoRow(job.n + 1);
+    if (!next) throw new Error(`No "Video ${job.n + 1} - …" collection; "${frameName}" stays in "${job.from}".`);
+    const to = norm(next.textContent);
+    await moveToCollection(frameName, to);
+    await finish(job, `Done: "${frameName}" is in "${to}".`);
+  }
+
   // ---------------------------------------------------------------- runner
 
   async function run() {
@@ -454,6 +672,12 @@
           await setJob(job);
         }
         await downloadAll(job);
+      } else if (job.kind === "endframe") {
+        if (!job.projectUrl) {
+          job.projectUrl = location.href.replace(/\/(collection|edit)\/.*$/, "");
+          await setJob(job);
+        }
+        await endFrameJob(job);
       }
     } catch (err) {
       escape();
@@ -472,7 +696,10 @@
   chrome.runtime.onMessage.addListener((msg, _sender, reply) => {
     if (msg?.type === "start") { run(); reply({ ok: true }); }
     else if (msg?.type === "stop") { stopRequested = true; reply({ ok: true }); }
-    else if (msg?.type === "ping") reply({ ok: true, url: location.href, inProject: inProject(), running });
+    else if (msg?.type === "ping") {
+      const row = collectionUrl() && [...document.querySelectorAll("[data-item-id]")].find((r) => location.pathname.endsWith(`/collection/${r.dataset.itemId}`));
+      reply({ ok: true, url: location.href, inProject: inProject(), running, collection: row ? norm(row.textContent) : null, video: openVideo() });
+    }
     else if (msg?.type === "scan") {
       reply({
         inProject: inProject(),
@@ -489,6 +716,11 @@
     if (e.source !== window || !e.data?.fsd) return;
     if (e.data.fsd === "ping") window.postMessage({ fsdPong: { running, url: location.href } }, "*");
     if (e.data.fsd === "stop") stopRequested = true;
+    // { fsd: "move", name: "End frame V7", to: "Video 8 - …" }: test the drag alone.
+    if (e.data.fsd === "move") {
+      stopRequested = false;
+      moveToCollection(e.data.name, e.data.to).then(() => log("Move test OK."), (err) => log(`Move test: ${err.message}`, "error"));
+    }
     if (e.data.fsd === "start" && e.data.job) {
       await setJob({ status: "running", index: 0, ...e.data.job });
       run();

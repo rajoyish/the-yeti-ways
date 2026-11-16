@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Flow Storyboard Downloader",
-  "version": "1.0.2",
-  "description": "Creates a Google Flow project and collections from a storyboard, then downloads each collection's videos at 1080p, named after the storyboard.",
+  "version": "1.2.0",
+  "description": "Builds Flow projects from a storyboard, downloads 1080p videos, and saves each end frame into the next video's collection.",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
@@ -22,7 +22,7 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["downloads", "sidePanel", "storage", "scripting", "tabs"],
+  "permissions": ["downloads", "sidePanel", "storage", "scripting", "tabs", "debugger"],
   "host_permissions": ["https://labs.google/*", "https://flow.google.com/*"],
   "content_scripts": [
     {
