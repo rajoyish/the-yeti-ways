@@ -164,6 +164,11 @@
   // Generates one job and waits for its song card.
   async function generate(job) {
     stopFlag = false;
+    // Every request gets a unique title tag, and only a song with exactly
+    // that title is accepted: the session's song list can be collapsed or
+    // re-render, so "a song id not seen before" alone can pick an old take.
+    const tag = ` #${Date.now().toString(36).slice(-5)}`;
+    job = { ...job, title: `${String(job.title).slice(0, 100 - tag.length)}${tag}` };
     const before = new Set(songCards().map((s) => s.id));
     await fill(job);
     const g = generateBtn();
@@ -173,6 +178,7 @@
     log('generate', job.id, job.length);
     const timeout = (job.timeoutSec || 420) * 1000;
     let sawCreating = false;
+    let lastBusy = Date.now();
     while (Date.now() - t0 < timeout) {
       if (stopFlag) throw new Error('Stopped.');
       await sleep(2000);
@@ -198,7 +204,7 @@
         continue;
       }
       const fresh = songCards().filter((s) => !before.has(s.id));
-      const mine = fresh.find((s) => s.title === job.title) || fresh[0];
+      const mine = fresh.find((s) => s.title === job.title);
       if (mine && !busy) {
         await sleep(800);
         // Flow Music starts playing a new song; stop it so takes are quiet.
@@ -207,7 +213,12 @@
       }
       // No "Creating" message, no song, after a while: the request was lost
       // (seen when a brand-new session changes its URL mid-request).
-      if (!sawCreating && Date.now() - t0 > 45000) throw new Error('Flow Music did not start the song. Open the session and try again.');
+      if (!sawCreating && Date.now() - t0 > 45000) throw new Error('Flow Music did not start the song (request lost).');
+      // The progress row went away but no song came: Flow Music failed on
+      // its side (seen 2026-11-16: "tool_call_failure: Error while streaming
+      // parts"). Report it so the panel retries instead of waiting 7 min.
+      if (busy) lastBusy = Date.now();
+      else if (sawCreating && Date.now() - lastBusy > 20000) throw new Error('Flow Music stopped without making the song (generation failed on its side).');
       const err = text.match(/(something went wrong[^\n]*|couldn['’]t (?:create|generate)[^\n]*|violat[^\n]*|limit reached[^\n]*|out of credits[^\n]*|try again later[^\n]*)/i);
       if (err && sawCreating && !/Creating "/.test(text)) throw new Error(`Flow Music: ${err[1].slice(0, 200)}`);
     }

@@ -13,6 +13,7 @@ const state = {
   ref: null,            // {name, duration, sampleRate, channels, frames}
   plan: null,
   overrides: {},        // jobId → {sound, length}
+  extra: {},            // jobId → extra seconds asked for after a short take
   takes: {},            // jobId → {songId, size, duration, name, at}
   selected: new Set(),
   open: new Set(),
@@ -30,9 +31,10 @@ function log(msg, cls) {
 }
 
 // ---------- settings & storage ----------
-const SETTINGS = ['model', 'crossfade', 'sampleRate', 'bits', 'peakDb', 'saveTakes'];
+const SETTINGS = ['layer', 'model', 'crossfade', 'sampleRate', 'bits', 'peakDb', 'saveTakes'];
 function settings() {
   return {
+    layer: $('layer').value,
     model: $('model').value,
     crossfade: Number($('crossfade').value) || 3,
     sampleRate: Number($('sampleRate').value),
@@ -66,7 +68,9 @@ async function loadState() {
   state.takes = d[`takes:${slug()}`] || {};
   rebuildPlan(false);
 }
-const slug = () => state.plan?.slug || 'none';
+// Takes, prompt edits, and output names are kept apart per layer.
+const slug = () => (state.plan ? state.plan.slug + (state.plan.layer === 'mix' ? '' : `-${state.plan.layer}`) : 'none');
+const outName = () => state.plan?.outName || 'music-sfx-bed';
 
 // ---------- IndexedDB for take bytes ----------
 let dbp;
@@ -95,7 +99,7 @@ const getTake = (id) => idb('readonly', (s) => s.get(`${slug()}/${id}`));
 function rebuildPlan(render = true) {
   if (!state.guideText) { state.plan = null; renderJobs(); return; }
   try {
-    state.plan = ScorePlan.buildPlan(state.guideText, { duration: state.ref?.duration, overlap: settings().crossfade + 1 });
+    state.plan = ScorePlan.buildPlan(state.guideText, { duration: state.ref?.duration, overlap: settings().crossfade + 1, layer: settings().layer, extra: state.extra });
     for (const j of state.plan.jobs) {
       const o = state.overrides[j.id];
       if (o?.sound) j.sound = o.sound;
@@ -122,7 +126,7 @@ function renderJobs() {
   tb.innerHTML = '';
   if (!state.plan) { $('planHint').textContent = 'Load a music guide to see its movements.'; return; }
   const total = state.plan.duration;
-  $('planHint').textContent = `${state.plan.film}: ${fmt(total)} (${total.toFixed(3)} s)${state.ref ? '' : ' — load the reference WAV to lock the length'}. Music and effects are made together in each movement, instrumental only.`;
+  $('planHint').textContent = `${state.plan.film}: ${fmt(total)} (${total.toFixed(3)} s)${state.ref ? '' : ' — load the reference WAV to lock the length'}. Layer: ${state.plan.layerLabel}, made separately and cut to this exact length, voice-free.`;
   for (const j of state.plan.jobs) {
     const t = state.takes[j.id];
     const tr = document.createElement('tr');
@@ -131,7 +135,7 @@ function renderJobs() {
       <td><input type="checkbox" ${state.selected.has(j.id) ? 'checked' : ''}></td>
       <td><b>M${j.n}</b> ${escapeHtml(j.name)}<div class="hint mono">ask ${j.length}${j.bpm ? ` · ${j.bpm} BPM` : ''} · ${j.sound.length} chars</div></td>
       <td class="mono">${fmt(j.start)}–${fmt(j.end)}<br>${j.slot.toFixed(2)} s</td>
-      <td class="mono status">${t ? `<span class="${fit.cls}">${t.duration.toFixed(2)} s</span><br><a href="https://www.flowmusic.app/song/${t.songId}" target="_blank">${t.songId ? t.songId.slice(0, 8) : 'file'}</a>` : '<span class="hint">—</span>'}</td>
+      <td class="mono status">${t ? `<span class="${fit.cls}">${t.duration.toFixed(2)} s</span><br><a href="https://www.flowmusic.app/song/${t.songId}" target="_blank">${t.songId ? t.songId.slice(0, 8) : 'file'}</a>` : (j.empty ? '<span class="hint">silent (no cues)</span>' : '<span class="hint">—</span>')}</td>
       <td><button class="small more">${state.open.has(j.id) ? 'Hide' : 'Edit'}</button>${t ? ' <button class="small play">▶</button>' : ''}</td>`;
     tr.querySelector('input').onchange = (e) => { e.target.checked ? state.selected.add(j.id) : state.selected.delete(j.id); };
     tr.querySelector('.more').onclick = () => { state.open.has(j.id) ? state.open.delete(j.id) : state.open.add(j.id); renderJobs(); };
@@ -254,7 +258,7 @@ async function keepTake(j, buf, { songId, name, save }) {
   state.takes[j.id] = { songId, size: buf.byteLength, duration, name, at: Date.now() };
   await saveState();
   if (save && settings().saveTakes) {
-    const fn = `flow-music-score/${slug()}/takes/${j.id}-${songId.slice(0, 8)}.wav`;
+    const fn = `flow-music-score/${state.plan.slug}/takes/${j.id}-${songId.slice(0, 8)}.wav`;
     await download(new Blob([buf], { type: 'audio/wav' }), fn);
   }
   const fit = fitNote(j, state.takes[j.id]);
@@ -290,30 +294,46 @@ async function guard(fn) {
   setBusy(true);
   try { await fn(); } catch (e) { log(e.message || String(e), 'st-bad'); } finally { state.running = false; setBusy(false); refreshPill(); }
 }
-function setBusy(b) { for (const id of ['genSel', 'build']) $(id).disabled = b; }
+function setBusy(b) { for (const id of ['genSel', 'build', 'allStems']) $(id).disabled = b; }
 
 async function generateSelected() {
   if (!state.plan) throw new Error('Load a music guide first.');
   if (!state.ref) log('No reference WAV loaded: using the guide\'s length. Load story-full.wav for an exact match.', 'st-warn');
-  const jobs = state.plan.jobs.filter((j) => state.selected.has(j.id));
-  if (!jobs.length) throw new Error('Tick the movements to generate.');
+  const jobs = state.plan.jobs.filter((j) => state.selected.has(j.id) && !j.empty);
+  if (!jobs.length) throw new Error('Tick the movements to generate (movements with no cues for this layer stay silent and need none).');
   const s = await refreshPill();
   if (!s) throw new Error('Flow Music tab not reachable.');
   if (!s.session) log('No session is open: the first song may be lost while Flow Music creates the session. Open an existing session for the most reliable run.', 'st-warn');
-  for (const j of jobs) {
+  for (let j of jobs) {
     if (state.stop) break;
     let done = false;
+    let retried = false;
     for (let attempt = 1; attempt <= 2 && !done && !state.stop; attempt++) {
       log(`${j.id}: generating ${j.length} in Flow Music${attempt > 1 ? ' (retry)' : ''}…`, 'st-run');
       markRow(j.id, 'generating…');
       const r = await send({ type: 'generate', job: { ...j, model: settings().model } });
-      if (!r?.ok) { log(`${j.id}: ${r?.error || 'no answer'}`, 'st-bad'); if (/not start|lost/i.test(r?.error || '')) continue; break; }
+      if (!r?.ok) { log(`${j.id}: ${r?.error || 'no answer'}`, 'st-bad'); if (/not start|lost|stopped without/i.test(r?.error || "")) continue; break; }
       log(`${j.id}: song ${r.songId.slice(0, 8)} ready in ${r.secs.toFixed(0)} s.`);
       markRow(j.id, 'downloading…');
       await sleep(1500);
       await fetchAndKeep(j, r.songId);
       state.selected.delete(j.id);
       done = true;
+      // A take too short to fill its window is retaken once, asking for
+      // the shortfall plus 6 s more (Compose stops at 3:00). The job is
+      // rebuilt from the guide so its prompt names the new length.
+      const fit = fitNote(j, state.takes[j.id]);
+      if (fit.cls === 'st-bad' && !retried && !state.stop) {
+        const need = j.slot + settings().crossfade;
+        const add = Math.ceil(need - state.takes[j.id].duration + 6);
+        if (j.lengthSec < 180) {
+          state.extra[j.id] = (state.extra[j.id] || 0) + add;
+          rebuildPlan(false);
+          j = state.plan.jobs.find((x) => x.id === j.id);
+          log(`${j.id}: take too short; retaking at ${j.length}.`, 'st-warn');
+          retried = true; done = false; attempt = 0;
+        }
+      }
     }
   }
   renderJobs();
@@ -328,11 +348,17 @@ async function build() {
   if (!state.ref) throw new Error('Load the reference voice WAV (story-full.wav) first: the score is cut to its exact length.');
   const st = settings();
   const jobs = state.plan.jobs;
-  const missing = jobs.filter((j) => !state.takes[j.id]);
+  const missing = jobs.filter((j) => !j.empty && !state.takes[j.id]);
   if (missing.length) throw new Error(`No take yet for ${missing.map((j) => j.id).join(', ')}.`);
   log('Building: decoding takes…', 'st-run');
   const buffers = [];
   for (const j of jobs) {
+    if (j.empty) {
+      // No cues for this layer here: silence long enough for its window.
+      const len = Math.ceil((j.slot + st.crossfade + 2) * st.sampleRate);
+      buffers.push(new AudioBuffer({ length: len, numberOfChannels: 2, sampleRate: st.sampleRate }));
+      continue;
+    }
     const buf = await getTake(j.id);
     if (!buf) throw new Error(`${j.id}: take bytes are missing from storage. Fetch it again.`);
     buffers.push(await decode(buf, st.sampleRate));
@@ -345,18 +371,19 @@ async function build() {
   const check = Score.wavInfo(wav);
   const exact = Math.round(state.ref.duration * st.sampleRate);
   const ok = check.frames === exact;
-  const name = `flow-music-score/${slug()}/${slug()}-music-sfx-bed.wav`;
+  const name = `flow-music-score/${state.plan.slug}/${state.plan.slug}-${outName()}.wav`;
   await download(new Blob([wav], { type: 'audio/wav' }), name);
   const report = {
     film: state.plan.film,
     reference: state.ref,
     output: { file: name, sampleRate: out.sampleRate, bits: st.bits, channels: 2, frames: check.frames, duration: check.duration, peakGainDb: 20 * Math.log10(out.gain) },
     crossfade: st.crossfade,
-    segments: layout.segs.map((s, i) => ({ ...s, songId: state.takes[jobs[i].id].songId, takeDuration: buffers[i].duration })),
+    layer: state.plan.layer,
+    segments: layout.segs.map((s, i) => ({ ...s, songId: jobs[i].empty ? null : state.takes[jobs[i].id].songId, silent: !!jobs[i].empty, takeDuration: buffers[i].duration })),
     warnings: layout.warnings,
     builtAt: new Date().toISOString(),
   };
-  await download(new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' }), `flow-music-score/${slug()}/${slug()}-music-sfx-bed.json`);
+  await download(new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' }), `flow-music-score/${state.plan.slug}/${state.plan.slug}-${outName()}.json`);
   $('preview').src = URL.createObjectURL(new Blob([wav], { type: 'audio/wav' }));
   $('preview').hidden = false;
   const msg = `${name}: ${check.duration.toFixed(3)} s, ${check.frames} frames @ ${out.sampleRate} Hz ${st.bits}-bit stereo — ${ok ? 'exactly' : 'NOT'} the reference length (${state.ref.duration.toFixed(3)} s).`;
@@ -387,7 +414,7 @@ async function loadGuide(file) {
   const d = await chrome.storage.local.get([`overrides:${slug()}`, `takes:${slug()}`]);
   state.overrides = d[`overrides:${slug()}`] || {};
   state.takes = d[`takes:${slug()}`] || {};
-  state.selected = new Set(state.plan ? state.plan.jobs.filter((j) => !state.takes[j.id]).map((j) => j.id) : []);
+  state.selected = new Set(state.plan ? state.plan.jobs.filter((j) => !j.empty && !state.takes[j.id]).map((j) => j.id) : []);
   rebuildPlan();
   await saveState();
   if (state.plan) log(`Loaded ${file.name}: ${state.plan.jobs.length} movements.`);
@@ -406,12 +433,47 @@ async function loadRef(file) {
   log(`Reference ${file.name}: ${info.duration.toFixed(3)} s.`);
 }
 
+// Each layer keeps its own takes and prompt edits.
+async function loadLayer() {
+  rebuildPlan(false);
+  const d = await chrome.storage.local.get([`overrides:${slug()}`, `takes:${slug()}`]);
+  state.overrides = d[`overrides:${slug()}`] || {};
+  state.takes = d[`takes:${slug()}`] || {};
+  state.selected = new Set(state.plan ? state.plan.jobs.filter((j) => !j.empty && !state.takes[j.id]).map((j) => j.id) : []);
+  rebuildPlan(false);
+  renderJobs();
+  log(`Layer: ${state.plan?.layerLabel || $('layer').value}.`);
+}
+
+// Music, ambience, foley, and sound effects, one after another: generates
+// every movement a layer is missing, then builds that layer's WAV.
+async function allStems() {
+  if (!state.plan) throw new Error('Load a music guide first.');
+  if (!state.ref) throw new Error('Load the reference voice WAV (story-full.wav) first.');
+  for (const layer of ScorePlan.STEMS) {
+    if (state.stop) break;
+    $('layer').value = layer;
+    await saveState();
+    await loadLayer();
+    if (state.selected.size) await generateSelected();
+    if (state.stop) break;
+    await build();
+  }
+  log('All stems done: music-score, ambience, foley, and sfx WAVs are in Downloads/flow-music-score/.', 'st-ok');
+}
+
 // ---------- wire up ----------
 dropZone($('guideDrop'), $('guideFile'), (f) => loadGuide(f).catch((e) => log(e.message, 'st-bad')));
 dropZone($('refDrop'), $('refFile'), (f) => loadRef(f).catch((e) => log(e.message, 'st-bad')));
-for (const k of SETTINGS) $(k).addEventListener('change', async () => { await saveState(); rebuildPlan(); });
+for (const k of SETTINGS) $(k).addEventListener('change', async () => {
+  await saveState();
+  rebuildPlan(false);
+  if (k === 'layer') await loadLayer();
+  renderJobs();
+});
 $('all').onchange = (e) => { state.selected = new Set(e.target.checked && state.plan ? state.plan.jobs.map((j) => j.id) : []); renderJobs(); };
 $('genSel').onclick = () => guard(generateSelected);
+$('allStems').onclick = () => guard(allStems);
 $('stop').onclick = async () => { state.stop = true; try { await send({ type: 'stop' }); } catch {} log('Stopping after the current step.', 'st-warn'); };
 $('build').onclick = () => guard(build);
 

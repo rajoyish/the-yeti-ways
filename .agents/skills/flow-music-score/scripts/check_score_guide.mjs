@@ -11,7 +11,7 @@ import { ScorePlan, args, probe, read, vocalHits, COMPOSE_MAX_SEC, SOUND_MAX } f
 
 const a = args();
 const guide = a._[0];
-if (!guide || !a.audio) { console.error('Usage: check_score_guide.mjs <guide.md> --audio <story-full.wav> [--storyboard <file>] [--crossfade 3] [--show m01]'); process.exit(2); }
+if (!guide || !a.audio) { console.error('Usage: check_score_guide.mjs <guide.md> --audio <story-full.wav> [--storyboard <file>] [--crossfade 3] [--show m01|a01|f01|s01]'); process.exit(2); }
 const md = read(guide);
 const ref = probe(a.audio);
 const xf = Number(a.crossfade ?? 3);
@@ -42,29 +42,30 @@ raw.forEach((mv, i) => {
 const lastRaw = raw[raw.length - 1];
 if (lastRaw && Math.abs(lastRaw.end - ref.duration) > 0.06) E(`Last movement ends at ${lastRaw.end.toFixed(3)} s; the voice track is ${ref.duration.toFixed(3)} s. Set its Film Window end to ${ref.duration.toFixed(2)}.`);
 
-// ---- the jobs the extension will send ----
-let plan = null;
-try { plan = ScorePlan.buildPlan(md, { duration: ref.duration, overlap: xf + 1 }); } catch (e) { E(e.message); }
-if (plan) {
-  for (const j of plan.jobs) {
-    if (j.lengthSec >= COMPOSE_MAX_SEC && j.slot + j.overlap > COMPOSE_MAX_SEC) E(`${j.id}: window ${j.slot.toFixed(1)} s + ${j.overlap} s overlap exceeds Flow Music's 3:00. Split it.`);
-    if (j.sound.length > SOUND_MAX) E(`${j.id}: Sound prompt is ${j.sound.length} chars (max ${SOUND_MAX}).`);
-    if (j.fxLevel === 1) W(`${j.id}: prompt too long with full foley; the runner keeps only the first foley clause per video. Shorten the Sound Box Prompt to keep all effects.`);
-    if (j.fxLevel === 2) W(`${j.id}: prompt too long; the runner drops all foley for this movement (ambience only). Shorten the Sound Box Prompt.`);
+// ---- the jobs the extension will send, for every stem ----
+const plans = {};
+for (const layer of ScorePlan.STEMS) {
+  try { plans[layer] = ScorePlan.buildPlan(md, { duration: ref.duration, overlap: xf + 1, layer }); } catch (e) { E(e.message); break; }
+  for (const j of plans[layer].jobs) {
+    if (j.slot + j.overlap > COMPOSE_MAX_SEC) E(`${j.id}: window ${j.slot.toFixed(1)} s + ${j.overlap} s overlap exceeds Flow Music's 3:00. Split it.`);
+    if (j.sound.length > SOUND_MAX) E(`${j.id}: ${layer} prompt is ${j.sound.length} chars (max ${SOUND_MAX}).`);
+    if (j.fxLevel === 1) W(`${j.id}: ${layer} prompt too long; the runner keeps only the first clause per video. Shorten that column's cues for Videos in Movement ${j.n}.`);
+    if (j.fxLevel === 2) W(`${j.id}: ${layer} prompt far too long; the runner cut it down. Shorten that column's cues for Movement ${j.n}.`);
     for (const w of j.warnings) E(`${j.id}: ${w}`);
   }
 }
+const plan = plans.music;
 
 // ---- SFX cue table ----
 const cues = ScorePlan.parseCues(md);
-if (!cues.length) E('No SFX cue rows found (| **V01** | `00:00 - 00:10` | Title | Ambience | Foley |).');
+if (!cues.length) E('No cue rows found (| **V01** | `00:00 - 00:10` | Title | Ambience | Foley | Sound Effects |).');
+if (cues.some((c) => c.legacy)) W('Cue sheet has 5 columns (Ambience | Foley): the runner sorts foley clauses into Foley or Sound Effects by keyword. Add a "Sound Effects" column for exact stems.');
 cues.forEach((c, i) => {
   if (c.video !== i + 1) E(`Cue row ${i + 1} is V${c.video}; rows must run V01, V02, … in order.`);
   if (i > 0 && Math.abs(c.start - cues[i - 1].end) > 0.6) E(`V${c.video} starts at ${c.start} s but V${cues[i - 1].video} ends at ${cues[i - 1].end} s.`);
-  const amb = ScorePlan.cleanFx(c.ambience);
-  const fol = ScorePlan.cleanFx(c.foley);
-  if (!amb && !fol) W(`V${c.video}: no ambience or foley left after removing voice-like sounds.`);
-  const dropped = `${c.ambience}; ${c.foley}`.split(/\s*[;,]\s*/).filter((p) => p && !ScorePlan.cleanFx(p));
+  if (!ScorePlan.cleanFx(c.ambience)) W(`V${c.video}: no ambience (the atmosphere stem needs a bed in every video).`);
+  if (!ScorePlan.cleanFx(c.foley) && !ScorePlan.cleanFx(c.sfx)) W(`V${c.video}: no foley and no sound effects.`);
+  const dropped = `${c.ambience}; ${c.foley}; ${c.sfx}`.split(/\s*[;,]\s*/).filter((p) => p && !/^(?:[—–-]+|none|n\/a|nil)$/i.test(p) && !ScorePlan.cleanFx(p));
   if (dropped.length) W(`V${c.video}: voice-like sound dropped by the runner: "${dropped.join('", "')}". Replace it with a non-vocal sound or remove it.`);
 });
 if (cues.length && Math.abs(cues[cues.length - 1].end - ref.duration) > 1) W(`Last cue ends at ${cues[cues.length - 1].end} s; the voice track is ${ref.duration.toFixed(2)} s.`);
@@ -78,11 +79,14 @@ if (a.storyboard) {
 console.log(`Guide: ${guide}`);
 console.log(`Reference: ${ref.duration.toFixed(3)} s (${ref.frames} frames @ ${ref.rate} Hz)`);
 if (plan) {
-  console.log('\nJobs the extension will send (Compose: Instrumental on, Advanced on):');
-  for (const j of plan.jobs) console.log(`  ${j.id}  ${j.start.toFixed(2).padStart(7)}–${j.end.toFixed(2).padEnd(7)}  window ${j.slot.toFixed(2).padStart(6)} s  Length ${j.length}  ${j.bpm ? j.bpm + ' BPM' : 'auto BPM'}  ${j.sound.length} chars  fx level ${j.fxLevel}`);
+  console.log('\nMovements (Compose: Instrumental on, Advanced on):');
+  for (const j of plan.jobs) console.log(`  M${j.n}  ${j.start.toFixed(2).padStart(7)}–${j.end.toFixed(2).padEnd(7)}  window ${j.slot.toFixed(2).padStart(6)} s  ${j.bpm ? j.bpm + ' BPM' : 'auto BPM'}`);
+  console.log('\nStems (job: Length / prompt chars):');
+  for (const layer of ScorePlan.STEMS) if (plans[layer]) console.log(`  ${plans[layer].layerLabel.padEnd(28)} → ${plans[layer].outName}.wav   ${plans[layer].jobs.map((j) => (j.empty ? `${j.id} silent` : `${j.id} ${j.length}/${j.sound.length}`)).join('  ')}`);
   if (a.show) {
-    const j = plan.jobs.find((x) => x.id === a.show);
-    if (j) console.log(`\n----- ${j.id} Sound prompt -----\n${j.sound}\n-----`);
+    const j = Object.values(plans).flatMap((p) => p.jobs).find((x) => x.id === a.show);
+    if (j) console.log(`\n----- ${j.id} (${j.layer}) Sound prompt -----\n${j.sound}\n-----`);
+    else console.log(`\nNo job ${a.show}. Ids: m01… music, a01… ambience, f01… foley, s01… sound effects.`);
   }
 }
 console.log(`SFX cue rows: ${cues.length}`);

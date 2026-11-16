@@ -5,7 +5,7 @@
 //
 //   node .agents/skills/flow-music-score/scripts/verify_bed.mjs \
 //     --bed ~/Downloads/<film>-music-sfx-bed.wav --audio "/path/to/story-full.wav" \
-//     [--preview preview-mix.wav] [--bed-db -18]
+//     [--preview preview-mix.wav] [--bed-db -18] [--kind music|ambience|foley|sfx]
 //
 // Exit 0 = same length as the reference (within one output sample) and a
 // Premiere-ready PCM WAV; 1 otherwise.
@@ -33,9 +33,16 @@ const L = loudness(a.bed);
 console.log(`Loudness:  ${L.integrated} LUFS integrated, LRA ${L.range} LU, true peak ${L.truePeak} dBFS`);
 if (L.truePeak !== null && L.truePeak > -0.1) warns.push(`True peak ${L.truePeak} dBFS: may clip after resampling. Rebuild with Peak −1 dBFS or lower.`);
 
-const gaps = silences(a.bed, -50, 2);
-const inner = gaps.filter((g) => g.start > 0.5 && g.end < bed.duration - 3);
-if (inner.length) warns.push(`Near-silent stretches in the bed: ${inner.map((g) => `${mmss(g.start)} (${(g.end - g.start).toFixed(1)} s)`).join(', ')}. Listen there; retake that movement if the music drops out.`);
+// Silence is expected between sounds in foley and sound-effect stems; it is
+// only a problem in the music and ambience beds. --kind overrides the guess
+// from the file name (…-music-score, -ambience, -foley, -sfx, -music-sfx-bed).
+const kind = a.kind || (/-foley\b/.test(a.bed) ? 'foley' : /-sfx\.wav$|-sfx-only/.test(a.bed) ? 'sfx' : /-ambience\b/.test(a.bed) ? 'ambience' : 'music');
+console.log(`Stem:      ${kind}`);
+if (kind === 'music' || kind === 'ambience') {
+  const gaps = silences(a.bed, -50, 2);
+  const inner = gaps.filter((g) => g.start > 0.5 && g.end < bed.duration - 3);
+  if (inner.length) warns.push(`Near-silent stretches in the ${kind} stem: ${inner.map((g) => `${mmss(g.start)} (${(g.end - g.start).toFixed(1)} s)`).join(', ')}. Listen there; retake that movement if it drops out.`);
+}
 
 if (a.preview) {
   need('ffmpeg');

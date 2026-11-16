@@ -28,6 +28,15 @@
   <section>
     <h2>2. Settings</h2>
     <div class="grid">
+      <label>Layer
+        <select id="layer">
+          <option value="music">Music (score &amp; soundtrack)</option>
+          <option value="ambience">Ambience (atmosphere)</option>
+          <option value="foley">Foley</option>
+          <option value="sfx">Sound effects</option>
+          <option value="mix">Music + all effects (one mix)</option>
+        </select>
+      </label>
       <label>Model
         <select id="model"><option>Lyria 3.5</option><option>Lyria 3 Pro</option></select>
       </label>
@@ -61,9 +70,10 @@
   </section>
 
   <section>
-    <h2>4. Score</h2>
+    <h2>4. Build</h2>
     <div class="row">
-      <button id="build" class="primary">Build score WAV</button>
+      <button id="build" class="primary">Build this layer's WAV</button>
+      <button id="allStems">Generate &amp; build all 4 stems</button>
       <audio id="preview" controls hidden></audio>
     </div>
     <p class="hint" id="buildInfo"></p>
