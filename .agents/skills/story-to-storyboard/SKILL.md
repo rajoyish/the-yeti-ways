@@ -8,7 +8,8 @@ description: >-
   heroes; every character of the draft is recast as a new, different character
   in stylized 3D CGI. Use for "turn this story into a storyboard", "make a film
   from my story", "story with narration and dialogue", "adapt this fable",
-  or /story-to-storyboard. Includes 16:9 and 9:16 cover prompts. Also saves
+  or /story-to-storyboard. Asks first whether the film is vertical 9:16 or
+  horizontal 16:9. Includes 16:9 and 9:16 cover prompts. Also saves
   the full adapted story, retold in prose with the new cast, in `stories/` for
   later reference. Also adds
   pick-up shots (`## Pick-up N - <Title>`) to a finished film for the edit:
@@ -32,6 +33,10 @@ Read `.agents/skills/storyboard-30s/SKILL.md` in full, the rules it lists (`.age
 The reference output is `prompts/babu-yeti-sour-mango-trick-150s-storyboard.md`, made from a fox-crow-monkey fable: match its sections, its `Voices:` and `Speech:` lines, and its script table.
 
 **Two ways to make the film.** Sections 1 to 8 make a **Flow-voiced film**: the storyboard writes a short script, and Flow speaks it in each clip. Section 9 makes an **audio-first film**: the whole story in `stories/` is voiced in Google AI Studio first (`/ai-studio-tts` and the AI Studio Voice Runner extension), and the film is cut to that recording: the audio sets the number of clips, every clip's words and times, and where its shots cut, and the AI Studio audio replaces Flow's in the edit. Use section 9 whenever the user has, or plans, the AI Studio audio of the story, or asks for the narration and dialogue of the story file itself; otherwise sections 1 to 8. Section 9 reuses sections 3 to 6 except where it says otherwise.
+
+## 0. Choose the orientation
+
+Before reading the draft, settle the film's orientation as step 0 of `storyboard-30s` sets out: use the one the request names (9:16, vertical, Reels, Shorts, TikTok; or 16:9, horizontal, widescreen, YouTube); keep an existing storyboard's orientation for a revision, pick-ups, or added videos; otherwise ask once, "Which aspect ratio should this film be: vertical 9:16 (Reels, Shorts, TikTok) or horizontal 16:9 (YouTube, widescreen)?", with the assistant's question tool where it has one (AskUserQuestion in Claude Code), and wait for the answer. For an audio-first film (section 9) ask it at the same time as anything else that section needs. Fill in `<orientation>`, `<Orientation>`, and `<Aspect ratio line>` from the Orientation part of section 3 of `.agents/rules/google-flow.md` in every card, plate, and Agent prompt, and compose every shot for that frame. Long films are often horizontal for YouTube, but never assume it: ask.
 
 ## 1. Read the draft and recast it
 
@@ -117,7 +122,7 @@ Summarise the palette, the motifs, and the arc in Instruction 2.
 
 ## 5. Write the file
 
-Save to `prompts/<kebab-case-title>-<N × 10>s-storyboard.md` (a 15-video film is `-150s-storyboard.md`). Lead the title with the Yeti who carries the story (`Babu Yeti and the Sour Mango Trick`). Never overwrite an existing file without saying so.
+Save to `prompts/<kebab-case-title>-<N × 10>s-storyboard.md` (a 15-video film is `-150s-storyboard.md`), with `-16x9-` before `storyboard` for a horizontal film (`-150s-16x9-storyboard.md`). Lead the title with the Yeti who carries the story (`Babu Yeti and the Sour Mango Trick`). Never overwrite an existing file without saying so.
 
 The file holds, in order:
 
@@ -132,7 +137,7 @@ The file holds, in order:
 6. `## Agent setup prompt`, `## Image map`, and one `## Video N - <Title>` section per video holding only its `Images:` line and its `Agent prompt:` block, as storyboard-30s sets out. The Agent prompt's lines, in order: the first line, the format line with the style lock, `Cast:`, `Setting:`, `Voices:` (if the video has speech), the shot lines, `Speech:` (if any), `Sound:`, `Avoid:`.
 7. `## Cover image` and `## Cover image - 9:16 vertical`, from `references/cover-images.md`: the film's comic or emotional hook, full current locks for each visible Yeti, the story cast's descriptions, no text, and a truthful `Cover references:` line.
 
-Vertical 9:16 is the default; a horizontal film is made only when the user asks, and then every card and prompt says horizontal 16:9 as `prompts/yeti-plateau-cup-300s-storyboard.md` does. Write a long file in parts if needed, but every Agent prompt is complete: never "same as Video N".
+The orientation is the one chosen in section 0, and every card, plate, and Agent prompt says it, as `prompts/babu-yeti-sour-mango-trick-150s-16x9-storyboard.md` does for a horizontal film; the other orientation appears only in the cover sections. Write a long file in parts if needed, but every Agent prompt is complete: never "same as Video N".
 
 ## 5a. Write the adapted story
 
@@ -209,6 +214,8 @@ Sections 1 and 2 are replaced: the story is already cast (its `## Cast`) and alr
 
 - **Scenes and places.** Which clips each location of the story holds, each one's plate (`Plate - <Location>`; reuse the plates and `Setting:` sentences of an earlier storyboard of the same story, word for word), and the scene breaks, where the narration jumps in place or time.
 - **What each clip shows.** Every sentence in a clip's `Speech:` line is a beat the picture **enacts while it is spoken**: the shot on screen from that sentence's start to its end shows the event, action, emotion, or reaction it narrates, done by the characters it names, never a character merely standing in frame. "Mama Yeti looked across at the grand house and sighed" (`00:03.8-00:07.4`) is a shot in that window of Mama Yeti turning to look across at the grand house and sighing, with no talking mouth. Narration of a place ("Behind his whitewashed wall stood a grand painted house") is a shot of that place. A narrated thought ("Blue Magpie thought, I'll trick him!") is a close shot of the thinker's face showing it, mouth closed. A sentence that runs on across a cut is enacted on both sides of it, the second clip continuing the action from the first clip's end frame.
+- **The picture never runs ahead of the words.** A shot under narration shows only who and what the words under it, or the words already said in that clip, name. A fragment that runs on into the next clip without its subject (`"Tired but steady,"`, whose subject, Papa Yeti, is named only in the next clip) stays on the picture of what the clip has been narrating: the same character or place, held, or reacting to the arrival the next sentence brings (Dolma Yak looking up toward frame right at a visitor off-screen). The new subject comes in at the cut, in the clip where its name is said, and that clip opens on a cut at the handoff (step 4). Never cut to a character the narration has not reached: the viewer hears one thing and sees another. (2026-11-15: Video 24 of the two-coins film put Papa Yeti under "Tired but steady," while every other word of the clip was about Dolma Yak; Flow then gave him a grin and a moving mouth, as if he spoke the Narrator's words.)
+- **Faces under narration.** Flow moves the mouth of a face held close to the camera while any voice is speaking, and a Yeti falls back on the toothy grin of its Character lock unless a shot says otherwise. So under narration a character in frame is always doing what the words say (looking, nodding, digging, turning), never a face waiting for the next line; a Close-Up or Medium Close-Up of a non-speaker facing the camera is used only where the words name that character's feeling, and its shot line says `mouth closed and still for the whole shot`, gives the expression with `no smile, no teeth showing` when it is not a smile, and keeps it under 3 seconds where it can. A face that the words do not describe goes three-quarters away, in profile, or wider.
 - **Feeling and light** follow the story's own words (worried, determined, afraid, relieved), with the expression table of section 4 of `prompt-assembly.md`, and the light arc of the story's times of day.
 - **Music.** Plan the score as section 4 sets out, but Flow's music is removed with its voices, so the final film's music is a separate bed laid in the edit (`assemble.mjs --bed`). Keep each clip's `Sound:` line short and low under the speech: it guides Flow's pacing, not the final mix.
 
@@ -229,6 +236,7 @@ Save to `prompts/<slug>-<N × 10>s-storyboard.md`, its title `# <Title> <N × 10
   - **Narration.** Narration entries are `off-screen`, the Narrator in the `Voices:` line; no shot shows a mouth moving under them.
   - **The handoff.** The first shot of each clip continues the picture and action of the previous clip's end frame, especially when a narrated sentence runs across the cut; a scene break follows the narration's jump.
   - **A cut at the handoff.** When a clip must open on a different subject from the previous clip's end frame (a line crossing the cut: the reaction shot on one side, the speaker on the other), the cut between the two clips is that cut. Its first line then uses `End frame V<N-1>` and the location's plate together as references for the place, light, and positions, and says the video opens on a new shot, never that its first frame matches the end frame: `Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the images End frame V<N-1> and Plate - <Location> and every @ Character in the Cast line together as references for the place, the light, and where everyone is, and open on the new shot the first shot line describes, a cut away from End frame V<N-1>.` Its `Images:` line and Image map row list both images.
+  - **What each end frame should look like.** Flow sometimes moves a clip's shots out of order, so its last frame is not always the shot the next clip continues. Every `Images:` line that opens on `End frame V<N>` therefore describes, after "nothing else.", the held last shot of Video <N> as `End frame V<N> should look like the held last shot of Video <N>: ...` (format in section 5 of `google-flow.md`), so the operator pauses on that shot wherever it landed and saves it with **Save frame at playhead** (`tools/flow-collection-downloader`). If the saved frame differs (expression, light side), add one sentence saying how, and check the next clip's first shot against it.
   - **The last clip.** Its speech ends before `00:10`; its last shot holds the story's ending picture from the end of the speech. The film is cut at the recording's end (`assemble.mjs`), or held a little longer with `--tail`.
 - Covers, the setup prompt, the Image map, the `Images:` lines, the Character and reference budgets, and the filter rules are unchanged.
 
@@ -242,7 +250,18 @@ Generate each clip as `google-flow.md` sets out. Download each approved take int
 node tools/ai-studio-voice-runner/assemble.mjs --timeline speech-prompts/<slug>-film-timeline.json --clips <folder> --preview 7
 ```
 
-Watch `previews/V07-preview.mp4` (the Flow picture with that clip's recording, Flow's own speech faint underneath). Approve it only if every on-screen mouth moves with its recorded line, starts and stops within about a fifth of a second of it, no mouth moves under narration, and the picture shows each narrated beat as it is said; otherwise regenerate. When all N clips are approved:
+Watch `previews/V07-preview.mp4` (the Flow picture with that clip's recording, Flow's own speech faint underneath). Approve it only if every on-screen mouth moves with its recorded line, starts and stops within about a fifth of a second of it, no mouth moves under narration, and the picture shows each narrated beat as it is said; otherwise regenerate.
+
+Then check the take against its prompt, frame by frame, with the words timed (ffmpeg and whisper.cpp; the model is `~/.cache/whisper-cpp/ggml-medium.en.bin`, and Flow's own speech is good enough for timing). Put the files in a scratch folder, not in the project:
+
+```text
+ffmpeg -v error -y -i <take>.mp4 -ar 16000 -ac 1 take.wav
+whisper-cli -m ~/.cache/whisper-cpp/ggml-medium.en.bin -f take.wav -ml 1 -oj -of words -np   # words.json: each word's start and end
+ffmpeg -i <take>.mp4 -vf "select='gt(scene,0.3)',showinfo" -f null - 2>&1 | grep -o 'pts_time:[0-9.]*'   # the cuts
+ffmpeg -v error -y -i <take>.mp4 -vf "fps=2,scale=320:-1,tile=5x4:padding=4" -frames:v 1 sheet.png   # a frame every 0.5 s
+```
+
+Read them against the `Speech:` line and the shot lines: (1) the shots come in the prompt's order, cut within about 0.3 seconds of its times (Flow sometimes moves a shot); (2) every word is under the shot written for it, and each shot shows only who its words name; (3) for every shot with a face under narration, crop that face at 8 frames a second (`-ss <cut> -vf "fps=8,crop=...,tile=7x2"`) and confirm the mouth stays closed and the expression is the one written (no grin where it says worried or tired); (4) the held frame that should open the next clip (its `Images:` line describes it) is there and clean. A take that fails (1) only needs its end frame saved at the playhead; one that fails (2) or (3) is regenerated, and if the same shot fails twice, rewrite the shot as **Faces under narration** says, not the take. When all N clips are approved:
 
 ```text
 node tools/ai-studio-voice-runner/assemble.mjs --timeline speech-prompts/<slug>-film-timeline.json --clips <folder> --out <film>.mp4 --bed <music>.wav
@@ -256,6 +275,8 @@ It joins the clips in order, removes Flow's audio, lays the recording under the 
 - [ ] `node .agents/skills/story-to-storyboard/check_speech.mjs <storyboard> --timeline speech-prompts/<slug>-film-timeline.json` prints `OK` (add `--partial` while batches remain): N videos for N clips, every `Speech:` line equal to its clip of the timeline in words, speakers, on- or off-screen, and times, every on-screen line inside one shot naming its speaker, voices identical across videos, and the `## Script` table matching.
 - [ ] `node .agents/skills/storyboard-30s/check_filter.mjs <storyboard>` prints `OK`, except for a word inside a recorded `Speech:` line, which cannot change ("The road wound up", read as an injury). Never quote such a word in a shot line; leave it in the `Speech:` line, note it in Instruction 2, and if Flow refuses the clip, retry with the shortened `Sound:` line and the effect wording removed first (section 6).
 - [ ] Every sentence of narration is enacted in its window: read each clip's `Speech:` line against its shot lines.
+- [ ] No shot runs ahead of the narration: `check_speech.mjs` reports a run-on fragment over a character the clip never names as a problem, and lists as notes every other shot that shows a character its words do not name; read each note and fix any shot that shows the next sentence's subject early.
+- [ ] Every non-speaking face held close under narration has `mouth closed and still for the whole shot` and, when it is not smiling, `no smile, no teeth showing`.
 - [ ] Every cut sits on a cut point or a sentence start, never inside a spoken line, and every shot is at least 1.5 seconds.
 - [ ] The step 7 checks of storyboard-30s that are not about the beat clock, the fixed number of videos, or the word count.
 

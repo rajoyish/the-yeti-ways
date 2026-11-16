@@ -1,7 +1,7 @@
 ---
 name: create-flow-assets
 description: >-
-  Generate the reference images a Yeti storyboard needs before its clips are made in Google Flow: every location plate (`Plate - <Location>`, vertical 9:16) and every story cast Character's front (1:1) and turnaround (16:9) images. Takes a storyboard path or link from `prompts/`, checks `prompts/characters/` and `references/characters/` for what already exists, builds missing Character files with flow-character-builder, asks which image model to use (ChatGPT / OpenAI GPT Image or Google AI / Gemini Nano Banana Pro), then generates, checks, saves, and links the images. Use for "create the plates", "generate character images", "front and turnaround", "make the Flow assets", or /create-flow-assets. Never generates Papa Yeti, Mama Yeti, or Babu Yeti.
+  Generate the reference images a Yeti storyboard needs before its clips are made in Google Flow: every location plate (`Plate - <Location>`, in the film's orientation, vertical 9:16 or horizontal 16:9) and every story cast Character's front (1:1) and turnaround (16:9) images. Takes a storyboard path or link from `prompts/`, checks `prompts/characters/` and `references/characters/` for what already exists, builds missing Character files with flow-character-builder, asks which image model to use (ChatGPT / OpenAI GPT Image or Google AI / Gemini Nano Banana Pro), then generates, checks, saves, and links the images. Use for "create the plates", "generate character images", "front and turnaround", "make the Flow assets", or /create-flow-assets. Never generates Papa Yeti, Mama Yeti, or Babu Yeti.
 ---
 
 # Create Flow assets
@@ -19,7 +19,7 @@ Read before working:
 
 | Asset | Prompt source | Format | Saved to |
 | --- | --- | --- | --- |
-| Plate | The `Plate - <Location>: ...` line in the storyboard's `## Agent setup prompt`, sent as `Create image: <the line after the label>` | Vertical 9:16 | `references/plates/<storyboard-stem>/plate-<location-kebab>.png` |
+| Plate | The `Plate - <Location>: ...` line in the storyboard's `## Agent setup prompt`, sent as `Create image: <the line after the label>` | The film's orientation, read from the plate line's aspect ratio line: `Vertical 9:16` or `Horizontal 16:9` | `references/plates/<storyboard-stem>/plate-<location-kebab>.png` |
 | Character front | The `text` block under `## Portrait` in `prompts/characters/<name-kebab>-flow-character.md` | Square 1:1 | `references/characters/<name-kebab>-front.png` |
 | Character turnaround | The `text` block under `## Body` in the same file, generated with the approved front attached | Horizontal 16:9 | `references/characters/<name-kebab>-turnaround.png` |
 
@@ -82,7 +82,7 @@ Never edit the prompt text to suit a model. The words "Nano Banana Pro" in a Cha
 
 Generate in this order, one image per call:
 
-1. Each plate: `--aspect 9:16`, no reference image.
+1. Each plate: `--aspect 9:16` for a vertical film or `--aspect 16:9` for a horizontal one (the plate line's own aspect ratio line says which), no reference image.
 2. Each Character's front: `--aspect 1:1`, no reference image.
 3. Check the front (step 6). Only once it passes, generate the turnaround: `--aspect 16:9 --ref <the approved front>`. The Body prompt opens by telling the model to use the attached image.
 
@@ -99,7 +99,7 @@ With an assistant's own image tool, send the same prompt text, attach the same r
 
 Open each image (Read it) and check it before it is saved as approved or used as a reference:
 
-- **Plate**: vertical, the location as its `Environment:` text describes it, the light the line names, and no characters, people, animals, or text. With ChatGPT's 2:3 size, a plate may be centre-cropped to 9:16 (`sips -c <height> <width> <file>`, height 1536 by width 864 for a 1024x1536 image), because a plate holds no character. Look at it again after cropping.
+- **Plate**: in the film's orientation, the location as its `Environment:` text describes it, the light the line names, and no characters, people, animals, or text. With ChatGPT's 2:3 or 3:2 size, a plate may be centre-cropped to 9:16 or 16:9 (`sips -c <height> <width> <file>`: height 1536 by width 864 for a 1024x1536 image, height 864 by width 1536 for a 1536x1024 one), because a plate holds no character. Look at it again after cropping.
 - **Character front and turnaround**: the user checks in step 7 of `flow-character-builder` and the `## Checks` list in the Character file. That means the whole body is in frame, the digit, fin, or limb counts are right and separate, the palette matches with no extra markings, the face is friendly, and the background is pure white with no floor line or text. The turnaround shows three views of the same character at one size, and its back matches the description. Never crop a character image; with ChatGPT, keep the 3:2 turnaround and report its size.
 
 An image that fails is fixed with one of the Character file's `## Fix-up edits`. Write the edit text to a prompt file and generate with `--ref <the failed image>` to a new file. Try at most two fixes, then report the fault and stop. A failed image is never used as a reference and never left at the approved path.

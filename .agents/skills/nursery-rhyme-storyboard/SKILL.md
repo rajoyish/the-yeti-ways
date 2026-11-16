@@ -7,7 +7,8 @@ description: >-
   with verbatim timed lyrics and off-screen children's singing while visible
   characters act silently. Use for "nursery rhyme", "rhyme video", "turn these
   lyrics into a song", "music video storyboard", "Yeti rhyme", or
-  /nursery-rhyme-storyboard. Includes 16:9 and 9:16 cover prompts. Also adds
+  /nursery-rhyme-storyboard. Asks first whether the film is vertical 9:16 or
+  horizontal 16:9. Includes 16:9 and 9:16 cover prompts. Also adds
   silent pick-up shots (`## Pick-up N - <Title>`) to a finished rhyme film for
   the edit: a continuity fix, a missing reaction, or a bridge, cut over the
   song without changing a word of it.
@@ -26,6 +27,20 @@ direction, saved Characters, plates, image map, reference budget, continuity,
 and covers. This skill overrides its fixed three-video duration, six-beat
 clock, no-lyrics endings, and any originality rule that would rewrite supplied
 lyrics. Keep these exceptions local; do not change shared storyboard rules.
+
+## 0. Choose the orientation
+
+Before planning, settle the film's orientation as step 0 of `storyboard-30s`
+sets out: use it if the request names it (9:16, vertical, Reels, Shorts,
+TikTok; or 16:9, horizontal, widescreen, YouTube); keep an existing
+storyboard's orientation for a revision or pick-ups; otherwise ask once, "Which
+aspect ratio should this film be: vertical 9:16 (Reels, Shorts, TikTok) or
+horizontal 16:9 (YouTube, widescreen)?", with the assistant's question tool
+where it has one (AskUserQuestion in Claude Code), and wait. Ask it in the same
+message as any request for missing lyrics, so the user answers once. Fill in
+`<orientation>`, `<Orientation>`, and `<Aspect ratio line>` from the
+Orientation part of section 3 of `.agents/rules/google-flow.md` in every card,
+plate, and Agent prompt, and compose every shot for that frame.
 
 ## 1. Check inputs and preserve lyrics
 
@@ -138,10 +153,12 @@ instead of promising a seamless result or silently changing the workflow.
 
 ## 5. Write the file
 
-New file: `prompts/<rhyme-title>-<N-times-10>s-storyboard.md`. For requested
+New file: `prompts/<rhyme-title>-<N-times-10>s-storyboard.md`, or
+`prompts/<rhyme-title>-<N-times-10>s-16x9-storyboard.md` for a horizontal film. For requested
 revisions, update the named file after saying so. Include, in order:
 
-1. Title/premise: supplied lyrics unchanged, children's vocals, N Flow clips,
+1. Title/premise: supplied lyrics unchanged, children's vocals, N Flow clips
+   in the film's orientation,
    music/video generated together, silent visible cast.
 2. `## Song and lyric plan`: source/arrangement analysis distinguishing
    observed, estimated, and proposed values; settings; full verbatim lyrics;
@@ -194,6 +211,10 @@ exceptions above, then check:
   voice, key, meter, tempo, melody, instruments, and mix.
 - Every clip requires off-screen children's singing and prohibits on-screen
   performance. No conflicting global no-singing/no-lyrics rule or adult vocal.
+- One orientation throughout: every first line, format line, plate line,
+  Instruction 1, and Instruction 3 say the film's, the other orientation appears
+  only in the cover sections, and the file name has `-16x9-` exactly when the
+  film is horizontal.
 - Correct image/reference counts, Character files, plate creation, scene breaks,
   matching end-frame handoffs, and both covers' exact current locks.
 - Pick-ups, if any: `node .agents/skills/storyboard-30s/check_pickups.mjs <file>`
@@ -203,7 +224,7 @@ exceptions above, then check:
   in context. Generic music-word flags do not authorize changing supplied lyrics
   or suppressing child singing. Report a genuine unresolved conflict.
 
-Link skill/storyboard and state title, musical values and evidence status,
+Link skill/storyboard and state title, orientation, musical values and evidence status,
 child voice, clip count/duration, splits/fills, and defaults. Name
 `/create-flow-assets <storyboard>` for needed plates/supporting cast and report
 which Character files/images exist. Generate/review clips in Google Flow with

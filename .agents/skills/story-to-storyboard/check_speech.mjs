@@ -6,7 +6,9 @@
  * (prompts/<slug>-<N x 10>s-storyboard.md): the Voices and Speech lines of every Agent prompt,
  * and the ## Script table. Pick-up sections (## Pick-up <n> - <Title>) are checked the same way; their
  * Script rows come after every video's rows, with "Pick-up <n>" in the Video column and "in the edit" as the
- * film time. It checks timing and structure only; it cannot hear a clip.
+ * film time. It checks timing and structure only; it cannot hear a clip. With --timeline it also checks that the
+ * picture never runs ahead of the narration: a shot under a run-on fragment that names no one, showing a character
+ * the clip never names, is a problem; any other shot showing a character its words do not name is a note.
  *
  * Usage:
  *   node .agents/skills/story-to-storyboard/check_speech.mjs prompts/<slug>-<N x 10>s-storyboard.md
@@ -73,6 +75,8 @@ for (const kind of ["Video", "Pick-up"]) {
   });
 }
 
+// Each kind's previous video's speech entries, for the picture-ahead-of-narration check.
+const prevEntries = new Map();
 // Voices must be identical across the film.
 const voiceBook = new Map();
 // Script rows expected from the Speech lines.
@@ -171,6 +175,38 @@ for (const v of videos) {
     }
     const film = v.kind === "Pick-up" ? "in the edit" : `${fmtFilm(e.a + (v.n - 1) * 10)}-${fmtFilm(e.b + (v.n - 1) * 10)}`;
     expected.push({ video: v.kind === "Pick-up" ? `Pick-up ${v.n}` : String(v.n), clip: e.clip, film, who: e.who, text: e.text });
+  }
+  // The picture never runs ahead of the narration: a shot under narration shows only characters the
+  // narration (or a line) has already named in this clip by the shot's end, or the last clip named, for its first
+  // shot. 2026-11-15, Video 24 of the two-coins film: "Tired but steady," (the subject comes in the next clip) was
+  // put over Papa Yeti, who then grinned and moved his mouth under the Narrator's words.
+  {
+    const names = [...castLine.matchAll(/@([A-Z][A-Za-z' -]*?)(?=[,.;]| and | exactly|$)/g)].map(m => m[1].trim());
+    const said = (name, text) => {
+      const keys = name.split(/\s+/).filter(w => w.length > 2 && !/^(the|and|Yeti)$/i.test(w));
+      if (/Yeti$/.test(name) && /\b(family|Yetis)\b/i.test(text)) return true;
+      return keys.some(k => new RegExp(`\\b${k.replace(/s$/, "")}`, "i").test(text));
+    };
+    const prevText = (prevEntries.get(v.kind) || []).map(e => e.text).join(" ");
+    const PRONOUN = /\b(he|she|they|his|her|him|its|their|them|it)\b/i;
+    const clipText = entries.map(e => e.text).join(" ");
+    shots.forEach((s, si) => {
+      const over = entries.filter(e => e.a < s.end - 1e-9 && e.b > s.start + 1e-9);
+      if (!over.length || over.some(e => e.who !== "Narrator")) return;
+      const overText = over.map(e => e.text).join(" ");
+      const before = entries.filter(e => e.a < s.end - 1e-9).map(e => e.text).join(" ") + " " + prevText;
+      const runOn = si === shots.length - 1 && /running on into the next clip/.test(speechLine.slice(speechLine.lastIndexOf(over[over.length - 1].clip)));
+      for (const n of names) {
+        if (!new RegExp(`\\b${n}\\b`).test(s.inFrame) || /\bseen only as\b/.test(s.inFrame)) continue;
+        const span = `shot ${s.start.toFixed(1)}-${s.end.toFixed(1)} shows ${n} under "${overText}"`;
+        if (runOn && !said(n, clipText) && !PRONOUN.test(overText) && !names.some(m => said(m, overText))) {
+          problem(where, `${span}, a fragment that runs on into the next clip and names no one, while this clip never names ${n}: hold the last shot on what this clip's narration describes and bring ${n} in at the cut, in the next clip, where the narration names them (section 9, step 3)`);
+        } else if (!said(n, before) && !PRONOUN.test(overText)) {
+          note(where, `${span}, which does not name ${n} and has no he/she/they: check that the shot enacts those words, not the next sentence`);
+        }
+      }
+    });
+    prevEntries.set(v.kind, entries);
   }
   if (!timeline && total > MAX_WORDS) problem(where, `${total} spoken words; at most ${MAX_WORDS} per video`);
 

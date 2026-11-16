@@ -2,7 +2,7 @@
 
 In a little Himalayan village, humble Papa Yeti spends his family's last two coins on two pieces of wisdom, buries a "smelly old bundle" for three Grand Peacocks and finds treasure in it, tells Snow Leopard Queen the whole truth when jealous Tashi Marmot accuses him, is forgiven, and forgives Tashi Marmot in turn. Gentle and warm with comic touches, tense before the Queen, then tender. The moral: an honest heart is the greatest treasure.
 
-This is the audio-first film of the story (section 9 of the `story-to-storyboard` skill). It is cut to the Google AI Studio recording of the whole story, `story-full.wav` (10:34.0, Gemini 3.8 Flash TTS), so it is 64 videos of 10 seconds, horizontal 16:9, the last trimmed to 4.0 seconds in the edit. Every spoken word and its time comes from the recording, through the film timeline; each clip is generated in Flow with that speech so the mouths move to it, and the recording replaces Flow's audio when the film is assembled. The saved Characters @Papa Yeti, @Mama Yeti, @Babu Yeti, @Tashi Marmot, @Blue Magpie, @Dolma Yak, @Grand Peacock, @Snow Leopard Queen, and @Woolly Hare carry their looks. Written in batches: All 64 videos are written.
+This is the audio-first film of the story (section 9 of the `story-to-storyboard` skill). It is cut to the Google AI Studio recording of the whole story, `story-full.wav` (10:34.0, Gemini 3.8 Flash TTS), so it is 64 videos of 10 seconds, horizontal 16:9, the last trimmed to 4.0 seconds in the edit. Every spoken word and its time comes from the recording, through the film timeline; each clip is generated in Flow with that speech so the mouths move to it, and the recording replaces Flow's audio when the film is assembled. The saved Characters @Papa Yeti, @Mama Yeti, @Babu Yeti, @Tashi Marmot, @Blue Magpie, @Dolma Yak, @Grand Peacock, @Snow Leopard Queen, and @Woolly Hare carry their looks. Written in batches: All 64 videos are written. After the final video come three pick-ups, extra clips for the edit (Pick-up 1 - Papa Takes the Coins, Pick-up 2 - Babu Tips the Coins, Pick-up 3 - Three Silver Coins), then the two cover prompts.
 
 Script: [stories/papa-yeti-two-coins-of-wisdom-story.md](../stories/papa-yeti-two-coins-of-wisdom-story.md)
 Speech blocks: [speech-prompts/papa-yeti-two-coins-of-wisdom-speech-blocks.md](../speech-prompts/papa-yeti-two-coins-of-wisdom-speech-blocks.md)
@@ -225,7 +225,7 @@ Film: Papa Yeti and the Two Coins of Wisdom, 64 ten-second videos cut to a recor
 
 Cast: Papa Yeti in nearly every video; Mama Yeti and Babu Yeti at home (1 to 14, 39 to 45, 56 to 64). Story cast, saved as Characters: Tashi Marmot, the rich neighbour (1 to 5, 43 to 47, 52, 57 to 64); Blue Magpie at the pine road stall (15 to 21); Dolma Yak at the high pass tea stall (22 to 26); exactly three Grand Peacocks at the crossroads meadow (27 to 32); Snow Leopard Queen in the palace hall (45 to 55); exactly three Woolly Hares (42 to 44). The Narrator is an off-screen voice only.
 
-Locations: Plate - Village Lane (1 to 14, 39 to 45, 48, 56 to 64), Plate - Pine Road (15 to 21), Plate - High Pass (22 to 26), Plate - Crossroads Meadow (27 to 38), Plate - Palace Hall (45 to 55). New scenes open on their plates at 15, 22, 27, 39, 45, and 56; a video that opens on a cut at the handoff uses the previous end frame and its plate as references.
+Locations: Plate - Village Lane (1 to 14, 39 to 45, 48, 56 to 64), Plate - Pine Road (15 to 21), Plate - High Pass (22 to 26), Plate - Crossroads Meadow (27 to 38), Plate - Palace Hall (45 to 55). New scenes open on their plates at 15, 22, 27, 39, 45, and 56; a video that opens on a cut at the handoff uses the previous end frame and its plate as references. Pick-ups 1 and 2 (Plate - Village Lane) and 3 (Plate - Crossroads Meadow, opening on a saved frame) are extra clips for the edit, not part of the 64 videos: they open on no end frame and save none.
 
 Light: morning to late-afternoon gold, a dim, tense hall in 49 to 51, then sunset and lantern dusk.
 
@@ -295,8 +295,8 @@ Plate - Palace Hall: Horizontal 16:9 aspect ratio, full-frame widescreen composi
 | Video 21 | `End frame V20` | Opening image | 1 image + 1 Character = 2 |
 | Video 22 | `Plate - High Pass` | Opening image (new scene) | 1 image + 1 Character = 2 |
 | Video 23 | `End frame V22` | Opening image | 1 image + 1 Character = 2 |
-| Video 24 | `End frame V23` | Opening image | 1 image + 2 Characters = 3 |
-| Video 25 | `End frame V24` | Opening image | 1 image + 2 Characters = 3 |
+| Video 24 | `End frame V23` | Opening image | 1 image + 1 Character = 2 |
+| Video 25 | `End frame V24`, then `Plate - High Pass` | Continuity references; opens on a cut at the handoff | 2 images + 2 Characters = 4 |
 | Video 26 | `End frame V25` | Opening image | 1 image + 2 Characters = 3 |
 | Video 27 | `End frame V26`, then `Plate - Crossroads Meadow` | Opening image; the location it cuts to | 2 images + 1 Character = 3 |
 | Video 28 | `End frame V27` | Opening image | 1 image + 2 Characters = 3 |
@@ -336,8 +336,11 @@ Plate - Palace Hall: Horizontal 16:9 aspect ratio, full-frame widescreen composi
 | Video 62 | `End frame V61` | Opening image | 1 image + 3 Characters = 4 |
 | Video 63 | `End frame V62` | Opening image | 1 image + 3 Characters = 4 |
 | Video 64 | `End frame V63` | Opening image | 1 image + 3 Characters = 4 |
+| Pick-up 1 | `Plate - Village Lane` | Reference for the place and the light only; no first-frame match, no end frame | 1 image + 2 Characters = 3, Characters 2 of 3 |
+| Pick-up 2 | `Plate - Village Lane`, then `End frame V12` | References for the place, the light, and positions only; no first-frame match, no end frame | 2 images + 2 Characters = 4, Characters 2 of 3 |
+| Pick-up 3 | `Frame - Wing Tip and Coins`, then `Plate - Crossroads Meadow` | First-frame match to the saved frame; the plate for the place and the light only; no end frame | 2 images + 2 Characters = 4, Characters 2 of 3 |
 
-Characters attach from each Agent prompt's `Cast:` line, never by hand. The Narrator is a voice and uses no reference. Before approving each take, preview it with its recording: `node tools/ai-studio-voice-runner/assemble.mjs --timeline speech-prompts/papa-yeti-two-coins-of-wisdom-film-timeline.json --clips <folder> --preview <n>`.
+Characters attach from each Agent prompt's `Cast:` line, never by hand. The Narrator is a voice and uses no reference. Pick-ups are extra clips for the edit: they never open on or save an end frame, and no numbered video opens on one. Before approving each take, preview it with its recording: `node tools/ai-studio-voice-runner/assemble.mjs --timeline speech-prompts/papa-yeti-two-coins-of-wisdom-film-timeline.json --clips <folder> --preview <n>`.
 
 ---
 
@@ -365,7 +368,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 2 - The Little Cottage
 
-Images: attach `End frame V1` (opening image, saved from the approved Video 1) in the prompt box, no plate, nothing else. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
+Images: attach `End frame V1` (opening image, saved from the approved Video 1) in the prompt box, no plate, nothing else. End frame V1 should look like the held last shot of Video 1: Wide Shot (the whole cottage with plenty of setting), Eye Level, no characters, only the little cottage seen from the lane. The camera rests on the humble stone-and-timber cottage on the left third, seen from the far side of the lane so its porch steps are hidden behind the stick fence, its sagging slate roof, woven bamboo door, and tiny fenced vegetable patch catching the morning sun. Light: soft morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -387,7 +390,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 3 - Clever and Very Rich
 
-Images: attach `End frame V2` (opening image, saved from the approved Video 2) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V2` (opening image, saved from the approved Video 2) in the prompt box, no plate, nothing else. End frame V2 should look like the held last shot of Video 2: Medium Wide Shot (head to knees scale), Eye Level, no characters, only the low whitewashed wall and its carved wooden gate. The low whitewashed wall next door fills the frame, its carved wooden gate on the right third and the grand painted house rising behind it. Light: soft morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -409,7 +412,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 4 - The Storehouse
 
-Images: attach `End frame V3` (opening image, saved from the approved Video 3) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V3` (opening image, saved from the approved Video 3) in the prompt box, no plate, nothing else. End frame V3 should look like the held last shot of Video 3: Medium Close-Up (chest up), Eye Level, Papa Yeti, and no one else. Papa Yeti, sitting on the worn porch steps of the little cottage on the left third, looks up toward frame right at the golden rooftop finial off-screen, curious face with one eyebrow raised and mouth closed, no smile, behind him only the still cottage wall and the bamboo door. Light: soft morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -431,7 +434,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 5 - The Gold Coin
 
-Images: attach `End frame V4` (opening image, saved from the approved Video 4) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V4` (opening image, saved from the approved Video 4) in the prompt box, no plate, nothing else. End frame V4 should look like the held last shot of Video 4: Medium Shot (waist up), Eye Level, Tashi Marmot, and no one else. Tashi Marmot stands upright beside his heaped storehouse on the right third in the bright morning sun, takes a big gold coin from his crimson vest, and begins to polish it on the vest in small circles, chin raised, sly, satisfied grin, mouth closed. Light: bright morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -453,7 +456,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 6 - Nearly Empty
 
-Images: attach `End frame V5` (opening image, saved from the approved Video 5) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
+Images: attach `End frame V5` (opening image, saved from the approved Video 5) in the prompt box, no plate, nothing else. End frame V5 should look like the held last shot of Video 5: Medium Shot (waist up), Eye Level, Papa Yeti, and no one else. Papa Yeti sits on the worn porch steps of the little cottage on the left third, a small cloth grain sack in his lap, and begins to open its neck with both five-fingered hands, worried face with eyebrows drawn together and mouth closed in a tight line, no smile, behind him only the still cottage wall and the bamboo door. Light: soft morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -475,7 +478,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 7 - A Few Grains
 
-Images: attach `End frame V6` (opening image, saved from the approved Video 6) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
+Images: attach `End frame V6` (opening image, saved from the approved Video 6) in the prompt box, no plate, nothing else. End frame V6 should look like the held last shot of Video 6: Medium Two-Shot (two subjects, waist up), Eye Level, Mama Yeti and Babu Yeti, and no one else. Mama Yeti on the left third and Babu Yeti on the right third sit side by side on the lowest porch step, his curl reaching only to Mama Yeti's belly, each holding a small wooden bowl in both five-fingered hands and looking down into it, sad faces with mouths closed, no smile. Light: soft morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -497,7 +500,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 8 - Our Bowls Are Nearly Empty
 
-Images: attach `End frame V7` (saved from the approved Video 7), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
+Images: attach `End frame V7` (saved from the approved Video 7), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V7 should look like the held last shot of Video 7: Medium Close-Up (chest up), Eye Level, Papa Yeti, and no one else. Papa Yeti, sitting on the step above with the sack in his lap, on the right third, turns his head toward frame left, sad face with eyebrows tilted up at the inner ends and mouth turned down, mouth closed, no smile, behind him only the still cottage wall. Light: soft morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -519,7 +522,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 9 - Bright and Determined
 
-Images: attach `End frame V8` (saved from the approved Video 8), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 1 Character = 3 of 7. Characters: 1 of 3.
+Images: attach `End frame V8` (saved from the approved Video 8), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V8 should look like the held last shot of Video 8: Medium Two-Shot (two subjects, waist up), Eye Level, Mama Yeti and Babu Yeti, and no one else. Mama Yeti on the left third and Babu Yeti on the right third sit on the lowest step with their bowls, his curl reaching only to Mama Yeti's belly, and Babu Yeti looks up toward frame left at his papa off-screen, sad face with mouth turned down and eyes glistening, both mouths closed, no smile. Light: soft morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 1 Character = 3 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -541,7 +544,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 10 - Fetch the Money Box
 
-Images: attach `End frame V9` (saved from the approved Video 9), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
+Images: attach `End frame V9` (saved from the approved Video 9), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V9 should look like the held last shot of Video 9: Close-Up (shoulders to top of head), Eye Level, Papa Yeti, and no one else. Papa Yeti, his face turned three-quarters toward the camera, speaks with bright determination, one five-fingered hand closing into a hopeful fist at his chest, determined face with eyebrows lowered and eyes bright, no smile. Light: soft morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -563,7 +566,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 11 - Here, Papa
 
-Images: attach `End frame V10` (opening image, saved from the approved Video 10) in the prompt box, no plate, nothing else. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
+Images: attach `End frame V10` (opening image, saved from the approved Video 10) in the prompt box, no plate, nothing else. End frame V10 should look like the held last shot of Video 10: Full Shot (head to feet), Eye Level, Babu Yeti, and no one else. Babu Yeti scurries up the worn porch steps and pushes the woven bamboo door open with both five-fingered hands, thick fur covering the whole back and no tail, cute playful smile. Light: soft morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -585,7 +588,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 12 - Two Copper Coins
 
-Images: attach `End frame V11` (opening image, saved from the approved Video 11) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
+Images: attach `End frame V11` (opening image, saved from the approved Video 11) in the prompt box, no plate, nothing else. End frame V11 should look like the held last shot of Video 11: Insert (a close shot of the box in his hands), High Angle, Babu Yeti, seen only as his two five-fingered hands holding the money box, and no one else. One small five-fingered hand lifts the little carved wooden lid. Light: soft morning sunlight from frame right. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -595,9 +598,9 @@ Horizontal 16:9 video, 720p, 10 seconds, three shots joined by hard cuts. 3D ani
 Cast: @Papa Yeti, @Mama Yeti, and @Babu Yeti. Papa Yeti, Mama Yeti, and Babu Yeti exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Each shot shows only the characters its In frame list names, each exactly once. No other characters.
 Setting: A small Himalayan mountain village, a narrow earthen lane running between two homes: on the left, a humble little stone-and-timber cottage with a sagging slate roof, a woven bamboo door, a small oil lantern hanging beside the door, worn wooden porch steps, and a tiny vegetable patch fenced with sticks, and on the right, behind a low whitewashed wall with a carved wooden gate, a grand three-storey house with brightly painted window frames, a golden rooftop finial, and a big stone storehouse heaped with sacks of grain, with green terraced fields, strings of plain faded cloth flags, and tall snowy peaks behind.
 Voices: Narrator (off-screen, never shown): a deep, warm, clear grown-up storyteller voice, gentle and unhurried.
-00:00-00:04.7, Insert (the open box filling the frame), High Angle. In frame: Babu Yeti, seen only as his two five-fingered hands holding the open money box, and no one else. As the Narrator says "Inside lay exactly two copper coins", the open box shows exactly two copper coins resting on a scrap of worn cloth, and the morning light catches their edges. Static, from rest. Light: soft morning sunlight from frame right, warm glint on the copper, high-key, slate-grey, timber-brown and copper palette, hopeful, shallow focus.
+00:00-00:04.7, Insert (the open box filling the frame), High Angle. In frame: Papa Yeti, seen only as his two big five-fingered hands holding the open money box, and no one else. As the Narrator says "Inside lay exactly two copper coins", the open box in Papa Yeti's hands shows exactly two copper coins resting on a scrap of worn cloth; the box is not empty, and the morning light catches the coins' edges. Static, from rest. Light: soft morning sunlight from frame right, warm glint on the copper, high-key, slate-grey, timber-brown and copper palette, hopeful, shallow focus.
 00:04.7-00:06.6, Medium Close-Up (chest up), Eye Level. In frame: Mama Yeti, and no one else. As the Narrator says "all the family had saved", Mama Yeti, on the lowest step on the left third, looks down at the two coins off-screen at frame right, gentle closed-mouth smile with soft, warm eyes. Static. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
-00:06.6-00:10, Medium Two-Shot (two subjects, waist up), Eye Level. In frame: Papa Yeti and Babu Yeti, and no one else. As the Narrator says "Papa Yeti knelt down, and Babu Yeti", Papa Yeti on the left third kneels down on the earthen lane so his face is level with Babu Yeti, who stands on the right third, his curl reaching only to Papa Yeti's belly when Papa stands, holding up the open money box in both five-fingered hands, both with gentle closed-mouth smiles. Slow dolly in, easing to a stop in the last half second, ending on a held frame. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
+00:06.6-00:10, Medium Two-Shot (two subjects, waist up), Eye Level. In frame: Papa Yeti and Babu Yeti, and no one else. As the Narrator says "Papa Yeti knelt down, and Babu Yeti", Papa Yeti on the left third kneels down on the earthen lane so his face is level with Babu Yeti, holding the open money box low in one big five-fingered hand, while Babu Yeti stands on the right third, his curl reaching only to Papa Yeti's belly when Papa stands, and reaches both small five-fingered hands toward the box, both with gentle closed-mouth smiles. Slow dolly in, easing to a stop in the last half second, ending on a held frame. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
 Speech: 00:00.7-00:06.3, Narrator, off-screen: "Inside lay exactly two copper coins, all the family had saved." 00:06.9-00:10, Narrator, off-screen, running on into the next clip: "Papa Yeti knelt down, and Babu Yeti" Each line is spoken once, exactly as written and at exactly these times, in English, one voice at a time; only the speaking character's mouth moves, in time with the words, and every other mouth stays closed.
 Sound: the fiddle and lute play a tender, hopeful phrase, kept low under every spoken line. Morning birdsong and a soft breeze. A faint clink of two coins and the soft creak of knees on earth. No lyrics, no singing, no other voices.
 Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, an ape-like or gorilla-like body, clothing, hats, or accessories, on-screen text, captions, subtitles, borders, split screens, moving mouths on characters who are not speaking, overlapping voices, singing.
@@ -607,7 +610,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 13 - Stood Up Tall
 
-Images: attach `End frame V12` (opening image, saved from the approved Video 12) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V12` (opening image, saved from the approved Video 12) in the prompt box, no plate, nothing else. End frame V12 should look like the held last shot of Video 12: Medium Two-Shot (two subjects, waist up), Eye Level, Papa Yeti and Babu Yeti, and no one else. Papa Yeti on the left third kneels down on the earthen lane so his face is level with Babu Yeti, holding the open money box low in one big five-fingered hand, while Babu Yeti stands on the right third, his curl reaching only to Papa Yeti's belly when Papa stands, and reaches both small five-fingered hands toward the box, both with gentle closed-mouth smiles. Light: soft morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -617,7 +620,7 @@ Horizontal 16:9 video, 720p, 10 seconds, three shots joined by hard cuts. 3D ani
 Cast: @Papa Yeti and @Babu Yeti. Papa Yeti and Babu Yeti exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Each shot shows only the characters its In frame list names, each exactly once. No other characters.
 Setting: A small Himalayan mountain village, a narrow earthen lane running between two homes: on the left, a humble little stone-and-timber cottage with a sagging slate roof, a woven bamboo door, a small oil lantern hanging beside the door, worn wooden porch steps, and a tiny vegetable patch fenced with sticks, and on the right, behind a low whitewashed wall with a carved wooden gate, a grand three-storey house with brightly painted window frames, a golden rooftop finial, and a big stone storehouse heaped with sacks of grain, with green terraced fields, strings of plain faded cloth flags, and tall snowy peaks behind.
 Voices: Narrator (off-screen, never shown): a deep, warm, clear grown-up storyteller voice, gentle and unhurried.
-00:00-00:04.2, Medium Two-Shot (two subjects, waist up) to Close-Up (their hands filling the frame), Eye Level. In frame: Papa Yeti and Babu Yeti, seen at the end only as their hands, and no one else. As the Narrator says "tipped the coins into his big open hand", Babu Yeti tips the little box, and the two copper coins slide into Papa Yeti's big open five-fingered hand. Slow dolly in from rest. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
+00:00-00:04.2, Medium Two-Shot (two subjects, waist up) to Close-Up (their hands filling the frame), Eye Level. In frame: Papa Yeti and Babu Yeti, seen at the end only as their hands, and no one else. As the Narrator says "tipped the coins into his big open hand", Papa Yeti holds the open box low in one five-fingered hand, Babu Yeti tips it with both small five-fingered hands, and the two copper coins slide into Papa Yeti's other big open five-fingered hand. Slow dolly in from rest. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
 00:04.2-00:07.5, Medium Close-Up (chest up) to Medium Shot (waist up), Low Angle. In frame: Papa Yeti, and no one else. As the Narrator says "Papa Yeti closed his hand around the coins and stood up tall", Papa Yeti closes his five-fingered hand around the coins and rises from his knee to stand tall on the lane, determined face with eyebrows lowered, eyes narrowed, and mouth pressed shut, no smile. Pedestal up as he stands. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
 00:07.5-00:10, Full Shot (head to feet), Eye Level. In frame: Papa Yeti, and no one else. Papa Yeti stands tall on the earthen lane on the left third, his closed five-fingered hand with the coins held at his chest, looking toward the road at frame right, determined face, mouth closed, no smile. Static, ending on a held frame. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, deep focus.
 Speech: 00:00-00:03.6, Narrator, off-screen, continuing from the last clip: "tipped the coins into his big open hand." 00:04.8-00:08.8, Narrator, off-screen: "Papa Yeti closed his hand around the coins and stood up tall." 00:09.5-00:10, Narrator, off-screen, running on into the next clip: "Mama Yeti" Each line is spoken once, exactly as written and at exactly these times, in English, one voice at a time; only the speaking character's mouth moves, in time with the words, and every other mouth stays closed.
@@ -629,7 +632,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 14 - Bye, Papa
 
-Images: attach `End frame V13` (saved from the approved Video 13), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
+Images: attach `End frame V13` (saved from the approved Video 13), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V13 should look like the held last shot of Video 13: Full Shot (head to feet), Eye Level, Papa Yeti, and no one else. Papa Yeti stands tall on the earthen lane on the left third, his closed five-fingered hand with the coins held at his chest, looking toward the road at frame right, determined face, mouth closed, no smile. Light: soft morning sunlight from frame right over the peaks. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -673,7 +676,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 16 - The Trinket Stall
 
-Images: attach `End frame V15` (opening image, saved from the approved Video 15) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V15` (opening image, saved from the approved Video 15) in the prompt box, no plate, nothing else. End frame V15 should look like the held last shot of Video 15: Medium Wide Shot (the stall from awning to counter), Eye Level, no characters, only the stall. The striped cloth awning and the low counter below it fill the frame, sunlight glinting on things laid along the counter. Light: bright mid-morning sun from frame right through the pines. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -695,7 +698,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 17 - Sell Me Some Wisdom
 
-Images: attach `End frame V16` (opening image, saved from the approved Video 16) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V16` (opening image, saved from the approved Video 16) in the prompt box, no plate, nothing else. End frame V16 should look like the held last shot of Video 16: Medium Shot (the bird and the counter), Eye Level, Blue Magpie, and no one else. Blue Magpie hops up from behind the counter on the left third with a flick of its wings, beak closed. Light: bright mid-morning sun from frame right through the pines. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -717,7 +720,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 18 - I'll Trick Him
 
-Images: attach `End frame V17` (saved from the approved Video 17), then `Plate - Pine Road`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
+Images: attach `End frame V17` (saved from the approved Video 17), then `Plate - Pine Road`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V17 should look like the held last shot of Video 17: Close-Up (shoulders to top of head), Low Angle, Papa Yeti, and no one else. Papa Yeti, his face turned three-quarters toward the camera, asks politely and sincerely, relieved soft smile with eyebrows relaxed, behind him only the still pines. Light: bright mid-morning sun from frame right through the pines. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -739,7 +742,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 19 - Like a Teacher
 
-Images: attach `End frame V18` (opening image, saved from the approved Video 18) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V18` (opening image, saved from the approved Video 18) in the prompt box, no plate, nothing else. End frame V18 should look like the held last shot of Video 18: Medium Shot (the bird and the counter), Eye Level, Blue Magpie, and no one else. Blue Magpie fluffs out all its feathers and puffs up its chest grandly on the counter, beak closed. Light: bright mid-morning sun from frame right through the pines. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -761,7 +764,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 20 - Under Its Wing
 
-Images: attach `End frame V19` (saved from the approved Video 19), then `Plate - Pine Road`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
+Images: attach `End frame V19` (saved from the approved Video 19), then `Plate - Pine Road`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V19 should look like the held last shot of Video 19: Medium Close-Up (head and chest of the bird), Eye Level, Blue Magpie, and no one else. Blue Magpie, one wing raised and its face turned three-quarters toward the camera, speaks its wisdom slowly and grandly. Light: bright mid-morning sun from frame right through the pines. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -784,7 +787,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 21 - I'll Remember That
 
-Images: attach `End frame V20` (opening image, saved from the approved Video 20) in the prompt box, no plate, nothing else. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
+Images: attach `End frame V20` (opening image, saved from the approved Video 20) in the prompt box, no plate, nothing else. End frame V20 should look like the held last shot of Video 20: Medium Close-Up (chest up), Eye Level, Papa Yeti, and no one else. Papa Yeti presses one five-fingered hand to his chest, gentle closed-mouth smile with soft, warm eyes, behind him only the still pines. Light: bright mid-morning sun from frame right through the pines. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -828,7 +831,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 23 - The Tea Stall
 
-Images: attach `End frame V22` (opening image, saved from the approved Video 22) in the prompt box, no plate, nothing else. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
+Images: attach `End frame V22` (opening image, saved from the approved Video 22) in the prompt box, no plate, nothing else. End frame V22 should look like the held last shot of Video 22: Medium Wide Shot (flags and stones filling the frame), Eye Level, no characters, only the flags and stacked stones. Strings of plain faded cloth flags snap in the wind beside the piles of stacked stones. Light: clear midday sun from high at frame right. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -851,34 +854,34 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 24 - Dolma Yak
 
-Images: attach `End frame V23` (opening image, saved from the approved Video 23) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V23` (opening image, saved from the approved Video 23) in the prompt box, no plate, nothing else. End frame V23 should look like the held last shot of Video 23: Medium Wide Shot (the stall and its counter), Eye Level, no characters, only the stall. The small stone tea stall stands on the left third with its low wooden counter and row of clay cups. Light: clear midday sun from high at frame right. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
 ```text
 Generate Video 24 - Dolma Yak as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V23 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V23.
 Horizontal 16:9 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
-Cast: @Papa Yeti and @Dolma Yak. Papa Yeti and Dolma Yak exactly as their saved Characters. Dolma Yak is a short, stout old yak who stands on four legs behind the counter, her head just above it. Each shot shows only the characters its In frame list names, each exactly once. No other characters.
+Cast: @Dolma Yak. Dolma Yak exactly as her saved Character. Dolma Yak is a short, stout old yak who stands on four legs behind the counter, her head just above it. Each shot shows only the characters its In frame list names, each exactly once. No Yeti appears in this video. No other characters.
 Setting: A high, windswept mountain pass with a stony track winding up between grassy slopes, a small, cosy stone tea stall on the left side of the track with a low wooden counter, a steaming copper kettle on a little clay stove, and a row of clay cups, a few piles of stacked stones and strings of plain faded cloth flags fluttering beside it, and vast snowy peaks all around.
 Voices: Narrator (off-screen, never shown): a deep, warm, clear grown-up storyteller voice, gentle and unhurried.
 00:00-00:05.5, Medium Shot (head and shoulders above the counter) to Medium Close-Up, Eye Level. In frame: Dolma Yak, and no one else. As the Narrator says "tea stall, stood Dolma Yak, an old yak with long shaggy hair", Dolma Yak lifts her head above the counter on the left third, her long shaggy hair stirring in the wind, a gentle, welcoming look, mouth closed. Slow dolly in from rest. Light: clear midday sun from high at frame right, cool blue sky fill, warm glow from the clay stove, warm rim on Dolma Yak's shaggy hair, high-key, slate, snow-white and sky-blue palette, calm and kindly, shallow focus.
 00:05.5-00:08.2, Close-Up (her face filling the frame), gentle Low Angle. In frame: Dolma Yak, and no one else. As the Narrator says "and kind, half-closed eyes", Dolma Yak looks out with kind, half-closed eyes and a soft, wise calm, mouth closed. Static. Light: clear midday sun from high at frame right, cool blue sky fill, warm glow from the clay stove, warm rim on Dolma Yak's shaggy hair, high-key, slate, snow-white and sky-blue palette, calm and kindly, shallow focus.
-00:08.2-00:10, Medium Close-Up (chest up), Eye Level. In frame: Papa Yeti, and no one else. As the Narrator says "Tired but steady", Papa Yeti, on the right third, straightens his back and steadies his breath, worried face with eyebrows drawn together and mouth closed, no smile, behind him only the still grassy slope. Static, ending on a held frame. Light: clear midday sun from high at frame right, cool blue sky fill, warm glow from the clay stove, warm rim on the fur, clear air around him, high-key, slate, snow-white and sky-blue palette, calm and kindly, shallow focus.
+00:08.2-00:10, Medium Close-Up (head and shoulders above the counter), Eye Level. In frame: Dolma Yak, and no one else. As the Narrator says "Tired but steady", Dolma Yak, behind the counter on the left third beside the steaming copper kettle, lifts her head and looks toward frame right at a visitor arriving off-screen, kind, half-closed eyes, mouth closed and still, behind her only the snowy peaks and the fluttering flags. Static, ending on a held frame. Light: clear midday sun from high at frame right, cool blue sky fill, warm glow from the clay stove, warm rim on Dolma Yak's shaggy hair, high-key, slate, snow-white and sky-blue palette, calm and kindly, shallow focus.
 Speech: 00:00-00:07.8, Narrator, off-screen, continuing from the last clip: "tea stall, stood Dolma Yak, an old yak with long shaggy hair and kind, half-closed eyes." 00:08.6-00:10, Narrator, off-screen, running on into the next clip: "Tired but steady," Each line is spoken once, exactly as written and at exactly these times, in English, one voice at a time; only the speaking character's mouth moves, in time with the words, and every other mouth stays closed.
-Sound: a slow, warm fiddle phrase for Dolma Yak over soft lute, kept low under every spoken line. Mountain wind and the hiss of the kettle. A soft, low huff of breath. No lyrics, no singing, no other voices.
-Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, an ape-like or gorilla-like body, clothing, hats, or accessories, on-screen text, captions, subtitles, borders, split screens, moving mouths on characters who are not speaking, overlapping voices, singing.
+Sound: a slow, warm fiddle phrase for Dolma Yak over soft lute, kept low under every spoken line. Mountain wind and the hiss of the kettle. A soft, low huff of breath from Dolma Yak. No lyrics, no singing, no other voices.
+Avoid: photorealistic humans, horror elements, flat lighting, any Yeti in this video, Dolma Yak's mouth moving while the Narrator speaks, on-screen text, captions, subtitles, borders, split screens, moving mouths on characters who are not speaking, overlapping voices, singing.
 ```
 
 ---
 
 ## Video 25 - My Last Coin
 
-Images: attach `End frame V24` (opening image, saved from the approved Video 24) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V24` (saved from the approved Video 24), then `Plate - High Pass`, in the prompt box, nothing else, both as references for the place, the light, and where everyone is: the video opens on a cut to Papa Yeti, away from End frame V24. End frame V24 should look like the held last shot of Video 24: Medium Close-Up (head and shoulders above the counter), Eye Level, Dolma Yak, and no one else. Dolma Yak, behind the counter on the left third beside the steaming copper kettle, lifts her head and looks toward frame right at a visitor arriving off-screen, kind, half-closed eyes, mouth closed, behind her only the snowy peaks and the fluttering flags. Light: clear midday sun from high at frame right. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
 ```text
-Generate Video 25 - My Last Coin as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the image End frame V24 and every @ Character in the Cast line together as references, and make the first frame match the image End frame V24.
+Generate Video 25 - My Last Coin as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode: use the images End frame V24 and Plate - High Pass and every @ Character in the Cast line together as references for the place, the light, and where everyone is, and open on the new shot the first shot line describes, a cut away from End frame V24.
 Horizontal 16:9 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Papa Yeti and @Dolma Yak. Papa Yeti and Dolma Yak exactly as their saved Characters. Dolma Yak is a short, stout old yak who stands on four legs behind the counter, her head just above it. Each shot shows only the characters its In frame list names, each exactly once. No other characters.
 Setting: A high, windswept mountain pass with a stony track winding up between grassy slopes, a small, cosy stone tea stall on the left side of the track with a low wooden counter, a steaming copper kettle on a little clay stove, and a row of clay cups, a few piles of stacked stones and strings of plain faded cloth flags fluttering beside it, and vast snowy peaks all around.
@@ -895,7 +898,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 26 - Tell the Queen the Truth
 
-Images: attach `End frame V25` (opening image, saved from the approved Video 25) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V25` (opening image, saved from the approved Video 25) in the prompt box, no plate, nothing else. End frame V25 should look like the held last shot of Video 25: Medium Close-Up (head and shoulders above the counter), Eye Level, Dolma Yak, and no one else. Dolma Yak nods slowly and kindly, half-closed eyes, mouth closed. Light: clear midday sun from high at frame right. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -917,7 +920,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 27 - He Would Remember That
 
-Images: attach `End frame V26` (opening image, saved from the approved Video 26), then `Plate - Crossroads Meadow` (the location it cuts to) in the prompt box, nothing else. References: 2 images + 1 Character = 3 of 7. Characters: 1 of 3.
+Images: attach `End frame V26` (opening image, saved from the approved Video 26), then `Plate - Crossroads Meadow` (the location it cuts to) in the prompt box, nothing else. End frame V26 should look like the held last shot of Video 26: Medium Close-Up (chest up), Eye Level, Papa Yeti, and no one else. Papa Yeti, holding the warm clay cup in both five-fingered hands, smiles gently, gentle closed-mouth smile with soft, warm eyes, behind him only the sky. Light: clear midday sun from high at frame right. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 1 Character = 3 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -939,7 +942,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 28 - Three Grand Peacocks
 
-Images: attach `End frame V27` (opening image, saved from the approved Video 27) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V27` (opening image, saved from the approved Video 27) in the prompt box, no plate, nothing else. End frame V27 should look like the held last shot of Video 27: Full Shot (head to feet), Eye Level, Papa Yeti, and no one else. Papa Yeti walks into the wide, flowery meadow where two dirt roads cross and stops on the left third, looking toward frame right, curious face with one eyebrow raised and mouth closed, no smile. Light: warm early-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -961,7 +964,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 29 - A Smelly Old Bundle
 
-Images: attach `End frame V28` (opening image, saved from the approved Video 28) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V28` (opening image, saved from the approved Video 28) in the prompt box, no plate, nothing else. End frame V28 should look like the held last shot of Video 28: Over-the-Shoulder (from behind Papa Yeti toward the bundle on the grass), Eye Level, Papa Yeti, and no one else. Papa Yeti in the foreground on the left third, seen from behind over his shoulder, thick fur covering the whole back and no tail, looks down at the long, lumpy bundle wrapped in white cloth lying in the grass by the handcart. Light: warm early-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -983,7 +986,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 30 - Said the Middle One
 
-Images: attach `End frame V29` (saved from the approved Video 29), then `Plate - Crossroads Meadow`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
+Images: attach `End frame V29` (saved from the approved Video 29), then `Plate - Crossroads Meadow`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V29 should look like the held last shot of Video 29: Medium Close-Up (chest up), Eye Level, Papa Yeti, and no one else. Papa Yeti blinks and looks toward frame right, curious face with one eyebrow raised and mouth closed, no smile, behind him only the still meadow. Light: warm early-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1005,7 +1008,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 31 - Bury It
 
-Images: attach `End frame V30` (saved from the approved Video 30), then `Plate - Crossroads Meadow`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
+Images: attach `End frame V30` (saved from the approved Video 30), then `Plate - Crossroads Meadow`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V30 should look like the held last shot of Video 30: Over-the-Shoulder (from behind the Grand Peacock toward Papa Yeti), gentle High Angle, one Grand Peacock, the middle one, and Papa Yeti, and no one else. The Grand Peacock in the foreground on the right third, seen from behind, looks down its beak at Papa Yeti, who stands on the left third looking up politely, curious face with one eyebrow raised and mouth closed, no smile. Light: warm early-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1027,7 +1030,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 32 - Yes, of Course
 
-Images: attach `End frame V31` (opening image, saved from the approved Video 31) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V31` (opening image, saved from the approved Video 31) in the prompt box, no plate, nothing else. End frame V31 should look like the held last shot of Video 31: Close-Up (shoulders to top of head), Eye Level, Papa Yeti, and no one else. Papa Yeti looks at the coins and remembers, curious face with one eyebrow raised and mouth closed, no smile, behind him only the still meadow. Light: warm early-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1049,7 +1052,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 33 - Noses in the Air
 
-Images: attach `End frame V32` (opening image, saved from the approved Video 32) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V32` (opening image, saved from the approved Video 32) in the prompt box, no plate, nothing else. End frame V32 should look like the held last shot of Video 32: Medium Close-Up (chest up), Eye Level, Papa Yeti, and no one else. Papa Yeti, his face turned three-quarters toward the camera, answers brightly, wide cheerful toothy smile with square white teeth, then he nods with his mouth closed, behind him only the still meadow. Light: warm early-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1071,7 +1074,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 34 - Dug and Dug
 
-Images: attach `End frame V33` (opening image, saved from the approved Video 33) in the prompt box, no plate, nothing else. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
+Images: attach `End frame V33` (opening image, saved from the approved Video 33) in the prompt box, no plate, nothing else. End frame V33 should look like the held last shot of Video 33: Medium Close-Up (chest up), Eye Level, Papa Yeti, and no one else. Papa Yeti, holding the spade, watches them go toward frame right, curious face with one eyebrow raised and mouth closed, no smile, behind him only the still meadow. Light: warm early-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -1093,7 +1096,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 35 - A Big, Happy Breath
 
-Images: attach `End frame V34` (opening image, saved from the approved Video 34) in the prompt box, no plate, nothing else. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
+Images: attach `End frame V34` (opening image, saved from the approved Video 34) in the prompt box, no plate, nothing else. End frame V34 should look like the held last shot of Video 34: Full Shot (head to feet), Eye Level, Papa Yeti, and no one else. Papa Yeti, on the right third, digs on beside a deep, neat pit opening in the meadow grass, the earth heap tall beside it, determined face with eyebrows lowered and mouth pressed shut, no smile. Light: warm early-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -1115,7 +1118,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 36 - Surprisingly Heavy
 
-Images: attach `End frame V35` (opening image, saved from the approved Video 35) in the prompt box, no plate, nothing else. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
+Images: attach `End frame V35` (opening image, saved from the approved Video 35) in the prompt box, no plate, nothing else. End frame V35 should look like the held last shot of Video 35: Full Shot (head to feet), Eye Level, Papa Yeti, and no one else. Papa Yeti bends down and lifts the long, lumpy bundle in white cloth from the grass in both five-fingered hands, curious face with mouth closed, no smile. Light: warm early-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -1137,7 +1140,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 37 - It Was Treasure
 
-Images: attach `End frame V36` (opening image, saved from the approved Video 36) in the prompt box, no plate, nothing else. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
+Images: attach `End frame V36` (opening image, saved from the approved Video 36) in the prompt box, no plate, nothing else. End frame V36 should look like the held last shot of Video 36: Insert (the bundle in his arms filling the frame), Eye Level, Papa Yeti, seen only as his arms around the bundle, and no one else. The old string slips loose and the white cloth begins to fall open. Light: warm early-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -1159,7 +1162,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 38 - Jewels and Gold
 
-Images: attach `End frame V37` (opening image, saved from the approved Video 37) in the prompt box, no plate, nothing else. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
+Images: attach `End frame V37` (opening image, saved from the approved Video 37) in the prompt box, no plate, nothing else. End frame V37 should look like the held last shot of Video 37: Close-Up (shoulders to top of head), Eye Level, Papa Yeti, and no one else. Papa Yeti stares down at the treasure, alarmed face with eyebrows raised high and eyes opened wide, mouth closed, no smile, golden light reflecting softly on his face. Light: warm early-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 1 Character = 2 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -1203,7 +1206,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 40 - How Wonderful
 
-Images: attach `End frame V39` (opening image, saved from the approved Video 39) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V39` (opening image, saved from the approved Video 39) in the prompt box, no plate, nothing else. End frame V39 should look like the held last shot of Video 39: Insert (the step and the bundle filling the frame), High Angle, Papa Yeti, seen only as his two five-fingered hands opening the cloth, and no one else. His hands fold back the white cloth and gold begins to spill out across the step. Light: warm late-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1225,7 +1228,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 41 - A Sparkling Necklace
 
-Images: attach `End frame V40` (opening image, saved from the approved Video 40) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V40` (opening image, saved from the approved Video 40) in the prompt box, no plate, nothing else. End frame V40 should look like the held last shot of Video 40: Medium Close-Up (chest up), Eye Level, Mama Yeti, and no one else. Mama Yeti, her face turned three-quarters toward the camera, her hands still on her chest, cries out with joy, wide cheerful toothy smile with square white teeth. Light: warm late-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1247,7 +1250,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 42 - Over the Stick Fence
 
-Images: attach `End frame V41` (saved from the approved Video 41), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
+Images: attach `End frame V41` (saved from the approved Video 41), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V41 should look like the held last shot of Video 41: Close-Up (shoulders to top of head), Eye Level, Babu Yeti, and no one else. Babu Yeti holds the necklace up in front of his face, his oversized eyes shining, cute playful smile, then turns his face three-quarters toward the camera and begins to speak in wonder. Light: warm late-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -1269,7 +1272,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 43 - Come and See
 
-Images: attach `End frame V42` (opening image, saved from the approved Video 42) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V42` (opening image, saved from the approved Video 42) in the prompt box, no plate, nothing else. End frame V42 should look like the held last shot of Video 42: Medium Close-Up (chest up), Eye Level, Mama Yeti, and no one else. Mama Yeti waves one five-fingered hand high down the lane toward frame right, wide cheerful toothy smile, mouth closed, behind her only the still cottage and fence. Light: warm late-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1292,7 +1295,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 44 - Terribly Jealous
 
-Images: attach `End frame V43` (saved from the approved Video 43), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
+Images: attach `End frame V43` (saved from the approved Video 43), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V43 should look like the held last shot of Video 43: Medium Shot (waist up), Eye Level, Mama Yeti, and no one else. Mama Yeti beckons the Woolly Hares closer toward frame left with one five-fingered hand, wide cheerful toothy smile, mouth closed. Light: warm late-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -1314,7 +1317,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 45 - Straight to the Palace
 
-Images: attach `End frame V44` (opening image, saved from the approved Video 44) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V44` (opening image, saved from the approved Video 44) in the prompt box, no plate, nothing else. End frame V44 should look like the held last shot of Video 44: Close-Up (his face filling the frame), Low Angle, Tashi Marmot, and no one else. Tashi Marmot's eyes narrow and his paws grip the top of the wall, jealous and sour, mouth closed, behind him only the still painted house. Light: warm late-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1336,7 +1339,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 46 - Before the Queen
 
-Images: attach `End frame V45` (opening image, saved from the approved Video 45), then `Plate - Palace Hall` (the location it cuts to) in the prompt box, nothing else. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
+Images: attach `End frame V45` (opening image, saved from the approved Video 45), then `Plate - Palace Hall` (the location it cuts to) in the prompt box, nothing else. End frame V45 should look like the held last shot of Video 45: Medium Shot (waist up), Eye Level, Papa Yeti, and no one else. Papa Yeti sits on the porch step on the left third, happily stacking gold coins into neat little piles with his five-fingered hands, wide cheerful toothy smile, mouth closed. Light: warm late-afternoon sun from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 3 Characters = 5 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -1358,7 +1361,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 47 - Bring Him Here
 
-Images: attach `End frame V46` (saved from the approved Video 46), then `Plate - Palace Hall`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
+Images: attach `End frame V46` (saved from the approved Video 46), then `Plate - Palace Hall`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V46 should look like the held last shot of Video 46: Medium Close-Up (head and chest), Eye Level, Snow Leopard Queen, and no one else. Snow Leopard Queen, on her throne on the right third, looks down toward frame left, stern and regal, mouth closed. Light: warm late-afternoon sun slanting through the lattice windows from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1380,7 +1383,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 48 - Three Firm Knocks
 
-Images: attach `End frame V47` (saved from the approved Video 47), then `Plate - Palace Hall`, then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 3 images + 3 Characters = 6 of 7. Characters: 3 of 3.
+Images: attach `End frame V47` (saved from the approved Video 47), then `Plate - Palace Hall`, then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V47 should look like the held last shot of Video 47: Medium Shot (seated on the throne, waist up), Low Angle, Snow Leopard Queen, and no one else. Snow Leopard Queen raises one paw, then, her face turned three-quarters toward the camera, gives her command in a firm, calm voice. Light: warm late-afternoon sun slanting through the lattice windows from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 3 images + 3 Characters = 6 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -1424,7 +1427,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 50 - The Hall Grew Dim
 
-Images: attach `End frame V49` (opening image, saved from the approved Video 49) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V49` (opening image, saved from the approved Video 49) in the prompt box, no plate, nothing else. End frame V49 should look like the held last shot of Video 49: Medium Shot (waist up), Low Angle, Papa Yeti, and no one else. Papa Yeti stops at the foot of the dais and looks up toward the throne off-screen at frame right, worried face, mouth closed, no smile, behind him only the still pillars. Light: warm late-afternoon sun slanting through the lattice windows from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1447,7 +1450,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 51 - The Yak's Wisdom
 
-Images: attach `End frame V50` (saved from the approved Video 50), then `Plate - Palace Hall`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 1 Character = 3 of 7. Characters: 1 of 3.
+Images: attach `End frame V50` (saved from the approved Video 50), then `Plate - Palace Hall`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V50 should look like the held last shot of Video 50: Medium Close-Up (head and chest), Low Angle, Snow Leopard Queen, and no one else. Snow Leopard Queen, her face turned three-quarters toward the camera, asks her question sternly. Light: the window light dimmed behind a passing cloud. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 1 Character = 3 of 7. Characters: 1 of 3.
 
 Agent prompt:
 
@@ -1469,7 +1472,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 52 - The Whole Truth
 
-Images: attach `End frame V51` (opening image, saved from the approved Video 51) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V51` (opening image, saved from the approved Video 51) in the prompt box, no plate, nothing else. End frame V51 should look like the held last shot of Video 51: Medium Shot (waist up), Eye Level, Papa Yeti, and no one else. Papa Yeti lifts his chin and puts one five-fingered hand on his chest, determined face with eyebrows lowered, eyes narrowed, and mouth pressed shut, no smile. Light: the window light dimmed behind a passing cloud. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1491,7 +1494,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 53 - Her Stern Eyes Softened
 
-Images: attach `End frame V52` (saved from the approved Video 52), then `Plate - Palace Hall`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
+Images: attach `End frame V52` (saved from the approved Video 52), then `Plate - Palace Hall`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V52 should look like the held last shot of Video 52: Close-Up (shoulders to top of head), Eye Level, Papa Yeti, and no one else. Papa Yeti, his face turned three-quarters toward the camera, speaks honestly and simply, determined face with eyebrows lowered, no smile, behind him only the still, dim pillars. Light: the window light dimmed behind a passing cloud. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1513,7 +1516,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 54 - The Sun Came Back
 
-Images: attach `End frame V53` (saved from the approved Video 53), then `Plate - Palace Hall`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
+Images: attach `End frame V53` (saved from the approved Video 53), then `Plate - Palace Hall`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V53 should look like the held last shot of Video 53: Close-Up (her face filling the frame), gentle Low Angle, Snow Leopard Queen, and no one else. The sternness slowly melts from Snow Leopard Queen's pale green eyes into a softer, thoughtful look, mouth closed. Light: the window light dimmed behind a passing cloud. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1535,7 +1538,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 55 - You Are Forgiven
 
-Images: attach `End frame V54` (saved from the approved Video 54), then `Plate - Palace Hall`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
+Images: attach `End frame V54` (saved from the approved Video 54), then `Plate - Palace Hall`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V54 should look like the held last shot of Video 54: Wide Shot (the lattice windows and the hall), Eye Level, no characters, only the lattice windows and the hall. Warm sunlight streams back in through the tall carved lattice windows and spreads across the polished floor and the red runner. Light: warm late-afternoon sun returning through the lattice windows from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1579,7 +1582,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 57 - Papa's Home
 
-Images: attach `End frame V56` (opening image, saved from the approved Video 56) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
+Images: attach `End frame V56` (opening image, saved from the approved Video 56) in the prompt box, no plate, nothing else. End frame V56 should look like the held last shot of Video 56: Full Shot (head to feet), Eye Level, Babu Yeti, and no one else. Babu Yeti jumps down from the porch steps and runs toward frame right, cute playful smile. Light: low golden sunset light from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -1601,7 +1604,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 58 - I'm Sorry
 
-Images: attach `End frame V57` (opening image, saved from the approved Video 57) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V57` (opening image, saved from the approved Video 57) in the prompt box, no plate, nothing else. End frame V57 should look like the held last shot of Video 57: Medium Shot (head to waist), Eye Level, Tashi Marmot, and no one else. Tashi Marmot stands alone at his carved wooden gate on the right third, small and quiet, mouth closed. Light: low golden sunset light from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1623,7 +1626,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 59 - Share Our Supper
 
-Images: attach `End frame V58` (saved from the approved Video 58), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
+Images: attach `End frame V58` (saved from the approved Video 58), then `Plate - Village Lane`, in the prompt box, nothing else. The video opens on a cut at the handoff. End frame V58 should look like the held last shot of Video 58: Close-Up (his face filling the frame), Eye Level, Tashi Marmot, and no one else. Tashi Marmot, his face turned three-quarters toward the camera, says sorry in a small voice, eyes lowered, sad. Light: low golden sunset light from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1645,7 +1648,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 60 - Together to the Porch
 
-Images: attach `End frame V59` (opening image, saved from the approved Video 59) in the prompt box, no plate, nothing else. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
+Images: attach `End frame V59` (opening image, saved from the approved Video 59) in the prompt box, no plate, nothing else. End frame V59 should look like the held last shot of Video 59: Medium Close-Up (head and chest), Eye Level, Tashi Marmot, and no one else. Tashi Marmot looks up at the offered hand, his ears lifting, a shy, hopeful look, mouth closed. Light: low golden sunset light from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3.
 
 Agent prompt:
 
@@ -1667,7 +1670,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 61 - A Steaming Pot of Rice
 
-Images: attach `End frame V60` (opening image, saved from the approved Video 60) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
+Images: attach `End frame V60` (opening image, saved from the approved Video 60) in the prompt box, no plate, nothing else. End frame V60 should look like the held last shot of Video 60: Full Shot (head to feet, seen from the side), Eye Level, Papa Yeti and Tashi Marmot, and no one else. Papa Yeti and Tashi Marmot walk together hand in hand along the lane toward the porch at frame left, Papa Yeti on the left and Tashi Marmot on the right, Papa Yeti with a gentle closed-mouth smile. Light: low golden sunset light from frame left. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -1689,7 +1692,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 62 - A Bowl of His Own
 
-Images: attach `End frame V61` (opening image, saved from the approved Video 61) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
+Images: attach `End frame V61` (opening image, saved from the approved Video 61) in the prompt box, no plate, nothing else. End frame V61 should look like the held last shot of Video 61: Medium Close-Up (chest up), Eye Level, Mama Yeti, and no one else. Mama Yeti sets down a stack of wooden bowls beside the pot and looks up toward frame right with her warmest smile, wide cheerful toothy smile with square white teeth, mouth not speaking. Light: the last golden sunset light from frame left fading to dusk. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -1711,7 +1714,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 63 - The First Stars
 
-Images: attach `End frame V62` (opening image, saved from the approved Video 62) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
+Images: attach `End frame V62` (opening image, saved from the approved Video 62) in the prompt box, no plate, nothing else. End frame V62 should look like the held last shot of Video 62: Medium Three-Shot (three subjects, waist up), Eye Level, Papa Yeti, Babu Yeti, and Mama Yeti, and no one else. Papa Yeti on the left third, Babu Yeti in the centre, his curl reaching only to the grown-ups' bellies, and Mama Yeti on the right third sit together on the porch steps with their bowls, gentle closed-mouth smiles with soft, warm eyes. Light: the last golden sunset light from frame left fading to dusk. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -1733,7 +1736,7 @@ Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, ex
 
 ## Video 64 - The Greatest Treasure
 
-Images: attach `End frame V63` (opening image, saved from the approved Video 63) in the prompt box, no plate, nothing else. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
+Images: attach `End frame V63` (opening image, saved from the approved Video 63) in the prompt box, no plate, nothing else. End frame V63 should look like the held last shot of Video 63: Medium Three-Shot (three subjects, waist up), Eye Level, Papa Yeti, Babu Yeti, and Mama Yeti, and no one else. The family sits close on the porch steps in the lantern glow, Babu Yeti leaning against Mama Yeti, his curl reaching only to her belly, all three with gentle closed-mouth smiles and soft, warm eyes. Light: the last golden sunset light from frame left fading to dusk. If Flow moved that shot within the clip, pause on it and use Save frame at playhead. References: 1 image + 3 Characters = 4 of 7. Characters: 3 of 3.
 
 Agent prompt:
 
@@ -1749,6 +1752,73 @@ Voices: Narrator (off-screen, never shown): a deep, warm, clear grown-up storyte
 Speech: 00:00.7-00:03.8, Narrator, off-screen: "An honest heart is the greatest treasure." Each line is spoken once, exactly as written and at exactly these times, in English, one voice at a time; only the speaking character's mouth moves, in time with the words, and every other mouth stays closed.
 Sound: the fiddle plays the theme one last time, slow and resolved, with a final soft dulcimer chime, kept low under every spoken line. Evening crickets. No lyrics, no singing, no other voices.
 Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, an ape-like or gorilla-like body, clothing, hats, or accessories, on-screen text, captions, subtitles, borders, split screens, moving mouths on characters who are not speaking, overlapping voices, singing.
+```
+
+---
+
+## Pick-up 1 - Papa Takes the Coins
+
+Pick-up: continuity fix: Video 11's last shot shows only Babu Yeti's hands opening an empty money box, so the two copper coins the narration names never appear; this shows Papa Yeti taking the box from Babu Yeti and lifting out the two coins. Cut over Video 11 from 00:08.1 to 00:10 and on over Video 12 from 00:00 to 00:06.6 (the shots under "He lifted the lid. Inside lay exactly two copper coins, all the family had saved."); its last shot can also cover the start of Video 13. Edit mode: overlay, with the recorded narration playing under it.
+
+Images: attach `Plate - Village Lane` in the prompt box, nothing else, as a reference for the place and the light, with no first-frame match. References: 1 image + 2 Characters = 3 of 7. Characters: 2 of 3. Not part of the end-frame chain: it opens on no end frame and saves none.
+
+Agent prompt:
+
+```text
+Generate Pick-up 1 - Papa Takes the Coins as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. It is a pick-up shot, an extra clip for the edit and not one of the 64 numbered videos: it does not open on an end frame and does not save one. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode, using the image Plate - Village Lane and every @ Character in the Cast line together as references for the place and the light. Name the clip "Pick-up 1 - Papa Takes the Coins - take <n>".
+Horizontal 16:9 video, 720p, 10 seconds, four shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Cast: @Papa Yeti and @Babu Yeti. Papa Yeti and Babu Yeti exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Each shot shows only the characters its In frame list names, each exactly once. No other characters.
+Setting: A small Himalayan mountain village, a narrow earthen lane running between two homes: on the left, a humble little stone-and-timber cottage with a sagging slate roof, a woven bamboo door, a small oil lantern hanging beside the door, worn wooden porch steps, and a tiny vegetable patch fenced with sticks, and on the right, behind a low whitewashed wall with a carved wooden gate, a grand three-storey house with brightly painted window frames, a golden rooftop finial, and a big stone storehouse heaped with sacks of grain, with green terraced fields, strings of plain faded cloth flags, and tall snowy peaks behind.
+00:00-00:03, Medium Two-Shot (two subjects, waist up), Eye Level. In frame: Papa Yeti and Babu Yeti, and no one else. On the earthen lane before the cottage porch, Papa Yeti kneels on the left third so his face is level with Babu Yeti, who stands on the right third holding the little carved wooden money box (a small, plain-brown carved wooden box with flowers carved on its lid and sides, a coin slot in the lid, and a small brass latch) in both five-fingered hands, his curl reaching only to Papa Yeti's belly when Papa stands. Babu Yeti holds the box out and Papa Yeti takes it gently in both big five-fingered hands, both with gentle closed-mouth smiles, mouths closed. Static, from rest. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
+00:03-00:05, Insert (the open box filling the frame), High Angle. In frame: Papa Yeti, seen only as his two big five-fingered hands holding the money box, and no one else. Papa Yeti's thumb lifts the carved lid, and inside the box lie exactly two round copper coins on a scrap of worn cloth; the box is not empty, and the morning light catches the coins' edges. Static. Light: soft morning sunlight from frame right, warm light on the carved wood, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
+00:05-00:07, Extreme Close-Up (one hand and the coins, edges cut off by the frame), High Angle. In frame: Papa Yeti, seen only as his big five-fingered hand, and no one else. Papa Yeti's thumb and forefinger pick up the two copper coins together from the cloth and lift them out of the box into his open palm, exactly two coins, glinting. Static. Light: soft morning sunlight from frame right, warm light on the carved wood, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
+00:07-00:10, Medium Close-Up (chest up), Eye Level. In frame: Papa Yeti, and no one else. Papa Yeti, still kneeling on the left third, his face turned three-quarters toward the camera, closes his five-fingered hand around the two coins and holds it to his chest, looking down toward Babu Yeti off-screen at frame right, gentle closed-mouth smile with soft, warm eyes, mouth closed; behind him only the still cottage wall. Slow dolly in, easing to a stop in the last half second, ending on a held frame. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
+Sound: the fiddle and lute play a tender, hopeful phrase, soft and low. Morning birdsong and a soft breeze. The soft click of the little wooden lid and a faint clink of two coins. No dialogue, no lyrics.
+Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, an ape-like or gorilla-like body, clothing, hats, or accessories, an empty money box, more or fewer than two coins, on-screen text, captions, subtitles, borders, split screens, talking, moving mouths, singing.
+```
+
+---
+
+## Pick-up 2 - Babu Tips the Coins
+
+Pick-up: continuity fix: Video 13's first shot crowds the whole tipping into one dolly that ends on hands alone, so the moment Babu Yeti tips the coins into Papa Yeti's hand is easily lost; this shows Papa Yeti kneeling, Babu Yeti tipping the open money box, and the two copper coins sliding into Papa Yeti's big open hand. Cut over Video 12 from 00:06.6 to 00:10 and on over Video 13 from 00:00 to 00:04.2 (the shots under "Papa Yeti knelt down, and Babu Yeti tipped the coins into his big open hand."), its 00:00 at Video 12's 00:06.6; its last shot, from 00:07, is a handle to trim. Edit mode: overlay, with the recorded narration playing under it.
+
+Images: attach `Plate - Village Lane` and `End frame V12` in the prompt box, nothing else, as references for the place, the light, and where Papa Yeti and Babu Yeti are, with no first-frame match. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3. Not part of the end-frame chain: it opens on no end frame and saves none.
+
+Agent prompt:
+
+```text
+Generate Pick-up 2 - Babu Tips the Coins as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. It is a pick-up shot, an extra clip for the edit and not one of the 64 numbered videos: it does not open on an end frame and does not save one. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode, using the images Plate - Village Lane and End frame V12 and every @ Character in the Cast line together as references for the place, the light, and where everyone is. Name the clip "Pick-up 2 - Babu Tips the Coins - take <n>".
+Horizontal 16:9 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Cast: @Papa Yeti and @Babu Yeti. Papa Yeti and Babu Yeti exactly as their saved Characters. Babu Yeti is a small baby; the top of his curl reaches only to the grown-ups' bellies. Each shot shows only the characters its In frame list names, each exactly once. No other characters.
+Setting: A small Himalayan mountain village, a narrow earthen lane running between two homes: on the left, a humble little stone-and-timber cottage with a sagging slate roof, a woven bamboo door, a small oil lantern hanging beside the door, worn wooden porch steps, and a tiny vegetable patch fenced with sticks, and on the right, behind a low whitewashed wall with a carved wooden gate, a grand three-storey house with brightly painted window frames, a golden rooftop finial, and a big stone storehouse heaped with sacks of grain, with green terraced fields, strings of plain faded cloth flags, and tall snowy peaks behind.
+00:00-00:03, Medium Two-Shot (two subjects, waist up), Eye Level. In frame: Papa Yeti and Babu Yeti, and no one else. On the earthen lane before the cottage porch, Papa Yeti on the left third, holding the little carved wooden money box open in one big five-fingered hand, kneels down slowly onto one knee so his face comes level with Babu Yeti, who stands on the right third, his curl reaching only to Papa Yeti's belly when Papa stands, and reaches both small five-fingered hands toward the box; both faces in three-quarter view toward each other, gentle closed-mouth smiles, mouths closed and still for the whole shot. Static, from rest. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
+00:03-00:07, Close-Up (the box and the hands filling the frame), Eye Level. In frame: Papa Yeti, seen only as his two big five-fingered hands, and Babu Yeti, seen only as his two small five-fingered hands, and no one else. Papa Yeti holds the open box low in one hand and holds his other big hand open, palm up, just beneath its edge; Babu Yeti's two small hands take hold of the box and tip it gently, and exactly two round copper coins slide out over the edge and drop, one after the other, into Papa Yeti's big open palm, glinting. Slow dolly in. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
+00:07-00:10, Medium Two-Shot (two subjects, waist up), Eye Level. In frame: Papa Yeti and Babu Yeti, and no one else. Papa Yeti, still kneeling on the left third, looks down at the two copper coins lying in his big open five-fingered palm, the hand still open, while Babu Yeti on the right third holds the empty box against his tummy and looks at the coins too; gentle closed-mouth smiles with soft, warm eyes, mouths closed and still for the whole shot. Static, ending on a held frame. Light: soft morning sunlight from frame right over the peaks, cool blue sky fill, warm rim on the fur, clear air around the Yetis, high-key, slate-grey, timber-brown and field-green palette, hopeful, shallow focus.
+Sound: the fiddle and lute play a tender, hopeful phrase, soft and low. Morning birdsong and a soft breeze. The soft creak of a knee on earth, the wooden box tilting, and a faint clink of two coins landing in a palm. No dialogue, no lyrics.
+Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, an ape-like or gorilla-like body, clothing, hats, or accessories, an empty money box, more or fewer than two coins, coins falling to the ground, on-screen text, captions, subtitles, borders, split screens, talking, moving mouths, singing.
+```
+
+---
+
+## Pick-up 3 - Three Silver Coins
+
+Pick-up: continuity fix: Video 31's insert of the Grand Peacock's wing tip tipping the coins needs a clean, close picture of exactly three small silver coins landing in Papa Yeti's open hand; this is that close-up, opening on the saved frame of the wing tip and the palm. Cut over Video 31 from 00:03.8 to 00:08.2 (the shot under "And it tipped three small silver coins into his hand."), using the pick-up's 00:00 to about 00:04.4; everything after 00:05 is a handle to trim. Edit mode: overlay, with the recorded narration playing under it.
+
+Images: attach `Frame - Wing Tip and Coins` (the saved close-up of the Grand Peacock's blue wing tip tipping three silver coins over Papa Yeti's open hand in the meadow), then `Plate - Crossroads Meadow`, in the prompt box, nothing else; the first frame matches `Frame - Wing Tip and Coins`, and the plate is a reference for the place and the light only. References: 2 images + 2 Characters = 4 of 7. Characters: 2 of 3. Not part of the end-frame chain: it opens on no end frame and saves none.
+
+Agent prompt:
+
+```text
+Generate Pick-up 3 - Three Silver Coins as one 10-second Omni 1.2 Flash video, horizontal 16:9, 720p, exactly as written below. It is a pick-up shot, an extra clip for the edit and not one of the 64 numbered videos: it does not open on an end frame and does not save one. Generate it in Reference-to-Video (R2V, Ingredients) mode, never First Frame (I2V) mode, using the images Frame - Wing Tip and Coins and Plate - Crossroads Meadow and every @ Character in the Cast line together as references, and make the first frame match the image Frame - Wing Tip and Coins. Name the clip "Pick-up 3 - Three Silver Coins - take <n>".
+Horizontal 16:9 video, 720p, 10 seconds, three shots joined by hard cuts. 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
+Cast: @Papa Yeti and one @Grand Peacock. Papa Yeti and the Grand Peacock exactly as their saved Characters, seen only as Papa Yeti's hand and arm and the Grand Peacock's wing tip. Each shot shows only the characters its In frame list names, each exactly once. No other characters.
+Setting: A wide, flowery mountain meadow where two dirt roads cross, a small empty wooden handcart parked by the crossing with a wooden spade leaning against its side, soft green grass dotted with yellow and purple wildflowers, a lone old walnut tree at the edge, gentle green hills, and snowy peaks behind under scattered white clouds.
+00:00-00:03, Close-Up (the wing tip and the open palm filling the frame), Eye Level. In frame: one Grand Peacock, seen only as its blue wing tip at frame left, and Papa Yeti, seen only as his open five-fingered hand and furry sapphire-blue forearm reaching in from frame right, and no one else. Opening on the picture of Frame - Wing Tip and Coins, the Grand Peacock's wing tip tilts gently, and three small round silver coins slide off its feathers one after another and drop softly into the middle of Papa Yeti's open palm, where they settle side by side, glinting; the hand stays open and still, palm up, a thumb and four fingers. Static, from rest. Light: warm early-afternoon sun from frame left, warm rim on the fur, high-key, meadow-green and silver palette, curious, shallow focus.
+00:03-00:05, Extreme Close-Up (the palm and the coins, edges cut off by the frame), High Angle. In frame: Papa Yeti, seen only as his open five-fingered hand, and no one else. Exactly three small round silver coins rest in Papa Yeti's light periwinkle-blue palm, sunlight glinting on their edges, the wing tip gone from frame; the fingers stay open. Static. Light: warm early-afternoon sun from frame left, warm rim on the fur, high-key, meadow-green and silver palette, curious, shallow focus.
+00:05-00:10, Close-Up (the open hand and the coins filling the frame), Eye Level. In frame: Papa Yeti, seen only as his open five-fingered hand and furry sapphire-blue forearm, and no one else. Papa Yeti's open hand holds the three small silver coins still in the sun, the blurred flowery meadow behind; the hand does not close. Static, ending on a held frame. Light: warm early-afternoon sun from frame left, warm rim on the fur, high-key, meadow-green and silver palette, curious, shallow focus.
+Sound: the oboe softens to a light, curious note, soft and low. Meadow birdsong. Three small silver coins clinking softly into a palm, one after another. No dialogue, no lyrics.
+Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, an ape-like or gorilla-like body, clothing, hats, or accessories, more or fewer than three coins, gold or copper coins, coins falling to the ground, the hand closing, on-screen text, captions, subtitles, borders, split screens, talking, moving mouths, singing, any Grand Peacock head or body.
 ```
 
 ---
