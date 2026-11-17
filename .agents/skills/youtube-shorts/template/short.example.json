@@ -1,0 +1,65 @@
+{
+  "title": "Papa Yeti and the Two Coins - 30-second Short",
+  "slug": "papa-yeti-two-coins-short-30s",
+  "length": 30,
+  "fullVideo": "https://youtu.be/SZ1ZbpdujLw",
+  "source": "../../Final__111626 – Papa Yeti and the Two Coins of Wisdom.mp4",
+  "vo": "vo/story-full.wav",
+  "voice": {
+    "name": "Charon",
+    "style": "Urgent, intrigued YouTube Shorts storyteller, punchy and quick, building suspense"
+  },
+  "bed": {
+    "file": "../../papa-yeti-and-the-two-coins-of-wisdom-music-sfx-bed.wav",
+    "start": 455,
+    "gainDb": -15
+  },
+  "music": {
+    "title": "Two Coins teaser",
+    "tempo": "4/4, 112 BPM",
+    "prompt": "Instrumental only. Suspenseful, playful storybook underscore for a children's animated YouTube Short: plucked strings, soft marimba, light taiko pulse, warm Himalayan flute colour, rising tension toward a cliffhanger ending. No vocals, no choir, no sound effects, no ambience."
+  },
+  "tail": 1.2,
+  "sections": [
+    {
+      "text": "Imagine your family is starving, you only have two coins left... and instead of buying food, you spend them both on advice.",
+      "headline": ["HE SPENT HIS LAST", "2 COINS ON...", "ADVICE?! 🪙😱"],
+      "shots": [
+        { "id": "bowls", "from": 54.4, "to": 59.8, "cx": 0.49 },
+        { "id": "coins", "from": 124.55, "to": 127.7, "cx": 0.46, "at": "two" },
+        { "id": "papa-coin", "from": 127.76, "to": 130.15, "cx": 0.32, "at": "spend" }
+      ]
+    },
+    {
+      "text": "That's exactly what Papa Yeti did. A tricky magpie told him to obey respectable folk, and a wise old yak told him to always tell the Queen the truth.",
+      "headline": ["2 STRANGERS.", "2 SIMPLE RULES."],
+      "shots": [
+        { "id": "papa-grin", "from": 244.4, "to": 247.8, "cx": 0.5 },
+        { "id": "magpie-close", "from": 175.1, "to": 178.2, "cx": 0.5, "at": "tricky" },
+        { "id": "magpie-wing", "from": 178.25, "to": 183.3, "cx": 0.45, "at": "obey" },
+        { "id": "yak-stall", "from": 247.9, "to": 250.3, "cx": 0.42, "at": "wise" },
+        { "id": "yak-tea", "from": 250.4, "to": 252.95, "cx": 0.3, "at": "always" }
+      ]
+    },
+    {
+      "text": "Minutes later, those rules led him straight to a massive pile of gold, and landed him in front of a furious Snow Leopard Queen, accused of stealing it!",
+      "headline": ["TREASURE…", "OR A TRAP? 👑"],
+      "shots": [
+        { "id": "bundle", "from": 357.5, "to": 360.0, "cx": 0.5 },
+        { "id": "treasure", "from": 360.05, "to": 366.8, "cx": 0.5, "at": "massive" },
+        { "id": "queen", "from": 494.0, "to": 497.4, "cx": 0.5, "at": "landed" },
+        { "id": "queen-stern", "from": 462.75, "to": 466.9, "cx": 0.48, "at": "furious" }
+      ]
+    },
+    {
+      "text": "Did his honesty save him, or did his jealous neighbour win? Tap the linked video below to watch the full story!",
+      "headline": ["WATCH FULL STORY 👇"],
+      "cta": true,
+      "shots": [
+        { "id": "papa-hall", "from": 487.65, "to": 490.6, "cx": 0.43 },
+        { "id": "tashi", "from": 460.72, "to": 462.65, "cx": 0.5, "at": "jealous" },
+        { "id": "papa-close", "from": 500.4, "to": 507.2, "cx": 0.5, "at": "tap", "hold": 1.6 }
+      ]
+    }
+  ]
+}
