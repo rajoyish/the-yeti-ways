@@ -6,6 +6,15 @@ Source: `prompts/babu-yeti-moonlit-herb-rescue-30s-storyboard.md` (Videos 1 to 3
 
 Draft changes: every trait from the storyboard's `Animals:` sentence is kept (plump, round body, soft white feathers flecked with tiny charcoal speckles, large round amber eyes, short hooked grey beak, fluffy feathered white feet, nothing on its legs). Gaps filled: a big round cartoon head with no ear tufts, broad rounded white wings with a few charcoal speckles, four short feathered toes on each foot ending in small, blunt, rounded charcoal-grey talon tips (the storyboard has it grip the pouch's red cord in its feet, so it needs toes that can hold), and a short, rounded white tail fan. The front pose spreads its wings partly open so the wing shape reads. Nothing added for originality.
 
+## Generated reference images
+
+Preparation status: exported from the saved Flow Character.
+
+- [Portrait: front view](../../references/characters/snowy-owl-front.jpg) — 1024 × 1024 JPEG, square 1:1.
+- [Body: turnaround](../../references/characters/snowy-owl-turnaround.jpg) — 1376 × 768 JPEG, approximately 16:9.
+
+Exported from the saved Flow Character's Portrait and Body slots at full resolution with the Flow Account Seeder; they are the images the Character was saved with.
+
 ## Character name
 
 `Snowy Owl` (called `@Snowy Owl` in Flow prompts)

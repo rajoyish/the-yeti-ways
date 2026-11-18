@@ -6,6 +6,15 @@ Source: `prompts/babu-yeti-moonlit-herb-rescue-30s-storyboard.md` (Video 3)
 
 Draft changes: every trait from the storyboard's `Humans:` sentence is kept (a child of about five, short dark hair in two tiny tufts, round cheeks, soft cream nightgown). Gaps filled: warm light-tan skin to match her grandfather, large warm brown eyes like her mother's, dark brown hair, a small button nose, an ankle-length long-sleeved nightgown with no pattern, bare feet with five toes each, and five fingers on each hand. Rule fix: the storyboard shows her "pale, sleepy" in Video 3; the Character is drawn healthy, rosy, and smiling, as a child is never shown ill in Character images, and the scene's acting supplies the sleepiness. Nothing added for originality.
 
+## Generated reference images
+
+Preparation status: exported from the saved Flow Character.
+
+- [Portrait: front view](../../references/characters/little-girl-front.jpg) — 1024 × 1024 JPEG, square 1:1.
+- [Body: turnaround](../../references/characters/little-girl-turnaround.jpg) — 1376 × 768 JPEG, approximately 16:9.
+
+Exported from the saved Flow Character's Portrait and Body slots at full resolution with the Flow Account Seeder; they are the images the Character was saved with.
+
 ## Character name
 
 `Little Girl` (called `@Little Girl` in Flow prompts)

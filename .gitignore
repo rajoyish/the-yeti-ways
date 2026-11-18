@@ -42,3 +42,6 @@ references/plates/
 *.m4a
 *.aac
 *.flac
+
+# Flow Account Seeder folders (copies of the images above)
+references/flow-seed/

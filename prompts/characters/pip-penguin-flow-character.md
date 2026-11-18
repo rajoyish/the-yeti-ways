@@ -4,6 +4,15 @@ A baby Adélie penguin, converted from a realistic wildlife-photo draft into a s
 
 Draft changes: dropped the scene and the photo terms ("realistic eye-level wildlife photograph", the snowy mound, the blue snow chunks, the blurred snowfields and glaciers, "telephoto lens", "shallow depth of field", "photorealistic", "8k resolution"), the snow dusting on the beak, and the beak turned to the left (the front view faces straight on; the turnaround shows the turns). Kept the black head, the distinct white eye-ring, the white throat and plump belly, the pale pink feet, and the outstretched flippers, which show the flippers clearly in the front view. Filled the gaps: a short black beak, dark-brown eyes, black backs of the flippers with white undersides, three webbed toes on each foot, and a tiny short black tail. The name is a suggestion; rename it before you save the Character. Antarctica belongs in a storyboard's `Environment:` sentence, not in the Character.
 
+## Generated reference images
+
+Preparation status: exported from the saved Flow Character.
+
+- [Portrait: front view](../../references/characters/pip-penguin-front.jpg) — 1024 × 1024 JPEG, square 1:1.
+- [Body: turnaround](../../references/characters/pip-penguin-turnaround.jpg) — 1376 × 768 JPEG, approximately 16:9.
+
+Exported from the saved Flow Character's Portrait and Body slots at full resolution with the Flow Account Seeder; they are the images the Character was saved with.
+
 ## Character name
 
 `Pip Penguin` (called `@Pip Penguin` in Flow prompts)

@@ -4,6 +4,15 @@ A baby polar bear cub, converted from a realistic wildlife-photo draft into a st
 
 Draft changes: dropped the scene and the photo terms ("realistic eye-level wildlife photograph", the flat snowy ridge, the blurred snowy Arctic hills, "diffused natural daylight", "shallow depth of field") and the turn to the right (the front view faces straight on; the turnaround shows the turns). Kept the fluffy white fur, the upright stance on the hind legs, the front paws raised near the chest, and the black paw pads, which the front view shows by turning the raised paws palm-out toward the camera. Filled the gaps: warm creamy-white fur (so she never reads as a white Yeti, the round ears, black nose, and bear muzzle do the rest), large dark-brown eyes, a black button nose and a small black-lined smiling mouth, five short rounded toes on every paw with black pads and no visible claws, and a tiny round stubby tail. Added one original detail: pale pink inner ears. The name and "she" are suggestions; rename it before you save the Character. The Arctic ridge belongs in a storyboard's `Environment:` sentence, not in the Character.
 
+## Generated reference images
+
+Preparation status: exported from the saved Flow Character.
+
+- [Portrait: front view](../../references/characters/nuri-bear-front.jpg) — 1024 × 1024 JPEG, square 1:1.
+- [Body: turnaround](../../references/characters/nuri-bear-turnaround.jpg) — 1376 × 768 JPEG, approximately 16:9.
+
+Exported from the saved Flow Character's Portrait and Body slots at full resolution with the Flow Account Seeder; they are the images the Character was saved with.
+
 ## Character name
 
 `Nuri Bear` (called `@Nuri Bear` in Flow prompts)

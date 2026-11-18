@@ -6,6 +6,15 @@ Source: `prompts/papa-yeti-hillside-roots-30s-storyboard.md` (Videos 1 to 3)
 
 Draft changes: every trait from the storyboard's `Cast:` description is kept (a sturdy man of about forty, round friendly face, warm brown skin, short black hair, thick black moustache, warm brown eyes, plain grey homespun wrapped tunic with a faded rust-red cloth sash, grey trousers rolled to the shin, black felt boots). Gaps filled: a broad, sturdy, rounded build, thick black eyebrows, a broad rounded nose, the tunic wrapped and tied at the left side and falling to mid-thigh with long sleeves rolled to the forearm, a small ear on each side, bare hands with five fingers each, and boots that reach the lower calf below the rolled trousers. The hoe and the iron trowel are left out: they are story props he picks up, not part of him, so both hands are free in the front view. Nothing added for originality; the storyboard's design is already its own.
 
+## Generated reference images
+
+Preparation status: exported from the saved Flow Character.
+
+- [Portrait: front view](../../references/characters/terrace-farmer-front.jpg) — 1024 × 1024 JPEG, square 1:1.
+- [Body: turnaround](../../references/characters/terrace-farmer-turnaround.jpg) — 1376 × 768 JPEG, approximately 16:9.
+
+Exported from the saved Flow Character's Portrait and Body slots at full resolution with the Flow Account Seeder; they are the images the Character was saved with.
+
 ## Character name
 
 `Terrace Farmer` (called `@Terrace Farmer` in Flow prompts)

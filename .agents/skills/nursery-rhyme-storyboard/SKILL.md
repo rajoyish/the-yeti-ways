@@ -3,15 +3,18 @@ name: nursery-rhyme-storyboard
 description: >-
   Create a Yeti nursery-rhyme storyboard using the user's exact lyrics,
   new AI children's vocals, and Google Flow for both sung music and video.
-  Write one 10-second Flow Agent prompt per stanza or whole-line segment,
-  with verbatim timed lyrics and off-screen children's singing while visible
-  characters act silently. Use for "nursery rhyme", "rhyme video", "turn these
-  lyrics into a song", "music video storyboard", "Yeti rhyme", or
-  /nursery-rhyme-storyboard. Asks first whether the film is vertical 9:16 or
-  horizontal 16:9. Includes 16:9 and 9:16 cover prompts. Also adds
-  silent pick-up shots (`## Pick-up N - <Title>`) to a finished rhyme film for
-  the edit: a continuity fix, a missing reaction, or a bridge, cut over the
-  song without changing a word of it.
+  Captures melody, key, meter, and instrumentation by listening to attached
+  audio or YouTube video references, and recommends unique instruments
+  (such as Nepalese/Himalayan folk instruments or handcrafted acoustic toys)
+  to make the song distinctive. Writes one 10-second Flow Agent prompt per stanza
+  or whole-line segment, with verbatim timed lyrics and off-screen children's
+  singing while visible characters act silently. Use for "nursery rhyme",
+  "rhyme video", "turn these lyrics into a song", "music video storyboard",
+  "Yeti rhyme", or /nursery-rhyme-storyboard. Asks first whether the film is
+  vertical 9:16 or horizontal 16:9. Includes 16:9 and 9:16 cover prompts.
+  Also adds silent pick-up shots (`## Pick-up N - <Title>`) to a finished rhyme
+  film for the edit: a continuity fix, a missing reaction, or a bridge, cut over
+  the song without changing a word of it.
 ---
 
 # Supplied lyrics to a Google Flow song film
@@ -46,9 +49,12 @@ plate, and Agent prompt, and compose every shot for that frame.
 
 - Full lyrics are required. If absent, ask only for them. Never complete a
   familiar rhyme from memory or substitute a different version.
-- Audio, links, and tempo references are optional. With lyrics alone, proceed
-  with a suitable arrangement and label tempo as proposed. Do not demand audio
-  when lyrics are sufficient. Never claim to have heard inaccessible audio.
+- Audio files, video files, YouTube links, and tempo references are optional but
+  frequently provided. When an audio file, video, or URL is supplied, **do not
+  bypass it or state that listening capability is unavailable**. Follow Section 2
+  to audition the audio, analyze its melody, key, tempo, and instrumentation, and
+  incorporate verified findings. With lyrics alone, proceed with a proposed
+  arrangement suitable for the poetic meter and Yeti world.
 - Preserve every word, punctuation mark, line, stanza, repetition, and their
   order, including unusual grammar/spelling. Do not correct, translate,
   paraphrase, omit, add refrains, or insert Yeti names unless explicitly asked.
@@ -66,13 +72,100 @@ gentle solo AI child treble for lullabies, a small children's unison group
 for brighter songs; immediate vocals and no separate intro/outro. State defaults
 in the handoff.
 
-## 2. Arrange the words and time the segments
+## 2. Listen to reference, capture musical identity, and recommend unique instruments
+
+### 2a. Auditioning audio and YouTube video references
+
+When an audio file, video file, or online video link is provided, inspect and
+audition it to capture its musical foundation:
+
+1. **For Local Audio / Video Files:**
+   - Use `read_file` to audition and listen directly via multimodal audio processing.
+   - Run `node .agents/skills/nursery-rhyme-storyboard/analyze_reference.mjs <file> --stanzas N`
+     to extract duration, estimate tempo candidates (BPM), and detect key tonality (Major / Minor).
+   - Use `ffprobe` to verify audio duration, metadata tags, and channel layout.
+2. **For YouTube / Web Video URLs:**
+   - Pass the URL directly to `analyze_reference.mjs <url> --stanzas N` (it downloads
+     audio using `yt-dlp` automatically), or run `yt-dlp -x --audio-format mp3 -o "/tmp/yeti_ref_%(id)s.%(ext)s" <url>`
+     and then audition the resulting audio with `read_file`.
+3. **What to Listen For and Capture:**
+   - **Key & Tonality:** Root note and mode (e.g. C Major, G Major, F Major), child vocal register (e.g. C4–D5 or D4–E5 treble).
+   - **Melody & Phrasing:** Melodic contour (stepwise, arpeggiated, nursery call-and-response), phrase lengths (e.g. 2 bars per line), cadence resolution, and word stress.
+   - **Meter & Rhythm:** Time signature (4/4 walking bounce, 3/4 lullaby waltz, 6/8 swing, 2/4 march), rhythmic groove (straight eighths vs. syncopated bounce), and tempo (BPM).
+   - **Existing Instrumentation:** Lead melodic instruments (synth marimba, bells, piano, guitar), harmonic accompaniment, rhythm section, bassline, and incidental sound effects (slide whistles, comical pops).
+   - **Vocal Quality & Delivery:** Solo child treble vs. unison children's group, clarity of diction, youthful energy, light breath, restrained vibrato.
+   - **Form & Boundaries:** Intro length (if any), verse duration, pauses between stanzas, and outro.
+
+Document these verified musical observations in the storyboard's
+`## Song and lyric plan` under `### Reference and arrangement evidence` in a row
+named `Auditioned reference analysis`, replacing any generic unverified disclaimers.
+
+---
+
+### 2b. Recommending unique instruments based on melody and instrumentation
+
+Traditional nursery rhyme tracks often suffer from generic synthetic presets
+(such as standard General MIDI marimbas, plastic synth pianos, and canned drum loops).
+The Yeti Ways films are set in the high Himalayas, celebrating the warmth,
+handcrafted play, and natural wonder of the Yeti family.
+
+Always evaluate the source arrangement, identify musical opportunities (such as
+introducing organic acoustic warmth, grounding a walking bassline, adding playful
+percussive bounce, or weaving lyrical mountain countermelodies), and **recommend
+unique complementary instruments**:
+
+#### 1. Himalayan & Nepalese Folk Palette (Connecting Yetis to their indigenous heritage)
+- **Madal (मादल, also spelled maadal):** The national percussion instrument of
+  Nepal, widely recognized as the rhythmic heartbeat of Nepalese folk music. A
+  two-headed barrel wooden hand drum with a warm low bass thump on the left head
+  (*Bāyāñ*) and a crisp, ringing harmonic slap on the right head (*Dhyān/Dāyāñ*)
+  treated with black iron-filing paste (*khari*). It provides an organic, earthy
+  walking pulse that replaces mechanical beats and grounds the rhyme without
+  overwhelming delicate child voices.
+- **Bansuri (बाँसुरी):** Traditional Nepalese bamboo transverse flute. Weaves airy,
+  lyrical countermelodies and gentle mountain ornamentation between vocal phrases,
+  evoking Himalayan breezes.
+- **Tungna / Sarangi (टुङ्ना / सारङ्गी):** Traditional Nepalese plucked wooden lute
+  (*Tungna*) or carved bowed folk fiddle (*Sarangi*). Adds intimate, rustic mountain
+  string timbre and sweet melodic warmth.
+- **Murchunga (मुर्चुङ्गा):** Traditional Nepalese jaw harp. Delivers playful,
+  bouncing, mouth-resonant twangs, ideal for countdown drops, comical hops, or
+  quirky character reactions.
+- **Tibetan Singing Bowls (सिङ्गिङ बोल) & Tingsha Cymbals:** Resonant tuned brass
+  harmonics and delicate bell chimes, perfect for bedtime lullabies, starry skies,
+  and gentle transition cues.
+
+#### 2. Tactile Handcrafted Acoustic Palette (Reflecting the Yeti craft terrace)
+- **Kalimba (Thumb Piano) & Glockenspiel:** Clear, bell-like wooden droplet notes
+  and crystalline chimes that double child-friendly melodic hooks.
+- **Pizzicato Cello & Upright Bass:** Plucky, bouncy wooden bass articulation that
+  gives walking rhythms acoustic warmth.
+- **Felt / Upright Piano:** Warm, muted hammer-strike tones that offer cozy,
+  reassuring harmony.
+- **Accordion / Melodica:** Breathable acoustic reed chords that sustain harmonies
+  organically without synth harshness.
+
+#### 3. Selection & Integration Rules
+- **Defined Musical Role:** The recommended unique instrument must serve a clear
+  function (e.g. *Rhythmic Heartbeat*, *Melodic Counterpoint*, or *Atmospheric Texture*).
+- **Voice-Forward Mix:** It must never mask or compete with the children's voices.
+- **Explicit Documentation:** Document the instrument in:
+  1. The storyboard's `## Song and lyric plan` table with a dedicated row
+     (e.g. `Madal feature (Nepali folk percussion)`).
+  2. The Master Agent Card (Instruction 2).
+  3. Every clip prompt's `Sound:` line with its specific playing character
+     (e.g. `...and Madal (Nepalese two-headed folk hand drum providing an organic rhythmic heartbeat)...`).
+
+---
+
+### 2c. Arrange the words and time the segments
 
 Split stanzas at the user's blank lines. Note line counts, stresses, rhymes,
 repeats, imagery, and emotional progression. Choose meter, tempo, key/register,
-phrasing, two to five instruments, and mood. Do not require a different melody
-unless requested: a new voice or arrangement does not require new words or tune.
-Avoid borrowing a modern recording's distinctive arrangement.
+phrasing, two to five instruments (including the recommended unique instrument),
+and mood. Do not require a different melody unless requested: a new voice or
+arrangement does not require new words or tune. Avoid borrowing a modern
+recording's distinctive arrangement.
 
 All lead and backing vocals must be newly AI-generated children's voices:
 natural child treble, clear diction, light articulation, gentle breath, and
@@ -80,12 +173,6 @@ restrained vibrato. No adult lead/backing, voice cloning, or real-singer
 impersonation. Use the same child voice, key, melody, tempo, instruments, and
 mix across clips. Never remove the children's-voice requirement to avoid a
 speculative filter warning.
-
-For an available recording, optionally run
-`node .agents/skills/nursery-rhyme-storyboard/analyze_reference.mjs <file> --stanzas N`.
-It measures duration and **estimates** tempo with alternatives; it does not
-verify meter or bar count. Listen/inspect before claiming musical features.
-Never inherit an earlier unsupported "measured BPM" claim during revision.
 
 Default to one stanza per 10-second clip. Calculate
 `BPM = 60 × main pulses per segment / 10`; four bars of 4/4 give 16 pulses and
@@ -130,7 +217,8 @@ shot lines with a held final picture. Then include, in order:
 
 1. `Sound:` requiring Flow to generate accompaniment and off-screen AI
    children's singing together with this video; repeat meter, BPM, key,
-   instruments, vocal character, mood, and low ambient/physical effects.
+   the full instrument ensemble (including the recommended unique instrument and
+   its acoustic role), vocal character, mood, and low ambient/physical effects.
 2. `Vocal timing:` mapping every line to its local time window, clear diction,
    exact words once, immediate entry, no added vocalizations, and final words
    completed within the clip. Audio/melody continuity is a target to verify.
@@ -158,20 +246,27 @@ New file: `prompts/<rhyme-title>-<N-times-10>s-storyboard.md`, or
 revisions, update the named file after saying so. Include, in order:
 
 1. Title/premise: supplied lyrics unchanged, children's vocals, N Flow clips
-   in the film's orientation,
-   music/video generated together, silent visible cast.
-2. `## Song and lyric plan`: source/arrangement analysis distinguishing
-   observed, estimated, and proposed values; settings; full verbatim lyrics;
-   a sync map showing every line's local and film time. Report splits/fills.
+   in the film's orientation, music/video generated together, silent visible cast.
+2. `## Song and lyric plan`:
+   - `### Reference and arrangement evidence` table: source/arrangement analysis
+     distinguishing observed, estimated, and proposed values; when an audio or
+     video reference was provided, include the `Auditioned reference analysis` row
+     with verified key, tempo, melody, and instruments; include a dedicated row
+     for the recommended unique instrument (e.g. `Madal feature (Nepali folk percussion)`)
+     detailing its acoustic role and cultural significance; settings;
+   - `### Supplied lyrics — verbatim`: full verbatim lyrics block;
+   - `### Sync map`: a sync map showing every line's local and film time. Report splits/fills.
 3. Three `## Google Flow Agent instructions` cards with `Reference:` lines.
    Inherit Instruction 1, clarifying its no-dialogue sentence to allow off-screen
    child singing. Instruction 2 summarizes cast, openings, scene breaks, light,
-   and shared music/voice. Adapt Instruction 3 for N clips, plate openings at
-   scene breaks, exact words, audio checks, and no silent fallback or lyric
-   rewrite after refusal. Preserve shared generation approval behavior unless
-   generation is already authorized. Writing prompts does not generate clips.
+   and shared music/voice (including the recommended unique instrument). Adapt
+   Instruction 3 for N clips, plate openings at scene breaks, exact words,
+   audio checks, and no silent fallback or lyric rewrite after refusal. Preserve
+   shared generation approval behavior unless generation is already authorized.
+   Writing prompts does not generate clips.
 4. `## Agent setup prompt`, `## Image map`, and `## Video N - <Title>` sections,
-   each holding only its `Images:` line and full `Agent prompt:` block.
+   each holding only its `Images:` line and full `Agent prompt:` block with complete
+   `Sound:` line naming all instruments.
 5. `## Cover image` and `## Cover image - 9:16 vertical`: current full canonical
    locks, exact @ names, story-specific compositions, no text, and truthful
    reference availability. Covers stay outside the video continuity chain.
@@ -206,6 +301,14 @@ exceptions above, then check:
   endings only. Extract each clip's delimited lyrics and join in order; compare
   to the input, allowing only documented whole-line split stanza boundaries.
   No missing, added, reordered, corrected, or unintended repeated line.
+- When an audio or video reference was provided, verify that the storyboard's
+  reference table records verified audition findings (key, tempo, phrasing,
+  instrumentation, vocal style) and never a generic "unverified listening limit"
+  disclaimer.
+- Verify that a unique complementary instrument (e.g. Madal, Bansuri, Tungna,
+  Sarangi, Murchunga, Kalimba) was recommended based on the musical analysis,
+  documented with its acoustic role in the reference table, and included in
+  Instruction 2 and in every video's `Sound:` block.
 - N Video headings, N Images lines, N Agent prompts, N sync-map rows, and N in
   Instruction 3. Contiguous 00:00–00:10 shot/vocal windows and consistent child
   voice, key, meter, tempo, melody, instruments, and mix.
@@ -224,7 +327,8 @@ exceptions above, then check:
   in context. Generic music-word flags do not authorize changing supplied lyrics
   or suppressing child singing. Report a genuine unresolved conflict.
 
-Link skill/storyboard and state title, orientation, musical values and evidence status,
+Link skill/storyboard and state title, orientation, musical values, verified
+audition findings, recommended unique instruments and their musical roles,
 child voice, clip count/duration, splits/fills, and defaults. Name
 `/create-flow-assets <storyboard>` for needed plates/supporting cast and report
 which Character files/images exist. Generate/review clips in Google Flow with

@@ -15,6 +15,8 @@ Use the name exactly as written.
 
 The Narrator's voice may be changed for a story (keep it one voice for the whole story); the three Yeti voices never change. Never give a story character a fixed voice, and never give two speakers the same voice.
 
+The Flow Account Seeder (`tools/flow-account-seeder/`) reads this file: it sets the three Yeti voices on every import, and checks each story cast voice against both rules. Keep the two tables' layout as it is.
+
 ## All voices
 
 | Voice | Gender | Description | Pitch | In Flow |

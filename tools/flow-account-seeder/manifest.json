@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Flow Account Seeder",
+  "version": "1.2.0",
+  "description": "Exports saved Characters and plates from one Google Flow account and recreates them, with a film's Agent instruction cards, in another.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Flow Account Seeder",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png" }
+  },
+  "side_panel": { "default_path": "sidepanel.html" },
+  "background": { "service_worker": "background.js" },
+  "permissions": ["downloads", "sidePanel", "tabs"],
+  "host_permissions": ["https://labs.google/*", "https://flow.google.com/*"],
+  "web_accessible_resources": [
+    { "resources": ["dev/*"], "matches": ["https://flow.google.com/*", "https://labs.google/*"] }
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://labs.google/fx/*", "https://flow.google.com/*"],
+      "js": ["hook.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://labs.google/fx/*", "https://flow.google.com/*"],
+      "js": ["zip.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
