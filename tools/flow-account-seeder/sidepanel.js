@@ -3,7 +3,7 @@
 const $ = (id) => document.getElementById(id);
 const kebab = (s) => s.toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const EXPORT_DIR = "flow-seed-export";
-const EXT = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/gif": "gif" };
+const EXT = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/gif": "gif", "image/avif": "avif" };
 
 let busy = false;
 let stopRequested = false;
@@ -24,6 +24,16 @@ function log(text, level = "info") {
   line.textContent = `${new Date().toLocaleTimeString()}  ${text}`;
   $("log").appendChild(line);
   $("log").scrollTop = $("log").scrollHeight;
+  $("logCount").textContent = $("log").children.length;
+  if (level === "error") {
+    setStatus("Needs attention", "error");
+    $("logDetails").open = true;
+  }
+}
+
+function setStatus(text, state = "ready") {
+  $("status").replaceChildren(document.createElement("i"), document.createTextNode(text));
+  $("status").dataset.state = state;
 }
 
 chrome.runtime.onMessage.addListener((msg) => {
@@ -96,6 +106,9 @@ async function job(fn) {
   if (busy) return;
   busy = true;
   stopRequested = false;
+  setStatus("Working…", "busy");
+  $("logDetails").open = true;
+  document.querySelectorAll(".list").forEach((el) => (el.inert = true));
   $("stop").disabled = false;
   document.querySelectorAll("button:not(#stop):not(.tabs button)").forEach((b) => (b.dataset.was = b.disabled, (b.disabled = true)));
   try {
@@ -104,6 +117,8 @@ async function job(fn) {
     log(e.message, "error");
   } finally {
     busy = false;
+    document.querySelectorAll(".list").forEach((el) => (el.inert = false));
+    if ($("status").dataset.state !== "error") setStatus(stopRequested ? "Stopped" : "Ready");
     $("stop").disabled = true;
     document.querySelectorAll("button:not(#stop):not(.tabs button)").forEach((b) => (b.disabled = b.dataset.was === "true"));
     refreshButtons();
@@ -114,6 +129,7 @@ $("stop").onclick = async () => {
   stopRequested = true;
   try { const tab = await flowTab(); await chrome.tabs.sendMessage(tab.id, { type: "stop" }); } catch {}
   log("Stopping after the current step…", "warn");
+  setStatus("Stopping…", "busy");
 };
 
 function checkStop() {
@@ -127,6 +143,8 @@ function showTab(name) {
   $("import").hidden = name !== "import";
   $("tabExport").classList.toggle("on", name === "export");
   $("tabImport").classList.toggle("on", name === "import");
+  $("tabExport").setAttribute("aria-pressed", String(name === "export"));
+  $("tabImport").setAttribute("aria-pressed", String(name === "import"));
 }
 $("tabExport").onclick = () => showTab("export");
 $("tabImport").onclick = () => showTab("import");
@@ -160,15 +178,40 @@ function checklist(el, rows) {
       return label;
     })
   );
+  el.inert = busy;
+  refreshButtons();
 }
 const checked = (el) => [...el.querySelectorAll("input:checked:not(:disabled)")].map((b) => b.value);
 
 function refreshButtons() {
-  $("exportChars").disabled = busy || !$("charList").children.length;
-  $("exportPlates").disabled = busy || !$("plateList").children.length;
-  $("run").disabled = busy || !seed;
+  $("exportChars").disabled = busy || !checked($("charList")).length;
+  $("exportPlates").disabled = busy || !checked($("plateList")).length;
+  $("exportNew").disabled = busy || !checked($("newList")).length;
+  $("run").disabled = busy || !seed || !checked($("planList")).length;
   $("check").disabled = busy || !seed;
+  for (const [id, countId, selectionId] of [
+    ["charList", "charCount", "charSelection"],
+    ["plateList", "plateCount", "plateSelection"],
+    ["planList", null, "planSelection"],
+    ["newList", null, "newSelection"],
+  ]) {
+    const total = $(id).children.length;
+    const selected = checked($(id)).length;
+    if (countId && $(countId).dataset.scanned) $(countId).textContent = `${total} found`;
+    $(selectionId).textContent = `${selected} of ${total} selected`;
+    document.querySelector(`[data-list="${id}"]`).hidden = !total;
+  }
 }
+
+document.querySelectorAll(".list").forEach((el) => el.addEventListener("change", refreshButtons));
+document.querySelectorAll("[data-select], [data-clear]").forEach((button) => {
+  button.onclick = () => {
+    if (busy) return;
+    const id = button.dataset.select || button.dataset.clear;
+    $(id).querySelectorAll("input:not(:disabled)").forEach((box) => (box.checked = !!button.dataset.select));
+    refreshButtons();
+  };
+});
 
 // ---------------------------------------------------------------- export
 
@@ -220,10 +263,12 @@ $("scanChars").onclick = () => job(async () => {
   await toCharactersProject(false);
   log("Scanning saved Characters…");
   const { names } = await call("listCharacters");
+  $("charCount").dataset.scanned = "true";
+  $("charEmpty").hidden = !!names.length;
+  $("charEmpty").textContent = "No saved Characters found in this account.";
   checklist($("charList"), names.map((n) => ({
     value: n,
     label: n,
-    note: `${kebab(n)}-front / -turnaround / -info`,
     checked: !inLibrary(n),
     tag: library ? (inLibrary(n) ? "in library" : "new") : "",
     tagClass: library ? (inLibrary(n) ? "ok" : "miss") : "",
@@ -246,10 +291,13 @@ async function exportCharacters(names) {
     const c = await call("exportCharacter", { name });
     const k = kebab(c.name);
     const entry = { name: c.name, kind: YETI_NAMES.includes(c.name) ? "yeti" : "cast", info: c.info, voice: c.voice || null, voiceSource: c.voice ? "exported" : null, front: null, turnaround: null };
+    entry.imageMetadata = {};
     for (const view of ["front", "turnaround"]) {
       if (!c[view]) continue;
       entry[view] = `characters/${k}-${view}.${EXT[c[view].type] || "png"}`;
       files.push({ path: entry[view], data: await dataUrlBytes(c[view].dataUrl) });
+      const { width, height, size, type } = c[view];
+      entry.imageMetadata[view] = { width, height, size, type };
     }
     characters.push(entry);
     log(`${c.name}: added to the ZIP${c.voice ? ` (voice ${c.voice})` : " (no voice)"}.`, "done");
@@ -280,6 +328,7 @@ $("exportChars").onclick = () => job(() => exportCharacters(checked($("charList"
 $("scanPlates").onclick = () => job(async () => {
   log("Scanning this project's plates…");
   const { project, plates } = await call("listPlates");
+  $("plateCount").dataset.scanned = "true";
   checklist($("plateList"), plates.map((n) => ({ value: n, label: n, note: `plates/${kebab(project)}/` })));
   log(`${project}: ${plates.length} plates.`, "done");
 });
@@ -316,7 +365,7 @@ function useSeed(manifest, files, label) {
   log(`Loaded ${manifest.title || manifest.storyboard}: ${manifest.characters.length} Characters, ${manifest.plates.length} plates, ${manifest.instructions.length} cards.`, "done");
 }
 
-const MIME = { png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp", json: "application/json" };
+const MIME = { png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp", gif: "image/gif", avif: "image/avif", json: "application/json" };
 
 // Unpack a ZIP in memory into the same path → File map a folder gives.
 async function loadZip(file) {
@@ -339,7 +388,11 @@ async function loadZip(file) {
 
 $("pick").onclick = () => $("zipFile").click();
 $("pickFolder").onclick = () => $("folder").click();
-$("zipFile").onchange = () => job(() => loadZip($("zipFile").files[0]));
+$("zipFile").onchange = () => {
+  const file = $("zipFile").files[0];
+  $("zipFile").value = "";
+  if (file) job(() => loadZip(file));
+};
 $("pick").ondragover = (e) => { e.preventDefault(); $("pick").classList.add("over"); };
 $("pick").ondragleave = () => $("pick").classList.remove("over");
 $("pick").ondrop = (e) => {
@@ -348,8 +401,10 @@ $("pick").ondrop = (e) => {
   const f = e.dataTransfer.files[0];
   if (f) job(() => loadZip(f));
 };
-$("folder").onchange = async () => {
+$("folder").onchange = () => job(async () => {
   const all = [...$("folder").files];
+  $("folder").value = "";
+  if (!all.length) return;
   const files = new Map(all.map((f) => [f.webkitRelativePath.split("/").slice(1).join("/"), f]));
   const mf = files.get("manifest.json");
   if (!mf) {
@@ -357,7 +412,7 @@ $("folder").onchange = async () => {
     return;
   }
   useSeed(JSON.parse(await mf.text()), files, `📁 ${all[0].webkitRelativePath.split("/")[0]}`);
-};
+});
 
 // Every importable step, in order: Characters (their images go into the
 // "Characters" project first), then the film's plates, then its cards (a card's
@@ -393,7 +448,7 @@ function renderPlan() {
       value: s.id,
       label: s.label,
       note:
-        s.kind === "Character" ? `Character · voice ${voiceFor(s.item) ? `${voiceFor(s.item)} (${FIXED_VOICES[s.item.name] ? "fixed" : s.item.voiceSource || "seed"})` : "none"} · images "${s.label} - Front" / "- Turnaround"` :
+        s.kind === "Character" ? `Character · ${voiceFor(s.item) ? `voice ${voiceFor(s.item)}` : "no voice"}` :
         s.kind === "card" && s.item.reference ? `card · ref ${s.item.reference}` : s.kind,
       checked: s.ready && !s.has,
       disabled: !s.ready,

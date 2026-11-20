@@ -12,14 +12,15 @@ import sys
 DEFAULT_STYLE = {
     "linesPerCard": 2,        # lines shown together (2 = couplets)
     "leadIn": 0.35,           # s before first sung word that a card appears
-    "fontFamily": "Fredoka",  # any Google Font id supported by @remotion/google-fonts
-    "fontWeight": "600",
+    "fontFamily": "Mouse Memoirs",  # downloaded from Google Fonts during setup
+    "fontWeight": "400",
+    "fontFile": "",           # optional public/ font path; empty uses the family default
     "fontSize": 60,           # px at 1080p (scaled to other heights)
     "cardWidth": 1280,        # px at 1080p; lines too wide are auto-shrunk
     "cardHeight": 200,        # px at 1080p (grow for 3+ lines)
     "bottomMargin": 40,       # px at 1080p above the title-safe bottom edge
     "safeArea": 0.9,          # 0.9 = title safe, 0.93 = action safe
-    "showCard": True,         # dark backing plate (recommended over bright footage)
+    "showCard": False,        # no background box; text uses the stronger shadow
     "cardTop": "rgba(28, 34, 92, 0.62)",
     "cardBottom": "rgba(14, 18, 58, 0.72)",
     "textColor": "#FFFFFF",

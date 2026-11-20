@@ -8,20 +8,20 @@ The film has 22 horizontal 16:9 clips of 10 seconds each, 720p, lasting 03:40. T
 
 ### Reference and arrangement evidence
 
-| Item | Evidence or proposed treatment |
-| --- | --- |
-| Supplied recording | `/Users/rajoyish/Downloads/Humpty Dumpty Nursery Rhyme - 3D Animation English Rhymes for children.mp3` |
-| Measured | 148.9 seconds (2m 28.86s), CVS 3D Rhymes & Kids Songs |
-| Estimated & verified | 4/4 meter, steady bouncy pulse at ~92–96 BPM (measured 92.3 BPM autocorrelation peak; arranged at 96 BPM for crisp 10-second 4-bar clips) |
-| Auditioned reference analysis | Listened to the audio recording: bright C major tonality; energetic, youthful solo child soprano lead with clear English diction; playful marimba/xylophone mallets, pizzicato strings, glockenspiel bell chimes, light wood percussion, bouncing bassline, and whimsical cartoon sound effects (slide whistles, falling pops); countdown structure from 10 to 0 |
-| Meaning of the reference | A tempo and tonal reference for a fresh arrangement; this storyboard does not copy its synthetic arrangement or clone its singer, but captures its joyful nursery bounce and adds indigenous Himalayan acoustic warmth |
+| Item                                   | Evidence or proposed treatment                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Supplied recording                     | `/Users/rajoyish/Downloads/Humpty Dumpty Nursery Rhyme - 3D Animation English Rhymes for children.mp3`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Measured                               | 148.9 seconds (2m 28.86s), CVS 3D Rhymes & Kids Songs                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Estimated & verified                   | 4/4 meter, steady bouncy pulse at ~92–96 BPM (measured 92.3 BPM autocorrelation peak; arranged at 96 BPM for crisp 10-second 4-bar clips)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Auditioned reference analysis          | Listened to the audio recording: bright C major tonality; energetic, youthful solo child soprano lead with clear English diction; playful marimba/xylophone mallets, pizzicato strings, glockenspiel bell chimes, light wood percussion, bouncing bassline, and whimsical cartoon sound effects (slide whistles, falling pops); countdown structure from 10 to 0                                                                                                                                                                                                                                                                   |
+| Meaning of the reference               | A tempo and tonal reference for a fresh arrangement; this storyboard does not copy its synthetic arrangement or clone its singer, but captures its joyful nursery bounce and adds indigenous Himalayan acoustic warmth                                                                                                                                                                                                                                                                                                                                                                                                             |
 | Madal feature (Nepali folk percussion) | The Madal (also spelled maadal) is the national percussion instrument of Nepal, widely recognized as the rhythmic heartbeat of Nepalese folk music. It features a dual-headed cylindrical/barrel wooden body with tuned heads treated with black iron-filing paste (khari): a resonant left head (Bāyāñ) providing a warm, grounding low bass heartbeat thump, and a smaller right head (Dhyān/Dāyāñ) producing crisp, ringing high-register harmonic slaps. It anchors the 4/4 pulse, perfectly connecting the Himalayan Yeti family to traditional Nepalese rhythm while staying acoustically gentle under the children's voices |
-| Proposed music | 4/4, 96 BPM, C major, D4–D5; upright piano, pizzicato cello, light clip-clop percussion, glockenspiel, and Madal (Nepalese two-headed folk hand drum); light, bouncy, kind, organic Himalayan heartbeat pulse |
-| Song bed | The separately generated Flow Music song (`music-prompts/humpty-dumpty-220s-16x9-flow-music.md`) is approved and unchanged by this visual revision. Its percussion stays as recorded; the clip prompts name it "light clip-clop percussion" so that no block-shaped prop is suggested to the video model |
-| Vocal | One consistent small newly AI-generated children's unison group; natural child treble, clear diction, light articulation, gentle breath, restrained vibrato; no adult lead or backing |
-| Phrasing | Four melodic phrases per verse; two bars per line. Each clip contains four 4/4 bars: 16 pulses × 60 / 96 = 10 seconds |
-| Duration decision | Each stanza splits only after line two into two 10-second clips, for 22 clips / 220 seconds. A 110-second version would compress four lines into each clip; this version gives every line five seconds for intelligibility |
-| Fills | No added lyrics, repeated words, refrains, spoken counting, intro, or outro. If a line finishes early, sustain its existing last syllable or let accompaniment fill the rest of its window |
+| Proposed music                         | 4/4, 96 BPM, C major, D4–D5; upright piano, pizzicato cello, light clip-clop percussion, glockenspiel, and Madal (Nepalese two-headed folk hand drum); light, bouncy, kind, organic Himalayan heartbeat pulse                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Song bed                               | The separately generated Flow Music song (`music-prompts/humpty-dumpty-220s-16x9-flow-music.md`) is approved and unchanged by this visual revision. Its percussion stays as recorded; the clip prompts name it "light clip-clop percussion" so that no block-shaped prop is suggested to the video model                                                                                                                                                                                                                                                                                                                           |
+| Vocal                                  | One consistent small newly AI-generated children's unison group; natural child treble, clear diction, light articulation, gentle breath, restrained vibrato; no adult lead or backing                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Phrasing                               | Four melodic phrases per verse; two bars per line. Each clip contains four 4/4 bars: 16 pulses × 60 / 96 = 10 seconds                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Duration decision                      | Each stanza splits only after line two into two 10-second clips, for 22 clips / 220 seconds. A 110-second version would compress four lines into each clip; this version gives every line five seconds for intelligibility                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Fills                                  | No added lyrics, repeated words, refrains, spoken counting, intro, or outro. If a line finishes early, sustain its existing last syllable or let accompaniment fill the rest of its window                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 Each stanza has four lines. The first couplet pairs wall/fall, while men/again forms the closing rhyme; the same four melodic phrases repeat as only the initial count changes, with the final stanza also changing “One” to “No” and “Couldn't” to “Didn't”. Stress the count, Humpty Dumpty, wall/fall, horses/men, and together/again naturally. The line about the royal helpers is denser, so use light syllabic eighth notes and avoid a long sustain before “men”. These are proposed musical choices, not claims about the reference recording.
 
@@ -90,30 +90,30 @@ Didn't put Humpty together again.
 
 Every row is one video. Each contains exactly two complete lines. Line one occupies local 00:00–00:05; line two occupies local 00:05–00:10. Film windows are shown for both lines. Splits occur after line two of each original stanza only.
 
-| Video | Film window | Stanza / half | Exact lyric lines with local and film windows |
-| --- | --- | --- | --- |
-| Video 1 | 00:00–00:10 | 1 / A | Local 00:00–00:05 / film 00:00–00:05: Ten Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 00:05–00:10: One Humpty Dumpty had a great fall. |
-| Video 2 | 00:10–00:20 | 1 / B | Local 00:00–00:05 / film 00:10–00:15: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 00:15–00:20: Couldn't put Humpty together again. |
-| Video 3 | 00:20–00:30 | 2 / A | Local 00:00–00:05 / film 00:20–00:25: Nine Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 00:25–00:30: One Humpty Dumpty had a great fall. |
-| Video 4 | 00:30–00:40 | 2 / B | Local 00:00–00:05 / film 00:30–00:35: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 00:35–00:40: Couldn't put Humpty together again. |
-| Video 5 | 00:40–00:50 | 3 / A | Local 00:00–00:05 / film 00:40–00:45: Eight Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 00:45–00:50: One Humpty Dumpty had a great fall. |
-| Video 6 | 00:50–01:00 | 3 / B | Local 00:00–00:05 / film 00:50–00:55: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 00:55–01:00: Couldn't put Humpty together again. |
-| Video 7 | 01:00–01:10 | 4 / A | Local 00:00–00:05 / film 01:00–01:05: Seven Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 01:05–01:10: One Humpty Dumpty had a great fall. |
-| Video 8 | 01:10–01:20 | 4 / B | Local 00:00–00:05 / film 01:10–01:15: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 01:15–01:20: Couldn't put Humpty together again. |
-| Video 9 | 01:20–01:30 | 5 / A | Local 00:00–00:05 / film 01:20–01:25: Six Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 01:25–01:30: One Humpty Dumpty had a great fall. |
-| Video 10 | 01:30–01:40 | 5 / B | Local 00:00–00:05 / film 01:30–01:35: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 01:35–01:40: Couldn't put Humpty together again. |
-| Video 11 | 01:40–01:50 | 6 / A | Local 00:00–00:05 / film 01:40–01:45: Five Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 01:45–01:50: One Humpty Dumpty had a great fall. |
-| Video 12 | 01:50–02:00 | 6 / B | Local 00:00–00:05 / film 01:50–01:55: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 01:55–02:00: Couldn't put Humpty together again. |
-| Video 13 | 02:00–02:10 | 7 / A | Local 00:00–00:05 / film 02:00–02:05: Four Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 02:05–02:10: One Humpty Dumpty had a great fall. |
-| Video 14 | 02:10–02:20 | 7 / B | Local 00:00–00:05 / film 02:10–02:15: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 02:15–02:20: Couldn't put Humpty together again. |
-| Video 15 | 02:20–02:30 | 8 / A | Local 00:00–00:05 / film 02:20–02:25: Three Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 02:25–02:30: One Humpty Dumpty had a great fall. |
-| Video 16 | 02:30–02:40 | 8 / B | Local 00:00–00:05 / film 02:30–02:35: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 02:35–02:40: Couldn't put Humpty together again. |
-| Video 17 | 02:40–02:50 | 9 / A | Local 00:00–00:05 / film 02:40–02:45: Two Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 02:45–02:50: One Humpty Dumpty had a great fall. |
-| Video 18 | 02:50–03:00 | 9 / B | Local 00:00–00:05 / film 02:50–02:55: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 02:55–03:00: Couldn't put Humpty together again. |
-| Video 19 | 03:00–03:10 | 10 / A | Local 00:00–00:05 / film 03:00–03:05: One Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 03:05–03:10: One Humpty Dumpty had a great fall. |
-| Video 20 | 03:10–03:20 | 10 / B | Local 00:00–00:05 / film 03:10–03:15: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 03:15–03:20: Couldn't put Humpty together again. |
-| Video 21 | 03:20–03:30 | 11 / A | Local 00:00–00:05 / film 03:20–03:25: No Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 03:25–03:30: No Humpty Dumpty had a great fall. |
-| Video 22 | 03:30–03:40 | 11 / B | Local 00:00–00:05 / film 03:30–03:35: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 03:35–03:40: Didn't put Humpty together again. |
+| Video    | Film window | Stanza / half | Exact lyric lines with local and film windows                                                                                                                   |
+| -------- | ----------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Video 1  | 00:00–00:10 | 1 / A         | Local 00:00–00:05 / film 00:00–00:05: Ten Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 00:05–00:10: One Humpty Dumpty had a great fall.             |
+| Video 2  | 00:10–00:20 | 1 / B         | Local 00:00–00:05 / film 00:10–00:15: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 00:15–00:20: Couldn't put Humpty together again. |
+| Video 3  | 00:20–00:30 | 2 / A         | Local 00:00–00:05 / film 00:20–00:25: Nine Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 00:25–00:30: One Humpty Dumpty had a great fall.            |
+| Video 4  | 00:30–00:40 | 2 / B         | Local 00:00–00:05 / film 00:30–00:35: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 00:35–00:40: Couldn't put Humpty together again. |
+| Video 5  | 00:40–00:50 | 3 / A         | Local 00:00–00:05 / film 00:40–00:45: Eight Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 00:45–00:50: One Humpty Dumpty had a great fall.           |
+| Video 6  | 00:50–01:00 | 3 / B         | Local 00:00–00:05 / film 00:50–00:55: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 00:55–01:00: Couldn't put Humpty together again. |
+| Video 7  | 01:00–01:10 | 4 / A         | Local 00:00–00:05 / film 01:00–01:05: Seven Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 01:05–01:10: One Humpty Dumpty had a great fall.           |
+| Video 8  | 01:10–01:20 | 4 / B         | Local 00:00–00:05 / film 01:10–01:15: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 01:15–01:20: Couldn't put Humpty together again. |
+| Video 9  | 01:20–01:30 | 5 / A         | Local 00:00–00:05 / film 01:20–01:25: Six Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 01:25–01:30: One Humpty Dumpty had a great fall.             |
+| Video 10 | 01:30–01:40 | 5 / B         | Local 00:00–00:05 / film 01:30–01:35: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 01:35–01:40: Couldn't put Humpty together again. |
+| Video 11 | 01:40–01:50 | 6 / A         | Local 00:00–00:05 / film 01:40–01:45: Five Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 01:45–01:50: One Humpty Dumpty had a great fall.            |
+| Video 12 | 01:50–02:00 | 6 / B         | Local 00:00–00:05 / film 01:50–01:55: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 01:55–02:00: Couldn't put Humpty together again. |
+| Video 13 | 02:00–02:10 | 7 / A         | Local 00:00–00:05 / film 02:00–02:05: Four Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 02:05–02:10: One Humpty Dumpty had a great fall.            |
+| Video 14 | 02:10–02:20 | 7 / B         | Local 00:00–00:05 / film 02:10–02:15: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 02:15–02:20: Couldn't put Humpty together again. |
+| Video 15 | 02:20–02:30 | 8 / A         | Local 00:00–00:05 / film 02:20–02:25: Three Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 02:25–02:30: One Humpty Dumpty had a great fall.           |
+| Video 16 | 02:30–02:40 | 8 / B         | Local 00:00–00:05 / film 02:30–02:35: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 02:35–02:40: Couldn't put Humpty together again. |
+| Video 17 | 02:40–02:50 | 9 / A         | Local 00:00–00:05 / film 02:40–02:45: Two Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 02:45–02:50: One Humpty Dumpty had a great fall.             |
+| Video 18 | 02:50–03:00 | 9 / B         | Local 00:00–00:05 / film 02:50–02:55: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 02:55–03:00: Couldn't put Humpty together again. |
+| Video 19 | 03:00–03:10 | 10 / A        | Local 00:00–00:05 / film 03:00–03:05: One Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 03:05–03:10: One Humpty Dumpty had a great fall.             |
+| Video 20 | 03:10–03:20 | 10 / B        | Local 00:00–00:05 / film 03:10–03:15: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 03:15–03:20: Couldn't put Humpty together again. |
+| Video 21 | 03:20–03:30 | 11 / A        | Local 00:00–00:05 / film 03:20–03:25: No Humpty Dumpty sat on a wall,<br>Local 00:05–00:10 / film 03:25–03:30: No Humpty Dumpty had a great fall.               |
+| Video 22 | 03:30–03:40 | 11 / B        | Local 00:00–00:05 / film 03:30–03:35: All the king's horses and all the king's men<br>Local 00:05–00:10 / film 03:35–03:40: Didn't put Humpty together again.   |
 
 Text review: run the project filter checker after any change; no generated media has been reviewed.
 
@@ -123,19 +123,19 @@ Text review: run the project filter checker after any change; no generated media
 
 The eggs sit from the castle (left) end, and the rightmost one falls each time, so the empty stretch of wall grows from the right. Each fallen shell's two halves are carried back into the castle by the guards (or left behind on the moss, out of later shots); they are never counted and never return to the wall. Chicks join one uncounted flock with Mama Yeti, so no shot asks Flow to count chicks.
 
-| Stanza | Videos | Eggs on the wall at start → after fall | Helpers' plan (B clip) |
-| --- | --- | --- | --- |
-| Ten | 1, 2 | 10 → 9 | Press the halves together |
-| Nine | 3, 4 | 9 → 8 | Daisy chain |
-| Eight | 5, 6 | 8 → 7 | Big green leaf |
-| Seven | 7, 8 | 7 → 6 | Pony clap |
-| Six | 9, 10 | 6 → 5 | Shell lid |
-| Five | 11, 12 | 5 → 4 | Honey dab |
-| Four | 13, 14 | 4 → 3 | Yarn tangle |
-| Three | 15, 16 | 3 → 2 | Push and pull |
-| Two | 17, 18 | 2 → 1 | Rolling ball |
-| One | 19, 20 | 1 → 0 | Everyone at once |
-| No | 21, 22 | 0 → 0 | No repair: a meadow parade |
+| Stanza | Videos | Eggs on the wall at start → after fall | Helpers' plan (B clip)     |
+| ------ | ------ | -------------------------------------- | -------------------------- |
+| Ten    | 1, 2   | 10 → 9                                 | Press the halves together  |
+| Nine   | 3, 4   | 9 → 8                                  | Daisy chain                |
+| Eight  | 5, 6   | 8 → 7                                  | Big green leaf             |
+| Seven  | 7, 8   | 7 → 6                                  | Pony clap                  |
+| Six    | 9, 10  | 6 → 5                                  | Shell lid                  |
+| Five   | 11, 12 | 5 → 4                                  | Honey dab                  |
+| Four   | 13, 14 | 4 → 3                                  | Yarn tangle                |
+| Three  | 15, 16 | 3 → 2                                  | Push and pull              |
+| Two    | 17, 18 | 2 → 1                                  | Rolling ball               |
+| One    | 19, 20 | 1 → 0                                  | Everyone at once           |
+| No     | 21, 22 | 0 → 0                                  | No repair: a meadow parade |
 
 Exactly two ponies and two guards appear whenever the helpers are in a shot. Approve Video 1's musical first half, then Video 2's answering half as the target four-phrase verse before continuing. Later A clips use phrases one and two; B clips use phrases three and four. No intro restarts at any join. Preserve voice, register, melody, key, tempo, instruments, ambience, and mix. No automatic cross-clip audio lock or audio-upload feature is assumed. If available Flow controls cannot preserve these, report the limitation and request a corrected take; do not silently switch workflows. All timestamps and joins remain written targets until the generated takes are watched and listened to.
 
@@ -198,32 +198,32 @@ Plate - Spring Meadow Wall: Horizontal 16:9 aspect ratio, full-frame widescreen 
 
 ## Image map
 
-| Use | Attach in prompt box / card | References | Linked Characters |
-| --- | --- | --- | --- |
-| Instruction 2 card | Plate - Spring Meadow Wall | 1 card image; outside clip budget | None |
-| Video 1 | Plate - Spring Meadow Wall; no other image | 1 image + 1 Character = 2 of 7 | Babu Yeti: 1 of 3 |
-| Video 2 | End frame V1; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Papa Yeti: 2 of 3 |
-| Video 3 | End frame V2; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Papa Yeti: 2 of 3 |
-| Video 4 | End frame V3; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Papa Yeti, Mama Yeti: 2 of 3 |
-| Video 5 | End frame V4; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Mama Yeti: 2 of 3 |
-| Video 6 | End frame V5; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Papa Yeti: 2 of 3 |
-| Video 7 | End frame V6; no plate; no other image | 1 image + 3 Characters = 4 of 7 | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
-| Video 8 | End frame V7; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Mama Yeti: 2 of 3 |
-| Video 9 | End frame V8; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Mama Yeti: 2 of 3 |
-| Video 10 | End frame V9; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Papa Yeti: 2 of 3 |
-| Video 11 | End frame V10; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Papa Yeti: 2 of 3 |
-| Video 12 | End frame V11; no plate; no other image | 1 image + 3 Characters = 4 of 7 | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
-| Video 13 | End frame V12; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Mama Yeti: 2 of 3 |
-| Video 14 | End frame V13; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Mama Yeti: 2 of 3 |
-| Video 15 | End frame V14; no plate; no other image | 1 image + 3 Characters = 4 of 7 | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
-| Video 16 | End frame V15; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Papa Yeti: 2 of 3 |
-| Video 17 | End frame V16; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Mama Yeti: 2 of 3 |
-| Video 18 | End frame V17; no plate; no other image | 1 image + 3 Characters = 4 of 7 | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
-| Video 19 | End frame V18; no plate; no other image | 1 image + 2 Characters = 3 of 7 | Babu Yeti, Papa Yeti: 2 of 3 |
-| Video 20 | End frame V19; no plate; no other image | 1 image + 3 Characters = 4 of 7 | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
-| Video 21 | End frame V20; no plate; no other image | 1 image + 3 Characters = 4 of 7 | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
-| Video 22 | End frame V21; no plate; no other image | 1 image + 3 Characters = 4 of 7 | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
-| Pick-up 1 | Plate - Spring Meadow Wall, then End frame V13 (references only; it opens on neither) | 2 images + 1 Character = 3 of 7 | Babu Yeti: 1 of 3 |
+| Use                | Attach in prompt box / card                                                           | References                        | Linked Characters                       |
+| ------------------ | ------------------------------------------------------------------------------------- | --------------------------------- | --------------------------------------- |
+| Instruction 2 card | Plate - Spring Meadow Wall                                                            | 1 card image; outside clip budget | None                                    |
+| Video 1            | Plate - Spring Meadow Wall; no other image                                            | 1 image + 1 Character = 2 of 7    | Babu Yeti: 1 of 3                       |
+| Video 2            | End frame V1; no plate; no other image                                                | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Papa Yeti: 2 of 3            |
+| Video 3            | End frame V2; no plate; no other image                                                | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Papa Yeti: 2 of 3            |
+| Video 4            | End frame V3; no plate; no other image                                                | 1 image + 2 Characters = 3 of 7   | Papa Yeti, Mama Yeti: 2 of 3            |
+| Video 5            | End frame V4; no plate; no other image                                                | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Mama Yeti: 2 of 3            |
+| Video 6            | End frame V5; no plate; no other image                                                | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Papa Yeti: 2 of 3            |
+| Video 7            | End frame V6; no plate; no other image                                                | 1 image + 3 Characters = 4 of 7   | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
+| Video 8            | End frame V7; no plate; no other image                                                | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Mama Yeti: 2 of 3            |
+| Video 9            | End frame V8; no plate; no other image                                                | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Mama Yeti: 2 of 3            |
+| Video 10           | End frame V9; no plate; no other image                                                | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Papa Yeti: 2 of 3            |
+| Video 11           | End frame V10; no plate; no other image                                               | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Papa Yeti: 2 of 3            |
+| Video 12           | End frame V11; no plate; no other image                                               | 1 image + 3 Characters = 4 of 7   | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
+| Video 13           | End frame V12; no plate; no other image                                               | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Mama Yeti: 2 of 3            |
+| Video 14           | End frame V13; no plate; no other image                                               | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Mama Yeti: 2 of 3            |
+| Video 15           | End frame V14; no plate; no other image                                               | 1 image + 3 Characters = 4 of 7   | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
+| Video 16           | End frame V15; no plate; no other image                                               | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Papa Yeti: 2 of 3            |
+| Video 17           | End frame V16; no plate; no other image                                               | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Mama Yeti: 2 of 3            |
+| Video 18           | End frame V17; no plate; no other image                                               | 1 image + 3 Characters = 4 of 7   | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
+| Video 19           | End frame V18; no plate; no other image                                               | 1 image + 2 Characters = 3 of 7   | Babu Yeti, Papa Yeti: 2 of 3            |
+| Video 20           | End frame V19; no plate; no other image                                               | 1 image + 3 Characters = 4 of 7   | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
+| Video 21           | End frame V20; no plate; no other image                                               | 1 image + 3 Characters = 4 of 7   | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
+| Video 22           | End frame V21; no plate; no other image                                               | 1 image + 3 Characters = 4 of 7   | Babu Yeti, Papa Yeti, Mama Yeti: 3 of 3 |
+| Pick-up 1          | Plate - Spring Meadow Wall, then End frame V13 (references only; it opens on neither) | 2 images + 1 Character = 3 of 7   | Babu Yeti: 1 of 3                       |
 
 Pick-ups are extra clips for the edit: they never open on or save an end frame, and no numbered video opens on one.
 
@@ -865,21 +865,22 @@ On the left third, Babu Yeti: a stylized, friendly 3D animated small baby Yeti r
 Expressions: Babu Yeti, delighted face with eyes crinkled and a wide closed-mouth smile.
 In frame: Babu Yeti, and no one else.
 Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, an ape-like or gorilla-like body, clothing, hats, or accessories.
-Action: One frozen instant of the first wobble: Babu Yeti points up at the row with one five-fingered hand, while exactly ten identical living cartoon eggs, each about the size of a big pear, with a smooth glossy cream eggshell body, big round glossy cartoon eyes, rosy cheeks, a tiny smiling mouth, a small red bow tie, short white cartoon arms with round white mitten hands, and short white legs with round red shoes; they blink, wave, wiggle, and swing their legs, and never speak or sing sit along the top of the mossy wall. Only the rightmost egg is tipping forward over the edge, arms flung wide, eyes round with surprise; the other nine sit and wave. The moss cushion below is empty. Keep generous space around Babu Yeti's face and the wobbling egg, with the little castle and rhododendrons softly visible. No text, title, letters, numbers, logos, captions, signatures, watermarks, borders, or split-screen panels.
+Action: One frozen instant of the first wobble: Babu Yeti points up at the row with one five-fingered hand, while exactly ten identical living cartoon eggs, each about the size of a big pear, with a smooth glossy cream eggshell body, big round glossy cartoon eyes, rosy cheeks, a tiny smiling mouth, a small red bow tie, short white cartoon arms with round white mitten hands, and short white legs with round red shoes; they blink, wave, wiggle, and swing their legs, and never speak or sing sit along the top of the mossy wall. Only the rightmost egg is tipping forward over the edge, arms flung wide, eyes round with surprise; the other nine sit and wave. The moss cushion below is empty. Keep generous space around Babu Yeti's face and the wobbling egg, with the little castle and rhododendrons softly visible.
+No text, title, letters, numbers, logos, captions, signatures, watermarks, borders, or split-screen panels.
 ```
 
 ---
 
 ## Cover image - 9:16 vertical
 
-The wobble moment restaged in depth for a tall frame: Babu Yeti in front of the wall, the wobbling egg and the row above him, with the bottom tenth quiet meadow grass.
+The wobble moment restaged in depth for a tall frame: a Humpty Dumpty title in the upper third, the wobbling egg and the row beneath it, Babu Yeti in front of the wall below, with the bottom tenth quiet meadow grass.
 
 Cover references: `references/characters/babu-yeti.png` and Babu front/turnaround files are absent in this checkout; no image is claimed attached. Use the full current text lock below. No height chart is required for this solo cover. Exact likeness to an unseen canonical portrait cannot be visually verified. No cover image has been generated.
 
 Image prompt:
 
 ```text
-Create image: Vertical 9:16 aspect ratio, full-frame portrait composition. Medium Shot (Babu Yeti from the waist up, the wall above and behind him), Eye Level, layered in depth: Babu Yeti in the lower centre, the row of eggs along the wall above him.
+Create image: Vertical 9:16 aspect ratio, full-frame portrait composition. Medium Shot (Babu Yeti from the waist up, the wall above and behind him), Eye Level, layered in depth: Babu Yeti in the lower centre, the row of eggs along the wall above him. Reserve clear sky in the upper third for the title; place the eggs below this title area, with clear separation from every face and from Babu Yeti's curl.
 3D animated premium shot, high-quality 3D CGI rendering, ultra-realistic soft fur texture, cinematic lighting, soft warm illumination highlighting individual strands of fur.
 Cast: @Babu Yeti.
 Environment: A sunny Himalayan spring meadow with a low, mossy dry-stone wall running left to right across the middle ground, about knee-high to a grown-up, a thick, soft cushion of green moss and white clover directly in front of the wall's right end, a little round mossy stone toy castle with a round red door at the wall's left end, pink rhododendron bushes, scattered yellow buttercups, tall pines, and snowy peaks under a clear blue sky, in bright mid-morning sun from frame left.
@@ -888,5 +889,6 @@ In the lower central area, Babu Yeti: a stylized, friendly 3D animated small bab
 Expressions: Babu Yeti, delighted face with eyes crinkled and a wide closed-mouth smile.
 In frame: Babu Yeti, and no one else.
 Avoid: photorealistic humans, scary monsters, horror elements, flat lighting, extra Yetis, and, on any Yeti, human skin, visible pores, sharp teeth, sharp claws, hands with three or four fingers, animal paws, white or grey fur, an ape-like or gorilla-like body, clothing, hats, or accessories.
-Action: One frozen instant of the first wobble: Babu Yeti points up at the row with one five-fingered hand, while exactly ten identical living cartoon eggs, each about the size of a big pear, with a smooth glossy cream eggshell body, big round glossy cartoon eyes, rosy cheeks, a tiny smiling mouth, a small red bow tie, short white cartoon arms with round white mitten hands, and short white legs with round red shoes; they blink, wave, wiggle, and swing their legs, and never speak or sing sit along the top of the mossy wall. Only the rightmost egg is tipping forward over the edge, arms flung wide, eyes round with surprise; the other nine sit and wave. The moss cushion below is empty. Keep Babu Yeti's face, curl, and hand and all ten eggs comfortably inside the central area and away from every edge; leave the bottom tenth as quiet meadow grass. No text, title, letters, numbers, logos, captions, signatures, watermarks, borders, or split-screen panels.
+Action: One frozen instant of the first wobble: Babu Yeti points up at the row with one five-fingered hand, while exactly ten identical living cartoon eggs, each about the size of a big pear, with a smooth glossy cream eggshell body, big round glossy cartoon eyes, rosy cheeks, a tiny smiling mouth, a small red bow tie, short white cartoon arms with round white mitten hands, and short white legs with round red shoes; they blink, wave, wiggle, and swing their legs, and never speak or sing sit along the top of the mossy wall. Only the rightmost egg is tipping forward over the edge, arms flung wide, eyes round with surprise; the other nine sit and wave. The moss cushion below is empty. Keep Babu Yeti's face, curl, and hand and all ten eggs comfortably inside the central area and away from every edge; leave the bottom tenth as quiet meadow grass.
+Typography: Render only the exact title Humpty Dumpty, spelled and capitalized exactly as written, using Mouse Memoirs Regular, weight 400, for both words. Use the supplied Art of the Title Sequence screenshot as a reference for an asymmetrical, tightly composed title with a clear difference in word sizes and staggered baselines. Humpty is the larger hero word on the first line, starting farther left; Dumpty sits on the second line, shifted to the right and slightly smaller, with the right edges aligned. Keep the two words close as one compact title, with no touching or overlapping letterforms. Preserve the recognizable Mouse Memoirs letter shapes; use no script font, extra swashes, alternate typeface, or words from the reference screenshot. Use bright cyan-blue lettering, approximately #00A4EF, with a fine deep-navy outline and a soft dark shadow for contrast against the sky. No rectangular background, banner, badge, or solid title panel. Recompose this title for the upper third of the portrait frame, approximately 10-90 percent of frame width and 12-34 percent of frame height. Keep the Humpty-over-Dumpty staggered hierarchy, with each word on its own line. Keep the complete title inside these margins, readable at thumbnail size, and clear of every egg and Babu Yeti's face, curl, and pointing hand. Leave the bottom tenth as quiet meadow grass. No other text, numerals, logos, captions, signatures, watermarks, borders, or split-screen panels.
 ```

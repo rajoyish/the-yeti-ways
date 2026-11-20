@@ -19,6 +19,7 @@ npx remotion add @remotion/layout-utils >/dev/null 2>&1 || true
 
 cp "$SKILL_DIR/template/Composition.tsx" src/Composition.tsx
 mkdir -p public
+bash "$SKILL_DIR/scripts/download_font.sh" "$PWD"
 rm -f public/source.mp4
 # hard link (symlinks are not followed by the Remotion bundler); copy if cross-device
 ln "$VIDEO" public/source.mp4 2>/dev/null || cp "$VIDEO" public/source.mp4

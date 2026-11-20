@@ -16,9 +16,9 @@ Your local library, `references/characters/`, sits between the two accounts. Eac
 
 - **In both:** skipped. Import never makes a duplicate. It matches names regardless of case, spaces, and hyphens (`Old Herb-Gatherer` = `old-herb-gatherer`), and it never uploads an image the `Characters` project already has.
 - **In the library but not in this account:** imported.
-- **In this account but not in the library** (made directly in Flow): kept. **Check what Flow has** lists them under **New in this account**, and **Export these now** saves them. Then run `seed.mjs collect`, `seed.mjs build --all`, and Import that folder into the other account.
+- **In this account but not in the library** (made directly in Flow): kept. **Check what Flow has** lists them under **New in this account**, and its **Download ZIP** button saves them. Then run `seed.mjs collect`, `seed.mjs build --all`, and Import that folder into the other account.
 
-The panel remembers the library from the last seed folder you picked. On the Export tab, **Scan Characters** then tags each Character "in library" (unticked) or "new" (ticked), so only new ones are exported.
+The panel remembers the library from the last seed folder you picked. On the Export tab, **Scan Characters** then tags each Character "in library" (unticked) or "new" (ticked), so only new ones are exported. Use **Select all** to download existing library Characters again, or **Clear** to start a fresh selection. Download and import buttons are enabled only when items are selected.
 
 ## Voices
 
@@ -45,9 +45,13 @@ After you change a file here, click the reload arrow on the extension's card, th
 Everything moves as **one ZIP**: `manifest.json` plus `characters/<name>-front|turnaround.*` and `plates/Plate - ….*`, the same layout as a seed. Keep it, move it, and import it straight into the other account.
 
 1. In the old account, open the side panel. On **Import**, choose your last seed or export ZIP so the panel knows your library (optional).
-2. **Characters:** click **Scan Characters** (it works from any Flow page and opens the `Characters` project itself). New ones are ticked. Click **Export selected to ZIP**, which saves `Downloads/flow-seed-export/flow-characters-<date>.zip`.
-3. **Plates:** open the film's project, click **Scan plates**, then **Export selected to ZIP**, which saves `flow-plates-<project>-<date>.zip`.
+2. **Characters:** click **Scan Characters** (it works from any Flow page and opens the `Characters` project itself). New ones are ticked. Click **Download ZIP**, which saves `Downloads/flow-seed-export/flow-characters-<date>.zip`.
+3. **Plates:** open the film's project, expand **Project plates**, click **Scan plates**, then **Download ZIP**, which saves `flow-plates-<project>-<date>.zip`.
 4. Optional, to keep a copy in your library: `node tools/flow-account-seeder/seed.mjs collect` unpacks every ZIP in `Downloads/flow-seed-export/` (or `collect <file.zip>`) into `references/characters/` and `references/plates/<storyboard>/`. It never replaces a different file; it saves a `-v2` copy instead.
+
+Character images are downloaded from their original source without resizing or re-encoding. **Activity** shows each image's dimensions and size; the ZIP manifest also records them under `imageMetadata`. If either image is unreadable or has a longest edge of 512 pixels or less, the export stops with an error instead of saving a low-resolution ZIP. If the original itself is that small, replace its source image in Flow before exporting again. Missing Portrait or Body slots remain missing and are reported in Activity.
+
+The compact panel keeps plates, help and Activity collapsible. Activity opens while a job runs or when an error needs attention.
 
 ## 2 · Build the seed
 
@@ -89,7 +93,7 @@ It ends with a **Missing** table that gives the next step for each item: export 
 
 - **ZIP.** `zip.js` writes ZIPs with stored (uncompressed) entries, since images are already compressed, and reads stored or deflated entries, so a ZIP from macOS `zip` or Finder opens too. Both the side panel and `seed.mjs` use it.
 - **Renaming safely.** The image grid recycles its tile elements as it scrolls, so a tile found by position can be a different image a moment later. The seeder renames by the image's own id and types only after the name field shows the expected old name.
-- **Full-resolution export.** Flow serves every image as `…/asb/<id>=s512-rw`. The content script swaps the size suffix for `=s0` to get the original (1024 × 1024 portraits, 1376 × 768 turnarounds), fetches it with the page's own session, and the side panel saves it with `chrome.downloads`.
+- **Full-resolution export.** `images.js` replaces recognized thumbnail transforms with `=s0` (or `/s0/` for Google image paths), preserving signed query parameters. It also requests `=s0` for unsized `/asb/` URLs. The content script fetches with the page's session and a 45-second timeout, decodes the result to verify its dimensions, and passes the original bytes to the ZIP writer. Character exports reject images whose longest edge is 512 pixels or less. It never falls back to downloading a thumbnail or upscales a small source.
 - **Uploads without the file chooser.** Project images (Character fronts and turnarounds, plates) are dropped onto the project grid as a synthetic drag and drop, which Flow accepts. Its **+ → Upload** menu opens a file input only on a real, trusted click. Flow names a dropped image after its file (`Pied Goat - Front.png`), so the seeder waits for the upload to finish and renames it to the exact name. For any other upload button, `hook.js` (page world) hands armed files to Flow's `<input type=file>` instead of opening the system file chooser.
 - **Saved fields.** A card title only saves when it is committed with Enter and then blurred. Flow re-renders the instructions panel after each edit, so the seeder finds it again before every **Add instruction**. With no Characters yet, Flow's Characters button goes straight to the New character page, and the seeder handles that.
 
@@ -106,3 +110,5 @@ Update these selectors in `content.js`:
 - Reference picker (shared with Flow Character Linker): `.flow-add-menu-dialog-panel`, `button.asset-item`, `.asset-title`, and `button.detail-add-to-prompt-btn`.
 
 Test bridge: in the Flow tab's console, `window.postMessage({ fas: "cmd", id: 1, type: "listCharacters" }, "*")` runs a command and posts back `{ fasResult: 1, ok, … }`; `{ fas: "reload" }` reloads the extension itself. Debug lines go to the Flow tab's DevTools console, prefixed `[Flow Account Seeder]`. 
+
+Run the image-export regression checks with `node --test tools/flow-account-seeder/images.test.mjs`. These cover URL transforms and signatures, original bytes and dimensions, thumbnail rejection, and failed or invalid image responses. Live Flow selectors and account permissions still require a signed-in Flow tab to verify.

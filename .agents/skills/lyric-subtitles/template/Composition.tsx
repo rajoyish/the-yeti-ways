@@ -8,6 +8,7 @@ import {
   Composition,
   Easing,
   OffthreadVideo,
+  cancelRender,
   continueRender,
   delayRender,
   interpolate,
@@ -23,7 +24,7 @@ import lyricsData from "./lyrics.json";
 
 type Word = { w: string; s: number; e: number };
 type Line = { words: Word[] };
-type Cfg = typeof config;
+type Cfg = typeof config & { fontFile?: string };
 const C = config as Cfg;
 
 const W = C.width;
@@ -59,11 +60,21 @@ groups.forEach((g) => {
   else segments.push({ start: g.start, end: g.end });
 });
 
-// ---- font loading (any Google Font by family name) ----
+// ---- downloaded default, optional local font, or another Google Font family ----
 const useFont = () => {
   const [family, setFamily] = useState<string | null>(null);
   const [handle] = useState(() => delayRender("Loading font"));
   useEffect(() => {
+    const fontFile = C.fontFile || (C.fontFamily === "Mouse Memoirs" ? "fonts/MouseMemoirs-Regular.ttf" : "");
+    if (fontFile) {
+      const face = new FontFace(C.fontFamily, `url(${staticFile(fontFile)})`, { weight: C.fontWeight });
+      face.load().then((loaded) => {
+        document.fonts.add(loaded);
+        setFamily(C.fontFamily);
+        continueRender(handle);
+      }).catch((error) => cancelRender(error));
+      return;
+    }
     const info = getAvailableFonts().find(
       (f) => f.fontFamily.toLowerCase() === C.fontFamily.toLowerCase(),
     );

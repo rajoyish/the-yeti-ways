@@ -1,6 +1,12 @@
 ---
 name: lyric-subtitles
-description: Create animated karaoke-style lyric subtitles as a lower-third overlay (transparent ProRes 4444 .mov with alpha) for any music video, to place over the footage in Adobe Premiere Pro / any NLE. Uses free local tools: ffmpeg, whisper.cpp (word timing), Remotion (npx create-video). Use when the user asks for lyric subtitles, lyrical captions, karaoke text, sing-along lower thirds, or a song-lyrics overlay for a video.
+description: >-
+  Create animated karaoke-style lyric subtitles as a lower-third overlay
+  (transparent ProRes 4444 .mov with alpha) for any music video, to place over
+  footage in Adobe Premiere Pro / any NLE. Uses free local tools: ffmpeg,
+  whisper.cpp (word timing), Remotion (npx create-video). Use when the user asks
+  for lyric subtitles, lyrical captions, karaoke text, sing-along lower thirds,
+  or a song-lyrics overlay for a video.
 ---
 
 # Lyric subtitles → lower-third overlay
@@ -9,12 +15,14 @@ Pipeline: **probe video → transcribe words (whisper.cpp) → align the user's 
 
 The on-screen text is ALWAYS the user's lyrics text. Whisper is used only for timing.
 
+Default styling: **Mouse Memoirs Regular (400), no background box**, matching the approved v3 font sample. Setup downloads the font and its OFL license from the [official Google Fonts repository](https://github.com/google/fonts/tree/main/ofl/mousememoirs) into `public/fonts/`. The [Google Fonts specimen](https://fonts.google.com/specimen/Mouse+Memoirs) identifies the family; its preview text is not a lyrics source. Do not require a user ZIP or a system font install.
+
 `SKILL` below = this skill's folder, `.agents/skills/lyric-subtitles` in the repository root (Claude Code reaches it through the `.claude/skills/lyric-subtitles` link; Codex and Antigravity read `.agents/skills/` directly). Run every command from the repository root.
 
 ## Inputs to gather
 1. **Video path** (required).
 2. **Lyrics text** (one lyric line per row). If the user did not give it, ask for it. Only fall back to whisper's transcript if they want that, and say it may contain errors.
-3. Optional overrides: language (default English), lines per card (default 2), font, colours, card on/off. Don't ask about these; use the defaults unless the user mentions them.
+3. Optional overrides: language (default English), lines per group (default 2), font (Mouse Memoirs Regular 400), colours, background box (off). Don't ask about these; use the defaults unless the user mentions them.
 4. Export spec: read it from the video with ffprobe (`make_config.py` does this). Any export screenshot is just a cross-check. The overlay MUST match the sequence's resolution, fps and frame count.
 
 ## Workspace layout (one new directory per request)
@@ -42,7 +50,7 @@ bash $SKILL/scripts/transcribe.sh "$VID" $S medium.en en "<first lyric line>"
 
 # 2. Save the user's lyrics to $S/lyrics.txt (one line per row, exact text)
 
-# 3. Scaffold the project (npx create-video --blank, fonts, template, config from ffprobe)
+# 3. Scaffold the project (includes downloading Mouse Memoirs + license from Google Fonts)
 bash $SKILL/scripts/setup_project.sh "$VID" "$ROOT/lyrics"
 
 # 4. Align the lyrics to the word timings
@@ -62,7 +70,7 @@ bash $SKILL/scripts/render.sh "$ROOT/lyrics" stills $S/frames 50 400 900
 Look at the stills with Read. Check that:
 - the text is legible over the footage
 - the gold wipe matches the word being sung
-- the card sits inside the safe area
+- the subtitle group sits inside the safe area
 - no line is clipped
 
 Adjust `src/config.json` if needed. You can turn on `"showSafeGuides": true` temporarily to see the safe area.
@@ -74,13 +82,14 @@ bash $SKILL/scripts/render.sh "$ROOT/lyrics" overlay "$ROOT/output/<Name>_Lyrics
 ```
 Verify the result:
 - ffprobe shows `prores / 4444 / yuva444p*`, the right size and fps, and `nb_frames` equal to the source's frame count.
-- Alpha is correct: `ffmpeg -ss 10 -i overlay.mov -frames:v 1 -vf alphaextract a.png` should show white only where the card is.
+- Alpha is correct: extract a frame during a sung line with `ffmpeg -ss 12 -i overlay.mov -frames:v 1 -vf alphaextract a.png`. Only the text, its shadows/glow and enabled sparkles should be visible; the surrounding area is transparent and no rectangle is present by default.
 
 ## Design defaults (template)
-- **Card:** a dark-navy translucent rounded card at 1280×200 (sizes are at 1080p and scale to other resolutions). It sits 40px above the bottom of the 90% title-safe area. Keep the card on for bright footage like snow or sky; white text alone gets lost there.
-- **Text:** 2 lines per card in Fredoka 600, 60px. Each word wipes white→gold left to right as it's sung, with a small pop. Cards slide up and fade between line pairs.
-- **Long lines:** lines too wide for the card shrink automatically to fit.
-- **Breaks:** the card hides during instrumental breaks longer than about 1.5 s, and stays on through the last frame if singing runs to the end.
+- **Background:** off (`"showCard": false`). Use the stronger text shadow for contrast, including on bright footage. Enable the optional dark-navy rounded box only when the user requests it.
+- **Text:** 2 lines per group in Mouse Memoirs Regular, weight 400, 60px. Each word wipes white→gold left to right as it's sung, with a small pop. Groups slide up and fade between line pairs.
+- **Placement:** the invisible 1280×200 layout area sits 40px above the bottom of the 90% title-safe area (1080p sizes, scaled to other resolutions). The `cardWidth` and `cardHeight` keys control this layout even with the box off.
+- **Long lines:** lines too wide for the layout area shrink automatically to fit.
+- **Breaks:** the subtitles hide during instrumental breaks longer than about 1.5 s, and stay on through the last frame if singing runs to the end.
 - **Sparkles:** twinkling corner sparkles (`"sparkles": false` turns them off).
 
 ## Tuning (`src/config.json`, no code edits needed)
@@ -88,10 +97,11 @@ Verify the result:
 |---|---|
 | `linesPerCard` | 1 = single line, 2 = couplets (default), 3–4 also need `cardHeight` ≈ 90 + 60×lines |
 | `leadIn` | seconds a card appears before its first word (0.35) |
-| `fontFamily` / `fontWeight` | any Google Font name, e.g. "Baloo 2", "Nunito", "Poppins" |
+| `fontFamily` / `fontWeight` | default "Mouse Memoirs" / "400"; other Google Font families remain supported |
+| `fontFile` | optional font path relative to `public/`; empty uses the downloaded Mouse Memoirs font for that family, or the Google Fonts loader for other families |
 | `fontSize`, `cardWidth`, `cardHeight`, `bottomMargin` | sizes in px at 1080p |
 | `safeArea` | 0.9 title safe (default), 0.93 action safe |
-| `showCard` | false = no plate; text gets a heavier shadow instead |
+| `showCard` | false by default = no background box; text gets a heavier shadow instead |
 | `cardTop`/`cardBottom`, `textColor`, `highlightTop`/`highlightBottom` | colours, to match the video's palette |
 
 **Global timing offset:** if every line is early or late by the same amount, shift all `s` and `e` values in `lyrics.json` with a one-line Python script. Don't re-transcribe. Single-word fixes: edit `lyrics.json` directly.
@@ -109,6 +119,10 @@ Re-render the overlay only after one of these changes:
 | Animation behaviour itself | `lyrics/src/Composition.tsx` (only if `config.json` can't do it) |
 
 How to do a revision (reuse that request's run directory as `ROOT`; a new video or new song is a new request with a new run directory):
+For an existing project adopting these defaults, set `fontFamily` to `"Mouse Memoirs"`, `fontWeight` to `"400"`, `fontFile` to `""`, and `showCard` to `false`. Run `bash "$SKILL/scripts/download_font.sh" "$ROOT/lyrics"` and ensure its composition has the template's downloaded-font loader. Preserve its lyrics, word times, placement and other styling. `make_config.py` preserves existing style keys, so re-running setup alone does not migrate old styling.
+
+When the user requests font comparisons or a clip only, render matching short `LyricsPreview` samples with audio using `--frames=0-599` (about 20 seconds at 29.97 fps; calculate the frame range for other rates). Keep each sample's font and version in its filename and honor the requested output folder. A skill/default update or a sample request does not itself authorize full-film renders.
+
 1. Make the edit, then render 1–2 stills around the changed moment (`render.sh … stills`). Look at them.
 2. Render the **preview** first (`render.sh … preview`) so the user can check it. Make the large ProRes file only after that.
 3. Render the overlay to a **new versioned file name**, e.g. `<Name>_Lyrics_Overlay_ProRes4444_alpha_v2.mov`. Never overwrite a file the user has imported into Premiere: Premiere can keep a stale cached version or show the media as offline. Tell the user to replace the clip in their timeline with the v2 file.
@@ -135,7 +149,7 @@ Tell them:
 - The run directory for this request, and that it is git-ignored and was not committed.
 - The file paths of the overlay and the preview.
 - The overlay goes on the track above the video, starting at 00:00:00:00.
-- If Premiere shows black around the card: Modify → Interpret Footage → Alpha: Straight.
+- If Premiere shows black around the subtitles: Modify → Interpret Footage → Alpha: Straight.
 - How the timing was made (whisper word times; your text). List any INTERPOLATED lines.
 - The `config.json` keys they can change.
 - The re-render command, with a clear note: they don't need to run it unless they change timing, text or styling. When they do, they should render to a new `_v2` file name rather than overwriting the clip in Premiere.

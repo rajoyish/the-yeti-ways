@@ -239,23 +239,7 @@
 
   // ---------------------------------------------------------------- full-resolution images
 
-  // Flow serves images as …/asb/<id>=s512-rw; "=s0" is the original.
-  const original = (src) => src.replace(/=[^/=]*$/, "=s0");
-
-  async function grab(src) {
-    const r = await fetch(original(src), { credentials: "include" });
-    if (!r.ok) throw new Error(`Flow refused the image (${r.status}).`);
-    const blob = await r.blob();
-    const dataUrl = await new Promise((res, rej) => {
-      const fr = new FileReader();
-      fr.onload = () => res(fr.result);
-      fr.onerror = () => rej(fr.error);
-      fr.readAsDataURL(blob);
-    });
-    let width = 0, height = 0;
-    try { const bmp = await createImageBitmap(blob); width = bmp.width; height = bmp.height; bmp.close(); } catch {}
-    return { type: blob.type, size: blob.size, width, height, dataUrl };
-  }
+  const grab = (src, options) => FasImages.grab(src, options);
 
   // ---------------------------------------------------------------- Characters view
 
@@ -326,13 +310,19 @@
       info: document.querySelector("textarea.personality-textarea")?.value || "",
       voice: currentVoice(),
     };
-    for (const [slot, key] of [["Portrait", "front"], ["Body", "turnaround"]]) {
-      const img = await waitFor(() => slotImage(slot), 5000);
-      if (!img) { log(`  ${name}: the ${slot} slot is empty.`, "warn"); continue; }
-      out[key] = await grab(img.src);
-      log(`  ${name}: ${slot} ${Math.round(out[key].size / 1024)} KB (${out[key].type}).`);
+    try {
+      for (const [slot, key] of [["Portrait", "front"], ["Body", "turnaround"]]) {
+        const img = await waitFor(() => slotImage(slot), 5000);
+        if (!img) { log(`  ${name}: the ${slot} slot is empty.`, "warn"); continue; }
+        // Slot thumbnails are commonly 512 px or smaller. A successful HTTP
+        // response alone is not enough to promise a high-quality export.
+        try { out[key] = await grab(img.currentSrc || img.src, { minLongEdge: 513 }); }
+        catch (error) { throw new Error(`${name} · ${slot}: ${error.message}`); }
+        log(`  ${name}: ${slot} ${out[key].width} × ${out[key].height} · ${Math.round(out[key].size / 1024)} KB (${out[key].type}).`, "done");
+      }
+    } finally {
+      await leaveCharacterPage();
     }
-    await leaveCharacterPage();
     return out;
   }
 
