@@ -387,6 +387,13 @@ function build(storyboard) {
   }
 
   const instructions = cards(md);
+  function filmSettings(text) {
+    const aspect = /^Vertical 9:16 video/m.test(text) ? "9:16" : "16:9";
+    return {
+      agent: { confirm: "Never", image: { model: "Nano Banana 2.1", aspect, outputs: 1 }, video: { model: "Omni 1.2 Flash", aspect, outputs: 1 } },
+      view: { mode: "Grid", size: "S", "Sound on hover": false, "Return silent videos": false, "Show tile details": false, "Clear prompt on submit": true },
+    };
+  }
   if (!instructions.length) missing.push(["Agent instructions", "## Google Flow Agent instructions", "Rewrite the storyboard with its skill"]);
   for (const c of instructions) {
     if (!c.text) missing.push([c.title, "guideline text block", "Fix the storyboard"]);
@@ -402,6 +409,8 @@ function build(storyboard) {
     characters,
     plates,
     instructions,
+    // The project's Agent and View settings (Flow UI of 2026-11-27), in the film's orientation.
+    settings: filmSettings(md),
     library: library().map((c) => c.name),
   };
   fs.writeFileSync(path.join(out, "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");

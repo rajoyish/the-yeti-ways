@@ -126,7 +126,7 @@ Then give the user the steps, once for all the files. Steps 1 and 2 can be run f
 
 1. Generate each Portrait prompt in Flow with Nano Banana Pro at 1:1. Check it (step 7) and fix it with the edits. Save it as `references/characters/<kebab-case-name>-front.png`.
 2. Generate each Body prompt at 16:9 with the approved front image attached. Check it and save it as `references/characters/<kebab-case-name>-turnaround.png`.
-3. In the film's project, open Characters, click New character, name it, skip the voice (or, for a member with a Voice, choose the closest match to it), paste the Character info, upload the front image into Portrait and the turnaround into Body, and click Done. Type `@` in the prompt box to check the name resolves.
+3. (`/flow-characters <storyboard>` does this step for the user, in their Flow tab, once the images are uploaded.) In the film's project, open Characters, click New character, name it, skip the voice (or, for a member with a Voice, choose the closest match to it), paste the Character info, upload the front image into Portrait and the turnaround into Body, and click Done. Type `@` in the prompt box to check the name resolves.
 
 In storyboard mode, the file is not finished until the storyboard agrees with it. After saving the files (and after the user confirmed the list in step 1B), update the storyboard for each member built, as `prompt-assembly.md` section 6 sets out, and tell the user what changed:
 

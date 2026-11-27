@@ -71,6 +71,41 @@ if (flag("--fit-lines")) {
   const w = Stitch.parseWav(ab(masterPath));
   mix = w.data; rate = w.rate;
 }
+
+// --song: lay a recorded song into the master after a sentence. The speech is matched on the recording as
+// voiced (above); the master is then cut in the pause after that sentence, the song goes in with --song-pad
+// seconds of silence on each side, and every later time moves by that much. The new master is 48 kHz stereo
+// 16-bit (story-with-song.wav beside the recording); the voice recording itself is never changed.
+if (opt("--song")) {
+  const songPath = opt("--song"), after = opt("--song-after");
+  if (!after) { console.error("--song needs --song-after \"<the end of the sentence the song follows>\"."); process.exit(1); }
+  const key = s => s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const units = timeline.blocks.flatMap(b => b.units.map(u => ({ ...u, block: b.id })));
+  const ui = units.findIndex(u => key(u.text).endsWith(key(after)));
+  if (ui < 0) { console.error(`No sentence ends with "${after}".`); process.exit(1); }
+  const u = units[ui], next = units[ui + 1];
+  const at = next ? (u.end + next.start) / 2 : Math.min(timeline.duration, u.end + 0.5);
+  const pad = Number(opt("--song-pad") ?? 1);
+  const { execFileSync } = await import("node:child_process");
+  const probe = f => Number(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", f], { encoding: "utf8" }).trim());
+  const songLen = probe(songPath);
+  const linesPath = opt("--song-lines");
+  const lines = linesPath ? JSON.parse(fs.readFileSync(linesPath, "utf8")).lines : [];
+  const out = path.join(path.dirname(masterPath), "story-with-song.wav");
+  const fmtA = "aresample=48000,aformat=sample_fmts=s16:channel_layouts=stereo";
+  execFileSync("ffmpeg", ["-v", "error", "-y", "-i", masterPath, "-i", songPath, "-filter_complex",
+    `[0:a]${fmtA},asplit[s1][s2];[s1]atrim=0:${at.toFixed(4)},asetpts=N/SR/TB[a];[s2]atrim=${at.toFixed(4)},asetpts=N/SR/TB[c];` +
+    `[1:a]${fmtA},adelay=${Math.round(pad * 1000)}|${Math.round(pad * 1000)},apad=pad_dur=${pad}[b];[a][b][c]concat=n=3:v=0:a=1[o]`,
+    "-map", "[o]", "-c:a", "pcm_s16le", out]);
+  Timeline.insertSong(timeline, { at, length: songLen, pad, file: path.basename(songPath), lines });
+  masterPath = out;
+  const w = Stitch.parseWav(ab(masterPath));
+  mix = w.data; rate = w.rate;
+  const real = mix.length / rate;
+  if (Math.abs(real - timeline.duration) > 0.05) notes.push(`the song master is ${real.toFixed(2)} s, the shifted timeline ${timeline.duration.toFixed(2)} s; check the join`);
+  timeline.duration = +real.toFixed(3); timeline.clips = Math.ceil(real / timeline.clipLength);
+  notes.push(`song ${path.basename(songPath)} (${songLen.toFixed(1)} s) laid in at ${Timeline.fmt(at)} of the recording, after "${u.text.slice(-50)}", with ${pad} s of silence on each side; everything after it moves ${(songLen + 2 * pad).toFixed(1)} s later`);
+}
 timeline.title = doc.title; timeline.slug = doc.slug; timeline.master = path.basename(masterPath);
 
 // Each clip's 10-second slice of the master, for listening and for previews against the Flow clips.

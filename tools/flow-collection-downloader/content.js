@@ -250,6 +250,52 @@
 
   // ---------------------------------------------------------------- create
 
+  const FLOW_HOME = "https://flow.google.com/";
+  // Project cards on the Flow home page: links labelled "Open project", the name on the first line.
+  const projectCards = () =>
+    [...document.querySelectorAll("a")]
+      .filter((a) => /open project/i.test(a.getAttribute("aria-label") || ""))
+      .map((a) => ({ a, name: norm((a.parentElement?.innerText || "").split("\n")[0]) }));
+  const newProjectBtn = () => findText((t) => t === "new project" || t === "+ new project" || t === "add new project")[0];
+
+  // Leave the page: the job is saved first, and this script resumes it on the next page.
+  async function goTo(url, job) {
+    await setJob(job);
+    location.assign(url);
+    await sleep(30000);
+    throw new Error(`Flow did not open ${url}.`);
+  }
+
+  // Step "open": work only in the project named after the storyboard. In a project with another
+  // name (the Characters project, an older film), go to the Flow home page; there, open the
+  // film's project if it exists, else create it. Collections are never added anywhere else.
+  async function openFilmProject(job) {
+    const title = job.plan.title;
+    if (inProject()) {
+      const here = await waitFor(projectTitle, 10000);
+      if (low(here) === low(title)) {
+        log(`In the project "${here}".`);
+        job.projectUrl = location.href;
+        job.step = "collections";
+        await setJob(job);
+        return;
+      }
+      log(`This tab is in the project "${here || "(unnamed)"}", not "${title}". Going to the Flow home page…`);
+      return goTo(FLOW_HOME, job);
+    }
+    await waitFor(() => projectCards().length || newProjectBtn(), 15000);
+    await sleep(800);
+    const card = projectCards().find((c) => low(c.name) === low(title));
+    if (card) {
+      log(`Opening the existing project "${title}"…`);
+      job.step = "collections";
+      return goTo(card.a.href, job);
+    }
+    log(`No project named "${title}" yet; creating it.`);
+    job.step = "project";
+    await setJob(job);
+  }
+
   async function createProject(job) {
     if (!inProject()) {
       log("Opening a new project…");
@@ -284,6 +330,8 @@
   }
 
   const projectTitle = () => {
+    const field = [...document.querySelectorAll("header input.editable-text-input, input.editable-text-input")].find(visible);
+    if (field && norm(field.value)) return norm(field.value);
     const btn = document.querySelector('button[aria-label="More options for the project"]');
     const bar = btn?.parentElement;
     return norm(bar?.textContent.replace(/more_vert|arrow_back|home/g, ""));
@@ -299,36 +347,85 @@
       const input = item && (item.click(), await waitFor(nameField, 4000));
       if (input) {
         await submitName(input, title);
-        await sleep(1000);
-        log(`Project named "${title}".`);
-      } else {
-        escape();
-        log(`Could not rename the project; rename it to "${title}" yourself.`, "warn");
+        await waitFor(() => projectTitle() === title, 4000);
+      } else escape();
+    }
+    // Fallback: the project name in the header is an editable field (the Account Seeder names projects this way).
+    if (projectTitle() !== title) {
+      const field = [...document.querySelectorAll("header input.editable-text-input, input.editable-text-input")].find(visible);
+      if (field) {
+        field.focus();
+        setValue(field, title);
+        pressKey(field, "Enter");
+        field.blur();
+        await waitFor(() => projectTitle() === title, 4000);
       }
     }
+    if (projectTitle() === title) log(`Project named "${title}".`);
+    else throw new Error(`Could not name the project "${title}". Rename it in Flow, then click Create again.`);
     job.step = "collections";
     await setJob(job);
   }
 
-  // Library "+" (Create collection) → name field → collection appears in the Library list.
+  // Flow's inline rename box: the Library "+" adds an "Untitled collection" and focuses this box on it;
+  // a collection's right-click Rename shows the same box.
+  const renameInput = () => [...document.querySelectorAll("input.item-rename-input")].find(visible);
+  const untitledItems = () => [...navItems()].filter((b) => low(b.textContent) === "untitled collection");
+
+  // Type the name into the rename box and commit it with Enter; true once the collection shows that name.
+  async function nameInline(input, name) {
+    setValue(input, name);
+    await sleep(300);
+    if (input.value !== name) { setValue(input, name); await sleep(200); }
+    pressKey(input, "Enter");
+    return !!(await waitFor(() => collectionEl(name), 6000));
+  }
+
+  // Right-click a collection in the Library list → Rename → the name.
+  async function renameCollectionItem(item, name) {
+    rightClick(item);
+    const ren = await waitFor(() => menuItem("rename"), 3000);
+    if (!ren) { escape(); return false; }
+    ren.click();
+    const input = await waitFor(renameInput, 3000);
+    if (!input) { escape(); return false; }
+    return nameInline(input, name);
+  }
+
+  // One collection, named exactly. A leftover "Untitled collection" (from a stopped run, or a name that
+  // did not take) is reused for the name instead of adding another. Up to three tries.
   async function createCollection(name) {
     await ensureSidebar();
-    const add = createCollectionBtn();
-    const before = navItems().length;
-    add.click();
-    const input = await waitFor(nameField, 5000);
-    if (input) await submitName(input, name);
-    else {
-      // Flow made an "Untitled" collection straight away: rename it from its menu.
-      const fresh = await waitFor(() => navItems().length > before, 4000);
-      if (!fresh) throw new Error("No new collection or name field appeared.");
-      throw new Error("Flow created a collection without asking for a name; rename it, then run again.");
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      const stray = untitledItems()[0];
+      if (stray) {
+        log(`Naming a leftover "Untitled collection" "${name}"…`);
+        if (await renameCollectionItem(stray, name)) { log(`Created collection "${name}".`); return; }
+      } else {
+        createCollectionBtn().click();
+        const input = await waitFor(renameInput, 5000);
+        if (input) {
+          if (await nameInline(input, name)) { log(`Created collection "${name}".`); return; }
+        } else {
+          // Older Flow builds asked for the name in a dialog.
+          const field = await waitFor(nameField, 2000);
+          if (field) {
+            await submitName(field, name);
+            if (await waitFor(() => collectionEl(name), 8000)) { log(`Created collection "${name}".`); return; }
+          }
+        }
+      }
+      escape();
+      if (attempt < 3) { log(`  "${name}" did not take; trying again (${attempt + 1} of 3)…`, "warn"); await sleep(1200); }
     }
-    if (!(await waitFor(() => collectionEl(name), 8000))) throw new Error(`Collection "${name}" did not appear.`);
-    log(`Created collection "${name}".`);
+    throw new Error(`Collection "${name}" could not be created and named after 3 tries. Name the "Untitled collection" yourself, then click Create again.`);
   }
 
   async function createCollections(job) {
+    const here = await waitFor(projectTitle, 10000);
+    if (low(here) !== low(job.plan.title)) {
+      throw new Error(`This project is "${here || "(unnamed)"}", not "${job.plan.title}"; no collections were added. Click Create again to open the right project.`);
+    }
     await ensureSidebar();
     for (; job.index < job.plan.collections.length; job.index++) {
       const name = job.plan.collections[job.index];
@@ -662,6 +759,7 @@
     stopRequested = false;
     try {
       if (job.kind === "create") {
+        if (!job.step || job.step === "open") await openFilmProject(job);
         if (job.step === "project") await createProject(job);
         if (job.step === "rename") await renameProject(job);
         if (job.step === "collections") await createCollections(job);
@@ -726,6 +824,13 @@
       run();
     }
   });
+
+  // Stop as soon as the saved job is no longer running (the panel's Stop writes "stopped").
+  try {
+    chrome.storage.onChanged.addListener((changes, area) => {
+      if (area === "local" && changes.fsdJob && running && changes.fsdJob.newValue?.status !== "running") stopRequested = true;
+    });
+  } catch {}
 
   // Resume a job after a reload.
   setTimeout(() => run().catch(() => {}), 2500);

@@ -120,16 +120,18 @@ async function start(kind) {
     kind,
     status: "running",
     plan: { title: plan.title, collections: plan.collections, folder: $("folder").value.trim() },
-    step: kind === "create" ? (status?.inProject ? "collections" : "project") : null,
+    // Create always starts at "open": the tab finds (or makes) the project named after the storyboard,
+    // whatever project it is in now, so collections never land in another project.
+    step: kind === "create" ? "open" : null,
     index: 0,
     start: Number($("start").value) || 0,
     skipExisting: $("skip").checked,
     allTakes: $("takes").checked,
     projectUrl: kind === "download" ? status.url : null,
   };
-  if (kind === "create" && status?.inProject) job.projectUrl = status.url;
   await chrome.storage.local.set({ fsdJob: job });
-  log(kind === "create" ? `Creating "${plan.title}"…` : `Downloading from ${plan.collections[job.start]}…`);
+  if (status?.running) return log("Another job is running in the Flow tab; stop it first.", "error");
+  log(kind === "create" ? `Creating "${plan.title}" and its ${plan.collections.length} collections…` : `Downloading from ${plan.collections[job.start]}…`);
   await send(tab, { type: "start" });
 }
 
@@ -196,6 +198,19 @@ async function stop() {
   await chrome.runtime.sendMessage({ type: "disarm" });
   log("Stop requested.", "warn");
 }
+
+// The top bar: what is running, and Stop (red while a job runs).
+async function renderJobBar() {
+  const { fsdJob } = await chrome.storage.local.get("fsdJob");
+  const on = fsdJob?.status === "running";
+  const what = { create: "Creating the project", download: "Downloading videos", endframe: "Saving an end frame" }[fsdJob?.kind] || "Job";
+  $("jobState").textContent = on ? `${what}${fsdJob.plan?.title ? `: ${fsdJob.plan.title}` : ""}…` : fsdJob?.status ? `Last job: ${fsdJob.status}` : "Idle";
+  $("stop").classList.toggle("danger", on);
+  $("stop").classList.toggle("alt", !on);
+  $("jobBar").classList.toggle("running", on);
+}
+chrome.storage.onChanged.addListener((changes, area) => { if (area === "local" && changes.fsdJob) renderJobBar(); });
+renderJobBar();
 
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg?.type === "log") log(msg.text, msg.level);

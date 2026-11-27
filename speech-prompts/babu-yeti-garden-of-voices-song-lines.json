@@ -1,0 +1,168 @@
+{
+ "song": "many-voices-one-song.wav",
+ "duration": 112.11,
+ "matchedWords": 119,
+ "lyricWords": 122,
+ "lines": [
+  {
+   "verse": "Verse 1",
+   "text": "I used to think my song was best,",
+   "start": 5.08,
+   "end": 10,
+   "matched": 8,
+   "words": 8
+  },
+  {
+   "verse": "Verse 1",
+   "text": "louder and sweeter than the rest,",
+   "start": 10,
+   "end": 14.86,
+   "matched": 6,
+   "words": 6
+  },
+  {
+   "verse": "Verse 1",
+   "text": "but one small voice, all on its own,",
+   "start": 14.86,
+   "end": 19.52,
+   "matched": 8,
+   "words": 8
+  },
+  {
+   "verse": "Verse 1",
+   "text": "sounds lonely singing all alone.",
+   "start": 19.52,
+   "end": 25.66,
+   "matched": 5,
+   "words": 5
+  },
+  {
+   "verse": "Verse 2",
+   "text": "Hum, hum, goes Gombu, deep and slow,",
+   "start": 26.76,
+   "end": 31.52,
+   "matched": 6,
+   "words": 7
+  },
+  {
+   "verse": "Verse 2",
+   "text": "Mili whistles soft and low,",
+   "start": 31.52,
+   "end": 36.3,
+   "matched": 4,
+   "words": 5
+  },
+  {
+   "verse": "Verse 2",
+   "text": "tap-tap-tap, the mice keep time,",
+   "start": 36.3,
+   "end": 40.86,
+   "matched": 7,
+   "words": 7
+  },
+  {
+   "verse": "Verse 2",
+   "text": "and Nimbu chirrups every line.",
+   "start": 40.86,
+   "end": 46.02,
+   "matched": 4,
+   "words": 5
+  },
+  {
+   "verse": "Verse 3",
+   "text": "Many flowers make a garden bright,",
+   "start": 46.02,
+   "end": 51,
+   "matched": 6,
+   "words": 6
+  },
+  {
+   "verse": "Verse 3",
+   "text": "red and yellow, blue and white,",
+   "start": 51,
+   "end": 56.04,
+   "matched": 6,
+   "words": 6
+  },
+  {
+   "verse": "Verse 3",
+   "text": "many voices, big and small,",
+   "start": 56.04,
+   "end": 60.46,
+   "matched": 5,
+   "words": 5
+  },
+  {
+   "verse": "Verse 3",
+   "text": "make the sweetest song of all.",
+   "start": 60.46,
+   "end": 66.28,
+   "matched": 6,
+   "words": 6
+  },
+  {
+   "verse": "Verse 4",
+   "text": "Sing your song and I'll sing mine,",
+   "start": 67.6,
+   "end": 72.5,
+   "matched": 7,
+   "words": 7
+  },
+  {
+   "verse": "Verse 4",
+   "text": "side by side our voices shine,",
+   "start": 72.5,
+   "end": 77.76,
+   "matched": 6,
+   "words": 6
+  },
+  {
+   "verse": "Verse 4",
+   "text": "Mama hums and Babu trills,",
+   "start": 77.76,
+   "end": 82.14,
+   "matched": 5,
+   "words": 5
+  },
+  {
+   "verse": "Verse 4",
+   "text": "over the glade and over the hills.",
+   "start": 82.14,
+   "end": 86.82,
+   "matched": 7,
+   "words": 7
+  },
+  {
+   "verse": "Verse 5",
+   "text": "Many flowers make a garden bright,",
+   "start": 86.82,
+   "end": 91.8,
+   "matched": 6,
+   "words": 6
+  },
+  {
+   "verse": "Verse 5",
+   "text": "red and yellow, blue and white,",
+   "start": 91.8,
+   "end": 96.82,
+   "matched": 6,
+   "words": 6
+  },
+  {
+   "verse": "Verse 5",
+   "text": "many voices, big and small,",
+   "start": 96.82,
+   "end": 101.28,
+   "matched": 5,
+   "words": 5
+  },
+  {
+   "verse": "Verse 5",
+   "text": "make the sweetest song of all.",
+   "start": 101.28,
+   "end": 106.26,
+   "matched": 6,
+   "words": 6
+  }
+ ]
+}

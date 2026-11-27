@@ -1,0 +1,2916 @@
+{
+ "duration": 464.547,
+ "rate": 24000,
+ "clipLength": 10,
+ "clips": 47,
+ "blocks": [
+  {
+   "id": "B001",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 0,
+   "end": 63.44,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "Once upon a time, high in a Himalayan forest of red rhododendron trees, there was a sunny glade full of wildflowers.",
+     "start": 0,
+     "end": 10.69
+    },
+    {
+     "text": "In the middle of the glade sat a big flat stone, and every evening the forest friends gathered around it to share their songs.",
+     "start": 11.64,
+     "end": 21.36
+    },
+    {
+     "text": "Gombu Tortoise hummed low and deep.",
+     "start": 22.45,
+     "end": 25.57
+    },
+    {
+     "text": "Mili Red Panda whistled softly.",
+     "start": 26.21,
+     "end": 29.12
+    },
+    {
+     "text": "The Meadow Mice drummed their tiny feet, and Nimbu Tree Frog chirruped from the branches of an old tree.",
+     "start": 29.73,
+     "end": 37.95
+    },
+    {
+     "text": "Babu Yeti loved to sing more than anything.",
+     "start": 38.85,
+     "end": 42.64
+    },
+    {
+     "text": "He could trill high and sweet, like a little bamboo flute.",
+     "start": 43.17,
+     "end": 47.37
+    },
+    {
+     "text": "But the more he sang, the prouder he grew of his own voice.",
+     "start": 48.07,
+     "end": 53.02
+    },
+    {
+     "text": "One golden evening, Babu Yeti climbed up onto the big flat stone, puffed out his fluffy chest, and boasted,",
+     "start": 53.79,
+     "end": 63.44
+    }
+   ]
+  },
+  {
+   "id": "B002",
+   "speaker": "Babu Yeti",
+   "voice": "Puck",
+   "kind": "dialogue",
+   "start": 64.26,
+   "end": 68.02,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "\"If it weren't for me, nobody here could sing a sweet song!\"",
+     "start": 64.26,
+     "end": 68.02
+    }
+   ],
+   "check": "lines/B002-babu-yeti.wav"
+  },
+  {
+   "id": "B003",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 69.11,
+   "end": 89.37,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "The forest friends were stunned.",
+     "start": 69.11,
+     "end": 71.54
+    },
+    {
+     "text": "The Meadow Mice's ears shot straight up.",
+     "start": 72.26,
+     "end": 75.16
+    },
+    {
+     "text": "Gombu Tortoise blinked slowly.",
+     "start": 76.23,
+     "end": 78.67
+    },
+    {
+     "text": "They all turned and looked at one another in surprise.",
+     "start": 79.7,
+     "end": 83.51
+    },
+    {
+     "text": "Then Gombu Tortoise spoke up, slow and kind.",
+     "start": 84.72,
+     "end": 89.37
+    }
+   ]
+  },
+  {
+   "id": "B004",
+   "speaker": "Gombu Tortoise",
+   "voice": "Algenib",
+   "kind": "dialogue",
+   "start": 90.47,
+   "end": 100.41,
+   "pushed": 0,
+   "straddle": true,
+   "units": [
+    {
+     "text": "\"Babu, it's better when others praise your voice for you. Many friends in this forest sing sweetly, too.\"",
+     "start": 90.47,
+     "end": 100.41
+    }
+   ],
+   "check": "lines/B004-gombu-tortoise.wav"
+  },
+  {
+   "id": "B005",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 101.51,
+   "end": 107.78,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "Babu Yeti's cheeks puffed up, and he stamped his foot on the stone.",
+     "start": 101.51,
+     "end": 107.78
+    }
+   ]
+  },
+  {
+   "id": "B006",
+   "speaker": "Babu Yeti",
+   "voice": "Puck",
+   "kind": "dialogue",
+   "start": 108.88,
+   "end": 112.49,
+   "pushed": 0,
+   "straddle": true,
+   "units": [
+    {
+     "text": "\"Phooey! You can only hum! Why are you showing off?\"",
+     "start": 108.88,
+     "end": 112.49
+    }
+   ],
+   "check": "lines/B006-babu-yeti.wav"
+  },
+  {
+   "id": "B007",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 113.58,
+   "end": 117.82,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "Mili Red Panda twitched her striped tail.",
+     "start": 113.58,
+     "end": 117.82
+    }
+   ]
+  },
+  {
+   "id": "B008",
+   "speaker": "Mili Red Panda",
+   "voice": "Vindemiatrix",
+   "kind": "dialogue",
+   "start": 118.91,
+   "end": 126.2,
+   "pushed": 0,
+   "straddle": true,
+   "units": [
+    {
+     "text": "\"Babu, don't be so full of yourself. Everything Gombu said is completely right.\"",
+     "start": 118.91,
+     "end": 126.2
+    }
+   ],
+   "check": "lines/B008-mili-red-panda.wav"
+  },
+  {
+   "id": "B009",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 127.2,
+   "end": 155.07,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "Because of Babu Yeti's sharp words, everyone began talking at once.",
+     "start": 127.2,
+     "end": 133.22
+    },
+    {
+     "text": "The Meadow Mice squeaked, Mili Red Panda huffed, Gombu Tortoise grumbled, and a noisy quarrel filled the glade for a long, long while.",
+     "start": 134.06,
+     "end": 146.58
+    },
+    {
+     "text": "Up on a branch of the old tree, Nimbu Tree Frog had been listening to the whole quarrel.",
+     "start": 147.75,
+     "end": 155.07
+    }
+   ]
+  },
+  {
+   "id": "B010",
+   "speaker": "Nimbu Tree Frog",
+   "voice": "Fenrir",
+   "kind": "dialogue",
+   "start": 156.16,
+   "end": 156.97,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "\"Hey, everyone!\"",
+     "start": 156.16,
+     "end": 156.97
+    }
+   ],
+   "check": "lines/B010-nimbu-tree-frog.wav"
+  },
+  {
+   "id": "B011",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 158.03,
+   "end": 159,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "he called down.",
+     "start": 158.03,
+     "end": 159
+    }
+   ]
+  },
+  {
+   "id": "B012",
+   "speaker": "Nimbu Tree Frog",
+   "voice": "Fenrir",
+   "kind": "dialogue",
+   "start": 160.09,
+   "end": 165.67,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "\"Why are you fighting over nothing? Let's go to the Rhino Chief. He settles every quarrel!\"",
+     "start": 160.09,
+     "end": 165.67
+    }
+   ],
+   "check": "lines/B012-nimbu-tree-frog.wav"
+  },
+  {
+   "id": "B013",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 166.65,
+   "end": 199.9,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "But the littlest Meadow Mouse did not like that idea at all.",
+     "start": 166.65,
+     "end": 171.27
+    },
+    {
+     "text": "It squeaked that they should ask Mama Yeti instead, because she was kind and wise.",
+     "start": 171.85,
+     "end": 179.72
+    },
+    {
+     "text": "And all the forest friends happily agreed.",
+     "start": 180.58,
+     "end": 183.77
+    },
+    {
+     "text": "The very next afternoon, Sona Butterfly fluttered ahead through the trees, leading Mama Yeti into the glade.",
+     "start": 184.98,
+     "end": 193.9
+    },
+    {
+     "text": "Mama Yeti looked around at all the forest friends and smiled.",
+     "start": 194.65,
+     "end": 199.9
+    }
+   ]
+  },
+  {
+   "id": "B014",
+   "speaker": "Mama Yeti",
+   "voice": "Erinome",
+   "kind": "dialogue",
+   "start": 201.16,
+   "end": 206.8,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "\"Friends who sing sweetly never need to boast. Is anyone here proud like that?\"",
+     "start": 201.16,
+     "end": 206.8
+    }
+   ],
+   "check": "lines/B014-mama-yeti.wav"
+  },
+  {
+   "id": "B015",
+   "speaker": "Forest friends",
+   "voice": "Pulcherrima",
+   "kind": "dialogue",
+   "start": 207.8,
+   "end": 209.06,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "\"No!\"",
+     "start": 207.8,
+     "end": 209.06
+    }
+   ],
+   "check": "lines/B015-forest-friends.wav"
+  },
+  {
+   "id": "B016",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 210.02,
+   "end": 217.99,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "everyone cried together.",
+     "start": 210.02,
+     "end": 212
+    },
+    {
+     "text": "Then, in a small, quiet voice, Babu Yeti murmured,",
+     "start": 212.82,
+     "end": 217.99
+    }
+   ]
+  },
+  {
+   "id": "B017",
+   "speaker": "Babu Yeti",
+   "voice": "Puck",
+   "kind": "dialogue",
+   "start": 219.09,
+   "end": 222.57,
+   "pushed": 0,
+   "straddle": true,
+   "units": [
+    {
+     "text": "\"Well... my voice is sweeter than everyone's.\"",
+     "start": 219.09,
+     "end": 222.57
+    }
+   ],
+   "check": "lines/B017-babu-yeti.wav"
+  },
+  {
+   "id": "B018",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 223.58,
+   "end": 228.48,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "Mama Yeti knelt down beside him and pointed to the meadow.",
+     "start": 223.58,
+     "end": 228.48
+    }
+   ]
+  },
+  {
+   "id": "B019",
+   "speaker": "Mama Yeti",
+   "voice": "Erinome",
+   "kind": "dialogue",
+   "start": 229.56,
+   "end": 237.53,
+   "pushed": 0,
+   "straddle": true,
+   "units": [
+    {
+     "text": "\"Babu, which garden do you like best? One with only one kind of flower, or one with many different kinds?\"",
+     "start": 229.56,
+     "end": 237.53
+    }
+   ],
+   "check": "lines/B019-mama-yeti.wav"
+  },
+  {
+   "id": "B020",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 238.53,
+   "end": 250.9,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "Babu Yeti looked at the wildflowers, red and yellow, blue and white, purple and pink, all nodding together in the breeze.",
+     "start": 238.53,
+     "end": 250.9
+    }
+   ]
+  },
+  {
+   "id": "B021",
+   "speaker": "Babu Yeti",
+   "voice": "Puck",
+   "kind": "dialogue",
+   "start": 251.95,
+   "end": 255.3,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "\"I like a garden with many different kinds of flowers.\"",
+     "start": 251.95,
+     "end": 255.3
+    }
+   ],
+   "check": "lines/B021-babu-yeti.wav"
+  },
+  {
+   "id": "B022",
+   "speaker": "Mama Yeti",
+   "voice": "Erinome",
+   "kind": "dialogue",
+   "start": 256.39,
+   "end": 257.08,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "\"Well said,\"",
+     "start": 256.39,
+     "end": 257.08
+    }
+   ],
+   "check": "lines/B022-mama-yeti.wav"
+  },
+  {
+   "id": "B023",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 258.18,
+   "end": 260.12,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "Mama Yeti smiled.",
+     "start": 258.18,
+     "end": 260.12
+    }
+   ]
+  },
+  {
+   "id": "B024",
+   "speaker": "Mama Yeti",
+   "voice": "Erinome",
+   "kind": "dialogue",
+   "start": 261.22,
+   "end": 271.58,
+   "pushed": 0,
+   "straddle": true,
+   "units": [
+    {
+     "text": "\"In the same way, one voice alone doesn't stay sweet forever. Many different voices together sound sweet. That is why every voice here is lovely.\"",
+     "start": 261.22,
+     "end": 271.58
+    }
+   ],
+   "check": "lines/B024-mama-yeti.wav"
+  },
+  {
+   "id": "B025",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 272.52,
+   "end": 290.06,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "Mama Yeti's wise words touched Babu Yeti's heart, and at last he understood.",
+     "start": 272.52,
+     "end": 280.84
+    },
+    {
+     "text": "He climbed down from the big flat stone and walked over to Gombu Tortoise and Mili Red Panda.",
+     "start": 281.74,
+     "end": 290.06
+    }
+   ]
+  },
+  {
+   "id": "B026",
+   "speaker": "Babu Yeti",
+   "voice": "Puck",
+   "kind": "dialogue",
+   "start": 291.14,
+   "end": 295.9,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "\"I'm sorry, Gombu. I'm sorry, Mili. Will you sing with me?\"",
+     "start": 291.14,
+     "end": 295.9
+    }
+   ],
+   "check": "lines/B026-babu-yeti.wav"
+  },
+  {
+   "id": "B027",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 296.92,
+   "end": 301.89,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "Gombu Tortoise smiled a slow, kind smile.",
+     "start": 296.92,
+     "end": 301.89
+    }
+   ]
+  },
+  {
+   "id": "B028",
+   "speaker": "Gombu Tortoise",
+   "voice": "Algenib",
+   "kind": "dialogue",
+   "start": 302.99,
+   "end": 304.7,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "\"Of course, Babu.\"",
+     "start": 302.99,
+     "end": 304.7
+    }
+   ],
+   "check": "lines/B028-gombu-tortoise.wav"
+  },
+  {
+   "id": "B029",
+   "speaker": "Narrator",
+   "voice": "Charon",
+   "kind": "narration",
+   "start": 305.8,
+   "end": 464.2,
+   "pushed": 0,
+   "straddle": false,
+   "units": [
+    {
+     "text": "That evening, as the sun went down, the whole glade sang together: Gombu Tortoise's deep hum, Mili Red Panda's soft whistle, the Meadow Mice's drumming feet, Nimbu Tree Frog's chirrup, Mama Yeti's warm humming, and Babu Yeti's sweet little trill, all woven into one happy song.",
+     "start": 305.8,
+     "end": 333.48
+    },
+    {
+     "text": "From that day on, Babu Yeti gave up his pride forever.",
+     "start": 334.71,
+     "end": 339.42
+    },
+    {
+     "text": "Let others praise your voice, and love every voice around you, because many voices together make the sweetest song of all.",
+     "start": 454.48,
+     "end": 464.2
+    }
+   ]
+  }
+ ],
+ "pauses": [
+  {
+   "start": 1.43,
+   "end": 2.1
+  },
+  {
+   "start": 6.57,
+   "end": 6.98
+  },
+  {
+   "start": 10.69,
+   "end": 11.64
+  },
+  {
+   "start": 15.24,
+   "end": 15.72
+  },
+  {
+   "start": 17.28,
+   "end": 17.72
+  },
+  {
+   "start": 21.36,
+   "end": 22.45
+  },
+  {
+   "start": 25.57,
+   "end": 26.21
+  },
+  {
+   "start": 29.12,
+   "end": 29.73
+  },
+  {
+   "start": 32.79,
+   "end": 33.32
+  },
+  {
+   "start": 37.95,
+   "end": 38.85
+  },
+  {
+   "start": 42.64,
+   "end": 43.17
+  },
+  {
+   "start": 47.37,
+   "end": 48.07
+  },
+  {
+   "start": 48.72,
+   "end": 49.03
+  },
+  {
+   "start": 50.13,
+   "end": 50.61
+  },
+  {
+   "start": 53.02,
+   "end": 53.79
+  },
+  {
+   "start": 55.71,
+   "end": 56.37
+  },
+  {
+   "start": 59.78,
+   "end": 60.22
+  },
+  {
+   "start": 63.44,
+   "end": 64.26
+  },
+  {
+   "start": 68.02,
+   "end": 69.06
+  },
+  {
+   "start": 71.54,
+   "end": 72.26
+  },
+  {
+   "start": 75.16,
+   "end": 76.23
+  },
+  {
+   "start": 78.67,
+   "end": 79.7
+  },
+  {
+   "start": 83.51,
+   "end": 84.72
+  },
+  {
+   "start": 87.36,
+   "end": 87.78
+  },
+  {
+   "start": 89.37,
+   "end": 90.43
+  },
+  {
+   "start": 91.24,
+   "end": 91.73
+  },
+  {
+   "start": 95.71,
+   "end": 96.52
+  },
+  {
+   "start": 100.41,
+   "end": 101.5
+  },
+  {
+   "start": 107.78,
+   "end": 108.87
+  },
+  {
+   "start": 112.49,
+   "end": 113.54
+  },
+  {
+   "start": 117.82,
+   "end": 118.91
+  },
+  {
+   "start": 122.18,
+   "end": 122.84
+  },
+  {
+   "start": 126.2,
+   "end": 127.2
+  },
+  {
+   "start": 130.32,
+   "end": 130.65
+  },
+  {
+   "start": 133.22,
+   "end": 134.06
+  },
+  {
+   "start": 135.77,
+   "end": 136.27
+  },
+  {
+   "start": 138.29,
+   "end": 138.95
+  },
+  {
+   "start": 140.75,
+   "end": 141.59
+  },
+  {
+   "start": 146.58,
+   "end": 147.75
+  },
+  {
+   "start": 150.03,
+   "end": 150.64
+  },
+  {
+   "start": 153.31,
+   "end": 153.7
+  },
+  {
+   "start": 155.07,
+   "end": 156.11
+  },
+  {
+   "start": 156.97,
+   "end": 157.99
+  },
+  {
+   "start": 159,
+   "end": 160.04
+  },
+  {
+   "start": 162.11,
+   "end": 162.44
+  },
+  {
+   "start": 165.67,
+   "end": 166.6
+  },
+  {
+   "start": 171.27,
+   "end": 171.85
+  },
+  {
+   "start": 172.98,
+   "end": 173.3
+  },
+  {
+   "start": 176.22,
+   "end": 176.68
+  },
+  {
+   "start": 179.72,
+   "end": 180.58
+  },
+  {
+   "start": 183.77,
+   "end": 184.98
+  },
+  {
+   "start": 186.83,
+   "end": 187.35
+  },
+  {
+   "start": 188.94,
+   "end": 189.28
+  },
+  {
+   "start": 193.9,
+   "end": 194.65
+  },
+  {
+   "start": 198.63,
+   "end": 198.98
+  },
+  {
+   "start": 199.9,
+   "end": 200.95
+  },
+  {
+   "start": 204.33,
+   "end": 204.95
+  },
+  {
+   "start": 206.8,
+   "end": 207.76
+  },
+  {
+   "start": 209.06,
+   "end": 209.97
+  },
+  {
+   "start": 212,
+   "end": 212.82
+  },
+  {
+   "start": 213.21,
+   "end": 213.61
+  },
+  {
+   "start": 215.91,
+   "end": 216.58
+  },
+  {
+   "start": 217.99,
+   "end": 219.09
+  },
+  {
+   "start": 219.4,
+   "end": 219.71
+  },
+  {
+   "start": 222.57,
+   "end": 223.53
+  },
+  {
+   "start": 226.29,
+   "end": 226.71
+  },
+  {
+   "start": 228.48,
+   "end": 229.51
+  },
+  {
+   "start": 231.94,
+   "end": 232.44
+  },
+  {
+   "start": 234.67,
+   "end": 235.28
+  },
+  {
+   "start": 237.53,
+   "end": 238.48
+  },
+  {
+   "start": 241.74,
+   "end": 242.39
+  },
+  {
+   "start": 243.86,
+   "end": 244.31
+  },
+  {
+   "start": 245.67,
+   "end": 246.08
+  },
+  {
+   "start": 247.37,
+   "end": 247.78
+  },
+  {
+   "start": 250.9,
+   "end": 251.9
+  },
+  {
+   "start": 255.3,
+   "end": 256.34
+  },
+  {
+   "start": 257.08,
+   "end": 258.14
+  },
+  {
+   "start": 260.12,
+   "end": 261.18
+  },
+  {
+   "start": 265.32,
+   "end": 265.88
+  },
+  {
+   "start": 268.61,
+   "end": 269.15
+  },
+  {
+   "start": 271.58,
+   "end": 272.47
+  },
+  {
+   "start": 275,
+   "end": 275.36
+  },
+  {
+   "start": 277.63,
+   "end": 278.46
+  },
+  {
+   "start": 279.45,
+   "end": 279.78
+  },
+  {
+   "start": 280.84,
+   "end": 281.74
+  },
+  {
+   "start": 287.97,
+   "end": 288.28
+  },
+  {
+   "start": 290.06,
+   "end": 291.09
+  },
+  {
+   "start": 292.64,
+   "end": 293.02
+  },
+  {
+   "start": 294.14,
+   "end": 294.77
+  },
+  {
+   "start": 295.9,
+   "end": 296.87
+  },
+  {
+   "start": 301.89,
+   "end": 302.99
+  },
+  {
+   "start": 304.7,
+   "end": 305.8
+  },
+  {
+   "start": 306.6,
+   "end": 306.96
+  },
+  {
+   "start": 308.88,
+   "end": 309.37
+  },
+  {
+   "start": 311.98,
+   "end": 312.62
+  },
+  {
+   "start": 315.18,
+   "end": 315.57
+  },
+  {
+   "start": 318.33,
+   "end": 318.79
+  },
+  {
+   "start": 321.21,
+   "end": 321.87
+  },
+  {
+   "start": 323.76,
+   "end": 324.38
+  },
+  {
+   "start": 326.41,
+   "end": 326.84
+  },
+  {
+   "start": 329.77,
+   "end": 330.42
+  },
+  {
+   "start": 333.48,
+   "end": 334.71
+  },
+  {
+   "start": 456.28,
+   "end": 456.86
+  },
+  {
+   "start": 459.12,
+   "end": 459.77
+  },
+  {
+   "start": 461.51,
+   "end": 462
+  }
+ ],
+ "songs": [
+  {
+   "file": "many-voices-one-song.wav",
+   "start": 340.9,
+   "end": 453,
+   "lines": [
+    {
+     "verse": "Verse 1",
+     "text": "I used to think my song was best,",
+     "start": 345.98,
+     "end": 350.9,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 1",
+     "text": "louder and sweeter than the rest,",
+     "start": 350.9,
+     "end": 355.76,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 1",
+     "text": "but one small voice, all on its own,",
+     "start": 355.76,
+     "end": 360.42,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 1",
+     "text": "sounds lonely singing all alone.",
+     "start": 360.42,
+     "end": 366.56,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 2",
+     "text": "Hum, hum, goes Gombu, deep and slow,",
+     "start": 367.66,
+     "end": 372.42,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 2",
+     "text": "Mili whistles soft and low,",
+     "start": 372.42,
+     "end": 377.2,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 2",
+     "text": "tap-tap-tap, the mice keep time,",
+     "start": 377.2,
+     "end": 381.76,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 2",
+     "text": "and Nimbu chirrups every line.",
+     "start": 381.76,
+     "end": 386.92,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 3",
+     "text": "Many flowers make a garden bright,",
+     "start": 386.92,
+     "end": 391.9,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 3",
+     "text": "red and yellow, blue and white,",
+     "start": 391.9,
+     "end": 396.94,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 3",
+     "text": "many voices, big and small,",
+     "start": 396.94,
+     "end": 401.35,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 3",
+     "text": "make the sweetest song of all.",
+     "start": 401.35,
+     "end": 407.17,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 4",
+     "text": "Sing your song and I'll sing mine,",
+     "start": 408.5,
+     "end": 413.4,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 4",
+     "text": "side by side our voices shine,",
+     "start": 413.4,
+     "end": 418.66,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 4",
+     "text": "Mama hums and Babu trills,",
+     "start": 418.66,
+     "end": 423.04,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 4",
+     "text": "over the glade and over the hills.",
+     "start": 423.04,
+     "end": 427.72,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 5",
+     "text": "Many flowers make a garden bright,",
+     "start": 427.72,
+     "end": 432.7,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 5",
+     "text": "red and yellow, blue and white,",
+     "start": 432.7,
+     "end": 437.72,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 5",
+     "text": "many voices, big and small,",
+     "start": 437.72,
+     "end": 442.17,
+     "estimated": false
+    },
+    {
+     "verse": "Verse 5",
+     "text": "make the sweetest song of all.",
+     "start": 442.17,
+     "end": 447.16,
+     "estimated": false
+    }
+   ]
+  }
+ ],
+ "title": "Babu Yeti and the Garden of Voices",
+ "slug": "babu-yeti-garden-of-voices",
+ "master": "story-with-song.wav",
+ "plan": [
+  {
+   "n": 1,
+   "start": 0,
+   "end": 10,
+   "entries": [
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 10,
+     "text": "Once upon a time, high in a Himalayan forest of red rhododendron trees, there was a sunny glade full of",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    1.77,
+    6.78
+   ],
+   "last": false
+  },
+  {
+   "n": 2,
+   "start": 10,
+   "end": 20,
+   "entries": [
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 0.6899999999999995,
+     "text": "wildflowers.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 1.6400000000000006,
+     "end": 10,
+     "text": "In the middle of the glade sat a big flat stone, and every evening the forest friends gathered around it to",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    5.48,
+    7.5
+   ],
+   "last": false
+  },
+  {
+   "n": 3,
+   "start": 20,
+   "end": 30,
+   "entries": [
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 1.3599999999999994,
+     "text": "share their songs.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 2.4499999999999993,
+     "end": 5.57,
+     "text": "Gombu Tortoise hummed low and deep.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 6.210000000000001,
+     "end": 9.120000000000001,
+     "text": "Mili Red Panda whistled softly.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 9.73,
+     "end": 10,
+     "text": "The",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    1.91,
+    5.89
+   ],
+   "last": false
+  },
+  {
+   "n": 4,
+   "start": 30,
+   "end": 40,
+   "entries": [
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 7.950000000000003,
+     "text": "Meadow Mice drummed their tiny feet, and Nimbu Tree Frog chirruped from the branches of an old tree.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 8.850000000000001,
+     "end": 10,
+     "text": "Babu Yeti loved",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    3.06,
+    8.4
+   ],
+   "last": false
+  },
+  {
+   "n": 5,
+   "start": 40,
+   "end": 50,
+   "entries": [
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 2.6400000000000006,
+     "text": "to sing more than anything.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 3.1700000000000017,
+     "end": 7.369999999999997,
+     "text": "He could trill high and sweet, like a little bamboo flute.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 8.07,
+     "end": 10,
+     "text": "But the more he sang,",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    2.91,
+    7.72,
+    8.88
+   ],
+   "last": false
+  },
+  {
+   "n": 6,
+   "start": 50,
+   "end": 60,
+   "entries": [
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 3.020000000000003,
+     "text": "the prouder he grew of his own voice.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 3.789999999999999,
+     "end": 10,
+     "text": "One golden evening, Babu Yeti climbed up onto the big flat stone,",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    3.41,
+    6.04
+   ],
+   "last": false
+  },
+  {
+   "n": 7,
+   "start": 60,
+   "end": 70,
+   "entries": [
+    {
+     "block": "B001",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 3.4399999999999977,
+     "text": "puffed out his fluffy chest, and boasted,",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B002",
+     "speaker": "Babu Yeti",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 4.260000000000005,
+     "end": 8.019999999999996,
+     "text": "If it weren't for me, nobody here could sing a sweet song!",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B003",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 9.11,
+     "end": 10,
+     "text": "The forest",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    3.85,
+    8.54
+   ],
+   "last": false
+  },
+  {
+   "n": 8,
+   "start": 70,
+   "end": 80,
+   "entries": [
+    {
+     "block": "B003",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 1.5400000000000063,
+     "text": "friends were stunned.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B003",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 2.260000000000005,
+     "end": 5.159999999999997,
+     "text": "The Meadow Mice's ears shot straight up.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B003",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 6.230000000000004,
+     "end": 8.670000000000002,
+     "text": "Gombu Tortoise blinked slowly.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B003",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 9.700000000000003,
+     "end": 10,
+     "text": "They",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    1.9,
+    5.69
+   ],
+   "last": false
+  },
+  {
+   "n": 9,
+   "start": 80,
+   "end": 90,
+   "entries": [
+    {
+     "block": "B003",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 3.510000000000005,
+     "text": "all turned and looked at one another in surprise.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B003",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 4.719999999999999,
+     "end": 9.370000000000005,
+     "text": "Then Gombu Tortoise spoke up, slow and kind.",
+     "cont": "",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    4.12,
+    7.57
+   ],
+   "last": false
+  },
+  {
+   "n": 10,
+   "start": 90,
+   "end": 100,
+   "entries": [
+    {
+     "block": "B004",
+     "speaker": "Gombu Tortoise",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 0.46999999999999886,
+     "end": 10,
+     "text": "Babu, it's better when others praise your voice for you. Many friends in this forest sing sweetly,",
+     "cont": "runs on",
+     "straddle": true
+    }
+   ],
+   "song": [],
+   "cuts": [
+    1.48,
+    6.11
+   ],
+   "last": false
+  },
+  {
+   "n": 11,
+   "start": 100,
+   "end": 110,
+   "entries": [
+    {
+     "block": "B004",
+     "speaker": "Gombu Tortoise",
+     "kind": "dialogue",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 0.4099999999999966,
+     "text": "too.",
+     "cont": "continues",
+     "straddle": true
+    },
+    {
+     "block": "B005",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 1.5100000000000051,
+     "end": 7.780000000000001,
+     "text": "Babu Yeti's cheeks puffed up, and he stamped his foot on the stone.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B006",
+     "speaker": "Babu Yeti",
+     "kind": "dialogue",
+     "mode": "off-screen",
+     "start": 8.879999999999995,
+     "end": 10,
+     "text": "Phooey! You can",
+     "cont": "runs on",
+     "straddle": true
+    }
+   ],
+   "song": [],
+   "cuts": [
+    8.33
+   ],
+   "last": false
+  },
+  {
+   "n": 12,
+   "start": 110,
+   "end": 120,
+   "entries": [
+    {
+     "block": "B006",
+     "speaker": "Babu Yeti",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 0,
+     "end": 2.489999999999995,
+     "text": "only hum! Why are you showing off?",
+     "cont": "continues",
+     "straddle": true
+    },
+    {
+     "block": "B007",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 3.5799999999999983,
+     "end": 7.819999999999993,
+     "text": "Mili Red Panda twitched her striped tail.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B008",
+     "speaker": "Mili Red Panda",
+     "kind": "dialogue",
+     "mode": "off-screen",
+     "start": 8.909999999999997,
+     "end": 10,
+     "text": "Babu, don't",
+     "cont": "runs on",
+     "straddle": true
+    }
+   ],
+   "song": [],
+   "cuts": [
+    3.02,
+    8.36
+   ],
+   "last": false
+  },
+  {
+   "n": 13,
+   "start": 120,
+   "end": 130,
+   "entries": [
+    {
+     "block": "B008",
+     "speaker": "Mili Red Panda",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 0,
+     "end": 6.200000000000003,
+     "text": "be so full of yourself. Everything Gombu said is completely right.",
+     "cont": "continues",
+     "straddle": true
+    },
+    {
+     "block": "B009",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 7.200000000000003,
+     "end": 10,
+     "text": "Because of Babu Yeti's sharp",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    2.51,
+    6.7
+   ],
+   "last": false
+  },
+  {
+   "n": 14,
+   "start": 130,
+   "end": 140,
+   "entries": [
+    {
+     "block": "B009",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 3.219999999999999,
+     "text": "words, everyone began talking at once.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B009",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 4.060000000000002,
+     "end": 10,
+     "text": "The Meadow Mice squeaked, Mili Red Panda huffed, Gombu Tortoise",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    3.64,
+    6.02,
+    8.62
+   ],
+   "last": false
+  },
+  {
+   "n": 15,
+   "start": 140,
+   "end": 150,
+   "entries": [
+    {
+     "block": "B009",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 6.5800000000000125,
+     "text": "grumbled, and a noisy quarrel filled the glade for a long, long while.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B009",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 7.75,
+     "end": 10,
+     "text": "Up on a branch of the old",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    7.17
+   ],
+   "last": false
+  },
+  {
+   "n": 16,
+   "start": 150,
+   "end": 160,
+   "entries": [
+    {
+     "block": "B009",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 5.069999999999993,
+     "text": "tree, Nimbu Tree Frog had been listening to the whole quarrel.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B010",
+     "speaker": "Nimbu Tree Frog",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 6.159999999999997,
+     "end": 6.969999999999999,
+     "text": "Hey, everyone!",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B011",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 8.030000000000001,
+     "end": 9,
+     "text": "he called down.",
+     "cont": "",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    3.5,
+    5.59,
+    7.48
+   ],
+   "last": false
+  },
+  {
+   "n": 17,
+   "start": 160,
+   "end": 170,
+   "entries": [
+    {
+     "block": "B012",
+     "speaker": "Nimbu Tree Frog",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 0.09000000000000341,
+     "end": 5.6699999999999875,
+     "text": "Why are you fighting over nothing? Let's go to the Rhino Chief. He settles every quarrel!",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B013",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 6.650000000000006,
+     "end": 10,
+     "text": "But the littlest Meadow Mouse did not like",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    2.28,
+    6.13
+   ],
+   "last": false
+  },
+  {
+   "n": 18,
+   "start": 170,
+   "end": 180,
+   "entries": [
+    {
+     "block": "B013",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 1.2700000000000102,
+     "text": "that idea at all.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B013",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 1.8499999999999943,
+     "end": 9.719999999999999,
+     "text": "It squeaked that they should ask Mama Yeti instead, because she was kind and wise.",
+     "cont": "",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    1.56,
+    3.14,
+    6.45
+   ],
+   "last": false
+  },
+  {
+   "n": 19,
+   "start": 180,
+   "end": 190,
+   "entries": [
+    {
+     "block": "B013",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0.5800000000000125,
+     "end": 3.7700000000000102,
+     "text": "And all the forest friends happily agreed.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B013",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 4.97999999999999,
+     "end": 10,
+     "text": "The very next afternoon, Sona Butterfly fluttered ahead through",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    4.38,
+    7.09
+   ],
+   "last": false
+  },
+  {
+   "n": 20,
+   "start": 190,
+   "end": 200,
+   "entries": [
+    {
+     "block": "B013",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 3.9000000000000057,
+     "text": "the trees, leading Mama Yeti into the glade.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B013",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 4.650000000000006,
+     "end": 9.900000000000006,
+     "text": "Mama Yeti looked around at all the forest friends and smiled.",
+     "cont": "",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    4.28,
+    8.81
+   ],
+   "last": false
+  },
+  {
+   "n": 21,
+   "start": 200,
+   "end": 210,
+   "entries": [
+    {
+     "block": "B014",
+     "speaker": "Mama Yeti",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 1.1599999999999966,
+     "end": 6.800000000000011,
+     "text": "Friends who sing sweetly never need to boast. Is anyone here proud like that?",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B015",
+     "speaker": "Forest friends",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 7.800000000000011,
+     "end": 9.060000000000002,
+     "text": "No!",
+     "cont": "",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    4.64,
+    7.28
+   ],
+   "last": false
+  },
+  {
+   "n": 22,
+   "start": 210,
+   "end": 220,
+   "entries": [
+    {
+     "block": "B016",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0.020000000000010232,
+     "end": 2,
+     "text": "everyone cried together.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B016",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 2.819999999999993,
+     "end": 7.990000000000009,
+     "text": "Then, in a small, quiet voice, Babu Yeti murmured,",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B017",
+     "speaker": "Babu Yeti",
+     "kind": "dialogue",
+     "mode": "off-screen",
+     "start": 9.090000000000003,
+     "end": 10,
+     "text": "Well... my",
+     "cont": "runs on",
+     "straddle": true
+    }
+   ],
+   "song": [],
+   "cuts": [
+    2.41,
+    3.41,
+    6.25,
+    8.54
+   ],
+   "last": false
+  },
+  {
+   "n": 23,
+   "start": 220,
+   "end": 230,
+   "entries": [
+    {
+     "block": "B017",
+     "speaker": "Babu Yeti",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 0,
+     "end": 2.569999999999993,
+     "text": "voice is sweeter than everyone's.",
+     "cont": "continues",
+     "straddle": true
+    },
+    {
+     "block": "B018",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 3.5800000000000125,
+     "end": 8.47999999999999,
+     "text": "Mama Yeti knelt down beside him and pointed to the meadow.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B019",
+     "speaker": "Mama Yeti",
+     "kind": "dialogue",
+     "mode": "off-screen",
+     "start": 9.560000000000002,
+     "end": 10,
+     "text": "Babu,",
+     "cont": "runs on",
+     "straddle": true
+    }
+   ],
+   "song": [],
+   "cuts": [
+    3.05,
+    6.5
+   ],
+   "last": false
+  },
+  {
+   "n": 24,
+   "start": 230,
+   "end": 240,
+   "entries": [
+    {
+     "block": "B019",
+     "speaker": "Mama Yeti",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 0,
+     "end": 7.530000000000001,
+     "text": "which garden do you like best? One with only one kind of flower, or one with many different kinds?",
+     "cont": "continues",
+     "straddle": true
+    },
+    {
+     "block": "B020",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 8.530000000000001,
+     "end": 10,
+     "text": "Babu Yeti looked",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    2.19,
+    4.97,
+    8
+   ],
+   "last": false
+  },
+  {
+   "n": 25,
+   "start": 240,
+   "end": 250,
+   "entries": [
+    {
+     "block": "B020",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 10,
+     "text": "at the wildflowers, red and yellow, blue and white, purple and pink, all nodding together in the",
+     "cont": "continues, runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    2.06,
+    4.09,
+    5.88,
+    7.57
+   ],
+   "last": false
+  },
+  {
+   "n": 26,
+   "start": 250,
+   "end": 260,
+   "entries": [
+    {
+     "block": "B020",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 0.9000000000000057,
+     "text": "breeze.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B021",
+     "speaker": "Babu Yeti",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 1.9499999999999886,
+     "end": 5.300000000000011,
+     "text": "I like a garden with many different kinds of flowers.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B022",
+     "speaker": "Mama Yeti",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 6.389999999999986,
+     "end": 7.079999999999984,
+     "text": "Well said,",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B023",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 8.180000000000007,
+     "end": 10,
+     "text": "Mama Yeti smiled.",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    1.4,
+    5.82,
+    7.61
+   ],
+   "last": false
+  },
+  {
+   "n": 27,
+   "start": 260,
+   "end": 270,
+   "entries": [
+    {
+     "block": "B024",
+     "speaker": "Mama Yeti",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 1.2200000000000273,
+     "end": 10,
+     "text": "In the same way, one voice alone doesn't stay sweet forever. Many different voices together sound sweet. That is why every",
+     "cont": "runs on",
+     "straddle": true
+    }
+   ],
+   "song": [],
+   "cuts": [
+    5.6,
+    8.88
+   ],
+   "last": false
+  },
+  {
+   "n": 28,
+   "start": 270,
+   "end": 280,
+   "entries": [
+    {
+     "block": "B024",
+     "speaker": "Mama Yeti",
+     "kind": "dialogue",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 1.579999999999984,
+     "text": "voice here is lovely.",
+     "cont": "continues",
+     "straddle": true
+    },
+    {
+     "block": "B025",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 2.519999999999982,
+     "end": 10,
+     "text": "Mama Yeti's wise words touched Babu Yeti's heart, and at last he",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    2.02,
+    5.18,
+    8.04
+   ],
+   "last": false
+  },
+  {
+   "n": 29,
+   "start": 280,
+   "end": 290,
+   "entries": [
+    {
+     "block": "B025",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 0.839999999999975,
+     "text": "understood.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B025",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 1.740000000000009,
+     "end": 10,
+     "text": "He climbed down from the big flat stone and walked over to Gombu Tortoise and Mili Red Panda.",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    1.29,
+    8.13
+   ],
+   "last": false
+  },
+  {
+   "n": 30,
+   "start": 290,
+   "end": 300,
+   "entries": [
+    {
+     "block": "B026",
+     "speaker": "Babu Yeti",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 1.1399999999999864,
+     "end": 5.899999999999977,
+     "text": "I'm sorry, Gombu. I'm sorry, Mili. Will you sing with me?",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B027",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 6.920000000000016,
+     "end": 10,
+     "text": "Gombu Tortoise smiled a",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    2.83,
+    4.45,
+    6.38
+   ],
+   "last": false
+  },
+  {
+   "n": 31,
+   "start": 300,
+   "end": 310,
+   "entries": [
+    {
+     "block": "B027",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 1.8899999999999864,
+     "text": "slow, kind smile.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B028",
+     "speaker": "Gombu Tortoise",
+     "kind": "dialogue",
+     "mode": "on screen",
+     "start": 2.990000000000009,
+     "end": 4.699999999999989,
+     "text": "Of course, Babu.",
+     "cont": "",
+     "straddle": false
+    },
+    {
+     "block": "B029",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 5.800000000000011,
+     "end": 10,
+     "text": "That evening, as the sun went down, the",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    2.44,
+    5.25,
+    6.78
+   ],
+   "last": false
+  },
+  {
+   "n": 32,
+   "start": 310,
+   "end": 320,
+   "entries": [
+    {
+     "block": "B029",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 10,
+     "text": "whole glade sang together: Gombu Tortoise's deep hum, Mili Red Panda's soft whistle, the Meadow Mice's",
+     "cont": "continues, runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    2.3,
+    5.38,
+    8.56
+   ],
+   "last": false
+  },
+  {
+   "n": 33,
+   "start": 320,
+   "end": 330,
+   "entries": [
+    {
+     "block": "B029",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 10,
+     "text": "drumming feet, Nimbu Tree Frog's chirrup, Mama Yeti's warm humming, and Babu Yeti's sweet little",
+     "cont": "continues, runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    1.54,
+    4.07,
+    6.63
+   ],
+   "last": false
+  },
+  {
+   "n": 34,
+   "start": 330,
+   "end": 340,
+   "entries": [
+    {
+     "block": "B029",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 3.480000000000018,
+     "text": "trill, all woven into one happy song.",
+     "cont": "continues",
+     "straddle": false
+    },
+    {
+     "block": "B029",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 4.7099999999999795,
+     "end": 9.420000000000016,
+     "text": "From that day on, Babu Yeti gave up his pride forever.",
+     "cont": "",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    4.1
+   ],
+   "last": false
+  },
+  {
+   "n": 35,
+   "start": 340,
+   "end": 350,
+   "entries": [],
+   "song": [
+    {
+     "verse": "Verse 1",
+     "text": "I used to think my song was best,",
+     "start": 5.980000000000018,
+     "end": 10,
+     "cont": false,
+     "runsOn": true
+    }
+   ],
+   "cuts": [],
+   "last": false
+  },
+  {
+   "n": 36,
+   "start": 350,
+   "end": 360,
+   "entries": [],
+   "song": [
+    {
+     "verse": "Verse 1",
+     "text": "I used to think my song was best,",
+     "start": 0,
+     "end": 0.8999999999999773,
+     "cont": true,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 1",
+     "text": "louder and sweeter than the rest,",
+     "start": 0.8999999999999773,
+     "end": 5.759999999999991,
+     "cont": false,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 1",
+     "text": "but one small voice, all on its own,",
+     "start": 5.759999999999991,
+     "end": 10,
+     "cont": false,
+     "runsOn": true
+    }
+   ],
+   "cuts": [
+    0.9,
+    5.76
+   ],
+   "last": false
+  },
+  {
+   "n": 37,
+   "start": 360,
+   "end": 370,
+   "entries": [],
+   "song": [
+    {
+     "verse": "Verse 1",
+     "text": "but one small voice, all on its own,",
+     "start": 0,
+     "end": 0.4200000000000159,
+     "cont": true,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 1",
+     "text": "sounds lonely singing all alone.",
+     "start": 0.4200000000000159,
+     "end": 6.560000000000002,
+     "cont": false,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 2",
+     "text": "Hum, hum, goes Gombu, deep and slow,",
+     "start": 7.660000000000025,
+     "end": 10,
+     "cont": false,
+     "runsOn": true
+    }
+   ],
+   "cuts": [
+    7.11
+   ],
+   "last": false
+  },
+  {
+   "n": 38,
+   "start": 370,
+   "end": 380,
+   "entries": [],
+   "song": [
+    {
+     "verse": "Verse 2",
+     "text": "Hum, hum, goes Gombu, deep and slow,",
+     "start": 0,
+     "end": 2.420000000000016,
+     "cont": true,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 2",
+     "text": "Mili whistles soft and low,",
+     "start": 2.420000000000016,
+     "end": 7.199999999999989,
+     "cont": false,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 2",
+     "text": "tap-tap-tap, the mice keep time,",
+     "start": 7.199999999999989,
+     "end": 10,
+     "cont": false,
+     "runsOn": true
+    }
+   ],
+   "cuts": [
+    2.42,
+    7.2
+   ],
+   "last": false
+  },
+  {
+   "n": 39,
+   "start": 380,
+   "end": 390,
+   "entries": [],
+   "song": [
+    {
+     "verse": "Verse 2",
+     "text": "tap-tap-tap, the mice keep time,",
+     "start": 0,
+     "end": 1.759999999999991,
+     "cont": true,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 2",
+     "text": "and Nimbu chirrups every line.",
+     "start": 1.759999999999991,
+     "end": 6.920000000000016,
+     "cont": false,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 3",
+     "text": "Many flowers make a garden bright,",
+     "start": 6.920000000000016,
+     "end": 10,
+     "cont": false,
+     "runsOn": true
+    }
+   ],
+   "cuts": [
+    1.76,
+    6.92
+   ],
+   "last": false
+  },
+  {
+   "n": 40,
+   "start": 390,
+   "end": 400,
+   "entries": [],
+   "song": [
+    {
+     "verse": "Verse 3",
+     "text": "Many flowers make a garden bright,",
+     "start": 0,
+     "end": 1.8999999999999773,
+     "cont": true,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 3",
+     "text": "red and yellow, blue and white,",
+     "start": 1.8999999999999773,
+     "end": 6.939999999999998,
+     "cont": false,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 3",
+     "text": "many voices, big and small,",
+     "start": 6.939999999999998,
+     "end": 10,
+     "cont": false,
+     "runsOn": true
+    }
+   ],
+   "cuts": [
+    1.9,
+    6.94
+   ],
+   "last": false
+  },
+  {
+   "n": 41,
+   "start": 400,
+   "end": 410,
+   "entries": [],
+   "song": [
+    {
+     "verse": "Verse 3",
+     "text": "many voices, big and small,",
+     "start": 0,
+     "end": 1.3500000000000227,
+     "cont": true,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 3",
+     "text": "make the sweetest song of all.",
+     "start": 1.3500000000000227,
+     "end": 7.170000000000016,
+     "cont": false,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 4",
+     "text": "Sing your song and I'll sing mine,",
+     "start": 8.5,
+     "end": 10,
+     "cont": false,
+     "runsOn": true
+    }
+   ],
+   "cuts": [
+    1.35,
+    7.84
+   ],
+   "last": false
+  },
+  {
+   "n": 42,
+   "start": 410,
+   "end": 420,
+   "entries": [],
+   "song": [
+    {
+     "verse": "Verse 4",
+     "text": "Sing your song and I'll sing mine,",
+     "start": 0,
+     "end": 3.3999999999999773,
+     "cont": true,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 4",
+     "text": "side by side our voices shine,",
+     "start": 3.3999999999999773,
+     "end": 8.660000000000025,
+     "cont": false,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 4",
+     "text": "Mama hums and Babu trills,",
+     "start": 8.660000000000025,
+     "end": 10,
+     "cont": false,
+     "runsOn": true
+    }
+   ],
+   "cuts": [
+    3.4,
+    8.66
+   ],
+   "last": false
+  },
+  {
+   "n": 43,
+   "start": 420,
+   "end": 430,
+   "entries": [],
+   "song": [
+    {
+     "verse": "Verse 4",
+     "text": "Mama hums and Babu trills,",
+     "start": 0,
+     "end": 3.0400000000000205,
+     "cont": true,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 4",
+     "text": "over the glade and over the hills.",
+     "start": 3.0400000000000205,
+     "end": 7.720000000000027,
+     "cont": false,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 5",
+     "text": "Many flowers make a garden bright,",
+     "start": 7.720000000000027,
+     "end": 10,
+     "cont": false,
+     "runsOn": true
+    }
+   ],
+   "cuts": [
+    3.04,
+    7.72
+   ],
+   "last": false
+  },
+  {
+   "n": 44,
+   "start": 430,
+   "end": 440,
+   "entries": [],
+   "song": [
+    {
+     "verse": "Verse 5",
+     "text": "Many flowers make a garden bright,",
+     "start": 0,
+     "end": 2.6999999999999886,
+     "cont": true,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 5",
+     "text": "red and yellow, blue and white,",
+     "start": 2.6999999999999886,
+     "end": 7.720000000000027,
+     "cont": false,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 5",
+     "text": "many voices, big and small,",
+     "start": 7.720000000000027,
+     "end": 10,
+     "cont": false,
+     "runsOn": true
+    }
+   ],
+   "cuts": [
+    2.7,
+    7.72
+   ],
+   "last": false
+  },
+  {
+   "n": 45,
+   "start": 440,
+   "end": 450,
+   "entries": [],
+   "song": [
+    {
+     "verse": "Verse 5",
+     "text": "many voices, big and small,",
+     "start": 0,
+     "end": 2.170000000000016,
+     "cont": true,
+     "runsOn": false
+    },
+    {
+     "verse": "Verse 5",
+     "text": "make the sweetest song of all.",
+     "start": 2.170000000000016,
+     "end": 7.160000000000025,
+     "cont": false,
+     "runsOn": false
+    }
+   ],
+   "cuts": [
+    2.17
+   ],
+   "last": false
+  },
+  {
+   "n": 46,
+   "start": 450,
+   "end": 460,
+   "entries": [
+    {
+     "block": "B029",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 4.480000000000018,
+     "end": 10,
+     "text": "Let others praise your voice, and love every voice around you, because",
+     "cont": "runs on",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    6.57
+   ],
+   "last": false
+  },
+  {
+   "n": 47,
+   "start": 460,
+   "end": 464.547,
+   "entries": [
+    {
+     "block": "B029",
+     "speaker": "Narrator",
+     "kind": "narration",
+     "mode": "off-screen",
+     "start": 0,
+     "end": 4.199999999999989,
+     "text": "many voices together make the sweetest song of all.",
+     "cont": "continues",
+     "straddle": false
+    }
+   ],
+   "song": [],
+   "cuts": [
+    1.75
+   ],
+   "last": true
+  }
+ ]
+}

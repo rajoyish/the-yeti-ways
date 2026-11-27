@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Flow Account Seeder",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Exports saved Characters and plates from one Google Flow account and recreates them, with a film's Agent instruction cards, in another.",
   "icons": {
     "16": "icons/icon16.png",

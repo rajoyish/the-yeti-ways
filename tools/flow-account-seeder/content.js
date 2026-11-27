@@ -436,8 +436,9 @@
     const have = await collectImages((n) => names.includes(low(n)) || names.includes(low(n).replace(/\.[a-z]+$/, "")));
     if (have.size) {
       let found = [...have.keys()][0];
-      // An earlier upload left as "<name>.png": give it its exact name.
-      if (found !== name && low(found).replace(/\.[a-z]+$/, "") === low(name)) {
+      // An earlier upload under another of its names ("<name>.png", or "plate-<location>.png" as the
+      // repo names the file): give it its exact name.
+      if (found !== name) {
         const t = imageTiles().find((x) => tileName(x) === found);
         if (t) { await renameTile(t, name); found = name; }
       }
@@ -773,6 +774,182 @@
     return { added };
   }
 
+
+  // ---------------------------------------------------------------- Agent settings (Flow UI of 2026-11-27)
+  //
+  // Flow replaced the "Agent instructions" cards with Agent settings: the gear in the prompt bar (or the
+  // Agent side panel) opens a panel with "Confirm before generating" (Always / Never), "Image defaults" and
+  // "Video defaults" (model, aspect ratio, outputs), and "Memory": cards with a title, a description, a
+  // "Use memory" switch, and "Add reference" (an image the card refers to). Cards save as they are edited.
+
+  const agentSettingsBtn = () => byAria("Agent settings");
+  const inAgentSettings = () => !!buttons().find((b) => /^add new$/i.test(iconless(b))) && [...document.querySelectorAll("*")].some((e) => e.childElementCount === 0 && norm(e.textContent) === "Confirm before generating" && visible(e));
+
+  async function openAgentSettings() {
+    needProject("the film's project");
+    await leaveCharacterPage();
+    if (inAgentSettings()) return;
+    if (!agentSettingsBtn()) {
+      // The gear shows while the Flow Agent is on: switch it on if the toggle says it is off.
+      const toggle = byAria("Flow Agent");
+      if (toggle) { click(toggle); await waitFor(agentSettingsBtn, 4000); }
+    }
+    const gear = await waitFor(agentSettingsBtn, 6000);
+    if (!gear) throw new Error('"Agent settings" (the gear in the prompt bar) was not found. Turn on the Flow Agent in the prompt bar.');
+    gear.click();
+    if (!(await waitFor(inAgentSettings, 8000))) throw new Error("Agent settings did not open.");
+    await sleep(600);
+  }
+
+  // A Memory card (<flow-project-brief-card>): its header holds the title, switch, Add reference, and Delete;
+  // its body below holds the description (a textarea while editing, a preview once saved).
+  const memoryCard = (title) => {
+    const card = title.closest("flow-project-brief-card");
+    if (card) return card;
+    let c = title;
+    while (c && !c.querySelector("textarea.card-description, .description-preview")) c = c.parentElement;
+    return c;
+  };
+  const memoryCards = () => [...document.querySelectorAll("input.card-title")].map((t) => {
+    const card = memoryCard(t);
+    const d = card?.querySelector("textarea.card-description, .description-preview, .card-description");
+    return { title: t, card, name: norm(t.value), text: norm(d ? (d.value ?? d.textContent) : "") };
+  });
+
+  async function listMemories() {
+    await openAgentSettings();
+    return { cards: memoryCards().map((m) => m.name).filter(Boolean), texts: memoryCards().map((m) => m.text.slice(0, 120)) };
+  }
+
+  // "Add reference" on a card → "Select reference image" → the image by name → "Add to memory".
+  async function pickMemoryReference(card, imageName) {
+    const btn = card.querySelector('button[class*="add-refer"]') || [...card.querySelectorAll("button")].find((b) => /add reference/i.test(b.textContent));
+    if (!btn) throw new Error('The card has no "Add reference" button.');
+    btn.click();
+    const dlg = await waitFor(() => [...document.querySelectorAll(".flow-add-menu-dialog-panel, .flow-media-picker-dialog-panel")].find(visible), 6000);
+    if (!dlg) throw new Error("The reference picker did not open.");
+    const search = dlg.querySelector('input[placeholder="Search assets"]');
+    if (search) { typeInto(search, imageName); await sleep(1200); }
+    const title = (b) => low(b.querySelector(".asset-title")?.textContent || b.innerText.split("\n")[0]);
+    const item = await waitFor(() => [...dlg.querySelectorAll("button.asset-item")].find((b) => title(b) === low(imageName)), 10000);
+    if (!item) {
+      dlg.querySelector('button.header-close-btn, button[aria-label="Close"]')?.click();
+      throw new Error(`"${imageName}" is not an image in this project; upload and name the plate first.`);
+    }
+    item.click();
+    await sleep(500);
+    const add = await waitFor(() => [...dlg.querySelectorAll("button")].find((b) => visible(b) && /^add to (memory|prompt)$/i.test(iconless(b))) || dlg.querySelector("button.detail-add-to-prompt-btn"), 3000);
+    if (add) add.click();
+    await waitFor(() => !dlg.isConnected || !visible(dlg), 5000);
+  }
+
+  // cards: [{ title, text, reference? }]. A card whose title (or text) is already a Memory is skipped.
+  async function fillMemories({ cards }) {
+    await openAgentSettings();
+    let added = 0;
+    for (const c of cards) {
+      const have = memoryCards();
+      const same = have.find((m) => low(m.name) === low(c.title) || (m.text && m.text.slice(0, 120) === norm(c.text).slice(0, 120)));
+      if (same && same.text.slice(0, 120) === norm(c.text).slice(0, 120)) {
+        log(`${c.title}: already a Memory; skipped.`);
+        continue;
+      }
+      // A card with this title but not its text (a run that stopped half way) is completed; an empty card
+      // left open (from "Add new") is reused; otherwise one is added. New cards appear at the top.
+      let m = same || have.find((x) => !x.name && !x.text);
+      if (!m) {
+        const before = have.length;
+        const addNew = buttons().find((b) => /^add new$/i.test(iconless(b)));
+        if (!addNew) throw new Error('Memory "Add new" was not found in Agent settings.');
+        addNew.click();
+        if (!(await waitFor(() => memoryCards().length > before, 4000))) throw new Error('"Add new" did not add a Memory card.');
+        m = memoryCards().find((x) => !x.name && !x.text);
+      }
+      if (!m) throw new Error("No empty Memory card to fill.");
+      const { title, card } = m;
+      typeInto(title, c.title);
+      await sleep(200);
+      pressKey(title, "Enter");
+      title.blur();
+      await sleep(400);
+      if (!card.querySelector("textarea.card-description")) card.querySelector(".description-preview")?.click();
+      const ta = await waitFor(() => card.querySelector("textarea.card-description"), 3000);
+      if (!ta) throw new Error(`${c.title}: the card's description box was not found.`);
+      typeInto(ta, c.text);
+      ta.dispatchEvent(new Event("blur", { bubbles: true }));
+      ta.blur();
+      await sleep(800);
+      if (norm(ta.value) !== norm(c.text)) log(`  ${c.title}: the text did not take in full (${ta.value.length} of ${c.text.length} characters).`, "warn");
+      const sw = card.querySelector('button[role="switch"][aria-label="Use memory"], button[role="switch"]');
+      if (sw && sw.getAttribute("aria-checked") !== "true") { sw.click(); await waitFor(() => sw.getAttribute("aria-checked") === "true", 1500); }
+      if (c.reference) await pickMemoryReference(card, c.reference);
+      log(`${c.title}: added${c.reference ? ` with ${c.reference}` : ""}.`);
+      added++;
+      await sleep(600);
+    }
+    return { added };
+  }
+
+  // settings: { confirm: "Never" | "Always", image: { model, aspect, outputs }, video: { model, aspect, outputs } }.
+  async function setDefaultsPage(label, want) {
+    if (!want) return;
+    const open = buttons().find((b) => new RegExp(`^${label}`, "i").test(iconless(b).replace(/^(image|videocam)/, "")));
+    if (!open) throw new Error(`"${label}" was not found in Agent settings.`);
+    open.click();
+    await waitFor(() => document.querySelector("label.radio-option"), 5000);
+    await sleep(400);
+    if (want.model) {
+      const row = [...document.querySelectorAll("label.radio-option")].filter(visible).find((l) => low(iconless(l)).replace(/^\W+/, "").includes(low(want.model)));
+      if (!row) throw new Error(`${label}: Flow offers no model "${want.model}".`);
+      if (!row.classList.contains("radio-option-selected")) { row.click(); await waitFor(() => row.classList.contains("radio-option-selected"), 2000); }
+    }
+    for (const v of [want.aspect, want.outputs && `x${want.outputs}`].filter(Boolean)) {
+      const r = [...document.querySelectorAll('[role="radio"]')].filter(visible).find((b) => low(iconless(b)).endsWith(low(v)));
+      if (!r) throw new Error(`${label}: no "${v}" option.`);
+      if (r.getAttribute("aria-checked") !== "true") { r.click(); await waitFor(() => r.getAttribute("aria-checked") === "true", 2000); }
+    }
+    byAria("Back")?.click();
+    await waitFor(inAgentSettings, 5000);
+    await sleep(400);
+  }
+
+  async function applyAgentSettings(settings = {}) {
+    await openAgentSettings();
+    if (settings.confirm) {
+      const t = buttons().find((b) => b.classList.contains("mat-button-toggle-button") && low(iconless(b)).replace(/info$/, "").trim() === low(settings.confirm));
+      if (!t) throw new Error(`No "${settings.confirm}" option under Confirm before generating.`);
+      // Flow marks the chosen option with role="radio" aria-checked="true" (and mat-button-toggle-checked).
+      const on = () => t.getAttribute("aria-checked") === "true" || t.getAttribute("aria-pressed") === "true" || !!t.closest(".mat-button-toggle-checked");
+      if (!on()) { t.click(); await waitFor(on, 2000); }
+      if (!on()) throw new Error(`Could not set Confirm before generating to ${settings.confirm}.`);
+    }
+    await setDefaultsPage("Image defaults", settings.image);
+    await setDefaultsPage("Video defaults", settings.video);
+    return { applied: true };
+  }
+
+  // The top bar's Settings menu: view mode, grid size, and four switches.
+  // view: { mode: "Grid", size: "S", "Sound on hover": false, "Return silent videos": false, "Show tile details": false, "Clear prompt on submit": true }
+  async function applyViewSettings(view = {}) {
+    needProject("the film's project");
+    byAria("Settings")?.click();
+    const pane = await waitFor(() => [...document.querySelectorAll(".cdk-overlay-pane")].filter(visible).find((p) => /view mode/i.test(p.textContent)), 5000);
+    if (!pane) throw new Error("The view Settings menu did not open.");
+    for (const v of [view.mode, view.size].filter(Boolean)) {
+      const b = [...pane.querySelectorAll('[role="radio"]')].find((x) => low(iconless(x)).replace(/^(dashboard|campaign_all)/, "") === low(v));
+      if (b && b.getAttribute("aria-checked") !== "true") { b.click(); await sleep(400); }
+    }
+    for (const [name, on] of Object.entries(view)) {
+      if (name === "mode" || name === "size") continue;
+      const sw = pane.querySelector(`button[role="switch"][aria-label="${name} toggle"]`);
+      if (!sw) { log(`  View setting "${name}" not found.`, "warn"); continue; }
+      if ((sw.getAttribute("aria-checked") === "true") !== !!on) { sw.click(); await sleep(400); }
+    }
+    escape();
+    await sleep(300);
+    return { applied: true };
+  }
+
   // ---------------------------------------------------------------- commands
 
   const commands = {
@@ -806,8 +983,10 @@
     uploadImage: async (m) => uploadImage(m.image),
     createCharacter: async (m) => createCharacter(m.character),
     setCharacterVoice,
-    listCards,
-    fillInstructions,
+    listCards: async () => (agentSettingsBtn() || inAgentSettings() ? listMemories() : listCards()),
+    fillInstructions: async (m) => (agentSettingsBtn() || inAgentSettings() ? fillMemories(m) : fillInstructions(m)),
+    applyAgentSettings: async (m) => applyAgentSettings(m.settings),
+    applyViewSettings: async (m) => applyViewSettings(m.view),
     renameImage: async ({ from, to }) => {
       await openImagesView();
       await collectImages();

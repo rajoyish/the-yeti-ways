@@ -169,7 +169,10 @@ for (const v of videos) {
     if (e.who === "Narrator") {
       if (e.mode !== "off-screen") problem(where, `${e.clip}: the Narrator is always off-screen`);
     } else {
-      if (!castLine.includes(`@${e.who}`)) problem(where, `${e.who} speaks but is not called as @${e.who} in the Cast: line`);
+      // A chorus (several characters answering together, its voice "a chorus of ...") has no Character of its own:
+      // its members are in the Cast line, and the shot's In frame list names the chorus.
+      const chorus = /^a chorus of\b/.test(voices.get(e.who) || "");
+      if (!chorus && !castLine.includes(`@${e.who}`)) problem(where, `${e.who} speaks but is not called as @${e.who} in the Cast: line`);
       if (e.mode === "on screen") {
         const shot = shots.find(s => e.a >= s.start - 1e-9 && e.b <= s.end + 1e-9);
         if (!shot) problem(where, `${e.clip} ${e.who}: an on-screen line must sit inside one shot; this one crosses a cut`);

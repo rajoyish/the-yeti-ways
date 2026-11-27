@@ -542,11 +542,19 @@ $("run").onclick = () => job(async () => {
     if ((await call("ping")).url !== film.url) await goto(film.url);
     for (const p of plates) {
       checkStop();
-      await call("uploadImage", { image: { name: p.name, file: await fileArg(p.image, p.name) } });
+      const base = String(p.image || "").split("/").pop().replace(/\.[a-z]+$/i, "");
+      await call("uploadImage", { image: { name: p.name, also: base ? [base] : [], file: await fileArg(p.image, p.name) } });
     }
     if (cards.length) {
       checkStop();
       await call("fillInstructions", { cards });
+    }
+    // Flow's new Agent settings and View settings, when the seed carries them.
+    if (seed.manifest.settings) {
+      checkStop();
+      await call("applyAgentSettings", { settings: seed.manifest.settings.agent }).then(() => log("Agent settings applied."), (e) => log(`Agent settings: ${e.message}`, "warn"));
+      checkStop();
+      await call("applyViewSettings", { view: seed.manifest.settings.view }).then(() => log("View settings applied."), (e) => log(`View settings: ${e.message}`, "warn"));
     }
   }
   log(`Import finished: ${todo.length} items. Type @ in the prompt box to check each Character resolves.`, "done");

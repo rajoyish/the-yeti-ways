@@ -2,7 +2,7 @@
 
 A Chrome extension that sets up a Google Flow project from a storyboard and downloads its finished videos at 1080p, named after the storyboard.
 
-- **Create project & collections.** Reads the storyboard's `# <Title> …s Storyboard` heading and every `## Video N - <Title>` and `## Pick-up N - <Title>` heading. On the Flow home page it clicks **+ New project** and names the project after the film (`Babu Yeti and the Sour Mango Trick`); inside a project it only adds the collections that are missing (`Video 1 - The Mango Tree`, …).
+- **Create project & collections.** Reads the storyboard's `# <Title> …s Storyboard` heading and every `## Video N - <Title>` and `## Pick-up N - <Title>` heading, and works only in the project named after the film (`Babu Yeti and the Sour Mango Trick`), from any Flow page. In a project with another name (the **Characters** project, which holds only the Character images, or an older film) it goes to the Flow home page first. There it opens the film's project if one has that name, or clicks **+ New project** and names it. Then it adds the collections that are missing (`Video 1 - The Mango Tree`, …). It refuses to add collections to a project whose name is not the film's.
 - **Save the end frame of the open video.** Open a finished video in Flow (the page with the player and timeline) and click **Save end frame**. It moves the playhead to the last frame and clicks **Save frame**, then goes Back, which Flow takes to the video's own collection (`Video 9 - …`). That gives the number: the new `Saved frame from …` image is renamed `End frame V9` and dragged onto `Video 10 - …` in the Library list. It reads everything from Flow, so it needs no storyboard. Skip it for a video whose next video opens on a plate (a scene change).
 - **Save the frame at the playhead.** Flow sometimes reorders a clip's shots, so its last frame is not the shot the next video should open on. Pause the player on the clean, held frame you want and click **Save frame at playhead**: it saves that frame instead of the last one, then renames and moves it exactly like **Save end frame**. The next video's `Images:` line in the storyboard says what that frame should look like (`End frame V<N> should look like the held last shot of Video <N>: …`), so you know which frame to pause on.
 
@@ -25,7 +25,7 @@ After you change a file here, click the reload arrow on the extension's card, th
 
 5. **Download:** open the project in Flow, choose **Start from** (for example `Video 8 - Another and Another`), set the Downloads subfolder, and click **Download videos**.
 
-The log shows every step. **Stop** ends the job after the current step. A job survives a page reload and resumes.
+The log shows every step. **Stop**, in the bar at the top of the panel, ends any job (create, end frame, or download) after its current step; it turns red while a job runs. A job survives a page reload and resumes, which is also how Create moves from one Flow page to another; a stopped job never resumes.
 
 Chrome may ask, on the first download, whether Flow can download multiple files: allow it. If Chrome is set to "Ask where to save each file", turn that off or the renamed path is only a suggestion.
 
