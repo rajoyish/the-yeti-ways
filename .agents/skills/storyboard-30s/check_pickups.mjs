@@ -72,8 +72,16 @@ if (mapStart >= 0) {
 
 pickups.forEach((p, idx) => {
   const where = `Pick-up ${p.n}`;
-  if (p.n !== idx + 1) problem(where, `pick-ups are not numbered in order from 1 (expected Pick-up ${idx + 1})`);
-  if (p.at < lastVideo) problem(where, "comes before the last ## Video section; pick-ups follow the numbered videos");
+  if (pickups.filter(q => q.n === p.n).length > 1) problem(where, "two pick-ups share this number");
+  if (p.n < 1 || p.n > pickups.length) problem(where, `pick-ups are numbered 1 to ${pickups.length} with no gaps`);
+  // A pick-up sits after the last video, or directly below the video its Pick-up: line names.
+  const above = [...videoIdx].reverse().find(vi => vi < p.at);
+  const aboveN = above === undefined ? null : Number(lines[above].match(/^## Video (\d+)/)[1]);
+  const pickLine0 = (() => { for (let j = p.at + 1; j < lines.length && !/^## /.test(lines[j]); j++) if (lines[j].startsWith("Pick-up:")) return lines[j]; return ""; })();
+  if (above === undefined) problem(where, "comes before every ## Video section; place it below the video it cuts into, or after the last video");
+  else if (p.at < lastVideo && !new RegExp(`\\bVideo ${aboveN}\\b`).test(pickLine0)) problem(where, `sits below Video ${aboveN} but its Pick-up: line does not name Video ${aboveN}; place it below the video it cuts into, or after the last video`);
+  // Between a video and its pick-ups, only other pick-ups.
+  if (above !== undefined) for (let j = above + 1; j < p.at; j++) if (/^## /.test(lines[j]) && !/^## Pick-up /.test(lines[j])) { problem(where, `"${lines[j]}" sits between Video ${aboveN} and this pick-up`); break; }
   if (coverIdx >= 0 && p.at > coverIdx) problem(where, "comes after ## Cover image; pick-ups sit before the covers");
   if (!mapRows.has(p.n)) problem(where, "has no row in the ## Image map");
 

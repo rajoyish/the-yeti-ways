@@ -1,7 +1,7 @@
 ---
 name: create-flow-assets
 description: >-
-  Generate the reference images a Yeti storyboard needs before its clips are made in Google Flow: every location plate (`Plate - <Location>`, in the film's orientation, vertical 9:16 or horizontal 16:9) and every story cast Character's front (1:1) and turnaround (16:9) images. Takes a storyboard path or link from `prompts/`, checks `prompts/characters/` and `references/characters/` for what already exists, builds missing Character files with flow-character-builder, asks which image model to use (ChatGPT / OpenAI GPT Image or Google AI / Gemini Nano Banana Pro), then generates, checks, saves, and links the images. Use for "create the plates", "generate character images", "front and turnaround", "make the Flow assets", or /create-flow-assets. Never generates Papa Yeti, Mama Yeti, or Babu Yeti.
+  Generate missing Google Flow reference assets from a Yeti storyboard in prompts/: location plates in the storyboard's film aspect ratio, story cast fronts (1:1), and turnarounds (16:9). Automatically select OpenAI for Codex / ChatGPT or Google for Gemini / Antigravity, respecting explicit user overrides. Inventory existing assets, build missing Character files with flow-character-builder, generate, check, save, and link the images. Use for "create the plates", "generate character images", "front and turnaround", "make the Flow assets", or /create-flow-assets. Never generate Papa Yeti, Mama Yeti, or Babu Yeti.
 ---
 
 # Create Flow assets
@@ -19,7 +19,7 @@ Read before working:
 
 | Asset | Prompt source | Format | Saved to |
 | --- | --- | --- | --- |
-| Plate | The `Plate - <Location>: ...` line in the storyboard's `## Agent setup prompt`, sent as `Create image: <the line after the label>` | The film's orientation, read from the plate line's aspect ratio line: `Vertical 9:16` or `Horizontal 16:9` | `references/plates/<storyboard-stem>/plate-<location-kebab>.png` |
+| Plate | The `Plate - <Location>: ...` line in the storyboard's `## Agent setup prompt`, sent as `Create image: <the line after the label>` | The storyboard's film aspect ratio: vertical 9:16 or horizontal 16:9 (step 1) | `references/plates/<storyboard-stem>/plate-<location-kebab>.png` |
 | Character front | The `text` block under `## Portrait` in `prompts/characters/<name-kebab>-flow-character.md` | Square 1:1 | `references/characters/<name-kebab>-front.png` |
 | Character turnaround | The `text` block under `## Body` in the same file, generated with the approved front attached | Horizontal 16:9 | `references/characters/<name-kebab>-turnaround.png` |
 
@@ -32,6 +32,8 @@ Both `references/characters/` and `references/plates/` hold local images that gi
 ### 1. Take the storyboard
 
 The user gives a storyboard as a path, a Markdown link, or a file name (`prompts/<slug>-storyboard.md`). Resolve it to a file in `prompts/`. If it is missing, or is not a storyboard (a `-3x2.md`, a triptych, or a carousel file), say so and ask for the storyboard. If the user names only some assets ("just the plates", "only Lumen Grazer"), work on those alone.
+
+Determine the film's aspect ratio from the format lines in its video Agent prompts: `Vertical 9:16 video` means `9:16`; `Horizontal 16:9 video` means `16:9`. If those lines are absent, use an unambiguous orientation in the storyboard's introduction before its first `##` heading. Ignore promotional cover prompts, Character sheets, and house-format examples: they can deliberately use other ratios. Every plate must use the film's ratio. Do not ask for orientation when the storyboard supplies it. If the film format is missing or contradictory, ask only for the unresolved format before generating plates. If a plate prompt contradicts the film format, have the relevant storyboard skill correct it at its source before emitting prompts; never silently send conflicting prompt text and generation settings. Character fronts stay 1:1 and turnarounds stay 16:9 regardless of film orientation.
 
 ### 2. Take stock
 
@@ -51,18 +53,23 @@ It reads the Agent setup prompt for every plate and every Agent prompt's `Cast:`
 - **Yetis**: never generated here. Papa Yeti, Mama Yeti, and Babu Yeti are canonical and already saved in Flow, and a Yeti made from text is where tails, horns, and wrong colours appear (`google-flow.md`, section 2). Report a missing canonical portrait or Character image as missing local files only. Their source is the user's saved Flow Characters and `references/characters/<papa, mama, or babu>-yeti.png`. To get missing local Yeti images, export them from the saved Flow Characters with the Flow Account Seeder (`tools/flow-account-seeder/`: **Export**, then `node tools/flow-account-seeder/seed.mjs collect`).
 - A story cast member written in a `Cast:` line without `@` (described-only, kept off the reference budget) has no Character and gets no images. Leave it alone.
 
-### 3. Ask which image model
+### 3. Select the image provider automatically
 
-Ask on every run, unless the user already named the model in this request. In Claude Code, use AskUserQuestion; in other assistants, ask in chat. Ask one question with two options:
+Honor an explicit provider or model requested by the user first. Otherwise use the active agent's identity, not the video model named in the storyboard:
 
-- **ChatGPT (OpenAI GPT Image)**: generates through ChatGPT's image model. Exact 1:1; 9:16 and 16:9 come back as the nearest supported sizes, portrait 2:3 and landscape 3:2.
-- **Google AI (Gemini / Nano Banana Pro)**: the same image model Flow uses, with exact 1:1, 9:16, and 16:9. It is the closer match to what the clips are made with.
+| Active agent | Default image provider |
+| --- | --- |
+| Codex / ChatGPT / OpenAI agent | OpenAI (GPT Image) |
+| Gemini / Google Antigravity agent | Google (Gemini / Nano Banana Pro) |
+| Claude Code or another agent | Use the sole available image provider, checking native image tools first, then configured API keys. If both providers are available or neither is available, ask which provider to use. |
 
-In the same AskUserQuestion call, list the assets to be generated (`2 plates; Nuri Bear front + turnaround; ...`) and ask whether to generate all of them now or only some. Sending a prompt to OpenAI or Google publishes it to that service, and each image costs credits, so nothing is sent before the user answers.
+Select a specific model using the native tool's available model, or the helper's `--model`, environment override, and default in step 4. A model name requested by the user determines its provider. Never infer the active agent from the shell, repository name, or storyboard's references to Google Flow or Nano Banana Pro.
 
-### 4. Choose the route for the chosen provider
+State the selected provider, film aspect ratio, and assets to generate in a brief progress update, then proceed with the requested assets. Do not ask the user to choose a provider, reconfirm the asset list, or approve generation on a normal run. An explicit subset still limits the work; existing-image replacement and ambiguous-character checks in step 2 still apply.
 
-Use the first of these that works, always with the provider the user chose. Never switch to another provider without asking.
+### 4. Choose the route for the selected provider
+
+Use the first of these that works with the selected provider. If it is unavailable, use the prompt-pack route; never silently switch providers.
 
 1. **The assistant's own image tool for that provider**, when the session has one (for example, ChatGPT image generation in Codex, or Google's image generation in Antigravity).
 2. **The helper script**, when the provider's key is in the shell: `OPENAI_API_KEY` for ChatGPT, and `GEMINI_API_KEY` or `GOOGLE_API_KEY` for Google. Check that the key is set with `[ -n "$OPENAI_API_KEY" ] && echo set`, and never print it. If the key is missing, tell the user to add `export OPENAI_API_KEY=...` (or `GEMINI_API_KEY`) to their shell profile and start a new session. Never ask them to paste a key into the chat.
@@ -82,7 +89,7 @@ Never edit the prompt text to suit a model. The words "Nano Banana Pro" in a Cha
 
 Generate in this order, one image per call:
 
-1. Each plate: `--aspect 9:16` for a vertical film or `--aspect 16:9` for a horizontal one (the plate line's own aspect ratio line says which), no reference image.
+1. Each plate: pass the inventory's resolved `aspect` as `--aspect 9:16` or `--aspect 16:9`, with no reference image. Resolve any reported aspect problem before generating or emitting that plate.
 2. Each Character's front: `--aspect 1:1`, no reference image.
 3. Check the front (step 6). Only once it passes, generate the turnaround: `--aspect 16:9 --ref <the approved front>`. The Body prompt opens by telling the model to use the attached image.
 
@@ -99,7 +106,7 @@ With an assistant's own image tool, send the same prompt text, attach the same r
 
 Open each image (Read it) and check it before it is saved as approved or used as a reference:
 
-- **Plate**: in the film's orientation, the location as its `Environment:` text describes it, the light the line names, and no characters, people, animals, or text. With ChatGPT's 2:3 or 3:2 size, a plate may be centre-cropped to 9:16 or 16:9 (`sips -c <height> <width> <file>`: height 1536 by width 864 for a 1024x1536 image, height 864 by width 1536 for a 1536x1024 one), because a plate holds no character. Look at it again after cropping.
+- **Plate**: in the film's orientation, the location as its `Environment:` text describes it, the light the line names, and no characters, people, animals, or text. If the selected tool returns 2:3 or 3:2 instead of the film's ratio, a plate must be centre-cropped to 9:16 or 16:9 (`sips -c <height> <width> <file>`: height 1536 by width 864 for a 1024x1536 image, height 864 by width 1536 for a 1536x1024 one), because a plate holds no character. Look at it again after cropping.
 - **Character front and turnaround**: the user checks in step 7 of `flow-character-builder` and the `## Checks` list in the Character file. That means the whole body is in frame, the digit, fin, or limb counts are right and separate, the palette matches with no extra markings, the face is friendly, and the background is pure white with no floor line or text. The turnaround shows three views of the same character at one size, and its back matches the description. Never crop a character image; with ChatGPT, keep the 3:2 turnaround and report its size.
 
 An image that fails is fixed with one of the Character file's `## Fix-up edits`. Write the edit text to a prompt file and generate with `--ref <the failed image>` to a new file. Try at most two fixes, then report the fault and stop. A failed image is never used as a reference and never left at the approved path.
@@ -127,7 +134,8 @@ Name anything still missing: a Yeti's local images, an unlabeled plate line, or 
 - [ ] The inventory was run on the storyboard, and its report was acted on row by row.
 - [ ] No Yeti image was generated.
 - [ ] Every new story cast member was checked against `prompts/characters/` for a similar name, and a file was built with `flow-character-builder` only for members that are really new.
-- [ ] The user chose the model in this run (or named it in the request), and every image came from that provider.
+- [ ] The provider follows the user's explicit choice or the active-agent default, and every image came from that provider.
+- [ ] Plate aspect ratios were resolved from the storyboard's film format, excluding covers, and every generated plate matches it; Character formats remain 1:1 and 16:9.
 - [ ] Every prompt sent was the verbatim plate line or Portrait or Body block; every turnaround was made with its approved front attached.
 - [ ] Every image was opened and checked; no failed image sits at an approved path or was used as a reference; nothing was overwritten without the user's agreement.
 - [ ] Every saved image has its exact name and path, every Character file links its images with their real sizes, and the report says honestly what was and was not generated.

@@ -69,11 +69,14 @@ for (let i = 0; i < lines.length; i++) {
 }
 if (!videos.some(v => v.kind === "Video")) { console.error("No ## Video sections found."); process.exit(1); }
 
-for (const kind of ["Video", "Pick-up"]) {
-  videos.filter(v => v.kind === kind).forEach((v, idx) => {
-    if (v.n !== idx + 1) problem(`${kind} ${v.n}`, `${kind} sections are not numbered in order (expected ${kind} ${idx + 1})`);
-  });
-}
+videos.filter(v => v.kind === "Video").forEach((v, idx) => {
+  if (v.n !== idx + 1) problem(`Video ${v.n}`, `Video sections are not numbered in order (expected Video ${idx + 1})`);
+});
+// Pick-ups may sit below the video they cut into, so their file order can differ from their numbers.
+const pickNums = videos.filter(v => v.kind === "Pick-up").map(v => v.n).sort((a, b) => a - b);
+pickNums.forEach((n, idx) => {
+  if (n !== idx + 1) problem(`Pick-up ${n}`, `Pick-up sections are not numbered 1 to ${pickNums.length} with no gaps or repeats`);
+});
 
 // Each kind's previous video's speech entries, for the picture-ahead-of-narration check.
 const prevEntries = new Map();

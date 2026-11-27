@@ -100,5 +100,8 @@ Per video, with no voice-like sounds. Separate sounds with `;`. The extension tu
 1. Check the guide: `node .agents/skills/flow-music-score/scripts/check_score_guide.mjs music-prompts/<this file> --audio "<path>/story-full.wav" --storyboard prompts/<storyboard file>`
 2. Generate in the extension's side panel: drop this guide and `story-full.wav` → **Generate & build all 4 stems** → `Downloads/flow-music-score/<film-slug>/<film-slug>-{music-score,ambience,foley,sfx}.wav`.
 3. Verify each stem: `node .agents/skills/flow-music-score/scripts/verify_bed.mjs --bed <stem.wav> --audio "<path>/story-full.wav"`
-4. Premiere Pro: every stem at `00:00:00:00` on its own track under `story-full.wav` (see Stems above), levels set by ear.
+4. Mix the stems: `node .agents/skills/flow-music-score/scripts/mix_stems.mjs --dir ~/Downloads/flow-music-score/<film-slug> --audio "<path>/story-full.wav"` → `<film-slug>-mix.wav` (−20 LUFS bed for ducking; add `--no-voice` for a film without narration), then verify it like a stem.
+5. Premiere Pro, either way, everything at `00:00:00:00` under `story-full.wav`:
+   - **Mix:** `<film-slug>-mix.wav` on A2, tagged Music, Ducking against Dialogue (Sensitivity 6, Duck Amount −8 dB, Fade 400 ms), **Generate Keyframes**.
+   - **Stems:** each on its own track (see Stems above), levels set by ear.
 ````

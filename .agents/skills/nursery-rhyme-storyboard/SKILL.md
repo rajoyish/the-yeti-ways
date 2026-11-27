@@ -281,7 +281,8 @@ external editing step. Write long files in batches if needed; never substitute
 When the user asks for pick-ups (a missing shot, a missing reaction, a
 cutaway, a bridge, or B-roll) after the clips are made, read
 `.agents/skills/storyboard-30s/references/pickup-shots.md` and follow it. Add
-each as `## Pick-up <n> - <Title>` after the last video and before the covers,
+each as `## Pick-up <n> - <Title>` directly below the video it cuts into when the
+user names that video, otherwise after the last video, always before the covers,
 with its `Pick-up:` line, `Images:` line, `Agent prompt:` block, Image map row,
 and one Instruction 2 sentence. In a song film every pick-up is an **overlay**:
 its picture replaces a stretch of one clip's picture while that clip's sung

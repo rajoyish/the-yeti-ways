@@ -19,7 +19,7 @@
 
   const SOUND_MAX = 3000;       // Compose "Sound description" maxLength
   const LENGTH_MAX = 180;       // Compose "Length" clamps at 3:00
-  const LENGTH_MIN = 10;
+  const LENGTH_MIN = 60; // Compose refuses lengths under 1:00 (seen 2026-11-23: 0:22 became 1:00).
 
   // Effects that read as a voice. Removed so every layer stays voice-free.
   const VOCAL_WORDS = /\b(voice|voices|sigh|sighs|breath|breathing|exhal\w*|inhal\w*|intake|sniff\w*|hum|humming|laugh\w*|giggl\w*|gasp\w*|speech|spoken|singing|sing|chant\w*|whisper\w*|murmur\w*|cry|crying)\b/i;
