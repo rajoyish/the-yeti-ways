@@ -18,7 +18,14 @@ const args = process.argv.slice(2);
 const opt = k => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : null; };
 const home = p => (p && p.startsWith("~") ? path.join(os.homedir(), p.slice(1)) : p);
 const songPath = home(opt("--song")), lyricsPath = opt("--lyrics");
-if (!songPath || !lyricsPath) { console.log("Usage: node tools/ai-studio-voice-runner/song-lines.mjs --song <song.wav> --lyrics <story.md|lyrics.txt> [--out file.json]"); process.exit(1); }
+if (!songPath || !lyricsPath) { console.log("Usage: node tools/ai-studio-voice-runner/song-lines.mjs --song <song.wav> --lyrics <story.md|lyrics.txt> [--out file.json] [--force]"); process.exit(1); }
+const outPath = opt("--out") || path.join("speech-prompts", `${path.basename(lyricsPath).replace(/-story\.md$|\.md$|\.txt$/, "")}-song-lines.json`);
+// A song-lines file whose lines carry `parts` (who sings each phrase, read by song-retime.mjs and timeline.js)
+// or times corrected by ear is hand work; whisper would replace it, so it is kept unless --force.
+if (fs.existsSync(outPath) && !args.includes("--force") && JSON.parse(fs.readFileSync(outPath, "utf8")).lines?.some(l => l.parts?.length)) {
+  console.error(`${outPath} already has the song's choreography (parts). Fix its times by hand and run song-retime.mjs, or pass --force to replace it with new whisper times and no parts.`);
+  process.exit(1);
+}
 
 // ---- lyrics ----
 let text = fs.readFileSync(lyricsPath, "utf8");
@@ -99,7 +106,6 @@ out.forEach((l, i) => {
 });
 const dur = Number(spawnSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", songPath], { encoding: "utf8" }).stdout.trim());
 const result = { song: path.basename(songPath), duration: r2(dur), matchedWords: matched, lyricWords: n, lines: out };
-const outPath = opt("--out") || path.join("speech-prompts", `${path.basename(lyricsPath).replace(/-story\.md$|\.md$|\.txt$/, "")}-song-lines.json`);
 fs.writeFileSync(outPath, JSON.stringify(result, null, 1));
 console.log(`${result.song}: ${dur.toFixed(2)} s, ${lines.length} lines, ${matched} of ${n} lyric words matched.`);
 for (const l of out) console.log(`  ${String(l.start).padStart(6)}-${String(l.end).padEnd(6)} ${l.verse.padEnd(8)} ${l.text}${l.estimated ? "  (estimated)" : l.matched < l.words ? `  (${l.matched}/${l.words} words heard)` : ""}`);

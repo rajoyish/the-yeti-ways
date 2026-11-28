@@ -122,34 +122,34 @@ Copy into the storyboard's `## Script` section as it is.
 
 ## Song
 
-`many-voices-one-song.wav` plays from 5:40.9 to 7:33.0 of the master (clips 35 to 46). It is laid into the master as recorded; Flow never sings it. In those clips the `Speech:` line holds only the spoken words around the song (or none), and the `Song:` line gives the sung lines on the clip's clock, for the picture to follow: the characters the lyrics name, singing together with mouths moving softly, never lip-synced to a word. Times come from whisper word timings of the song (`song-lines.mjs`).
+`many-voices-one-song.wav` plays from 5:40.9 to 7:33.0 of the master (clips 35 to 46). The singing runs from 5:45.8 to 7:29.2 (clips 35 to 45). It is laid into the master as recorded and replaces Flow's audio in the edit. In those clips the `Speech:` line holds only the spoken words around the song (or none), and the `Song:` line gives each sung phrase on the clip's clock with its singers and whether they are on screen or off-screen, so Flow moves the singing characters' mouths in time with the words while every other mouth stays closed. Times and singers come from `speech-prompts/babu-yeti-garden-of-voices-song-lines.json` (each line's `parts`): its times start as whisper word timings (`song-lines.mjs`) and are corrected there by ear.
 
 | Film time | Clip | Verse | Line |
 | --- | --- | --- | --- |
-| 5:46.0-5:50.9 | 35 | Verse 1 | I used to think my song was best, |
-| 5:50.9-5:55.8 | 36 | Verse 1 | louder and sweeter than the rest, |
-| 5:55.8-6:00.4 | 36 | Verse 1 | but one small voice, all on its own, |
-| 6:00.4-6:06.6 | 37 | Verse 1 | sounds lonely singing all alone. |
-| 6:07.7-6:12.4 | 37 | Verse 2 | Hum, hum, goes Gombu, deep and slow, |
-| 6:12.4-6:17.2 | 38 | Verse 2 | Mili whistles soft and low, |
-| 6:17.2-6:21.8 | 38 | Verse 2 | tap-tap-tap, the mice keep time, |
-| 6:21.8-6:26.9 | 39 | Verse 2 | and Nimbu chirrups every line. |
-| 6:26.9-6:31.9 | 39 | Verse 3 | Many flowers make a garden bright, |
-| 6:31.9-6:36.9 | 40 | Verse 3 | red and yellow, blue and white, |
-| 6:36.9-6:41.4 | 40 | Verse 3 | many voices, big and small, |
-| 6:41.4-6:47.2 | 41 | Verse 3 | make the sweetest song of all. |
-| 6:48.5-6:53.4 | 41 | Verse 4 | Sing your song and I'll sing mine, |
-| 6:53.4-6:58.7 | 42 | Verse 4 | side by side our voices shine, |
-| 6:58.7-7:03.0 | 42 | Verse 4 | Mama hums and Babu trills, |
-| 7:03.0-7:07.7 | 43 | Verse 4 | over the glade and over the hills. |
-| 7:07.7-7:12.7 | 43 | Verse 5 | Many flowers make a garden bright, |
-| 7:12.7-7:17.7 | 44 | Verse 5 | red and yellow, blue and white, |
-| 7:17.7-7:22.2 | 44 | Verse 5 | many voices, big and small, |
-| 7:22.2-7:27.2 | 45 | Verse 5 | make the sweetest song of all. |
+| 5:45.8-5:49.9 | 35 | Verse 1 | I used to think my song was best, |
+| 5:50.4-5:55.1 | 36 | Verse 1 | louder and sweeter than the rest, |
+| 5:55.4-5:59.6 | 36 | Verse 1 | but one small voice, all on its own, |
+| 6:00.1-6:06.5 | 37 | Verse 1 | sounds lonely singing all alone. |
+| 6:07.3-6:11.6 | 37 and 38 | Verse 2 | Hum, hum, goes Gombu, deep and slow, |
+| 6:12.1-6:16.4 | 38 | Verse 2 | Mili whistles soft and low, |
+| 6:16.9-6:21.1 | 38 and 39 | Verse 2 | tap-tap-tap, the mice keep time, |
+| 6:21.4-6:26.1 | 39 | Verse 2 | and Nimbu chirrups every line. |
+| 6:26.5-6:30.9 | 39 and 40 | Verse 3 | Many flowers make a garden bright, |
+| 6:31.4-6:35.8 | 40 | Verse 3 | red and yellow, blue and white, |
+| 6:36.1-6:40.3 | 40 and 41 | Verse 3 | many voices, big and small, |
+| 6:40.9-6:46.6 | 41 | Verse 3 | make the sweetest song of all. |
+| 6:48.1-6:52.4 | 41 and 42 | Verse 4 | Sing your song and I'll sing mine, |
+| 6:52.9-6:57.3 | 42 | Verse 4 | side by side our voices shine, |
+| 6:57.7-7:02.0 | 42 and 43 | Verse 4 | Mama hums and Babu trills, |
+| 7:02.5-7:06.9 | 43 | Verse 4 | over the glade and over the hills. |
+| 7:07.3-7:11.6 | 43 and 44 | Verse 5 | Many flowers make a garden bright, |
+| 7:12.1-7:16.4 | 44 | Verse 5 | red and yellow, blue and white, |
+| 7:16.9-7:21.1 | 44 and 45 | Verse 5 | many voices, big and small, |
+| 7:21.7-7:29.2 | 45 | Verse 5 | make the sweetest song of all. |
 
 ## Clips
 
-Each `Speech:` line is copy-ready for that video's Agent prompt, fixed sentence included. A `Song:` line is for the picture only and never goes into the Agent prompt's speech.
+Each `Speech:` and `Song:` line is copy-ready for that video's Agent prompt, fixed sentence included.
 
 ### Clip 1 - 0:00.0 to 0:10.0
 
@@ -359,7 +359,7 @@ Cut points (pauses): 00:04.1.
 
 Speech: none.
 
-Song: 00:06-00:10, Verse 1, running on into the next clip: "I used to think my song was best,"
+Song: 00:05.8-00:10, Babu Yeti, on screen, singing: "I used to think my song was best," Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.
 
 Cut points (pauses): none.
 
@@ -367,85 +367,87 @@ Cut points (pauses): none.
 
 Speech: none.
 
-Song: 00:00-00:00.9, Verse 1, continuing from the last clip: "I used to think my song was best," 00:00.9-00:05.8, Verse 1: "louder and sweeter than the rest," 00:05.8-00:10, Verse 1, running on into the next clip: "but one small voice, all on its own,"
+Song: 00:00.5-00:05.1, Babu Yeti, on screen, singing: "louder and sweeter than the rest," 00:05.4-00:09.6, Babu Yeti, on screen, singing: "but one small voice, all on its own," Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.
 
-Cut points (pauses): 00:00.9, 00:05.8.
+Cut points (pauses): 00:05.3.
 
 ### Clip 37 - 6:00.0 to 6:10.0
 
 Speech: none.
 
-Song: 00:00-00:00.4, Verse 1, continuing from the last clip: "but one small voice, all on its own," 00:00.4-00:06.6, Verse 1: "sounds lonely singing all alone." 00:07.7-00:10, Verse 2, running on into the next clip: "Hum, hum, goes Gombu, deep and slow,"
+Song: 00:00.1-00:06.5, Babu Yeti, on screen, singing: "sounds lonely singing all alone." 00:07.3-00:10, Chorus, off-screen, singing, running on into the next clip: "Hum, hum, goes Gombu," Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.
 
-Cut points (pauses): 00:07.1.
+Cut points (pauses): 00:06.9.
 
 ### Clip 38 - 6:10.0 to 6:20.0
 
 Speech: none.
 
-Song: 00:00-00:02.4, Verse 2, continuing from the last clip: "Hum, hum, goes Gombu, deep and slow," 00:02.4-00:07.2, Verse 2: "Mili whistles soft and low," 00:07.2-00:10, Verse 2, running on into the next clip: "tap-tap-tap, the mice keep time,"
+Song: 00:00-00:01.7, Chorus, off-screen, singing, continuing from the last clip: "deep and slow," 00:02.1-00:06.4, Babu Yeti, on screen, singing: "Mili whistles soft and low," 00:06.9-00:10, Chorus, off-screen, singing, running on into the next clip: "tap-tap-tap, the mice" Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.
 
-Cut points (pauses): 00:02.4, 00:07.2.
+Cut points (pauses): 00:01.9, 00:06.7.
 
 ### Clip 39 - 6:20.0 to 6:30.0
 
 Speech: none.
 
-Song: 00:00-00:01.8, Verse 2, continuing from the last clip: "tap-tap-tap, the mice keep time," 00:01.8-00:06.9, Verse 2: "and Nimbu chirrups every line." 00:06.9-00:10, Verse 3, running on into the next clip: "Many flowers make a garden bright,"
+Song: 00:00-00:01.1, Chorus, off-screen, singing, continuing from the last clip: "keep time," 00:01.5-00:06.2, Chorus, off-screen, singing: "and Nimbu chirrups every line." 00:06.5-00:10, Babu Yeti and Mili Red Panda, on screen, singing, running on into the next clip: "Many flowers make a garden" Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.
 
-Cut points (pauses): 00:01.8, 00:06.9.
+Cut points (pauses): 00:01.3, 00:06.3.
 
 ### Clip 40 - 6:30.0 to 6:40.0
 
 Speech: none.
 
-Song: 00:00-00:01.9, Verse 3, continuing from the last clip: "Many flowers make a garden bright," 00:01.9-00:06.9, Verse 3: "red and yellow, blue and white," 00:06.9-00:10, Verse 3, running on into the next clip: "many voices, big and small,"
+Song: 00:00-00:00.9, Babu Yeti and Mili Red Panda, on screen, singing, continuing from the last clip: "bright," 00:01.4-00:03.6, Babu Yeti and Mili Red Panda, on screen, singing: "red and yellow," 00:03.8-00:05.8, Babu Yeti, Mama Yeti, and Mili Red Panda, on screen, singing: "blue and white," 00:06.1-00:10, Babu Yeti and Mama Yeti, on screen, singing, running on into the next clip: "many voices, big and" Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.
 
-Cut points (pauses): 00:01.9, 00:06.9.
+Cut points (pauses): 00:01.1, 00:03.7, 00:06.
 
 ### Clip 41 - 6:40.0 to 6:50.0
 
 Speech: none.
 
-Song: 00:00-00:01.4, Verse 3, continuing from the last clip: "many voices, big and small," 00:01.4-00:07.2, Verse 3: "make the sweetest song of all." 00:08.5-00:10, Verse 4, running on into the next clip: "Sing your song and I'll sing mine,"
+Song: 00:00-00:00.3, Babu Yeti and Mama Yeti, on screen, singing, continuing from the last clip: "small," 00:00.9-00:03.2, Babu Yeti and Mama Yeti, on screen, singing: "make the sweetest" 00:03.3-00:06.7, Gombu Tortoise and Mili Red Panda, on screen, singing: "song of all." 00:08.2-00:10, Babu Yeti and Mama Yeti, on screen, singing, running on into the next clip: "Sing your" Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.
 
-Cut points (pauses): 00:01.4, 00:07.8.
+Cut points (pauses): 00:03.3, 00:07.5.
 
 ### Clip 42 - 6:50.0 to 7:00.0
 
 Speech: none.
 
-Song: 00:00-00:03.4, Verse 4, continuing from the last clip: "Sing your song and I'll sing mine," 00:03.4-00:08.7, Verse 4: "side by side our voices shine," 00:08.7-00:10, Verse 4, running on into the next clip: "Mama hums and Babu trills,"
+Song: 00:00-00:02.4, Babu Yeti and Mama Yeti, on screen, singing, continuing from the last clip: "song and I'll sing mine," 00:03-00:07.3, Babu Yeti and Mama Yeti, on screen, singing: "side by side our voices shine," 00:07.7-00:10, Babu Yeti, on screen, singing, running on into the next clip: "Mama hums and Babu" Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.
 
-Cut points (pauses): 00:03.4, 00:08.7.
+Cut points (pauses): 00:02.7, 00:07.5.
 
 ### Clip 43 - 7:00.0 to 7:10.0
 
 Speech: none.
 
-Song: 00:00-00:03, Verse 4, continuing from the last clip: "Mama hums and Babu trills," 00:03-00:07.7, Verse 4: "over the glade and over the hills." 00:07.7-00:10, Verse 5, running on into the next clip: "Many flowers make a garden bright,"
+Song: 00:00-00:02, Babu Yeti, on screen, singing, continuing from the last clip: "trills," 00:02.5-00:06.9, Babu Yeti and Mama Yeti, on screen, singing: "over the glade and over the hills." 00:07.3-00:10, Babu Yeti, Mama Yeti, and Gombu Tortoise, on screen, singing, running on into the next clip: "Many flowers make a" Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.
 
-Cut points (pauses): 00:03, 00:07.7.
+Cut points (pauses): 00:02.3, 00:07.1.
 
 ### Clip 44 - 7:10.0 to 7:20.0
 
 Speech: none.
 
-Song: 00:00-00:02.7, Verse 5, continuing from the last clip: "Many flowers make a garden bright," 00:02.7-00:07.7, Verse 5: "red and yellow, blue and white," 00:07.7-00:10, Verse 5, running on into the next clip: "many voices, big and small,"
+Song: 00:00-00:01.7, Babu Yeti, Mama Yeti, and Gombu Tortoise, on screen, singing, continuing from the last clip: "garden bright," 00:02.1-00:06.5, Gombu Tortoise and Mili Red Panda, on screen, singing: "red and yellow, blue and white," 00:06.9-00:10, Babu Yeti and Mama Yeti, on screen, singing, running on into the next clip: "many voices, big and" Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.
 
-Cut points (pauses): 00:02.7, 00:07.7.
+Cut points (pauses): 00:01.9, 00:06.7.
 
 ### Clip 45 - 7:20.0 to 7:30.0
 
 Speech: none.
 
-Song: 00:00-00:02.2, Verse 5, continuing from the last clip: "many voices, big and small," 00:02.2-00:07.2, Verse 5: "make the sweetest song of all."
+Song: 00:00-00:01.2, Babu Yeti and Mama Yeti, on screen, singing, continuing from the last clip: "small," 00:01.7-00:04, Babu Yeti and Mama Yeti, on screen, singing: "make the sweetest" 00:04-00:09.2, Babu Yeti, Gombu Tortoise, and Mili Red Panda, on screen, singing: "song of all." Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.
 
-Cut points (pauses): 00:02.2.
+Cut points (pauses): 00:01.4, 00:04.
 
 ### Clip 46 - 7:30.0 to 7:40.0
 
 Speech: 00:04.5-00:10, Narrator, off-screen, running on into the next clip: "Let others praise your voice, and love every voice around you, because" Each line is spoken once, exactly as written and at exactly these times, in English, one voice at a time; only the speaking character's mouth moves, in time with the words, and every other mouth stays closed.
+
+Song: none.
 
 Cut points (pauses): 00:06.6.
 

@@ -86,6 +86,47 @@ const voiceBook = new Map();
 const expected = [];
 
 const ENTRY = /(\d{2}:\d{2}(?:\.\d+)?)-(\d{2}:\d{2}(?:\.\d+)?), ([A-Z][A-Za-z' -]*?), (on screen|off-screen)((?:, [^:"]+)?): "([^"]+)"/g;
+const SUNG = /(\d{2}:\d{2}(?:\.\d+)?)-(\d{2}:\d{2}(?:\.\d+)?), ([A-Z][A-Za-z' ,-]*?), (on screen|off-screen), singing((?:, [^:"]+)?): "([^"]+)"/g;
+const FIXED_SONG = "Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.";
+const singersOf = s => s.split(/,\s*(?:and\s+)?|\s+and\s+/).map(x => x.trim()).filter(Boolean);
+
+function checkSong(v, where, songLine, soundLine, shots, castLine) {
+  const body = v.body;
+  const at = p => body.findIndex(l => l.startsWith(p));
+  const lastShot = body.map(l => /^\d{2}:\d{2}/.test(l)).lastIndexOf(true);
+  const iSong = at("Song:"), iSpeech = at("Speech:"), iSound = at("Sound:");
+  if (!(lastShot < iSong && iSong < iSound && (iSpeech < 0 || iSpeech < iSong))) problem(where, "the Song: line goes after the shot lines (and any Speech: line) and before Sound:");
+  if (!songLine.trim().endsWith(FIXED_SONG)) problem(where, `Song: line does not end with the fixed sentence: "${FIXED_SONG}"`);
+  const avoid = body.find(l => l.startsWith("Avoid:")) || "";
+  if (/\bsinging\b/.test(avoid)) problem(where, "the Avoid: line rules out singing in a video with a Song: line");
+  const sung = [...songLine.matchAll(SUNG)].map(m => ({ a: secs(m[1]), b: secs(m[2]), clip: `${m[1]}-${m[2]}`, singers: m[3].trim(), mode: m[4], text: m[6] }));
+  if (!sung.length) problem(where, "Song: line has no entries in the form `00:05.8-00:10, Babu Yeti, on screen, singing: \"words\"`");
+  if ((songLine.match(/"/g) || []).length / 2 !== sung.length) problem(where, "Song: line has quoted words that do not parse as entries; check each entry's form");
+  for (const e of sung) {
+    if (e.b <= e.a || e.b > 10 + 1e-9) problem(where, `${e.clip} sung: the window is outside 00:00-00:10 or ends before it starts`);
+    if (e.mode !== "on screen") continue;
+    // A sung phrase may cross a cut (a song is cut like a music video), but every shot under it shows its singers.
+    const under = shots.filter(s => e.a < s.end - 1e-9 && e.b > s.start + 1e-9);
+    if (!under.length) { problem(where, `${e.clip} "${e.text}": no shot covers this on-screen sung phrase`); continue; }
+    for (const who of singersOf(e.singers)) {
+      for (const s of under) if (!s.inFrame.includes(who)) problem(where, `${e.clip} "${e.text}": ${who} sings on screen, but the shot ${s.start.toFixed(1)}-${s.end.toFixed(1)} does not name ${who} in its In frame list`);
+      if (!castLine.includes(who)) problem(where, `${e.clip} "${e.text}": ${who} sings but is not in the Cast: line`);
+    }
+  }
+  // Audio-synced: the Song line is the timeline's clip, phrase for phrase.
+  if (timeline && v.kind === "Video") {
+    const want = timeline.plan?.[v.n - 1]?.song || [];
+    if (want.length !== sung.length) problem(where, `${sung.length} sung phrase(s), but clip ${v.n} of the timeline has ${want.length}`);
+    want.forEach((c, i) => {
+      const e = sung[i];
+      if (!e) return;
+      const tag = `sung phrase ${i + 1}`;
+      if (e.text !== c.text) problem(where, `${tag}: words differ from the timeline ("${e.text}" vs "${c.text}")`);
+      if (c.singers && (e.singers !== c.singers || e.mode !== c.screen)) problem(where, `${tag}: ${e.singers}, ${e.mode}, but the timeline says ${c.singers}, ${c.screen}`);
+      if (Math.abs(e.a - c.start) > TOL || Math.abs(e.b - c.end) > TOL) problem(where, `${tag}: ${e.clip} but the song has ${c.start.toFixed(1)}-${c.end.toFixed(1)}`);
+    });
+  }
+}
 
 for (const v of videos) {
   const where = `${v.kind} ${v.n}`;
@@ -101,15 +142,23 @@ for (const v of videos) {
 
   if (!soundLine) problem(where, "no Sound: line");
 
+  // A film's own song, lip-synced (section 9 of SKILL.md): the Song line gives each sung phrase, its singers, and
+  // on screen or off-screen, on the clip's clock; the recorded song replaces Flow's audio in the edit.
+  const songLine = get("Song:");
+  if (songLine) checkSong(v, where, songLine, soundLine, shots, castLine);
+
   if (!speechLine) {
     if (voicesLine) problem(where, "has a Voices: line but no Speech: line");
-    if (soundLine && !/No dialogue, no lyrics\.$/.test(soundLine.trim())) problem(where, "a video with no speech ends its Sound: line \"No dialogue, no lyrics.\"");
+    if (soundLine && songLine && !/No spoken dialogue\.$/.test(soundLine.trim())) problem(where, "a video with a song and no speech ends its Sound: line \"No spoken dialogue.\"");
+    if (soundLine && !songLine && !/No dialogue, no lyrics\.$/.test(soundLine.trim())) problem(where, "a video with no speech ends its Sound: line \"No dialogue, no lyrics.\"");
     continue;
   }
 
   if (!voicesLine) problem(where, "has a Speech: line but no Voices: line");
   if (/No dialogue/i.test(soundLine)) problem(where, "Sound: line says \"No dialogue\" in a video that has speech");
-  if (!/No lyrics, no singing, no other voices\.$/.test(soundLine.trim())) problem(where, "Sound: line in a video with speech ends \"No lyrics, no singing, no other voices.\"");
+  if (songLine) {
+    if (!/No other voices\.$/.test(soundLine.trim())) problem(where, "Sound: line in a video with speech and a song ends \"No other voices.\"");
+  } else if (!/No lyrics, no singing, no other voices\.$/.test(soundLine.trim())) problem(where, "Sound: line in a video with speech ends \"No lyrics, no singing, no other voices.\"");
   if (!/kept low under every spoken line/.test(soundLine)) note(where, "Sound: line does not say the music is \"kept low under every spoken line\"");
   const fixed = timeline ? FIXED_AUDIO : FIXED;
   if (!speechLine.trim().endsWith(fixed)) problem(where, `Speech: line does not end with the fixed sentence: "${fixed}"`);
@@ -240,6 +289,7 @@ if (timeline) {
   for (let n = 1; n <= timeline.clips; n++) {
     const has = videos.some(v => v.kind === "Video" && v.n === n);
     if (has && !videos.find(v => v.kind === "Video" && v.n === n).body.some(l => l.startsWith("Speech:")) && timeline.plan[n - 1].entries.length) problem(`Video ${n}`, "the audio has speech in this clip but the prompt has no Speech: line");
+    if (has && !videos.find(v => v.kind === "Video" && v.n === n).body.some(l => l.startsWith("Song:")) && timeline.plan[n - 1].song?.length) problem(`Video ${n}`, "the song is sung in this clip but the prompt has no Song: line");
   }
 }
 

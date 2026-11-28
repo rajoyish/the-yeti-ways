@@ -7,162 +7,419 @@
   {
    "verse": "Verse 1",
    "text": "I used to think my song was best,",
-   "start": 5.08,
-   "end": 10,
+   "start": 4.85,
+   "end": 9.05,
    "matched": 8,
-   "words": 8
+   "words": 8,
+   "parts": [
+    {
+     "text": "I used to think my song was best,",
+     "start": 4.9,
+     "end": 9.1,
+     "singers": "Babu Yeti",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 1",
    "text": "louder and sweeter than the rest,",
-   "start": 10,
-   "end": 14.86,
+   "start": 9.55,
+   "end": 14.15,
    "matched": 6,
-   "words": 6
+   "words": 6,
+   "parts": [
+    {
+     "text": "louder and sweeter than the rest,",
+     "start": 9.6,
+     "end": 14.2,
+     "singers": "Babu Yeti",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 1",
    "text": "but one small voice, all on its own,",
-   "start": 14.86,
-   "end": 19.52,
+   "start": 14.45,
+   "end": 18.7,
    "matched": 8,
-   "words": 8
+   "words": 8,
+   "parts": [
+    {
+     "text": "but one small voice, all on its own,",
+     "start": 14.5,
+     "end": 18.7,
+     "singers": "Babu Yeti",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 1",
    "text": "sounds lonely singing all alone.",
-   "start": 19.52,
-   "end": 25.66,
+   "start": 19.2,
+   "end": 25.6,
    "matched": 5,
-   "words": 5
+   "words": 5,
+   "parts": [
+    {
+     "text": "sounds lonely singing all alone.",
+     "start": 19.2,
+     "end": 25.6,
+     "singers": "Babu Yeti",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 2",
    "text": "Hum, hum, goes Gombu, deep and slow,",
-   "start": 26.76,
-   "end": 31.52,
+   "start": 26.4,
+   "end": 30.75,
    "matched": 6,
-   "words": 7
+   "words": 7,
+   "parts": [
+    {
+     "text": "Hum, hum, goes Gombu,",
+     "start": 26.4,
+     "end": 29.1,
+     "singers": "Chorus",
+     "screen": "off-screen"
+    },
+    {
+     "text": "deep and slow,",
+     "start": 29.1,
+     "end": 30.8,
+     "singers": "Chorus",
+     "screen": "off-screen"
+    }
+   ]
   },
   {
    "verse": "Verse 2",
    "text": "Mili whistles soft and low,",
-   "start": 31.52,
-   "end": 36.3,
+   "start": 31.2,
+   "end": 35.5,
    "matched": 4,
-   "words": 5
+   "words": 5,
+   "parts": [
+    {
+     "text": "Mili whistles soft and low,",
+     "start": 31.2,
+     "end": 35.5,
+     "singers": "Babu Yeti",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 2",
    "text": "tap-tap-tap, the mice keep time,",
-   "start": 36.3,
-   "end": 40.86,
+   "start": 36,
+   "end": 40.15,
    "matched": 7,
-   "words": 7
+   "words": 7,
+   "parts": [
+    {
+     "text": "tap-tap-tap, the mice",
+     "start": 36,
+     "end": 39.1,
+     "singers": "Chorus",
+     "screen": "off-screen"
+    },
+    {
+     "text": "keep time,",
+     "start": 39.1,
+     "end": 40.2,
+     "singers": "Chorus",
+     "screen": "off-screen"
+    }
+   ]
   },
   {
    "verse": "Verse 2",
    "text": "and Nimbu chirrups every line.",
-   "start": 40.86,
-   "end": 46.02,
+   "start": 40.55,
+   "end": 45.25,
    "matched": 4,
-   "words": 5
+   "words": 5,
+   "parts": [
+    {
+     "text": "and Nimbu chirrups every line.",
+     "start": 40.6,
+     "end": 45.3,
+     "singers": "Chorus",
+     "screen": "off-screen"
+    }
+   ]
   },
   {
    "verse": "Verse 3",
    "text": "Many flowers make a garden bright,",
-   "start": 46.02,
-   "end": 51,
+   "start": 45.6,
+   "end": 49.95,
    "matched": 6,
-   "words": 6
+   "words": 6,
+   "parts": [
+    {
+     "text": "Many flowers make a garden",
+     "start": 45.6,
+     "end": 49.1,
+     "singers": "Babu Yeti and Mili Red Panda",
+     "screen": "on screen"
+    },
+    {
+     "text": "bright,",
+     "start": 49.1,
+     "end": 50,
+     "singers": "Babu Yeti and Mili Red Panda",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 3",
    "text": "red and yellow, blue and white,",
-   "start": 51,
-   "end": 56.04,
+   "start": 50.45,
+   "end": 54.85,
    "matched": 6,
-   "words": 6
+   "words": 6,
+   "parts": [
+    {
+     "text": "red and yellow,",
+     "start": 50.5,
+     "end": 52.7,
+     "singers": "Babu Yeti and Mili Red Panda",
+     "screen": "on screen"
+    },
+    {
+     "text": "blue and white,",
+     "start": 52.9,
+     "end": 54.9,
+     "singers": "Babu Yeti, Mama Yeti, and Mili Red Panda",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 3",
    "text": "many voices, big and small,",
-   "start": 56.04,
-   "end": 60.46,
+   "start": 55.2,
+   "end": 59.4,
    "matched": 5,
-   "words": 5
+   "words": 5,
+   "parts": [
+    {
+     "text": "many voices, big and",
+     "start": 55.2,
+     "end": 59.1,
+     "singers": "Babu Yeti and Mama Yeti",
+     "screen": "on screen"
+    },
+    {
+     "text": "small,",
+     "start": 59.1,
+     "end": 59.4,
+     "singers": "Babu Yeti and Mama Yeti",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 3",
    "text": "make the sweetest song of all.",
-   "start": 60.46,
-   "end": 66.28,
+   "start": 60,
+   "end": 65.75,
    "matched": 6,
-   "words": 6
+   "words": 6,
+   "parts": [
+    {
+     "text": "make the sweetest",
+     "start": 60,
+     "end": 62.3,
+     "singers": "Babu Yeti and Mama Yeti",
+     "screen": "on screen"
+    },
+    {
+     "text": "song of all.",
+     "start": 62.4,
+     "end": 65.8,
+     "singers": "Gombu Tortoise and Mili Red Panda",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 4",
    "text": "Sing your song and I'll sing mine,",
-   "start": 67.6,
-   "end": 72.5,
+   "start": 67.25,
+   "end": 71.5,
    "matched": 7,
-   "words": 7
+   "words": 7,
+   "parts": [
+    {
+     "text": "Sing your",
+     "start": 67.3,
+     "end": 69.1,
+     "singers": "Babu Yeti and Mama Yeti",
+     "screen": "on screen"
+    },
+    {
+     "text": "song and I'll sing mine,",
+     "start": 69.1,
+     "end": 71.5,
+     "singers": "Babu Yeti and Mama Yeti",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 4",
    "text": "side by side our voices shine,",
-   "start": 72.5,
-   "end": 77.76,
+   "start": 72.05,
+   "end": 76.35,
    "matched": 6,
-   "words": 6
+   "words": 6,
+   "parts": [
+    {
+     "text": "side by side our voices shine,",
+     "start": 72.1,
+     "end": 76.4,
+     "singers": "Babu Yeti and Mama Yeti",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 4",
    "text": "Mama hums and Babu trills,",
-   "start": 77.76,
-   "end": 82.14,
+   "start": 76.8,
+   "end": 81.1,
    "matched": 5,
-   "words": 5
+   "words": 5,
+   "parts": [
+    {
+     "text": "Mama hums and Babu",
+     "start": 76.8,
+     "end": 79.1,
+     "singers": "Babu Yeti",
+     "screen": "on screen"
+    },
+    {
+     "text": "trills,",
+     "start": 79.1,
+     "end": 81.1,
+     "singers": "Babu Yeti",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 4",
    "text": "over the glade and over the hills.",
-   "start": 82.14,
-   "end": 86.82,
+   "start": 81.6,
+   "end": 86,
    "matched": 7,
-   "words": 7
+   "words": 7,
+   "parts": [
+    {
+     "text": "over the glade and over the hills.",
+     "start": 81.6,
+     "end": 86,
+     "singers": "Babu Yeti and Mama Yeti",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 5",
    "text": "Many flowers make a garden bright,",
-   "start": 86.82,
-   "end": 91.8,
+   "start": 86.4,
+   "end": 90.75,
    "matched": 6,
-   "words": 6
+   "words": 6,
+   "parts": [
+    {
+     "text": "Many flowers make a",
+     "start": 86.4,
+     "end": 89.1,
+     "singers": "Babu Yeti, Mama Yeti, and Gombu Tortoise",
+     "screen": "on screen"
+    },
+    {
+     "text": "garden bright,",
+     "start": 89.1,
+     "end": 90.8,
+     "singers": "Babu Yeti, Mama Yeti, and Gombu Tortoise",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 5",
    "text": "red and yellow, blue and white,",
-   "start": 91.8,
-   "end": 96.82,
+   "start": 91.15,
+   "end": 95.55,
    "matched": 6,
-   "words": 6
+   "words": 6,
+   "parts": [
+    {
+     "text": "red and yellow, blue and white,",
+     "start": 91.2,
+     "end": 95.6,
+     "singers": "Gombu Tortoise and Mili Red Panda",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 5",
    "text": "many voices, big and small,",
-   "start": 96.82,
-   "end": 101.28,
+   "start": 95.95,
+   "end": 100.25,
    "matched": 5,
-   "words": 5
+   "words": 5,
+   "parts": [
+    {
+     "text": "many voices, big and",
+     "start": 96,
+     "end": 99.1,
+     "singers": "Babu Yeti and Mama Yeti",
+     "screen": "on screen"
+    },
+    {
+     "text": "small,",
+     "start": 99.1,
+     "end": 100.3,
+     "singers": "Babu Yeti and Mama Yeti",
+     "screen": "on screen"
+    }
+   ]
   },
   {
    "verse": "Verse 5",
    "text": "make the sweetest song of all.",
-   "start": 101.28,
-   "end": 106.26,
+   "start": 100.8,
+   "end": 108.3,
    "matched": 6,
-   "words": 6
+   "words": 6,
+   "parts": [
+    {
+     "text": "make the sweetest",
+     "start": 100.8,
+     "end": 103.1,
+     "singers": "Babu Yeti and Mama Yeti",
+     "screen": "on screen"
+    },
+    {
+     "text": "song of all.",
+     "start": 103.1,
+     "end": 108.3,
+     "singers": "Babu Yeti, Gombu Tortoise, and Mili Red Panda",
+     "screen": "on screen"
+    }
+   ]
   }
  ]
 }

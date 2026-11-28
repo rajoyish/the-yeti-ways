@@ -244,7 +244,14 @@
   // The speech is matched on the recording as voiced (timelineOf); then the master is cut at a pause and the
   // song is laid in. insertSong shifts every unit after the cut by the song's length (with its padding),
   // recomputes each block's span and the cut-crossing check, shifts the pauses (none inside the song), and
-  // records the song with its sung lines on the film's clock. lines: [{ verse, text, start, end }] in song seconds.
+  // records the song with its sung lines on the film's clock. lines: [{ verse, text, start, end, parts? }] in song
+  // seconds; parts: [{ text, start, end, singers, screen }] are the line's phrases as choreographed (who sings each
+  // phrase, "on screen" or "off-screen"), split wherever the singers change or a clip cut falls.
+  function songLines(s0, lines) {
+    return lines.map(l => ({ verse: l.verse, text: l.text, start: r2(s0 + l.start), end: r2(s0 + l.end), estimated: !!l.estimated,
+      ...(l.parts?.length ? { parts: l.parts.map(p => ({ text: p.text, start: r2(s0 + p.start), end: r2(s0 + p.end), singers: p.singers, screen: p.screen || "on screen" })) } : {}) }));
+  }
+
   function insertSong(timeline, { at, length, pad = 1, file = "", lines = [] }) {
     const D = pad + length + pad, clip = timeline.clipLength;
     const sh = t => (t >= at ? r2(t + D) : t);
@@ -256,21 +263,38 @@
     }
     const s0 = at + pad;
     timeline.pauses = timeline.pauses.filter(p => p.end <= at || p.start >= at).map(p => ({ start: sh(p.start), end: sh(p.end) }));
-    timeline.songs = [...(timeline.songs || []), { file, start: r2(s0), end: r2(s0 + length),
-      lines: lines.map(l => ({ verse: l.verse, text: l.text, start: r2(s0 + l.start), end: r2(s0 + l.end), estimated: !!l.estimated })) }];
+    timeline.songs = [...(timeline.songs || []), { file, start: r2(s0), end: r2(s0 + length), lines: songLines(s0, lines) }];
     timeline.duration = +(timeline.duration + D).toFixed(3);
     timeline.clips = Math.ceil(timeline.duration / clip);
     return timeline;
   }
 
-  // Sung lines in one clip, on the clip's clock (not part of the Speech line: Flow never sings them).
+  // Sung phrases in one clip, on the clip's clock, for the Agent prompt's Song line (Flow sings them so the
+  // singers' mouths move in time; the recorded song replaces Flow's audio in the edit).
   function songIn(timeline, a, z) {
-    // A line that only grazes the clip (under 0.3 s of it) belongs to its neighbour clip.
-    return (timeline.songs || []).flatMap(s => s.lines.filter(l => Math.min(l.end, z) - Math.max(l.start, a) >= 0.3)
-      .map(l => ({ verse: l.verse, text: l.text, start: Math.max(0, l.start - a), end: Math.min(z - a, l.end - a), cont: l.start < a, runsOn: l.end > z })));
+    const e = 1e-6;
+    return (timeline.songs || []).flatMap(s => s.lines.flatMap(l => {
+      if (l.parts?.length) {
+        // A phrase belongs to the clip its start is in (phrases are split at the cuts).
+        const ps = l.parts.filter(p => p.start >= a - e && p.start < z - e);
+        return ps.map((p, i) => ({ verse: l.verse, text: p.text, singers: p.singers, screen: p.screen,
+          start: Math.max(0, p.start - a), end: Math.min(z - a, p.end - a), cont: i === 0 && l.start < a - e, runsOn: i === ps.length - 1 && l.end > z + e }));
+      }
+      // A line with no parts: a line that only grazes the clip (under 0.3 s of it) belongs to its neighbour clip.
+      if (Math.min(l.end, z) - Math.max(l.start, a) < 0.3) return [];
+      return [{ verse: l.verse, text: l.text, start: Math.max(0, l.start - a), end: Math.min(z - a, l.end - a), cont: l.start < a, runsOn: l.end > z }];
+    }));
   }
 
   const FIXED_AUDIO = "Each line is spoken once, exactly as written and at exactly these times, in English, one voice at a time; only the speaking character's mouth moves, in time with the words, and every other mouth stays closed.";
+  const FIXED_SONG = "Each sung line is sung once, exactly as written and at exactly these times, in English, to the melody of the music; only the singing characters' mouths move, in time with the words, and every other mouth stays closed.";
+  // A Song line: each phrase with its singers (a line with no parts names its verse, for the writer to replace).
+  function songLine(c) {
+    return c.song.map(l => {
+      const cont = `${l.cont ? ", continuing from the last clip" : ""}${l.runsOn ? ", running on into the next clip" : ""}`;
+      return `${clock(l.start)}-${clock(l.end)}, ${l.singers ? `${l.singers}, ${l.screen}` : l.verse}, singing${cont}: "${l.text}"`;
+    }).join(" ");
+  }
   const r2 = x => Math.round(x * 100) / 100;
   const fmt = s => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).padStart(4, "0")}`;
   const clock = s => `00:${s.toFixed(1).padStart(4, "0")}`.replace(/\.0$/, "");
@@ -351,24 +375,30 @@
     out.push("## Script", "", "Copy into the storyboard's `## Script` section as it is.", "",
       "| Video | Clip time | Film time | Speaker | Line |", "| --- | --- | --- | --- | --- |",
       ...plan.flatMap(c => c.entries.map(e => `| ${c.n} | ${clock(e.start)}-${clock(e.end)} | ${film(c.n, e.start)}-${film(c.n, e.end)} | ${e.speaker} | "${e.text}" |`)), "");
+    const clipOf = t => Math.floor(t / timeline.clipLength) + 1;
     for (const s of timeline.songs || []) {
-      const v1 = Math.floor(s.start / timeline.clipLength) + 1, v2 = Math.floor((s.end - 0.01) / timeline.clipLength) + 1;
+      const v1 = clipOf(s.start), v2 = clipOf(s.end - 0.01);
+      const sung = s.lines.length ? ` The singing runs from ${fmt(s.lines[0].start)} to ${fmt(s.lines.at(-1).end)} (clips ${clipOf(s.lines[0].start)} to ${clipOf(s.lines.at(-1).end - 0.01)}).` : "";
+      const choreo = s.lines.some(l => l.parts?.length)
+        ? "gives each sung phrase on the clip's clock with its singers and whether they are on screen or off-screen, so Flow moves the singing characters' mouths in time with the words while every other mouth stays closed"
+        : "gives the sung lines on the clip's clock by verse; before it goes into an Agent prompt, replace each verse name with the singers and \"on screen\" or \"off-screen\" (better: add the line's `parts` to the song-lines file and run `song-retime.mjs`)";
       out.push("## Song", "",
-        `\`${s.file}\` plays from ${fmt(s.start)} to ${fmt(s.end)} of the master (clips ${v1} to ${v2}). It is laid into the master as recorded; Flow never sings it. In those clips the \`Speech:\` line holds only the spoken words around the song (or none), and the \`Song:\` line gives the sung lines on the clip's clock, for the picture to follow: the characters the lyrics name, singing together with mouths moving softly, never lip-synced to a word. Times come from whisper word timings of the song (\`song-lines.mjs\`).`, "",
+        `\`${s.file}\` plays from ${fmt(s.start)} to ${fmt(s.end)} of the master (clips ${v1} to ${v2}).${sung} It is laid into the master as recorded and replaces Flow's audio in the edit. In those clips the \`Speech:\` line holds only the spoken words around the song (or none), and the \`Song:\` line ${choreo}. Times and singers come from \`speech-prompts/${timeline.slug || "<slug>"}-song-lines.json\` (each line's \`parts\`): its times start as whisper word timings (\`song-lines.mjs\`) and are corrected there by ear.`, "",
         "| Film time | Clip | Verse | Line |", "| --- | --- | --- | --- |",
-        ...s.lines.map(l => `| ${fmt(l.start)}-${fmt(l.end)} | ${Math.floor(l.start / timeline.clipLength) + 1} | ${l.verse} | ${l.text}${l.estimated ? " (time estimated)" : ""} |`), "");
+        ...s.lines.map(l => { const c1 = clipOf(l.start), c2 = clipOf(l.end - 0.01); return `| ${fmt(l.start)}-${fmt(l.end)} | ${c1}${c2 > c1 ? ` and ${c2}` : ""} | ${l.verse} | ${l.text}${l.estimated ? " (time estimated)" : ""} |`; }), "");
     }
-    out.push("## Clips", "", "Each `Speech:` line is copy-ready for that video's Agent prompt, fixed sentence included. A `Song:` line is for the picture only and never goes into the Agent prompt's speech.", "");
+    out.push("## Clips", "", "Each `Speech:` and `Song:` line is copy-ready for that video's Agent prompt, fixed sentence included.", "");
     for (const c of plan) {
       out.push(`### Clip ${c.n} - ${fmt(c.start)} to ${fmt(c.end)}`, "");
       out.push(c.entries.length ? `Speech: ${speechLine(c)} ${FIXED_AUDIO}` : "Speech: none.", "");
-      if (c.song?.length) out.push(`Song: ${c.song.map(l => `${clock(l.start)}-${clock(l.end)}, ${l.verse}${l.cont ? ", continuing from the last clip" : ""}${l.runsOn ? ", running on into the next clip" : ""}: "${l.text}"`).join(" ")}`, "");
+      if (c.song?.length) out.push(`Song: ${songLine(c)} ${FIXED_SONG}`, "");
+      else if ((timeline.songs || []).some(s => s.start < c.end && s.end > c.start)) out.push("Song: none.", "");
       out.push(`Cut points (pauses): ${c.cuts.length ? c.cuts.map(x => clock(x)).join(", ") : "none"}${c.last ? `. Speech ends at ${clock(Math.max(0, ...c.entries.map(e => e.end)))}; the clip is trimmed at ${clock(c.end - c.start)}.` : "."}`, "");
     }
     return out.join("\n");
   }
 
-  const api = { splitSentences, unitsOf, envelope, pauses, alignTake, buildFilm, timelineOf, insertSong, songIn, clipPlan, speechLine, planMarkdown, fmt, clock };
+  const api = { splitSentences, unitsOf, envelope, pauses, alignTake, buildFilm, timelineOf, insertSong, songLines, songIn, clipPlan, speechLine, songLine, planMarkdown, fmt, clock };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   root.Timeline = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);
