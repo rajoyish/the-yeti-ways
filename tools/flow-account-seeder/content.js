@@ -446,27 +446,49 @@
       return { skipped: true, name: found };
     }
     log(`${name}: uploading…`);
-    const before = new Set(imageTiles().map(tileName));
+    // The grid is virtual: only tiles near the viewport exist in the DOM, so a
+    // snapshot of the visible tiles misses images uploaded moments ago (one
+    // scrolled out of view then looked "new" and was renamed as this upload).
+    // Record every image's asset id over a full scroll instead.
+    const before = await allAssetIds();
     await dropFiles([file]);
     const base = low(file.name.replace(/\.[^.]+$/, ""));
     const wanted = [base, low(file.name), low(name)];
-    const finished = (t) => t.querySelector("img[src]") && !/\d+%/.test(t.textContent);
-    // While uploading, a tile can carry a temporary name, so watch every new
-    // tile until one has the file's name and a finished image.
+    const finished = (t) => assetId(t) && !/\d+%/.test(t.textContent);
+    // While uploading, a tile can carry a temporary name, so wait until a tile
+    // with an asset id not seen before has the file's name and a finished image.
     const done = await waitFor(() => {
       scrollAll(0);
-      const fresh = imageTiles().filter((t) => !before.has(tileName(t)));
-      return fresh.find((t) => wanted.includes(low(tileName(t))) && finished(t)) ||
-        (fresh.length === 1 && finished(fresh[0]) && !/upload/i.test(tileName(fresh[0])) ? fresh[0] : null);
+      const fresh = imageTiles().filter((t) => finished(t) && !before.has(assetId(t)));
+      return fresh.find((t) => wanted.includes(low(tileName(t)))) ||
+        (fresh.length === 1 && !/upload/i.test(tileName(fresh[0])) ? fresh[0] : null);
     }, 240000, 800);
     if (!done) throw new Error(`"${name}" did not finish uploading.`);
     const uploadedAs = tileName(done);
     await sleep(1200);
-    if (uploadedAs !== name) await renameTile(imageTiles().find((x) => tileName(x) === uploadedAs) || done, name);
+    if (uploadedAs !== name) await renameTile(done, name);
     if (!(await waitFor(() => imageTiles().find((t) => tileName(t) === name), 8000)))
-      log(`${name}: uploaded, but it is named "${tileName(tile)}". Rename it in Flow.`, "warn");
+      log(`${name}: uploaded, but it is named "${uploadedAs}". Rename it in Flow.`, "warn");
     else log(`${name}: uploaded.`);
     return { created: true, name };
+  }
+
+  // Asset ids of every image in the open project, over a full scroll of the grid.
+  async function allAssetIds() {
+    const ids = new Set();
+    let still = 0;
+    scrollAll(0);
+    await sleep(500);
+    for (let i = 0; i < 100 && still < 3; i++) {
+      const before = ids.size;
+      for (const t of imageTiles()) { const id = assetId(t); if (id) ids.add(id); }
+      still = ids.size === before ? still + 1 : 0;
+      scrollAll(1);
+      await sleep(350);
+    }
+    scrollAll(0);
+    await sleep(300);
+    return ids;
   }
 
   // ---------------------------------------------------------------- building a Character
@@ -1049,6 +1071,7 @@
       const r = await run(e.data);
       window.postMessage({ fasResult: e.data.id, ok: true, ...shorten(r) }, location.origin);
     } catch (err) {
+      console.warn("[Flow Account Seeder]", `${e.data.type} failed: ${err.message}`);
       window.postMessage({ fasResult: e.data.id, ok: false, error: err.message }, location.origin);
     }
   });

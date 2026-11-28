@@ -4,9 +4,12 @@
 //   pageCode(["createCharacter", ...]) -> the DOM helpers plus each named top-level function or const.
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const HERE = path.dirname(new URL(import.meta.url).pathname);
-const src = fs.readFileSync(path.join(HERE, "content.js"), "utf8");
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+// Normalise line endings: with core.autocrlf the checkout is CRLF, and the const scanner below ends a
+// definition at ";\n", so CRLF made each const run on and copy every function after it.
+const src = fs.readFileSync(path.join(HERE, "content.js"), "utf8").replace(/\r\n/g, "\n");
 
 const helpersStart = src.indexOf("const TAG");
 const helpersEnd = src.indexOf("// ---------------------------------------------------------------- projects (home page)");

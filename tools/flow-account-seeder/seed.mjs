@@ -46,6 +46,9 @@ const IMAGE_EXT = [".png", ".jpg", ".jpeg", ".webp"];
 
 const kebab = (s) => s.toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const rel = (p) => path.relative(ROOT, p);
+// Markdown and text as LF: with core.autocrlf the checkout is CRLF, and every pattern here (the ```text
+// blocks, "## " headings, "$" line ends) expects "\n", so CRLF left every card's text empty.
+const readText = (f) => fs.readFileSync(f, "utf8").replace(/\r\n/g, "\n");
 const textBlocks = (md) => [...md.matchAll(/```text\n([\s\S]*?)\n```/g)].map((m) => ({ at: m.index, text: m[1] }));
 
 function findImage(dir, base) {
@@ -86,14 +89,14 @@ function imageSize(file) {
 
 // The Copy-Ready Google Flow Character Lock for a Yeti, verbatim.
 function yetiLock(name) {
-  const md = fs.readFileSync(RULES, "utf8");
+  const md = readText(RULES);
   for (const b of textBlocks(md)) if (b.text.startsWith(`${name}:`)) return b.text;
   return null;
 }
 
 // The `## Character info` text block of a story cast Character file.
 function castInfo(file) {
-  const md = fs.readFileSync(file, "utf8");
+  const md = readText(file);
   const at = md.search(/^## Character info/m);
   return at < 0 ? null : textBlocks(md.slice(at))[0]?.text ?? null;
 }
@@ -101,7 +104,7 @@ function castInfo(file) {
 // Info exported from the old Flow account wins: it is what the Character really holds.
 function exportedInfo(name) {
   const p = path.join(CHAR_IMAGES, `${kebab(name)}-info.txt`);
-  return fs.existsSync(p) ? fs.readFileSync(p, "utf8").replace(/\n$/, "") : null;
+  return fs.existsSync(p) ? readText(p).replace(/\n$/, "") : null;
 }
 
 // ---------------------------------------------------------------- voices
@@ -109,7 +112,7 @@ function exportedInfo(name) {
 // Flow's 30 voices and the fixed speakers' voices, from the ai-studio-tts
 // skill's voices.md (the one list every skill uses).
 function voiceList() {
-  const md = fs.readFileSync(VOICES_MD, "utf8");
+  const md = readText(VOICES_MD);
   const all = new Set();
   const meta = {};
   const fixed = {};
@@ -236,7 +239,7 @@ function assignVoices(characters, cast, missing) {
       source = "storyboard";
     } else if (described[c.name]) {
       const file = path.join(CHAR_PROMPTS, `${kebab(c.name)}-flow-character.md`);
-      const text = (c.info || "") + (fs.existsSync(file) ? fs.readFileSync(file, "utf8") : "");
+      const text = (c.info || "") + (fs.existsSync(file) ? readText(file) : "");
       v = suggestVoice(described[c.name], text, new Set([...used.keys(), ...fixedVoices]), voices);
       source = `suggested from "${described[c.name]}"`;
       if (v) missing.push([c.name, `voice ${v}`, `suggested from the storyboard's description; write "${v}" in its Voice cast (Flow Character voice) to keep it`]);
@@ -273,7 +276,7 @@ function nameFor(k) {
   if (y) return y;
   const file = path.join(CHAR_PROMPTS, `${k}-flow-character.md`);
   if (fs.existsSync(file)) {
-    const m = fs.readFileSync(file, "utf8").match(/^# (.+?) Flow Character/m);
+    const m = readText(file).match(/^# (.+?) Flow Character/m);
     if (m) return m[1];
   }
   return k.split("-").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
@@ -321,7 +324,7 @@ function cards(md) {
 function build(storyboard) {
   if (!storyboard || !fs.existsSync(storyboard)) die("Usage: seed.mjs build <prompts/...-storyboard.md>");
   const inv = JSON.parse(execFileSync("node", [INVENTORY, storyboard, "--json"], { cwd: ROOT, encoding: "utf8" }));
-  const md = fs.readFileSync(storyboard, "utf8");
+  const md = readText(storyboard);
   const stem = path.basename(storyboard, ".md");
   const out = path.join(SEEDS, stem);
   fs.rmSync(out, { recursive: true, force: true });
@@ -485,7 +488,7 @@ function place(src, dest) {
 function linkImages(name, front, turnaround) {
   const file = path.join(CHAR_PROMPTS, `${kebab(name)}-flow-character.md`);
   if (!fs.existsSync(file)) return "no Character file";
-  const md = fs.readFileSync(file, "utf8");
+  const md = readText(file);
   if (/^## Generated reference images/m.test(md)) return "file already links images (left as is)";
   const line = (label, p, shape) => {
     const s = imageSize(p);
@@ -515,7 +518,7 @@ function storyboardFor(names) {
     .readdirSync(dir)
     .filter((f) => f.endsWith("-storyboard.md"))
     .filter((f) => {
-      const md = fs.readFileSync(path.join(dir, f), "utf8");
+      const md = readText(path.join(dir, f));
       return names.every((n) => md.includes(`${n}:`) || md.includes(`"${n}"`));
     });
   return hits;

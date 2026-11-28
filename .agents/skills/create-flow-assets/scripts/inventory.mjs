@@ -42,6 +42,10 @@ const rel = (p) => {
   return r.startsWith("..") ? path.resolve(p) : r;
 };
 
+// Markdown as LF: with core.autocrlf the checkout is CRLF, and every pattern here (the ```text blocks,
+// "Agent prompt:" before a block, "$" line ends) expects "\n", so CRLF hid every cast line and plate.
+const readText = (f) => fs.readFileSync(f, "utf8").replace(/\r\n/g, "\n");
+
 function findImage(dir, base) {
   for (const ext of IMAGE_EXT) {
     const p = path.join(dir, base + ext);
@@ -67,7 +71,7 @@ function levenshtein(a, b) {
   return d[a.length][b.length];
 }
 
-const md = fs.readFileSync(storyboard, "utf8");
+const md = readText(storyboard);
 
 // Read film formats only from video Agent prompts, never promotional covers.
 const videoAspects = textBlocks(md)
@@ -158,7 +162,7 @@ const existingFiles = fs.existsSync(CHAR_PROMPTS)
   ? fs.readdirSync(CHAR_PROMPTS).filter((f) => f.endsWith("-flow-character.md"))
   : [];
 const existingNames = existingFiles.map((f) => {
-  const head = fs.readFileSync(path.join(CHAR_PROMPTS, f), "utf8").match(/^# (.+?) Flow Character/m);
+  const head = readText(path.join(CHAR_PROMPTS, f)).match(/^# (.+?) Flow Character/m);
   return { file: f, name: head ? head[1] : f.replace(/-flow-character\.md$/, "") };
 });
 
@@ -214,7 +218,7 @@ for (const c of cast.values()) {
 
 // ---------- Emit prompt files ----------
 function characterPrompts(file) {
-  const text = fs.readFileSync(file, "utf8");
+  const text = readText(file);
   const grab = (heading) => {
     const at = text.search(new RegExp(`^## ${heading}`, "m"));
     if (at < 0) return null;

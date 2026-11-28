@@ -12,9 +12,12 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
-const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../../../..");
+// fileURLToPath, not URL.pathname: on Windows the pathname is "/C:/...", which resolves to "C:\C:\...".
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(HERE, "../../../..");
 const Story = require(path.join(ROOT, "tools/ai-studio-voice-runner/story.js"));
 
 const argv = process.argv.slice(2);
@@ -34,7 +37,7 @@ if (opt("--only")) { const want = new Set(opt("--only").split(",").map(s => s.tr
 if (argv.includes("--missing")) list = list.filter(b => !fs.existsSync(path.join(takes, "parts", `${b.part.toLowerCase()}.wav`)));
 if (!list.length) { console.log("Nothing to voice: every selected block already has a take."); process.exit(0); }
 
-const tpl = fs.readFileSync(path.join(path.dirname(new URL(import.meta.url).pathname), "runner.template.js"), "utf8");
+const tpl = fs.readFileSync(path.join(HERE, "runner.template.js"), "utf8");
 const runner = tpl.replace("__BLOCKS__", JSON.stringify(list.map(({ part, ...b }) => b))).replace("__SLUG__", JSON.stringify(doc.slug));
 fs.mkdirSync(takes, { recursive: true });
 fs.writeFileSync(path.join(takes, "runner.js"), runner);

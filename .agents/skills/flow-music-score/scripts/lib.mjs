@@ -4,8 +4,10 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 
-export const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../../../..');
+// fileURLToPath, not URL.pathname: on Windows the pathname is "/C:/...", which resolves to "C:\C:\...".
+export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
 export const RUNNER = path.join(ROOT, 'tools/flow-music-score-runner');
 const require = createRequire(import.meta.url);
 export const ScorePlan = require(path.join(RUNNER, 'plan.js'));

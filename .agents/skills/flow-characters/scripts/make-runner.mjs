@@ -14,8 +14,10 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
-const HERE = path.dirname(new URL(import.meta.url).pathname);
+// fileURLToPath, not URL.pathname: on Windows the pathname is "/C:/...", which resolves to "C:\C:\...".
+const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "../../../..");
 const argv = process.argv.slice(2);
 const opt = k => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : undefined; };
@@ -32,7 +34,7 @@ let chars = manifest.characters.filter(c => (argv.includes("--yetis") || c.kind 
 if (!chars.length) { console.error("No Characters to build (story cast only by default; --yetis adds the Yetis)."); process.exit(1); }
 
 // ---- the extension's own code ----
-const { pageCode } = await import(path.join(ROOT, "tools/flow-account-seeder/extract.mjs"));
+const { pageCode } = await import(pathToFileURL(path.join(ROOT, "tools/flow-account-seeder/extract.mjs")).href);
 const NAMES = ["dropFiles", "tileName", "imageTiles", "openImagesView", "collectImages", "openCharactersView", "characterTiles", "listCharacters", "findCharacterTile", "openCharacter",
   "slotChip", "slotImage", "pickFromProject", "cap", "currentVoice", "setVoice", "setCharacterVoice", "setCharacterName", "createCharacter"];
 const body = pageCode(NAMES);

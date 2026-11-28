@@ -15,8 +15,10 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
-const HERE = path.dirname(new URL(import.meta.url).pathname);
+// fileURLToPath, not URL.pathname: on Windows the pathname is "/C:/...", which resolves to "C:\C:\...".
+const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "../../../..");
 const argv = process.argv.slice(2);
 const opt = k => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : undefined; };
@@ -40,7 +42,7 @@ const cards = manifest.instructions.map(c => ({ title: c.title, text: c.text, re
 const settings = manifest.settings;
 if (!settings) throw new Error("The seed has no settings: update tools/flow-account-seeder/seed.mjs.");
 
-const { pageCode } = await import(path.join(ROOT, "tools/flow-account-seeder/extract.mjs"));
+const { pageCode } = await import(pathToFileURL(path.join(ROOT, "tools/flow-account-seeder/extract.mjs")).href);
 const NAMES = ["openImagesView", "tileName", "imageTiles", "assetId", "collectImages", "renameTile",
   "agentSettingsBtn", "inAgentSettings", "openAgentSettings", "memoryCard", "memoryCards", "listMemories",
   "pickMemoryReference", "fillMemories", "setDefaultsPage", "applyAgentSettings", "applyViewSettings"];
